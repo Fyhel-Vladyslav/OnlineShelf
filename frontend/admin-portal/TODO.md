@@ -1,9 +1,7 @@
-# TODO: Implement Tree-like Drag-and-Drop System in MainArea
+# TODO: Implement Drag-and-Drop for DirectoryTree in MainArea.tsx
 
-- [x] Install @dnd-kit packages (@dnd-kit/core, @dnd-kit/sortable, @dnd-kit/utilities)
-- [x] Define types for tree nodes in src/types/index.ts (done inline in MainArea.tsx)
-- [x] Create initial tree data structure in MainArea.tsx
-- [x] Implement DndContext and SortableContext for drag-and-drop
-- [x] Create recursive Tile component for rendering tree
-- [x] Add movement tracking logic (console.log on drag end)
-- [x] Update MainArea.css for tile styling
+- [ ] Import useState from React and DataNode type from Ant Design in MainArea.tsx
+- [ ] Convert treeData from const to state variable using useState
+- [ ] Implement onDrop handler with logic to move dragged nodes in the tree structure
+- [ ] Add helper functions for finding node paths and performing immutable tree updates
+- [ ] Test drag-and-drop functionality by running the dev server and using browser to verify updates

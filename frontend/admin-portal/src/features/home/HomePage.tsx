@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
 import Header from '../../components/Header/Header';
 import LeftSidebar from '../../components/LeftSidebar/LeftSidebar';
-import MainArea from '../../components/MainArea/MainArea';
-import RightSidebar from '../../components/RightSidebar/RightSidebar';
+import { MainArea } from '../../components/MainArea/MainArea';
 import './HomePage.css';
 
 const HomePage: React.FC = () => {
