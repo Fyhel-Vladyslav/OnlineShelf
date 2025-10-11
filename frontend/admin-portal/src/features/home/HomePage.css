@@ -1,0 +1,54 @@
+.home-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+.left-sidebar {
+  position: relative;
+  height: 100%;
+}
+
+.main-area {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  overflow: auto;
+}
+
+.right-sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 200px; /* You can adjust this width */
+  background-color: #f9f9f9;
+  border-left: 1px solid #ccc;
+  z-index: 10;
+  transition: height 0.3s ease;
+}
+
+.right-sidebar.closed {
+  height: 50px ;
+}
+
+.right-toggle-btn {
+  position: absolute;
+  top: -15px;
+  right: 85px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 10;
+}
