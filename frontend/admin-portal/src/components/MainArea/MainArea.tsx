@@ -91,10 +91,13 @@ export const MainArea = () => {
     node: TreeDataNode,
     position: number
   ): TreeDataNode[] => {
+   
+
+    
     const newData = [...data];
     const parentElement = { ...newData[parentPosition] };
     const children = [...(parentElement.children || [])];
-    children.splice(position+1, 0, node);
+    children.splice(position, 0, node);
     parentElement.children = children;
     newData[parentPosition] = parentElement;
   
@@ -117,27 +120,32 @@ export const MainArea = () => {
     const dragPath = findPath(treeData, dragKey);
     if (!dragPath) return;
 
-    let newTreeData = removeNode(treeData, dragPath);
     
+    
+    let newTreeData = treeData;
+    const targetPath = findPath(newTreeData, targetKey);
+    if (!targetPath) return;
+
+
+    newTreeData = removeNode(treeData, dragPath);
     if (dropToGap) {
       // Insert as sibling
-      const targetPath = findPath(newTreeData, targetKey);
-      if (!targetPath) return;
-      const parentPath = parseInt(targetPath.slice(0, -1)[0]);
-      console.log("parentPath ", parentPath)
+  
+      const parentPath = parseInt(targetPath[0]);
       const siblingIndex = parseInt(targetPath[targetPath.length - 1]);
-      console.log("siblingIndex ", siblingIndex)
       const insertPos = siblingIndex + (dropPosition > 0 ? 1 : dropPosition < 0 ? 0 : 0);
-      newTreeData = myInsertNode(newTreeData, parentPath, draggedNode, siblingIndex) 
+      newTreeData = myInsertNode(newTreeData, parentPath, draggedNode, insertPos) 
     } else {
       // Insert as child
-      const targetPath = findPath(newTreeData, targetKey);
-      if (!targetPath) return;
-      const childPath = [...targetPath, '0'];
-      newTreeData = insertNode(newTreeData, childPath, draggedNode, 0);
+      const parentPath =  parseInt(targetPath[0]);
+      let insertPos=0;
+      if(targetPath.length==2)
+        insertPos = parseInt(targetPath[1])
+
+      newTreeData = myInsertNode(newTreeData, parentPath, draggedNode, insertPos) 
     }
 
-
+    // let newTreeData = removeNode(treeData, dragPath);
     // if (dropToGap) {
     //   // Insert as sibling
     //   const targetPath = findPath(newTreeData, targetKey);
