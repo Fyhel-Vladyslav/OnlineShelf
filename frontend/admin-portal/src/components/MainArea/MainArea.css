@@ -25,3 +25,21 @@
   padding: 24px;
   box-sizing: border-box;
 }
+
+.tree-delete-zone {
+  border: 2px dashed #ff4d4f;
+  background-color: #fff2f2;
+  padding: 8px;
+  text-align: center;
+  border-radius: 4px;
+  color: #ff4d4f;
+  font-weight: bold;
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.1s ease; /* 👈 smooth animation */
+}
+.tree-delete-zone.Hidden {
+  opacity: 0;
+  visibility: hidden;
+  border: 0px;
+}

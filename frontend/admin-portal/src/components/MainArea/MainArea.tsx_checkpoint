@@ -11,7 +11,6 @@ type TreeDataNode = {
   isLeaf?: boolean;
 };
 
-
 const { DirectoryTree } = Tree;
 import './MainArea.css';
 
@@ -147,18 +146,12 @@ export const MainArea = () => {
   };
 
   const onDragStart: DirectoryTreeProps['onDragStart'] = (info) => {
-    const deleteZone = document.querySelector(".tree-delete-zone");
-    if (deleteZone) deleteZone.classList.remove("Hidden");
-    console.log("da");
     setDraggedKey(info.node.key as string);
-     };
+  };
 
   const onDragEnd: DirectoryTreeProps['onDragEnd'] = () => {
-    const deleteZone = document.querySelector(".tree-delete-zone");
-    if (deleteZone) deleteZone.classList.add("Hidden");
-    console.log("piz");
     setDraggedKey(null);
-    };
+  };
 
   const onDrop: DirectoryTreeProps['onDrop'] = (info) => {
     const { dragNode, node, dropPosition, dropToGap } = info;
@@ -231,23 +224,23 @@ export const MainArea = () => {
   return (
     <div className="main-area">
       <div className="tree-container">
-         <div
-          className="tree-delete-zone Hidden"
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={(e) => {
-            e.currentTarget.classList.add("Hidden");
-            if (draggedKey) {
-              const path = findPath(treeData, draggedKey);
-              if (path) {
-                setTreeData(removeNode(treeData, path));
-                setDraggedKey(null);
+        {draggedKey && (
+          <div
+            className="delete-zone"
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+              if (draggedKey) {
+                const path = findPath(treeData, draggedKey);
+                if (path) {
+                  setTreeData(removeNode(treeData, path));
+                  setDraggedKey(null);
+                }
               }
-            }
-          }}
-        >
-          Drop here to delete
-        </div>
-     
+            }}
+          >
+            Drop here to delete
+          </div>
+        )}
         <DirectoryTree
           style={{ font: '24px Courier New, monospace' }}
           multiple
