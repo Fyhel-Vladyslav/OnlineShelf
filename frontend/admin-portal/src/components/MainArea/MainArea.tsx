@@ -156,7 +156,7 @@ export const MainArea = () => {
           name: `Name for ${key}`,
           description: `Description for ${key}`,
         });
-      }, 500);
+      }, 0);
     });
   };
 
