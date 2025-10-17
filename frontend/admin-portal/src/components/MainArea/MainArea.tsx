@@ -1,6 +1,8 @@
-import { Tree } from 'antd';
+import { Tree, Button } from 'antd';
 import type { GetProps } from 'antd';
 import { useState } from 'react';
+import { EditOutlined } from '@ant-design/icons';
+import { EditModal } from './EditModal';
 
 type DirectoryTreeProps = GetProps<typeof Tree.DirectoryTree>;
 
@@ -45,6 +47,10 @@ const initialTreeData: TreeDataNode[] = [
 export const MainArea = () => {
   const [treeData, setTreeData] = useState<TreeDataNode[]>(initialTreeData);
   const [draggedKey, setDraggedKey] = useState<string | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedLeaf, setSelectedLeaf] = useState<TreeDataNode | null>(null);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
   const findNode = (data: TreeDataNode[], key: string): TreeDataNode | null => {
     for (const item of data) {
@@ -142,6 +148,44 @@ export const MainArea = () => {
     setTreeData(prev => updateTree(prev, parentKey, newChild));
   };
 
+  const fetchData = async (key: string) => {
+    // Mock API call
+    return new Promise<{ name: string; description: string }>((resolve) => {
+      setTimeout(() => {
+        resolve({
+          name: `Name for ${key}`,
+          description: `Description for ${key}`,
+        });
+      }, 500);
+    });
+  };
+
+  const handleLeafClick = async (node: TreeDataNode) => {
+    setSelectedLeaf(node);
+    setIsModalVisible(true);
+    const data = await fetchData(node.key);
+    setName(data.name);
+    setDescription(data.description);
+  };
+
+  const handleSave = async () => {
+    // Mock save to server
+    console.log('Saving:', { key: selectedLeaf?.key, name, description });
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = async () => {
+    if (selectedLeaf) {
+      const data = await fetchData(selectedLeaf.key);
+      setName(data.name);
+      setDescription(data.description);
+    }
+  };
+
+  const handleClose = () => {
+    setIsModalVisible(false);
+  };
+
   const onSelect: DirectoryTreeProps['onSelect'] = (keys, info) => {
     console.log('Trigger Select', keys, info);
   };
@@ -209,10 +253,20 @@ export const MainArea = () => {
   };
 
   const titleRender = (node: TreeDataNode) => {
-    if (!node.isLeaf) {
-      return (
-        <span>
-          {node.title}
+    return (
+      <span>
+        {node.title}
+        <Button
+          type="text"
+          icon={<EditOutlined />}
+          size="small"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleLeafClick(node);
+          }}
+          style={{ marginLeft: 8, fontSize: 12 }}
+        />
+        {!node.isLeaf && (
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -222,10 +276,9 @@ export const MainArea = () => {
           >
             +
           </button>
-        </span>
-      );
-    }
-    return node.title;
+        )}
+      </span>
+    );
   };
 
   return (
@@ -247,7 +300,7 @@ export const MainArea = () => {
         >
           Drop here to delete
         </div>
-     
+
         <DirectoryTree
           style={{ font: '24px Courier New, monospace' }}
           multiple
@@ -263,6 +316,18 @@ export const MainArea = () => {
         />
         <div onClick={() => setTreeData(addParent(treeData))}> + add parent</div>
       </div>
+
+      <EditModal
+        isModalVisible={isModalVisible}
+        selectedLeaf={selectedLeaf}
+        name={name}
+        description={description}
+        onNameChange={setName}
+        onDescriptionChange={setDescription}
+        onSave={handleSave}
+        onCancel={handleCancel}
+        onClose={handleClose}
+      />
     </div>
   );
 };
