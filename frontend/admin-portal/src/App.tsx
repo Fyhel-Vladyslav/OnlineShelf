@@ -1,9 +1,27 @@
-import HomePage from './features/home/HomePage'
-import './App.css'
-import { StrictMode } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { StrictMode } from 'react';
+import Layout from './components/Layout/Layout';
+import HomePage from './features/home/HomePage';
+import LoginPage from './features/auth/LoginPage';
+import RegisterPage from './features/auth/RegisterPage';
+import SettingsPage from './features/settings/SettingsPage';
+import './App.css';
 
 function App() {
-  return <StrictMode><HomePage /></StrictMode>
+  return (
+    <StrictMode>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </StrictMode>
+  );
 }
 
-export default App
+export default App;

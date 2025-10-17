@@ -1,2 +1,6 @@
-- [x] Modify onDrop function in MainArea.tsx to handle non-leaf nodes by relocating them as siblings at the root level
-- [x] Add "+" button to each parent node to add a child
+# TODO for Settings Page Implementation
+
+- [x] Create src/features/settings/SettingsPage.tsx: Component with state for settings object (email, parameter1, parameter2), input fields bound to state, and a button for "Restore My Password".
+- [x] Create src/features/settings/SettingsPage.css: Basic styling for the form.
+- [x] Update src/App.tsx: Add route for /settings pointing to SettingsPage.
+- [x] Update src/components/LeftSidebar/LeftSidebar.tsx: Add useNavigate hook and onClick to Settings button to navigate to /settings.

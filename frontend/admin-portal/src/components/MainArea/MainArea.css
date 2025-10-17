@@ -36,7 +36,7 @@
   font-weight: bold;
   opacity: 1;
   visibility: visible;
-  transition: all 0.1s ease; /* 👈 smooth animation */
+  transition: all 0.1s ease;
 }
 .tree-delete-zone.Hidden {
   opacity: 0;

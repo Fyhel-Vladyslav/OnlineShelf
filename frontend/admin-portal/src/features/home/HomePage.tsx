@@ -1,4 +1,4 @@
-import Header from '../../components/Header/Header';
+
 import LeftSidebar from '../../components/LeftSidebar/LeftSidebar';
 import { MainArea } from '../../components/MainArea/MainArea';
 import './HomePage.css';
@@ -8,7 +8,6 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-page">
-      <Header />
       <div className="content-area">
         <div className="left-sidebar"><LeftSidebar /></div>
         <MainArea /> 
