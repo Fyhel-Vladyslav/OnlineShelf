@@ -1,0 +1,27 @@
+services:
+  gateway:
+    image: ${DOCKER_REGISTRY-}gateway
+    build:
+      context: .
+      dockerfile: Gateway/Dockerfile
+
+  outfitofferservice:
+    image: ${DOCKER_REGISTRY-}outfitofferservice
+    build:
+      context: .
+      dockerfile: OutfitOfferService/Dockerfile
+
+
+  shelfsservice:
+    image: ${DOCKER_REGISTRY-}shelfsservice
+    build:
+      context: .
+      dockerfile: ShelfsService/Dockerfile
+
+
+  userservice:
+    image: ${DOCKER_REGISTRY-}userservice
+    build:
+      context: .
+      dockerfile: UserService/Dockerfile
+

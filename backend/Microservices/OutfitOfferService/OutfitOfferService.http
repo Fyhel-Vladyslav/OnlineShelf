@@ -1,0 +1,6 @@
+@OutfitOfferService_HostAddress = http://localhost:5023
+
+GET {{OutfitOfferService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
