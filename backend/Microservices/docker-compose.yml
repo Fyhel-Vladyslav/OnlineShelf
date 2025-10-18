@@ -6,7 +6,9 @@ services:
       context: .
       dockerfile: Gateway/Dockerfile
     ports:
-      - "5000:80"
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - userservice
       - shelfsservice
