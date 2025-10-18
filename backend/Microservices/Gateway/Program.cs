@@ -25,9 +25,18 @@
 //app.Run();
 
 using Microsoft.AspNetCore.Mvc;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
+builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+
+// --- 2. Register Ocelot Services ---
+// This registers all the necessary Ocelot services (like routing engine) for dependency injection.
+builder.Services.AddOcelot();
+
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Gateway is running");
@@ -53,5 +62,6 @@ app.MapGet("/test", async () =>
     var userResponse = await client.GetStringAsync("http://user-service/api/user/test");
     return $"Gateway received -> {userResponse}";
 });
+await app.UseOcelot();
 
 app.Run();
