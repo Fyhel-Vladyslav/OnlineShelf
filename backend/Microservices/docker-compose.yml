@@ -1,27 +1,64 @@
 services:
   gateway:
+    container_name: gateway
     image: ${DOCKER_REGISTRY-}gateway
     build:
       context: .
       dockerfile: Gateway/Dockerfile
-
-  outfitofferservice:
-    image: ${DOCKER_REGISTRY-}outfitofferservice
-    build:
-      context: .
-      dockerfile: OutfitOfferService/Dockerfile
-
-
-  shelfsservice:
-    image: ${DOCKER_REGISTRY-}shelfsservice
-    build:
-      context: .
-      dockerfile: ShelfsService/Dockerfile
-
+    ports:
+      - "5000:80"
+    depends_on:
+      - userservice
+      - shelfsservice
+      - outfitofferservice
+    networks:
+      - microservice_net
 
   userservice:
-    image: ${DOCKER_REGISTRY-}userservice
+    container_name: user-service
+    image: ${DOCKER_REGISTRY-}user-service
     build:
       context: .
       dockerfile: UserService/Dockerfile
+    environment:
+      - ConnectionStrings__Default=Host=database;Database=microservices_db;Username=admin;Password=admin123
+    networks:
+      - microservice_net
 
+  shelfsservice:
+    container_name: shelfs-service
+    image: ${DOCKER_REGISTRY-}shelfs-service
+    build:
+      context: .
+      dockerfile: ShelfsService/Dockerfile
+    environment:
+      - ConnectionStrings__Default=Host=database;Database=microservices_db;Username=admin;Password=admin123
+    networks:
+      - microservice_net
+
+  outfitofferservice:
+    container_name: outfit-offer-service
+    image: ${DOCKER_REGISTRY-}outfit-offer-service
+    build:
+      context: .
+      dockerfile: OutfitOfferService/Dockerfile
+    environment:
+      - ConnectionStrings__Default=Host=database;Database=microservices_db;Username=admin;Password=admin123
+    networks:
+      - microservice_net
+
+  database:
+    container_name: online-shelf-db
+    image: postgres:15
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: onlineShelf_db
+    ports:
+      - "5432:5432"
+    networks:
+      - microservice_net
+
+networks:
+  microservice_net:
+    driver: bridge

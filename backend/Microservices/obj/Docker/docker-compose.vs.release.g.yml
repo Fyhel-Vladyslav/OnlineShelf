@@ -1,6 +1,5 @@
 services:
   gateway:
-    container_name: "Gateway"
     build:
       args:
         LAUNCHING_FROM_VS: true
@@ -26,7 +25,6 @@ services:
       com.microsoft.visual-studio.project-name: "Gateway"
     tty: true
   outfitofferservice:
-    container_name: "OutfitOfferService"
     build:
       args:
         LAUNCHING_FROM_VS: true
@@ -53,7 +51,6 @@ services:
     tty: true
 
   shelfsservice:
-    container_name: "ShelfsService"
     build:
       args:
         LAUNCHING_FROM_VS: true
@@ -80,7 +77,6 @@ services:
     tty: true
 
   userservice:
-    container_name: "UserService"
     build:
       args:
         LAUNCHING_FROM_VS: true
