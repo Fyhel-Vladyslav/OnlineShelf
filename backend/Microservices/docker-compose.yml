@@ -23,7 +23,8 @@ services:
       context: .
       dockerfile: UserService/Dockerfile
     environment:
-      - ConnectionStrings__Default=Host=database;Database=microservices_db;Username=admin;Password=admin123
+      - ConnectionStrings__Default=Host=database;Database=onlineShelf_db;Username=admin;Password=admin
+      - ASPNETCORE_URLS=http://+:8080
     networks:
       - microservice_net
 
@@ -34,7 +35,7 @@ services:
       context: .
       dockerfile: ShelfsService/Dockerfile
     environment:
-      - ConnectionStrings__Default=Host=database;Database=microservices_db;Username=admin;Password=admin123
+      - ConnectionStrings__Default=Host=database;Database=onlineShelf_db;Username=admin;Password=admin
     networks:
       - microservice_net
 
@@ -45,7 +46,7 @@ services:
       context: .
       dockerfile: OutfitOfferService/Dockerfile
     environment:
-      - ConnectionStrings__Default=Host=database;Database=microservices_db;Username=admin;Password=admin123
+      - ConnectionStrings__Default=Host=database;Database=onlineShelf_db;Username=admin;Password=admin
     networks:
       - microservice_net
 
@@ -56,6 +57,7 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: onlineShelf_db
+      TZ: Europe/Kyiv
     ports:
       - "5432:5432"
     networks:

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OutfitOfferService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd546b84810631a6276902ce2dd39241d1f0c8d9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ff945232350b4ea01788013bc24e57db9ae06e5")]
 [assembly: System.Reflection.AssemblyProductAttribute("OutfitOfferService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OutfitOfferService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

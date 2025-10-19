@@ -34,3 +34,14 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\obj\Debug\net
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\obj\Debug\net8.0\Gateway.pdb
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\obj\Debug\net8.0\Gateway.genruntimeconfig.cache
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\obj\Debug\net8.0\ref\Gateway.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\ocelot.json
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\FluentValidation.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\IPAddressRange.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Microsoft.AspNetCore.MiddlewareAnalysis.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Microsoft.Extensions.DiagnosticAdapter.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Ocelot.dll
