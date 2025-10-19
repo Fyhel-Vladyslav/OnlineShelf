@@ -23,19 +23,19 @@ services:
       context: .
       dockerfile: UserService/Dockerfile
     environment:
-      - ConnectionStrings__Default=Host=database;Database=onlineShelf_db;Username=admin;Password=admin
+      - ConnectionStrings__Default=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
       - ASPNETCORE_URLS=http://+:8080
     networks:
       - microservice_net
 
   shelfsservice:
     container_name: shelfs-service
-    image: ${DOCKER_REGISTRY-}shelfs-service
+    image: ${DOCKER_REGISTRY-}shelfs-service    
     build:
       context: .
       dockerfile: ShelfsService/Dockerfile
     environment:
-      - ConnectionStrings__Default=Host=database;Database=onlineShelf_db;Username=admin;Password=admin
+      - ConnectionStrings__Default=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
     networks:
       - microservice_net
 
@@ -46,11 +46,11 @@ services:
       context: .
       dockerfile: OutfitOfferService/Dockerfile
     environment:
-      - ConnectionStrings__Default=Host=database;Database=onlineShelf_db;Username=admin;Password=admin
+      - ConnectionStrings__Default=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
     networks:
       - microservice_net
 
-  database:
+  onlineshelfdb:
     container_name: online-shelf-db
     image: postgres:15
     environment:

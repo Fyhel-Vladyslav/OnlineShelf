@@ -55,3 +55,4 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.E
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Npgsql.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.AspNetCore.JsonPatch.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Newtonsoft.Json.Bson.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll

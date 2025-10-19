@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using UserService.Models;
 using UserService.Repositories;
 
-[Route("api/[controller]")]
+[Route("users/[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
 {
@@ -15,7 +15,7 @@ public class UsersController : ControllerBase
         _userRepository = userRepository;
     }
 
-    // GET: api/Users
+    // GET: users/Users
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetUsers()
     {
@@ -23,7 +23,7 @@ public class UsersController : ControllerBase
         return Ok(users);
     }
 
-    // GET: api/Users/5
+    // GET: users/Users/5
     [HttpGet("{id}")]
     public async Task<ActionResult<User>> GetUser(int id)
     {
@@ -37,7 +37,7 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
-    // POST: api/Users
+    // POST: users/Users
     // NOTE: In a real app, you'd use a DTO (Data Transfer Object) here
     [HttpPost]
     public async Task<ActionResult<User>> PostUser(User user)
@@ -51,7 +51,7 @@ public class UsersController : ControllerBase
         return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
     }
 
-    // PUT: api/Users/5
+    // PUT: users/Users/5
     [HttpPut("{id}")]
     public async Task<IActionResult> PutUser(int id, User user)
     {
@@ -71,7 +71,7 @@ public class UsersController : ControllerBase
         return NoContent(); // 204 No Content
     }
 
-    // DELETE: api/Users/5
+    // DELETE: users/Users/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(int id)
     {
