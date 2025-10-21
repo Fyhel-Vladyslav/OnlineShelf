@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using UserService.Models;
 using UserService.Repositories;
 
-[Route("users/[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
 {

@@ -42,14 +42,29 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        // Get your DbContext
+        var dbContext = services.GetRequiredService<UserDbContext>();
+
+        // This line runs all pending migrations
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        // Log the error
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating the database.");
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     // Apply database migrations on startup (common in development/microservices)
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<UserDbContext>();
-        dbContext.Database.Migrate();
-    }
 
     app.UseSwagger();
     app.UseSwaggerUI();
