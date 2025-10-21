@@ -56,3 +56,9 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Npgsql.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.AspNetCore.JsonPatch.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Newtonsoft.Json.Bson.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\MediatR.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\MediatR.Contracts.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.IdentityModel.Logging.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.IdentityModel.Abstractions.dll

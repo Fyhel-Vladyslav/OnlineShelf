@@ -11,7 +11,7 @@ using UserService.Data;
 
 namespace UserService.Migrations
 {
-    [DbContext(typeof(UserDbContext))]
+    [DbContext(typeof(DataContext))]
     [Migration("20251019185904_addOnModelCreating")]
     partial class addOnModelCreating
     {
