@@ -46,7 +46,7 @@ services:
       context: .
       dockerfile: OutfitOfferService/Dockerfile
     environment:
-      - ConnectionStrings__Default=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
+      - ConnectionStrings__Default=Host=localhost;Database=onlineShelf_db;Username=admin;Password=admin
     networks:
       - microservice_net
 

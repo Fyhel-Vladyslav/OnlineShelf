@@ -23,9 +23,15 @@
 //app.MapControllers();
 
 //app.Run();
+
+
+
+
+using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using UserService.Data;
+
 //using UserService.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +46,7 @@ builder.Services.AddDbContext<UserService.Data.DataContext>(options =>
 
 //builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
-
+builder.Services.AddFastEndpoints();
 
 var app = builder.Build();
 
@@ -84,9 +90,26 @@ if (app.Environment.IsDevelopment())
 //    return $"UserService received -> {shelfResponse}";
 //});
 
-
-app.UseAuthorization();    // Standard setup
-
 app.MapControllers();      // Maps the controllers defined above
 
+app.UseFastEndpoints();
+
 app.Run();
+
+//var builder = WebApplication.CreateBuilder(args);
+
+//builder.Services.AddDbContext<DataContext>();
+//builder.Services.AddSwaggerGen();
+//builder.Services.AddFastEndpoints();
+
+//var app = builder.Build();
+
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+
+//app.UseDeveloperExceptionPage();
+//app.UseFastEndpoints();
+//app.Run();

@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "c43/yk+NtnE=",
+  "dgSpecHash": "Mt8j9u+YxXg=",
   "success": true,
   "projectFilePath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\UserService.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\vladf\\.nuget\\packages\\fastendpoints\\7.0.1\\fastendpoints.7.0.1.nupkg.sha512",
+    "C:\\Users\\vladf\\.nuget\\packages\\fastendpoints.attributes\\7.0.1\\fastendpoints.attributes.7.0.1.nupkg.sha512",
+    "C:\\Users\\vladf\\.nuget\\packages\\fastendpoints.messaging.core\\7.0.1\\fastendpoints.messaging.core.7.0.1.nupkg.sha512",
+    "C:\\Users\\vladf\\.nuget\\packages\\fluentvalidation\\12.0.0\\fluentvalidation.12.0.0.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\mediatr\\13.0.0\\mediatr.13.0.0.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
