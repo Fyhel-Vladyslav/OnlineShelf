@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Extensions.Logging;
 using FastEndpoints;
-using UserService.Features.Common;
-using UserService.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using UserService.Features.Users;
+using UserService.src.Data;
+using UserService.src.Common.DTOs;
 
 
-namespace UserService.Features.Users;
-internal sealed record GetUserByIdRequest(int UserId);
+namespace UserService.src.Features.Users;
+internal sealed record GetUserByIdRequest
+{
+    public int UserId { get; init; }
+}
 
 
 //internal sealed class GetAccountsRequestValidator : Validator<GetAccounts.GetAccountsRequest>
@@ -26,17 +25,17 @@ internal sealed record GetUserByIdRequest(int UserId);
 //    }
 //}
 
-internal sealed class GetUserByIdEndpoint : Endpoint<GetUserByIdRequest, Results<Ok<UserDto>, NotFound>>
+internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<UserDto>, NotFound>>
 {
     private readonly DataContext _dbContext;
-    public GetUserByIdEndpoint(DataContext dbContext)
+    public GetUserById(DataContext dbContext)
     {
         _dbContext = dbContext;
     }
 
     public override void Configure()
     {
-        Post($"{ApiRoutes.Users}/UserId");
+        Post("/api/users");
         AllowAnonymous();
         // Policy(x => x.RequireUserServicePolicy(PolicyNames.View));
     }

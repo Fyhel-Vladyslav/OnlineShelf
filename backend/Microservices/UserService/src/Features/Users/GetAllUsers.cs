@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using UserService.Data;
-using UserService.Models;
 using FastEndpoints;
+using UserService.src.Models;
+using UserService.src.Data;
 
-namespace UserService.Features.Users;
+namespace UserService.src.Features.Users;
 
-sealed record GetAllUsersResponse(List<User> users); 
+sealed record GetAllUsersResponse(List<User> users);
 
-class GetAllUsersEndpoint : EndpointWithoutRequest<GetAllUsersResponse> 
+class GetAllUsers : EndpointWithoutRequest<GetAllUsersResponse>
 {
     private readonly DataContext _dbContext;
 
-    public GetAllUsersEndpoint(DataContext dbContext)
+    public GetAllUsers(DataContext dbContext)
     {
         _dbContext = dbContext;
     }

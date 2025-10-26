@@ -5,45 +5,71 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/CreateUser": {
+    "/api/add-user": {
       "post": {
         "tags": [
-          "CreateUser"
+          "UserService"
         ],
+        "operationId": "UserServicesrcFeaturesUsersCreateUserCommandHandler",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Command"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Command"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Command"
+                "$ref": "#/components/schemas/CreateUserCommand"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/GetAllUsers": {
-      "get": {
+    "/delete-user/{userId}": {
+      "delete": {
         "tags": [
-          "GetAllUsers"
+          "UserService"
         ],
+        "operationId": "UserServicesrcFeaturesUsersDeleteUser",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteUserRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
@@ -53,7 +79,7 @@
         "tags": [
           "UserService"
         ],
-        "operationId": "UserServiceFeaturesUsersGetAllUsersEndpoint",
+        "operationId": "UserServicesrcFeaturesUsersGetAllUsers",
         "responses": {
           "200": {
             "description": "OK",
@@ -66,14 +92,12 @@
             }
           }
         }
-      }
-    },
-    "/users/UserId": {
+      },
       "post": {
         "tags": [
           "UserService"
         ],
-        "operationId": "UserServiceFeaturesUsersGetUserByIdEndpoint",
+        "operationId": "UserServicesrcFeaturesUsersGetUserById",
         "requestBody": {
           "content": {
             "application/json": {
@@ -143,16 +167,43 @@
   },
   "components": {
     "schemas": {
-      "Command": {
+      "CreateUserCommand": {
         "type": "object",
         "properties": {
-          "name": {
+          "newUser": {
+            "$ref": "#/components/schemas/CreateUserDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordHash": {
             "type": "string",
             "nullable": true
           },
           "email": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeleteUserRequest": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

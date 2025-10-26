@@ -30,7 +30,7 @@
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using UserService.Data;
+using UserService.src.Data;
 
 //using UserService.Repositories;
 
@@ -41,7 +41,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("UserDbConnection");
-builder.Services.AddDbContext<UserService.Data.DataContext>(options =>
+builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(connectionString));
 
 //builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -91,7 +91,6 @@ if (app.Environment.IsDevelopment())
 //});
 
 app.MapControllers();      // Maps the controllers defined above
-
 app.UseFastEndpoints();
 
 app.Run();

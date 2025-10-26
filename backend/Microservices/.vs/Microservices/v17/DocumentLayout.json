@@ -3,44 +3,28 @@
   "WorkspaceRootPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\features\\users\\getuserbyidendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\features\\users\\getuserbyidendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\src\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\src\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\features\\common\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\features\\common\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\src\\features\\users\\getuserbyid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\src\\features\\users\\getuserbyid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\features\\users\\getallusers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\features\\users\\getallusers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\src\\features\\users\\deleteuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\src\\features\\users\\deleteuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\src\\features\\users\\createuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\src\\features\\users\\createuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\src\\common\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\src\\common\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\features\\common\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\features\\common\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\features\\getallusers\\getallusers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\features\\getallusers\\getallusers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\gateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|solutionrelative:gateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\src\\features\\users\\getallusers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\src\\features\\users\\getallusers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,132 +34,85 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Program.cs",
-              "RelativeDocumentMoniker": "UserService\\Program.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Program.cs",
-              "RelativeToolTip": "UserService\\Program.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAiwGEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T17:22:38.53Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\appsettings.json",
-              "RelativeDocumentMoniker": "UserService\\appsettings.json",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\appsettings.json",
-              "RelativeToolTip": "UserService\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-19T17:35:57.35Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DataContext.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Data\\DataContext.cs",
-              "RelativeDocumentMoniker": "UserService\\Data\\DataContext.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Data\\DataContext.cs",
-              "RelativeToolTip": "UserService\\Data\\DataContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T17:18:29.197Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "UserService\\Controllers\\UserController.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Controllers\\UserController.cs",
-              "RelativeToolTip": "UserService\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAFYAAAAAAAAAAAAAAFYAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T12:12:16.116Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "GetUserByIdEndpoint.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Features\\Users\\GetUserByIdEndpoint.cs",
-              "RelativeDocumentMoniker": "UserService\\Features\\Users\\GetUserByIdEndpoint.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Features\\Users\\GetUserByIdEndpoint.cs",
-              "RelativeToolTip": "UserService\\Features\\Users\\GetUserByIdEndpoint.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAswD0AAAAFAAAAAAAAAA==",
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Models\\User.cs",
+              "RelativeDocumentMoniker": "UserService\\src\\Models\\User.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Models\\User.cs",
+              "RelativeToolTip": "UserService\\src\\Models\\User.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAQwBUAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T17:55:10.53Z",
+              "WhenOpened": "2025-10-26T14:57:56.276Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ApiRoutes.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Features\\Common\\ApiRoutes.cs",
-              "RelativeDocumentMoniker": "UserService\\Features\\Common\\ApiRoutes.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Features\\Common\\ApiRoutes.cs",
-              "RelativeToolTip": "UserService\\Features\\Common\\ApiRoutes.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA3AAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "DeleteUser.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Features\\Users\\DeleteUser.cs",
+              "RelativeDocumentMoniker": "UserService\\src\\Features\\Users\\DeleteUser.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Features\\Users\\DeleteUser.cs",
+              "RelativeToolTip": "UserService\\src\\Features\\Users\\DeleteUser.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBUAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T21:14:21.282Z"
+              "WhenOpened": "2025-10-25T22:17:17.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GetAllUsers.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Features\\Users\\GetAllUsers.cs",
+              "RelativeDocumentMoniker": "UserService\\src\\Features\\Users\\GetAllUsers.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Features\\Users\\GetAllUsers.cs",
+              "RelativeToolTip": "UserService\\src\\Features\\Users\\GetAllUsers.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAYwBMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T21:24:15.85Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UserDto.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Features\\Common\\UserDto.cs",
-              "RelativeDocumentMoniker": "UserService\\Features\\Common\\UserDto.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Features\\Common\\UserDto.cs",
-              "RelativeToolTip": "UserService\\Features\\Common\\UserDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Title": "GetUserById.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Features\\Users\\GetUserById.cs",
+              "RelativeDocumentMoniker": "UserService\\src\\Features\\Users\\GetUserById.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Features\\Users\\GetUserById.cs",
+              "RelativeToolTip": "UserService\\src\\Features\\Users\\GetUserById.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T21:04:29.666Z"
+              "WhenOpened": "2025-10-25T21:16:22.667Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GetAllUsers.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Features\\Users\\GetAllUsers.cs",
-              "RelativeDocumentMoniker": "UserService\\Features\\Users\\GetAllUsers.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Features\\Users\\GetAllUsers.cs",
-              "RelativeToolTip": "UserService\\Features\\Users\\GetAllUsers.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAYwBYAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "CreateUser.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Features\\Users\\CreateUser.cs",
+              "RelativeDocumentMoniker": "UserService\\src\\Features\\Users\\CreateUser.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Features\\Users\\CreateUser.cs",
+              "RelativeToolTip": "UserService\\src\\Features\\Users\\CreateUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-22T17:49:35.565Z"
+              "WhenOpened": "2025-10-25T21:15:51.16Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "GetAllUsers.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Features\\GetAllUsers\\GetAllUsers.cs",
-              "RelativeDocumentMoniker": "UserService\\Features\\GetAllUsers\\GetAllUsers.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Features\\GetAllUsers\\GetAllUsers.cs",
-              "RelativeToolTip": "UserService\\Features\\GetAllUsers\\GetAllUsers.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAowDMAAAAiAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "ApiRoutes.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Common\\ApiRoutes.cs",
+              "RelativeDocumentMoniker": "UserService\\src\\Common\\ApiRoutes.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\Common\\ApiRoutes.cs",
+              "RelativeToolTip": "UserService\\src\\Common\\ApiRoutes.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-21T20:13:26.195Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ocelot.json",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\ocelot.json",
-              "RelativeDocumentMoniker": "Gateway\\ocelot.json",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\ocelot.json",
-              "RelativeToolTip": "Gateway\\ocelot.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-21T20:12:33.018Z"
+              "WhenOpened": "2025-10-25T22:18:21.685Z",
+              "EditorCaption": ""
             }
           ]
         }

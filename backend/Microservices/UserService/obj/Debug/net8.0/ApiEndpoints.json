@@ -1,29 +1,28 @@
 [
   {
-    "ContainingType": "UserService.Features.CreateUser.CreateUserController",
-    "Method": "Create",
-    "RelativePath": "api/CreateUser",
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "api/add-user",
     "HttpMethod": "POST",
-    "IsController": true,
+    "IsController": false,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "command",
-        "Type": "UserService.Features.CreateUser.Createuser\u002BCommand",
+        "Name": "CreateUserCommand",
+        "Type": "UserService.src.Features.Users.CreateUserCommand",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "UserService.Features.GetAllUsers.GetAllUsersController",
-    "Method": "GetAll",
-    "RelativePath": "api/GetAllUsers",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "UserService.src.Models.User",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "UserServicesrcFeaturesUsersCreateUserCommandHandler"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
@@ -35,32 +34,32 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "UserService.Features.Users.GetAllUsersResponse",
+        "Type": "UserService.src.Features.Users.GetAllUsersResponse",
         "MediaTypes": [
           "application/json"
         ],
         "StatusCode": 200
       }
     ],
-    "EndpointName": "UserServiceFeaturesUsersGetAllUsersEndpoint"
+    "EndpointName": "UserServicesrcFeaturesUsersGetAllUsers"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "users/UserId",
+    "RelativePath": "api/users",
     "HttpMethod": "POST",
     "IsController": false,
     "Order": 0,
     "Parameters": [
       {
         "Name": "GetUserByIdRequest",
-        "Type": "UserService.Features.Users.GetUserByIdRequest",
+        "Type": "UserService.src.Features.Users.GetUserByIdRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "UserService.Features.Common.UserDto",
+        "Type": "UserService.src.Common.DTOs.UserDto",
         "MediaTypes": [
           "application/json"
         ],
@@ -72,7 +71,37 @@
         "StatusCode": 404
       }
     ],
-    "EndpointName": "UserServiceFeaturesUsersGetUserByIdEndpoint"
+    "EndpointName": "UserServicesrcFeaturesUsersGetUserById"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "delete-user/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "DeleteUserRequest",
+        "Type": "UserService.src.Features.Users.DeleteUserRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ],
+    "EndpointName": "UserServicesrcFeaturesUsersDeleteUser"
   },
   {
     "ContainingType": "UserService.Controllers.WeatherForecastController",

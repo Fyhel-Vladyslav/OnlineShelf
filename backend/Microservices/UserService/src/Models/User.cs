@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UserService.Models;
+namespace UserService.src.Models;
 public class User
 {
     // Primary Key for the database
@@ -19,4 +19,5 @@ public class User
     public string PasswordHash { get; set; }
 
     public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+    public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
 }

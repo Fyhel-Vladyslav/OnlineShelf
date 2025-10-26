@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Mt8j9u+YxXg=",
+  "dgSpecHash": "x8s5eKKw2ho=",
   "success": true,
   "projectFilePath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\UserService.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\vladf\\.nuget\\packages\\erroror\\2.0.1\\erroror.2.0.1.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\fastendpoints\\7.0.1\\fastendpoints.7.0.1.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\fastendpoints.attributes\\7.0.1\\fastendpoints.attributes.7.0.1.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\fastendpoints.messaging.core\\7.0.1\\fastendpoints.messaging.core.7.0.1.nupkg.sha512",
