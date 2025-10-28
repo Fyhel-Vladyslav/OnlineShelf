@@ -65,7 +65,8 @@ public class CreateUserCommandHandler : Endpoint<CreateUserCommand, User>
     {
         return new User
         {
-            Username = dto.Username,
+            Id = dto.Id,
+            Login = dto.Login,
             Email = dto.Email,
             PasswordHash = dto.PasswordHash,
             DateCreated = DateTime.UtcNow

@@ -10,8 +10,6 @@ public class DataContext : DbContext
         : base(options)
     {
     }
-
-    // This property represents the 'Users' table in the database
     public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -19,25 +17,25 @@ public class DataContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.HasDefaultSchema("user-service");
 
-        //This is the Data Seeding part
-        // Uncomment and modify as needed
         modelBuilder.Entity<User>().HasData(
-        new User
-        {
-            Id = 1,
-            Username = "admin",
-            Email = "admin@example.com",
-            PasswordHash = "hashed_password_1",
-            DateCreated = new DateTime(2025, 10, 19, 18, 51, 4, 799, DateTimeKind.Utc).AddTicks(1223)
-        },
-        new User
-        {
-            Id = 2,
-            Username = "test",
-            Email = "test@example.com",
-            PasswordHash = "hashed_password_2",
-            DateCreated = new DateTime(2025, 10, 19, 18, 51, 4, 799, DateTimeKind.Utc).AddTicks(2513)
-        }
+            new User
+            {
+                Id = Guid.Parse("d1437f42-8b54-4a02-b0a5-800426cd7580"),
+                Login = "admin",
+                Email = "admin@example.com",
+                PasswordHash = "hashed_password_1",
+                DateCreated = new DateTime(2025, 10, 19, 18, 51, 04, 0, DateTimeKind.Utc),
+                UpdatedAt = new DateTime(2025, 10, 19, 18, 51, 04, 0, DateTimeKind.Utc)
+            },
+            new User
+            {
+                Id = Guid.Parse("2c9d6f42-8b54-4a02-b0a5-800426cd7581"),
+                Login = "test",
+                Email = "test@example.com",
+                PasswordHash = "hashed_password_2",
+                DateCreated = new DateTime(2025, 10, 19, 18, 51, 04, 0, DateTimeKind.Utc),
+                UpdatedAt = new DateTime(2025, 10, 19, 18, 51, 04, 0, DateTimeKind.Utc)
+            }
         );
     }
 }

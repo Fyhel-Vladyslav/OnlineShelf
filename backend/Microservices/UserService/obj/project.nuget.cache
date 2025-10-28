@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "x8s5eKKw2ho=",
+  "dgSpecHash": "5xWn5mwyb5A=",
   "success": true,
-  "projectFilePath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\UserService.csproj",
+  "projectFilePath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\userService\\UserService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vladf\\.nuget\\packages\\erroror\\2.0.1\\erroror.2.0.1.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\fastendpoints\\7.0.1\\fastendpoints.7.0.1.nupkg.sha512",

@@ -140,7 +140,6 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\UserService\obj\Debug
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\UserService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.UserService.props
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\UserService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.UserService.props
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\UserService\obj\Debug\net8.0\staticwebassets.pack.json
-D:\visualStudio\Projects\OnlineShelf\backend\Microservices\UserService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\UserService\obj\Debug\net8.0\UserServ.57764DC8.Up2Date
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\UserService\obj\Debug\net8.0\UserService.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\UserService\obj\Debug\net8.0\refint\UserService.dll

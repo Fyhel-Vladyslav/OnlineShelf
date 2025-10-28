@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\UserService.csproj": {}
+    "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\userService\\UserService.csproj": {}
   },
   "projects": {
-    "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\UserService.csproj": {
+    "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\userService\\UserService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\UserService.csproj",
+        "projectUniqueName": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\userService\\UserService.csproj",
         "projectName": "UserService",
-        "projectPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\UserService.csproj",
+        "projectPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\userService\\UserService.csproj",
         "packagesPath": "C:\\Users\\vladf\\.nuget\\packages\\",
-        "outputPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\obj\\",
+        "outputPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\userService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

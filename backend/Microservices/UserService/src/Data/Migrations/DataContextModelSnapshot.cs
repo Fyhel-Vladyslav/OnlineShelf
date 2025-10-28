@@ -11,7 +11,7 @@ using UserService.src.Data;
 namespace UserService.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -23,13 +23,14 @@ namespace UserService.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("UserService.Models.User", b =>
+            modelBuilder.Entity("UserService.src.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Avatar")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -38,14 +39,23 @@ namespace UserService.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("EmailVerified")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<int>("State")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -54,19 +64,25 @@ namespace UserService.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            DateCreated = new DateTime(2025, 10, 19, 18, 51, 4, 799, DateTimeKind.Utc).AddTicks(1223),
+                            Id = new Guid("d1437f42-8b54-4a02-b0a5-800426cd7580"),
+                            DateCreated = new DateTime(2025, 10, 19, 18, 51, 4, 0, DateTimeKind.Utc),
                             Email = "admin@example.com",
+                            EmailVerified = false,
+                            Login = "admin",
                             PasswordHash = "hashed_password_1",
-                            Username = "admin"
+                            State = 0,
+                            UpdatedAt = new DateTime(2025, 10, 19, 18, 51, 4, 0, DateTimeKind.Utc)
                         },
                         new
                         {
-                            Id = 2,
-                            DateCreated = new DateTime(2025, 10, 19, 18, 51, 4, 799, DateTimeKind.Utc).AddTicks(2513),
+                            Id = new Guid("2c9d6f42-8b54-4a02-b0a5-800426cd7581"),
+                            DateCreated = new DateTime(2025, 10, 19, 18, 51, 4, 0, DateTimeKind.Utc),
                             Email = "test@example.com",
+                            EmailVerified = false,
+                            Login = "test",
                             PasswordHash = "hashed_password_2",
-                            Username = "test"
+                            State = 0,
+                            UpdatedAt = new DateTime(2025, 10, 19, 18, 51, 4, 0, DateTimeKind.Utc)
                         });
                 });
 #pragma warning restore 612, 618

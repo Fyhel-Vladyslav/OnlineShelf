@@ -2,8 +2,8 @@
 {
     public class UserDto
     {    // Primary Key for the database
-        public int Id { get; set; }
-        public string Username { get; set; }
+        public Guid Id { get; set; }
+        public string Login { get; set; }
         public string Email { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using UserService.src.Common;
 namespace UserService.src.Features.Users;
 internal sealed record DeleteUserRequest
 {
-    public int UserId { get; init; }
+    public Guid UserId { get; init; }
 };
 
 
@@ -24,7 +24,7 @@ internal sealed record DeleteUserRequest
 //    }
 //}
 
-internal sealed class DeleteUser : Endpoint<DeleteUserRequest, Results<Ok<int>, NotFound>>
+internal sealed class DeleteUser : Endpoint<DeleteUserRequest, Results<Ok<Guid>, NotFound>>
 {
     private readonly DataContext _dbContext;
     public DeleteUser(DataContext dbContext)
@@ -38,7 +38,7 @@ internal sealed class DeleteUser : Endpoint<DeleteUserRequest, Results<Ok<int>, 
         AllowAnonymous();
         // Policy(x => x.RequireUserServicePolicy(PolicyNames.View));
     }
-    public override async Task<Results<Ok<int>, NotFound>> ExecuteAsync(DeleteUserRequest req, CancellationToken ct)
+    public override async Task<Results<Ok<Guid>, NotFound>> ExecuteAsync(DeleteUserRequest req, CancellationToken ct)
     {
         var user = await _dbContext.Users.FirstOrDefaultAsync(p => p.Id == req.UserId, ct);
 

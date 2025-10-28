@@ -89,7 +89,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "MediaTypes": [
           "application/json"
         ],
@@ -102,6 +102,78 @@
       }
     ],
     "EndpointName": "UserServicesrcFeaturesUsersDeleteUser"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "users/sign-in",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "SignInRequest",
+        "Type": "UserService.src.Features.Authorization.SignInRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microsoft.AspNetCore.Identity.SignInResult",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "FastEndpoints.ErrorResponse",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "EndpointName": "UserServicesrcFeaturesAuthorizationUserSignInEndpoint"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "users/verify-user-password",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "VerifyUserPasswordRequest",
+        "Type": "UserService.src.Features.Users.VerifyUserPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "EndpointName": "UserServicesrcFeaturesUsersVerifyUserPasswordEndpoint"
   },
   {
     "ContainingType": "UserService.Controllers.WeatherForecastController",

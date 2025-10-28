@@ -9,7 +9,7 @@ using UserService.src.Common.DTOs;
 namespace UserService.src.Features.Users;
 internal sealed record GetUserByIdRequest
 {
-    public int UserId { get; init; }
+    public Guid UserId { get; init; }
 }
 
 
@@ -52,7 +52,7 @@ internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<User
         var userDto = new UserDto
         {
             Id = user.Id,
-            Username = user.Username,
+            Login = user.Login,
             Email = user.Email
         };
 

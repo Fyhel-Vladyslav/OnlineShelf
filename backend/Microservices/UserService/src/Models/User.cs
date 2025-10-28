@@ -3,21 +3,29 @@
 namespace UserService.src.Models;
 public class User
 {
-    // Primary Key for the database
-    public int Id { get; set; }
-
     [Required]
-    [MaxLength(100)]
-    public string Username { get; set; }
+    public required Guid Id { get; init; }
 
     [Required]
     [EmailAddress]
     public string Email { get; set; }
 
-    // Store a hash of the password, NEVER the plain password!
     [Required]
     public string PasswordHash { get; set; }
 
+
+    [Required]
+    [MaxLength(100)]
+    public required string Login { get; init; }
+    public bool EmailVerified { get; set; }
+    public int State { get; set; }
+    public string? Avatar { get; init; }
     public DateTime DateCreated { get; set; } = DateTime.UtcNow;
-    public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; init; } = DateTime.UtcNow;
+
+
+    //public IList<AttributeValue> AttributeValues { get; init; } = [];
+
+
+
 }
