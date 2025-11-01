@@ -22,43 +22,6 @@ namespace UserService.Extentions.DependencyInjection
             services.AddFastEndpoints();
 
             return services;
-
-            //    ArgumentNullException.ThrowIfNull(configuration);
-            //    ArgumentNullException.ThrowIfNull(env);
-
-            //    services
-            //        .AddAuthAndJwtTokens(configuration)
-            //        .AddControllersAndJson(env)
-            //        .AddMemoryCache();
-
-            //    // Allow CORS only in dev mode
-            //    if (env.IsDevelopment())
-            //    {
-            //        services.AddCors(options => options.AddPolicy(HostConsts.CorsPolicyName, x =>
-            //        {
-            //            x.AllowAnyHeader()
-            //            .AllowAnyMethod()
-            //            .SetIsOriginAllowed(_ => true)
-            //            .AllowCredentials();
-            //        }));
-            //    }
-
-            //    // Add swagger and request/response logging only in development
-            //    if (env.IsDevelopment())
-            //    {
-            //        services
-            //            .AddEndpointsApiExplorer()
-            //            .AddSwaggerWithCustomization();
-            //    }
-
-            //    services.AddHttpLogging(logging =>
-            //    {
-            //        logging.LoggingFields = HttpLoggingFields.All;
-            //    });
-
-            //    return services;
-
-
         }
     }
 }
