@@ -20,7 +20,7 @@ class GetAllUsers : EndpointWithoutRequest<GetAllUsersResponse>
     public override void Configure()
     {
         Get("/api/users");
-        AllowAnonymous();
+        Policies("AdminPolicy");
     }
 
     public override async Task<GetAllUsersResponse> ExecuteAsync(CancellationToken ct)

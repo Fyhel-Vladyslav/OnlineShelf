@@ -27,17 +27,27 @@ internal sealed record DeleteUserRequest
 internal sealed class DeleteUser : Endpoint<DeleteUserRequest, Results<Ok<Guid>, NotFound>>
 {
     private readonly DataContext _dbContext;
-    public DeleteUser(DataContext dbContext)
+    private readonly IHostEnvironment _env; // Add a field for IHostEnvironment
+
+    public DeleteUser(DataContext dbContext, IHostEnvironment env) // Inject IHostEnvironment
     {
         _dbContext = dbContext;
+        _env = env;
     }
 
     public override void Configure()
     {
         Delete($"{ApiRoutes.DeleteUser}");
-        AllowAnonymous();
-        // Policy(x => x.RequireUserServicePolicy(PolicyNames.View));
+        if (_env.IsDevelopment())
+        {
+            AllowAnonymous();
+        }
+        else
+        {
+            Policies("AdminPolicy"); // prod/release
+        }
     }
+
     public override async Task<Results<Ok<Guid>, NotFound>> ExecuteAsync(DeleteUserRequest req, CancellationToken ct)
     {
         var user = await _dbContext.Users.FirstOrDefaultAsync(p => p.Id == req.UserId, ct);

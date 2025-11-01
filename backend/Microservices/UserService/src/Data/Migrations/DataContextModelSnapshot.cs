@@ -51,6 +51,9 @@ namespace UserService.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
                     b.Property<int>("State")
                         .HasColumnType("integer");
 
@@ -70,6 +73,7 @@ namespace UserService.Migrations
                             EmailVerified = false,
                             Login = "admin",
                             PasswordHash = "hashed_password_1",
+                            Role = 5,
                             State = 0,
                             UpdatedAt = new DateTime(2025, 10, 19, 18, 51, 4, 0, DateTimeKind.Utc)
                         },
@@ -81,6 +85,7 @@ namespace UserService.Migrations
                             EmailVerified = false,
                             Login = "test",
                             PasswordHash = "hashed_password_2",
+                            Role = 5,
                             State = 0,
                             UpdatedAt = new DateTime(2025, 10, 19, 18, 51, 4, 0, DateTimeKind.Utc)
                         });

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using UserService.src.Features.Authorization;
 
 namespace UserService.src.Models;
 public class User
@@ -22,6 +23,8 @@ public class User
     public string? Avatar { get; init; }
     public DateTime DateCreated { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; init; } = DateTime.UtcNow;
+
+    public UserRole Role { get; set; } = UserRole.Guest;
 
 
     //public IList<AttributeValue> AttributeValues { get; init; } = [];

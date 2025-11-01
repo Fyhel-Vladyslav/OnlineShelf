@@ -13,16 +13,19 @@ using UserService.src.Models;
 using UserService.src.Data;
 using UserService.src.Common.DTOs;
 using UserService.src.Common;
+using Microsoft.AspNetCore.Identity;
+using static FastEndpoints.Ep;
+using System.Collections.Generic;
 
 namespace UserService.src.Features.Users;
 public sealed record CreateUserCommand(CreateUserDto newUser) : IRequest<ErrorOr<User>>;
 internal sealed class CreateTodoListCommandValidator : AbstractValidator<CreateUserCommand>
 {
-    private readonly DataContext _context;
+    private readonly DataContext context;
 
     public CreateTodoListCommandValidator(DataContext context)
     {
-        _context = context;
+        context = context;
 
         RuleFor(v => v.newUser.Email)
             .NotEmpty().WithMessage("Email is required.")
@@ -32,18 +35,15 @@ internal sealed class CreateTodoListCommandValidator : AbstractValidator<CreateU
 
     private Task<bool> BeUniqueEmail(string email, CancellationToken cancellationToken)
     {
-        return _context.Users
+        return context.Users
             .AllAsync(l => l.Email != email, cancellationToken);
     }
 }
-public class CreateUserCommandHandler : Endpoint<CreateUserCommand, User>
+public class CreateUserCommandHandler(
+    IPasswordHasher<User> passwordHasher, 
+    DataContext context
+    ) : Endpoint<CreateUserCommand, User>
 {
-    private readonly DataContext _context;
-
-    public CreateUserCommandHandler(DataContext context)
-    {
-        _context = context;
-    }
 
     public override void Configure()
     {
@@ -55,21 +55,26 @@ public class CreateUserCommandHandler : Endpoint<CreateUserCommand, User>
     {
         var newUser = FromDTO(request.newUser);
 
-        _context.Users.Add(newUser);
-        await _context.SaveChangesAsync(ct);
+        context.Users.Add(newUser);
+        await context.SaveChangesAsync(ct);
 
         await Send.OkAsync(newUser, cancellation: ct);
 
     }
     private User FromDTO(CreateUserDto dto)
     {
-        return new User
+        var newUser = new User
         {
             Id = dto.Id,
             Login = dto.Login,
             Email = dto.Email,
-            PasswordHash = dto.PasswordHash,
+            PasswordHash = "",
             DateCreated = DateTime.UtcNow
+
         };
+        /// create dto with password field
+        newUser.PasswordHash = passwordHasher.HashPassword(newUser, dto.PasswordHash);
+
+        return newUser;
     }
 }

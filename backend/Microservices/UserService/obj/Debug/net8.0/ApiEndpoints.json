@@ -39,6 +39,16 @@
           "application/json"
         ],
         "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 403
       }
     ],
     "EndpointName": "UserServicesrcFeaturesUsersGetAllUsers"
@@ -119,16 +129,11 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Microsoft.AspNetCore.Identity.SignInResult",
+        "Type": "UserService.src.Features.Authorization.SignInResult",
         "MediaTypes": [
           "application/json"
         ],
         "StatusCode": 200
-      },
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 404
       },
       {
         "Type": "FastEndpoints.ErrorResponse",
