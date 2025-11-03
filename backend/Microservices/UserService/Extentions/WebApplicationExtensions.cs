@@ -4,7 +4,7 @@ namespace UserService.Extentions.DependencyInjection
 {
     public static class WebApplicationExtensions
     {
-        public static WebApplication UseUsersInfrastucture(this WebApplication app)
+        public static WebApplication UseUsersInfrastucture (this WebApplication app)
         {
 
             if (app.Environment.IsDevelopment())

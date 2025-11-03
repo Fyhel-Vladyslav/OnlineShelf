@@ -9,12 +9,12 @@ using UserService.src.Common;
 using Microsoft.AspNetCore.Identity;
 
 namespace UserService.src.Features.Users;
-public sealed record CreateUserCommand(CreateUserDto newUser) : IRequest<ErrorOr<User>>;
-internal sealed class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+public sealed record UpdateUserCommand(UpdateUserDto newUser) : IRequest<ErrorOr<User>>;
+internal sealed class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
 {
     private readonly DataContext _context;
 
-    public CreateUserCommandValidator(DataContext context)
+    public UpdateUserCommandValidator(DataContext context)
     {
         _context = context;
 
@@ -30,59 +30,54 @@ internal sealed class CreateUserCommandValidator : AbstractValidator<CreateUserC
             ;
     }
 
-    private Task<bool> BeUniqueLogin(string login, CancellationToken cancellationToken) => 
+    private Task<bool> BeUniqueLogin(string login, CancellationToken cancellationToken) =>
         _context.Users
             .AllAsync(l => l.Login != login, cancellationToken);
-    
+
     private Task<bool> BeUniqueEmail(string email, CancellationToken cancellationToken) =>
         _context.Users
             .AllAsync(l => l.Email != email, cancellationToken);
-    
+
 }
-public class CreateUserCommandHandler(
+public class UpdateUserCommandHandler(
     IPasswordHasher<User> passwordHasher,
     DataContext context
-    ) : Endpoint<CreateUserCommand, User>
+    ) : Endpoint<UpdateUserCommand, User>
 {
 
     public override void Configure()
     {
-        Post("/api/add-user");
+        Post("/api/update-user");
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(CreateUserCommand request, CancellationToken ct)
+    public override async Task HandleAsync(UpdateUserCommand request, CancellationToken ct)
     {
-        var newUser = FromDTO(request.newUser);
+        var user = context.Users.FirstOrDefault(u => u.Id == request.newUser.Id);
 
-        //if (context.Users.FirstOrDefaultAsync(p => p.Id == newUser.Id)==null)
-        //{
-        //    newUser.Id = Guid.NewGuid();
-        //}
+        if (user == null)
+        {
+            await Send.NotFoundAsync(cancellation: ct);
+            return;
+        }
 
-        context.Users.Add(newUser);
+        SetUserFromDTO(user, request.newUser);
+
         await context.SaveChangesAsync(ct);
 
-        await Send.OkAsync(newUser, cancellation: ct);
+        await Send.OkAsync(user, cancellation: ct);
 
     }
-    private User FromDTO(CreateUserDto dto)
+    private void SetUserFromDTO(User user, UpdateUserDto dto)
     {
+        user.Login  = dto.Login;
+        user.Email = dto.Email;
+        user.Role = dto.Role;
+        user.UpdatedAt = DateTime.UtcNow;
+        user.State = dto.State;
+        user.Avatar = dto.Avatar;
+        user.EmailVerified = dto.EmailVerified;
+        user.State = dto.State;
 
-
-        var newUser = new User
-        {
-            Id = Guid.NewGuid(),
-            Login = dto.Login,
-            Email = dto.Email,
-            Role = dto.Role,
-            PasswordHash = "",
-            DateCreated = DateTime.UtcNow
-
-        };
-        /// create dto with password field
-        newUser.PasswordHash = passwordHasher.HashPassword(newUser, dto.Password);
-
-        return newUser;
     }
 }

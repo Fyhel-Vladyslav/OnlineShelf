@@ -27,6 +27,31 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "api/update-user",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UpdateUserCommand",
+        "Type": "UserService.src.Features.Users.UpdateUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "UserService.src.Models.User",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "UserServicesrcFeaturesUsersUpdateUserCommandHandler"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
     "RelativePath": "api/users",
     "HttpMethod": "GET",
     "IsController": false,
@@ -69,7 +94,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.Common.DTOs.UserDto",
+        "Type": "UserService.src.Models.User",
         "MediaTypes": [
           "application/json"
         ],

@@ -1,4 +1,4 @@
-﻿namespace UserService.src.Features.Authorization;
+﻿namespace UserService.src.Common;
 
 public enum UserRole
 {

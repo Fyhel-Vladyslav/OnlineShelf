@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using UserService.src.Features.Authorization;
+using UserService.src.Common;
 
 namespace UserService.src.Models;
 public class User
@@ -17,12 +17,12 @@ public class User
 
     [Required]
     [MaxLength(100)]
-    public required string Login { get; init; }
+    public string Login { get; set; }
     public bool EmailVerified { get; set; }
     public int State { get; set; }
-    public string? Avatar { get; init; }
+    public string? Avatar { get; set; }
     public DateTime DateCreated { get; set; } = DateTime.UtcNow;
-    public DateTime? UpdatedAt { get; init; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
 
     public UserRole Role { get; set; } = UserRole.Guest;
 

@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using UserService.src.Data;
 using UserService.src.Common.DTOs;
+using UserService.src.Models;
 
 
 namespace UserService.src.Features.Users;
@@ -25,7 +26,7 @@ internal sealed record GetUserByIdRequest
 //    }
 //}
 
-internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<UserDto>, NotFound>>
+internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<User>, NotFound>>
 {
     private readonly DataContext _dbContext;
     public GetUserById(DataContext dbContext)
@@ -39,7 +40,7 @@ internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<User
         AllowAnonymous();
         // Policy(x => x.RequireUserServicePolicy(PolicyNames.View));
     }
-    public override async Task<Results<Ok<UserDto>, NotFound>> ExecuteAsync(GetUserByIdRequest req, CancellationToken ct)
+    public override async Task<Results<Ok<User>, NotFound>> ExecuteAsync(GetUserByIdRequest req, CancellationToken ct)
     {
         var user = await _dbContext.Users.FirstOrDefaultAsync(p => p.Id == req.UserId, ct);
 
@@ -48,15 +49,7 @@ internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<User
             // 3. Return the TypedResult
             return TypedResults.NotFound();
         }
-
-        var userDto = new UserDto
-        {
-            Id = user.Id,
-            Login = user.Login,
-            Email = user.Email
-        };
-
         // 3. Return the TypedResult
-        return TypedResults.Ok(userDto);
+        return TypedResults.Ok(user);
     }
 }
