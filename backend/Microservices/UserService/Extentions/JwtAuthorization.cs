@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using UserService.src.Features.Authorization;
-using UserService.src.Features.JwtToken;
-using UserService.src.Models;
+using UserService.src.UserService.Host.Features.JwtToken;
+using UserService.src.UserService.Repository.EfCore.Entities;
 
 namespace UserService.Extentions.DependencyInjection
 {

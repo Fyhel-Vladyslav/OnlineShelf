@@ -9,20 +9,20 @@
     "Parameters": [
       {
         "Name": "CreateUserCommand",
-        "Type": "UserService.src.Features.Users.CreateUserCommand",
+        "Type": "UserService.src.UserService.Host.Features.Users.CreateUserCommand",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.Models.User",
+        "Type": "UserService.src.UserService.Repository.EfCore.Entities.User",
         "MediaTypes": [
           "application/json"
         ],
         "StatusCode": 200
       }
     ],
-    "EndpointName": "UserServicesrcFeaturesUsersCreateUserCommandHandler"
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersCreateUserCommandHandler"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
@@ -34,20 +34,20 @@
     "Parameters": [
       {
         "Name": "UpdateUserCommand",
-        "Type": "UserService.src.Features.Users.UpdateUserCommand",
+        "Type": "UserService.src.UserService.Host.Features.Users.UpdateUserCommand",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.Models.User",
+        "Type": "UserService.src.UserService.Repository.EfCore.Entities.User",
         "MediaTypes": [
           "application/json"
         ],
         "StatusCode": 200
       }
     ],
-    "EndpointName": "UserServicesrcFeaturesUsersUpdateUserCommandHandler"
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersUpdateUserCommandHandler"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
@@ -59,7 +59,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.Features.Users.GetAllUsersResponse",
+        "Type": "UserService.src.UserService.Host.Features.Users.GetAllUsersResponse",
         "MediaTypes": [
           "application/json"
         ],
@@ -76,7 +76,7 @@
         "StatusCode": 403
       }
     ],
-    "EndpointName": "UserServicesrcFeaturesUsersGetAllUsers"
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersGetAllUsers"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
@@ -88,13 +88,13 @@
     "Parameters": [
       {
         "Name": "GetUserByIdRequest",
-        "Type": "UserService.src.Features.Users.GetUserByIdRequest",
+        "Type": "UserService.src.UserService.Host.Features.Users.GetUserByIdRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.Models.User",
+        "Type": "UserService.src.UserService.Repository.EfCore.Entities.User",
         "MediaTypes": [
           "application/json"
         ],
@@ -106,7 +106,7 @@
         "StatusCode": 404
       }
     ],
-    "EndpointName": "UserServicesrcFeaturesUsersGetUserById"
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersGetUserById"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
@@ -118,7 +118,7 @@
     "Parameters": [
       {
         "Name": "DeleteUserRequest",
-        "Type": "UserService.src.Features.Users.DeleteUserRequest",
+        "Type": "UserService.src.UserService.Host.Features.Users.DeleteUserRequest",
         "IsRequired": true
       }
     ],
@@ -136,7 +136,7 @@
         "StatusCode": 404
       }
     ],
-    "EndpointName": "UserServicesrcFeaturesUsersDeleteUser"
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersDeleteUser"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
@@ -148,13 +148,13 @@
     "Parameters": [
       {
         "Name": "SignInRequest",
-        "Type": "UserService.src.Features.Authorization.SignInRequest",
+        "Type": "UserService.src.UserService.Host.Authorization.SignInRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.Features.Authorization.SignInResult",
+        "Type": "UserService.src.UserService.Host.Authorization.SignInResult",
         "MediaTypes": [
           "application/json"
         ],
@@ -168,7 +168,7 @@
         "StatusCode": 400
       }
     ],
-    "EndpointName": "UserServicesrcFeaturesAuthorizationUserSignInEndpoint"
+    "EndpointName": "UserServicesrcUserServiceHostAuthorizationUserSignInEndpoint"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
@@ -180,7 +180,7 @@
     "Parameters": [
       {
         "Name": "VerifyUserPasswordRequest",
-        "Type": "UserService.src.Features.Users.VerifyUserPasswordRequest",
+        "Type": "UserService.src.UserService.Host.Authorization.VerifyUserPasswordRequest",
         "IsRequired": true
       }
     ],
@@ -203,7 +203,7 @@
         "StatusCode": 400
       }
     ],
-    "EndpointName": "UserServicesrcFeaturesUsersVerifyUserPasswordEndpoint"
+    "EndpointName": "UserServicesrcUserServiceHostAuthorizationVerifyUserPasswordEndpoint"
   },
   {
     "ContainingType": "UserService.Controllers.WeatherForecastController",
