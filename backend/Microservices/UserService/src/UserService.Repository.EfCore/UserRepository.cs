@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
+using UserService.src.UserService.Common;
 using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Repository.EfCore.Entities;
 
@@ -9,17 +10,19 @@ namespace UserService.src.UserService.Repository.EfCore;
 public class UserRepository : IUserRepository
 {
     private readonly DataContext _dbContext;
+    private readonly ILogger<UserRepository> _logger;
 
- 
-    public UserRepository(DataContext dbContext)
+
+    public UserRepository(DataContext dbContext, ILogger<UserRepository> logger)
     {
         _dbContext = dbContext;
+        _logger = logger;
     }
 
     public IQueryable<User> Users => _dbContext.Users;
 
     public Task<User?> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken = default) =>
-        _dbContext.Users
+        _dbContext.Users.Include(u => u.Roles)
             .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken: cancellationToken);
 
     public async Task<bool> CheckUserLoginAndEmailUniqueAsync(string login, string email, CancellationToken cancellationToken = default)
@@ -28,7 +31,7 @@ public class UserRepository : IUserRepository
     }
 
     public Task<User?> GetUserByLoginAsync(string login, CancellationToken cancellationToken = default) =>
-        _dbContext.Users
+        _dbContext.Users.Include(u => u.Roles)
             .FirstOrDefaultAsync(u => u.Login.ToLower() == login.ToLower(), cancellationToken: cancellationToken);
     
     public Task<List<User>> GetAllUsersAsync() =>
@@ -40,12 +43,13 @@ public class UserRepository : IUserRepository
 
 
     public Task<User?> GetUserByActiveDirectoryLoginAsync(string login, CancellationToken cancellationToken = default) =>
-        _dbContext.Users
+        _dbContext.Users.Include(u => u.Roles)
             .FirstOrDefaultAsync(p => p.Login!.ToLower() == login.ToLower(), cancellationToken: cancellationToken);
 
 
     public Task<User?> GetUserByEmailVerifyTokenAsync(string token, CancellationToken cancellationToken = default) =>
-        _dbContext.Users.FirstOrDefaultAsync(u => u.Email == token, cancellationToken: cancellationToken);
+        _dbContext.Users.Include(u => u.Roles)
+        .FirstOrDefaultAsync(u => u.Email == token, cancellationToken: cancellationToken);
 
 
     //public Task<User?> GetUserByResetPasswordTokenAsync(string token, CancellationToken cancellationToken = default) =>
@@ -61,6 +65,8 @@ public class UserRepository : IUserRepository
 
     public async Task UpdateUserAsync(User user)
     {
+        _dbContext.Users.Update(user);
+        await _dbContext.SaveChangesAsync();
 
     }
 
@@ -91,5 +97,30 @@ public class UserRepository : IUserRepository
     public Task<User?> GetUserByResetPasswordTokenAsync(string token, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<User?> AddRoleToUser(Guid userId, UserRole role, CancellationToken cancellationToken = default)
+    {
+        var user = await GetUserByIdAsync(userId, cancellationToken);
+        if (user == null)
+        {
+            _logger.LogError("User with Id [{UserId}] not found", userId);
+            return null;
+        }
+
+        if (user.Roles.Any(r => r.Role == role))
+        {
+            _logger.LogError("User with Id [{UserId}] already has role [{Role}]", userId, role);
+            return null;
+        }
+
+        user.Roles.Add(new UserRoleLink
+        {
+            Role = role,
+            UserId = user.Id
+        });
+        await UpdateUserAsync(user);
+
+        return user;
     }
 }

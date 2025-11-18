@@ -15,7 +15,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.UserService.Repository.EfCore.Entities.User",
+        "Type": "UserService.src.UserService.Common.DTOs.UserDto",
         "MediaTypes": [
           "application/json"
         ],
@@ -119,7 +119,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.UserService.Repository.EfCore.Entities.User",
+        "Type": "UserService.src.UserService.Common.DTOs.UserDto",
         "MediaTypes": [
           "application/json"
         ],

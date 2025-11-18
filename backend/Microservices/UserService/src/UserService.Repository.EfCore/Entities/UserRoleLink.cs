@@ -6,6 +6,6 @@ namespace UserService.src.UserService.Repository.EfCore.Entities
     {
         public Guid UserId { get; set; }
         public UserRole Role { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }

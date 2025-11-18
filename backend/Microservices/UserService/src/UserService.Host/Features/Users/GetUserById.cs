@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using UserService.src.UserService.Repository.EfCore;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using UserService.src.UserService.Common.Interfaces;
+using UserService.src.UserService.Common.DTOs;
 
 
 namespace UserService.src.UserService.Host.Features.Users;
@@ -26,7 +27,7 @@ internal sealed record GetUserByIdRequest
 //    }
 //}
 
-internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<User>, NotFound>>
+internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<UserDto>, NotFound>>
 {
     private readonly IUserRepository _repos;
     public GetUserById(IUserRepository repos)
@@ -38,16 +39,30 @@ internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<User
     {
         Post("/api/users");
         AllowAnonymous();
-        // Policy(x => x.RequireUserServicePolicy(PolicyNames.View));
     }
-    public override async Task<Results<Ok<User>, NotFound>> ExecuteAsync(GetUserByIdRequest req, CancellationToken ct)
+
+    public override async Task<Results<Ok<UserDto>, NotFound>> ExecuteAsync(GetUserByIdRequest req, CancellationToken ct)
     {
         var user = await _repos.GetUserByIdAsync(req.UserId, ct);
 
         if (user is null)
         {
             return TypedResults.NotFound();
-        }  
-        return TypedResults.Ok(user);
+        }
+
+        UserDto userDto = new()
+        {
+            Id = user.Id,
+            Login = user.Login,
+            Email = user.Email,
+            DateCreated = user.DateCreated,
+            UpdatedAt = user.UpdatedAt,
+            Avatar = user.Avatar,
+            EmailVerified = user.EmailVerified,
+            State = user.State,
+            Roles = user.Roles.Select(r => r.Role.ToString()).ToList()
+        };
+
+        return TypedResults.Ok(userDto);
     }
 }
