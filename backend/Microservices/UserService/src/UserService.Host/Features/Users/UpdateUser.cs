@@ -58,6 +58,7 @@ public class UpdateUserCommandHandler(
 
         SetUserFromDTO(user, request.newUser);
 
+
         await Send.OkAsync(user, cancellation: ct);
 
     }
@@ -66,11 +67,21 @@ public class UpdateUserCommandHandler(
     {
         user.Login = dto.Login;
         user.Email = dto.Email;
-        //user.Role = dto.Role;
         user.UpdatedAt = DateTime.UtcNow;
         user.State = dto.State;
         user.Avatar = dto.Avatar;
         user.EmailVerified = dto.EmailVerified;
         user.State = dto.State;
+
+        foreach (var role in dto.Roles)
+        {
+            var existingRoleLink = user.Roles.FirstOrDefault(r => r.Role == role);
+            if(existingRoleLink != null )          
+               user.Roles.Add(new UserRoleLink
+               {
+                   Role = role,
+                   UserId = user.Id
+               });
+        }
     }
 }

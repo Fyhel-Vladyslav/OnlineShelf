@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using UserService.src.UserService.Common;
 using UserService.src.UserService.Repository.EfCore;
 
-namespace UserService.src.UserService.Host.Authorization;
+namespace UserService.src.UserService.Host.Features.Authorization;
 
 internal sealed record VerifyUserPasswordRequest
 {

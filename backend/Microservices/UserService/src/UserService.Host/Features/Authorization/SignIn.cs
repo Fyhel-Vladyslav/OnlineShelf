@@ -10,7 +10,7 @@ using UserService.src.UserService.Repository.EfCore;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using static FastEndpoints.Ep;
 
-namespace UserService.src.UserService.Host.Authorization;
+namespace UserService.src.UserService.Host.Features.Authorization;
 internal sealed record SignInRequest(string Login, string Password);
 public sealed record SignInResult(string Token);
 

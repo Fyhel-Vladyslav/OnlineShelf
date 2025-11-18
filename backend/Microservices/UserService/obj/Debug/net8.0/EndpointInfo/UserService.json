@@ -5,6 +5,36 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/add-role": {
+      "post": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServicesrcUserServiceHostFeaturesUsersAddRoleToUserCommandHandler",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/AddRoleToUserCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/add-user": {
       "post": {
         "tags": [
@@ -166,7 +196,7 @@
         "tags": [
           "UserService"
         ],
-        "operationId": "UserServicesrcUserServiceHostAuthorizationUserSignInEndpoint",
+        "operationId": "UserServicesrcUserServiceHostFeaturesAuthorizationUserSignInEndpoint",
         "requestBody": {
           "content": {
             "application/json": {
@@ -206,7 +236,7 @@
         "tags": [
           "UserService"
         ],
-        "operationId": "UserServicesrcUserServiceHostAuthorizationVerifyUserPasswordEndpoint",
+        "operationId": "UserServicesrcUserServiceHostFeaturesAuthorizationVerifyUserPasswordEndpoint",
         "requestBody": {
           "content": {
             "application/json": {
@@ -279,6 +309,10 @@
   },
   "components": {
     "schemas": {
+      "AddRoleToUserCommand": {
+        "type": "object",
+        "additionalProperties": false
+      },
       "CreateUserCommand": {
         "type": "object",
         "properties": {
@@ -303,8 +337,12 @@
             "type": "string",
             "nullable": true
           },
-          "role": {
-            "$ref": "#/components/schemas/UserRole"
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserRole"
+            },
+            "nullable": true
           },
           "avatar": {
             "type": "string",
@@ -424,8 +462,12 @@
             "type": "string",
             "nullable": true
           },
-          "role": {
-            "$ref": "#/components/schemas/UserRole"
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserRole"
+            },
+            "nullable": true
           },
           "emailVerified": {
             "type": "boolean"

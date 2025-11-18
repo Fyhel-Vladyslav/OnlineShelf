@@ -59,13 +59,22 @@ public class CreateUserCommandHandler(
         var newUser = new User
         {
             Id = Guid.NewGuid(),
-            Login = dto.Login,
+            Login = String.IsNullOrEmpty(dto.Login)? dto.Email : dto.Login,
             Email = dto.Email,
-            //Role = dto.Role,
             PasswordHash = "",
             DateCreated = DateTime.UtcNow
 
         };
+
+        foreach(var role in dto.Roles)
+        {
+            newUser.Roles.Add(new UserRoleLink
+            {
+                Role = role,
+                UserId = newUser.Id
+            });
+        }
+
         /// create dto with password field
         newUser.PasswordHash = passwordHasher.HashPassword(newUser, dto.Password);
 

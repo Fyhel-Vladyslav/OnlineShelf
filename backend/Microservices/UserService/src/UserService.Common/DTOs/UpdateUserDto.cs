@@ -1,4 +1,6 @@
-﻿namespace UserService.src.UserService.Common.DTOs;
+﻿using UserService.src.UserService.Repository.EfCore.Entities;
+
+namespace UserService.src.UserService.Common.DTOs;
 
 public class UpdateUserDto
 {
@@ -6,7 +8,7 @@ public class UpdateUserDto
     public string Login { get; set; }
     public string Password { get; set; }
     public string Email { get; set; }
-    public UserRole Role { get; set; }
+    public List<UserRole> Roles { get; set; }
     public bool EmailVerified { get; set; }
     public int State { get; set; }
     public string? Avatar { get; set; }

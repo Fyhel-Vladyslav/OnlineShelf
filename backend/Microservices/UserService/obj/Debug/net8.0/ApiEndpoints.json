@@ -2,6 +2,31 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "api/add-role",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "AddRoleToUserCommand",
+        "Type": "UserService.src.UserService.Host.Features.Users.AddRoleToUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "UserService.src.UserService.Repository.EfCore.Entities.User",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersAddRoleToUserCommandHandler"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
     "RelativePath": "api/add-user",
     "HttpMethod": "POST",
     "IsController": false,
@@ -148,13 +173,13 @@
     "Parameters": [
       {
         "Name": "SignInRequest",
-        "Type": "UserService.src.UserService.Host.Authorization.SignInRequest",
+        "Type": "UserService.src.UserService.Host.Features.Authorization.SignInRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.UserService.Host.Authorization.SignInResult",
+        "Type": "UserService.src.UserService.Host.Features.Authorization.SignInResult",
         "MediaTypes": [
           "application/json"
         ],
@@ -168,7 +193,7 @@
         "StatusCode": 400
       }
     ],
-    "EndpointName": "UserServicesrcUserServiceHostAuthorizationUserSignInEndpoint"
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesAuthorizationUserSignInEndpoint"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
@@ -180,7 +205,7 @@
     "Parameters": [
       {
         "Name": "VerifyUserPasswordRequest",
-        "Type": "UserService.src.UserService.Host.Authorization.VerifyUserPasswordRequest",
+        "Type": "UserService.src.UserService.Host.Features.Authorization.VerifyUserPasswordRequest",
         "IsRequired": true
       }
     ],
@@ -203,7 +228,7 @@
         "StatusCode": 400
       }
     ],
-    "EndpointName": "UserServicesrcUserServiceHostAuthorizationVerifyUserPasswordEndpoint"
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesAuthorizationVerifyUserPasswordEndpoint"
   },
   {
     "ContainingType": "UserService.Controllers.WeatherForecastController",
