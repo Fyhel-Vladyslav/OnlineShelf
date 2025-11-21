@@ -6,6 +6,7 @@ using UserService.src.UserService.Repository.EfCore;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Common.DTOs;
+using UserService.Extentions;
 
 
 namespace UserService.src.UserService.Host.Features.Users;
@@ -50,19 +51,6 @@ internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<User
             return TypedResults.NotFound();
         }
 
-        UserDto userDto = new()
-        {
-            Id = user.Id,
-            Login = user.Login,
-            Email = user.Email,
-            DateCreated = user.DateCreated,
-            UpdatedAt = user.UpdatedAt,
-            Avatar = user.Avatar,
-            EmailVerified = user.EmailVerified,
-            State = user.State,
-            Roles = user.Roles.Select(r => r.Role.ToString()).ToList()
-        };
-
-        return TypedResults.Ok(userDto);
+        return TypedResults.Ok(user.ToDto());
     }
 }

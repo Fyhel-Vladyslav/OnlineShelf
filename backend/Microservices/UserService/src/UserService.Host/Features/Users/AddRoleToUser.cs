@@ -30,19 +30,30 @@ public class AddRoleToUserCommandHandler(
 
     public override async Task HandleAsync(AddRoleToUserCommand request, CancellationToken ct)
     {
+        var roles = await repos.GetUserRoles();
 
-        UserRole newRole;
-
-        bool isNewRoleValid = Enum.TryParse<UserRole>(request.Role, true, out newRole);
-
-        if (!isNewRoleValid)
+        if (roles ==null)
         {
             await Send.NotFoundAsync(cancellation: ct);  
             return;
         }
 
+        Role newRole = roles.FirstOrDefault(r => r.Name.Equals(request.Role, StringComparison.OrdinalIgnoreCase));
+
+        if (newRole == null)
+        {
+            Logger.LogError("Role [{Role}] not found", request.Role);
+            await Send.NotFoundAsync(cancellation: ct);
+            return;
+        }
+
         var user = await repos.AddRoleToUser(request.UserId, newRole, ct);
 
+        if (user == null)
+        {
+            await Send.NotFoundAsync(cancellation: ct);
+            return;
+        }
         await Send.OkAsync(user.ToDto(), cancellation: ct);
     }
 }

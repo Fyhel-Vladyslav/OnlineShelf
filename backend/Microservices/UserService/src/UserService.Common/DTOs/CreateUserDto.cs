@@ -7,7 +7,7 @@ public class CreateUserDto
         public string Login { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public List<UserRole> Roles { get; set; }
+        public List<Role> Roles { get; set; }
         public string? Avatar { get; set; }
     }
 

@@ -1,4 +1,6 @@
 ﻿using FastEndpoints;
+using Microsoft.EntityFrameworkCore;
+using UserService.src.UserService.Repository.EfCore;
 
 namespace UserService.Extentions.DependencyInjection
 {
@@ -11,6 +13,15 @@ namespace UserService.Extentions.DependencyInjection
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+            }
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+                if (app.Environment.IsDevelopment())
+                {
+                    db.Database.ExecuteSqlRaw(@"CREATE SCHEMA IF NOT EXISTS ""user-service"";");
+                    db.Database.EnsureCreated();
+                }
             }
 
             app.UseAuthentication();

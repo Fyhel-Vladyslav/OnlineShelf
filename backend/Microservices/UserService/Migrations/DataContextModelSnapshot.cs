@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UserService.src.UserService.Repository.EfCore;
@@ -12,11 +11,9 @@ using UserService.src.UserService.Repository.EfCore;
 namespace UserService.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20251116223657_AddUserRoleLinks")]
-    partial class AddUserRoleLinks
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,6 +22,53 @@ namespace UserService.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("UserService.src.UserService.Repository.EfCore.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles", "user-service");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "System administrator",
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Regular user",
+                            Name = "User"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Paid premium account",
+                            Name = "PremiumUser"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Designer role",
+                            Name = "Designer"
+                        });
+                });
 
             modelBuilder.Entity("UserService.src.UserService.Repository.EfCore.Entities.User", b =>
                 {
@@ -94,23 +138,45 @@ namespace UserService.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Role")
+                    b.Property<int>("RoleId")
                         .HasColumnType("integer");
 
-                    b.HasKey("UserId", "Role");
+                    b.HasKey("UserId", "RoleId");
 
-                    b.ToTable("UserRoleLink", "user-service");
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoleLinks", "user-service");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("d1437f42-8b54-4a02-b0a5-800426cd7580"),
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("UserService.src.UserService.Repository.EfCore.Entities.UserRoleLink", b =>
                 {
+                    b.HasOne("UserService.src.UserService.Repository.EfCore.Entities.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("UserService.src.UserService.Repository.EfCore.Entities.User", "User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Role");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UserService.src.UserService.Repository.EfCore.Entities.Role", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("UserService.src.UserService.Repository.EfCore.Entities.User", b =>

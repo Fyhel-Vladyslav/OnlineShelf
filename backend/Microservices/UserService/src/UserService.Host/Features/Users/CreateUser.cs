@@ -66,7 +66,7 @@ public class CreateUserCommandHandler(
 
         };
 
-        foreach(var role in dto.Roles)
+        foreach (var role in dto.Roles)
         {
             newUser.Roles.Add(new UserRoleLink
             {

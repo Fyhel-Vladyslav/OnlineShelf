@@ -26,7 +26,7 @@ public static class UserMappingExtensions
             Avatar = user.Avatar,
             EmailVerified = user.EmailVerified,
             State = user.State,
-            Roles = user.Roles.Select(r => r.Role.ToString()).ToList()
+            Roles = user.Roles.Select(r => r.Role.Name).ToList()
         };
     }
 }

@@ -350,7 +350,7 @@
           "roles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserRole"
+              "$ref": "#/components/schemas/Role"
             },
             "nullable": true
           },
@@ -420,6 +420,31 @@
         },
         "additionalProperties": false
       },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "userRoles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserRoleLink"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "SignInRequest": {
         "type": "object",
         "properties": {
@@ -475,7 +500,7 @@
           "roles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserRole"
+              "$ref": "#/components/schemas/Role"
             },
             "nullable": true
           },
@@ -561,10 +586,6 @@
             "type": "string",
             "nullable": true
           },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
           "email": {
             "type": "string",
             "nullable": true
@@ -599,17 +620,6 @@
         },
         "additionalProperties": false
       },
-      "UserRole": {
-        "enum": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
       "UserRoleLink": {
         "type": "object",
         "properties": {
@@ -617,11 +627,15 @@
             "type": "string",
             "format": "uuid"
           },
-          "role": {
-            "$ref": "#/components/schemas/UserRole"
+          "roleId": {
+            "type": "integer",
+            "format": "int32"
           },
           "user": {
             "$ref": "#/components/schemas/User"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
           }
         },
         "additionalProperties": false

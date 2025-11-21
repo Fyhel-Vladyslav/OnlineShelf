@@ -76,12 +76,12 @@ public class UpdateUserCommandHandler(
         foreach (var role in dto.Roles)
         {
             var existingRoleLink = user.Roles.FirstOrDefault(r => r.Role == role);
-            if(existingRoleLink != null )          
-               user.Roles.Add(new UserRoleLink
-               {
-                   Role = role,
-                   UserId = user.Id
-               });
+            if (existingRoleLink != null)
+                user.Roles.Add(new UserRoleLink
+                {
+                    Role = role,
+                    UserId = user.Id
+                });
         }
     }
 }

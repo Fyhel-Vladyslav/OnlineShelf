@@ -22,7 +22,7 @@ public class UserRepository : IUserRepository
     public IQueryable<User> Users => _dbContext.Users;
 
     public Task<User?> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken = default) =>
-        _dbContext.Users.Include(u => u.Roles)
+        _dbContext.Users.Include(u => u.Roles).ThenInclude(ur => ur.Role)
             .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken: cancellationToken);
 
     public async Task<bool> CheckUserLoginAndEmailUniqueAsync(string login, string email, CancellationToken cancellationToken = default)
@@ -35,10 +35,10 @@ public class UserRepository : IUserRepository
             .FirstOrDefaultAsync(u => u.Login.ToLower() == login.ToLower(), cancellationToken: cancellationToken);
     
     public Task<List<User>> GetAllUsersAsync() =>
-        _dbContext.Users.ToListAsync();
+        _dbContext.Users.Include(u => u.Roles).ToListAsync();
 
     public Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default) =>
-        _dbContext.Users
+        _dbContext.Users.Include(u => u.Roles)
             .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower(), cancellationToken: cancellationToken);
 
 
@@ -98,8 +98,11 @@ public class UserRepository : IUserRepository
     {
         throw new NotImplementedException();
     }
-
-    public async Task<User?> AddRoleToUser(Guid userId, UserRole role, CancellationToken cancellationToken = default)
+    public async Task<List<Role>> GetUserRoles()
+    {
+        return await _dbContext.Roles.ToListAsync();
+    }
+    public async Task<User> AddRoleToUser(Guid userId, Role role, CancellationToken cancellationToken = default)
     {
         var user = await GetUserByIdAsync(userId, cancellationToken);
         if (user == null)
@@ -111,7 +114,7 @@ public class UserRepository : IUserRepository
         if (user.Roles.Any(r => r.Role == role))
         {
             _logger.LogError("User with Id [{UserId}] already has role [{Role}]", userId, role);
-            return null;
+            return user;
         }
 
         user.Roles.Add(new UserRoleLink
