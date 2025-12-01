@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UserService.src.UserService.Common;
+using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Host.Features.JwtToken;
 using UserService.src.UserService.Repository.EfCore;
 using UserService.src.UserService.Repository.EfCore.Entities;
@@ -31,8 +32,8 @@ internal sealed class SignInRequestValidator : Validator<SignInRequest>
 
 internal sealed class UserSignInEndpoint(
     JwtTokenService jwt,
-    DataContext dbcon,
-    IPasswordHasher<User> passwordHasher
+    IUserRepository repos,
+IPasswordHasher<User> passwordHasher
     //IJwtTokenProvider jwtTokenProvider,
     //IUserClaimProvider userClaimProvider,
     //ILdapAuthenticationService ldapAuthenticationService
@@ -52,10 +53,8 @@ internal sealed class UserSignInEndpoint(
 
     public override async Task HandleAsync(SignInRequest request, CancellationToken ct)
     {
-        // Lookup by email
-        var user = await dbcon.Users
-            .Include(u => u.Roles)
-            .FirstOrDefaultAsync(u => u.Login == request.Login, ct);
+
+        var user = await repos.GetUserByLoginAsync(request.Login, ct);
 
         if (user is null)
         {
@@ -74,10 +73,11 @@ internal sealed class UserSignInEndpoint(
             ThrowError("Invalid credentials");
         }
 
+        // TODO delete
         if (verifyResult == PasswordVerificationResult.SuccessRehashNeeded)
         {
             user.PasswordHash = passwordHasher.HashPassword(user, request.Password);
-            await dbcon.SaveChangesAsync(ct);
+            //await dbcon.SaveChangesAsync(ct);
         }
 
         var token = jwt.CreateToken(user.Id, user.Roles, TimeSpan.FromHours(1));

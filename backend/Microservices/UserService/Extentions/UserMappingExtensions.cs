@@ -7,13 +7,13 @@ namespace UserService.Extentions;
 
 public static class UserMappingExtensions
 {
-    // 'this User user' makes this method an extension method on the User class
+    // 'this User user' makes this method an extension method on the User class  
     public static UserDto ToDto(this User user)
     {
-        // Null check for safety
+        // Null check for safety  
         if (user == null)
         {
-            return null;
+            return new UserDto();
         }
 
         return new UserDto

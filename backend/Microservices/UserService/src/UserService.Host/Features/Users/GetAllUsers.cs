@@ -2,10 +2,12 @@
 using FastEndpoints;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using UserService.src.UserService.Common.Interfaces;
+using UserService.src.UserService.Common.DTOs;
+using UserService.Extentions;
 
 namespace UserService.src.UserService.Host.Features.Users;
 
-sealed record GetAllUsersResponse(List<User> users);
+sealed record GetAllUsersResponse(List<UserDto> users);
 
 class GetAllUsers : EndpointWithoutRequest<GetAllUsersResponse>
 {
@@ -19,12 +21,17 @@ class GetAllUsers : EndpointWithoutRequest<GetAllUsersResponse>
     public override void Configure()
     {
         Get("/api/users");
-        Policies("AdminPolicy");
+        AllowAnonymous();
+        //Policies("AdminPolicy");
     }
 
     public override async Task<GetAllUsersResponse> ExecuteAsync(CancellationToken ct)
     {
         var users = await _repos.GetAllUsersAsync();
-        return new GetAllUsersResponse(users);
+
+        return new GetAllUsersResponse(
+            users.Select(u => u.ToDto())
+            .ToList()
+            );
     }
 }

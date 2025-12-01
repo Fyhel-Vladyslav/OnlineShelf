@@ -31,11 +31,11 @@ public class UserRepository : IUserRepository
     }
 
     public Task<User?> GetUserByLoginAsync(string login, CancellationToken cancellationToken = default) =>
-        _dbContext.Users.Include(u => u.Roles)
+        _dbContext.Users.Include(u => u.Roles).ThenInclude(ur => ur.Role)
             .FirstOrDefaultAsync(u => u.Login.ToLower() == login.ToLower(), cancellationToken: cancellationToken);
     
     public Task<List<User>> GetAllUsersAsync() =>
-        _dbContext.Users.Include(u => u.Roles).ToListAsync();
+        _dbContext.Users.Include(u => u.Roles).ThenInclude(ur => ur.Role).ToListAsync();
 
     public Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default) =>
         _dbContext.Users.Include(u => u.Roles)

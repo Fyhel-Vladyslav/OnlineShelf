@@ -89,16 +89,6 @@
           "application/json"
         ],
         "StatusCode": 200
-      },
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 401
-      },
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 403
       }
     ],
     "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersGetAllUsers"
@@ -129,6 +119,16 @@
         "Type": "System.Void",
         "MediaTypes": [],
         "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 403
       }
     ],
     "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersGetUserById"

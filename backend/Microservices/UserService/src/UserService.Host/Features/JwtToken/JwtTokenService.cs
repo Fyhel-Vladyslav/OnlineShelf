@@ -33,9 +33,20 @@ public sealed class JwtTokenService
             o.User.Claims.Add((JwtRegisteredClaimNames.Sub, userId.ToString()));
             o.User.Claims.Add((JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
 
-            foreach (var role in roles)
+            if (roles != null)
             {
-                o.User.Claims.Add((ClaimTypes.Role, role.Role.ToString()));
+                foreach (var roleLink in roles)
+                {
+                    if (roleLink.Role?.Name != null)
+                    {
+                        o.User.Claims.Add(
+                            (
+                            ClaimTypes.Role,
+                            roleLink.Role.Name
+                            )
+                        );
+                    }
+                }
             }
         });
     }
