@@ -20,7 +20,7 @@ namespace UserService.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("user-service")
+                .HasDefaultSchema("user_service")
                 .HasAnnotation("ProductVersion", "9.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -44,7 +44,7 @@ namespace UserService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", "user-service");
+                    b.ToTable("Roles", "user_service");
 
                     b.HasData(
                         new
@@ -109,7 +109,7 @@ namespace UserService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", "user-service");
+                    b.ToTable("Users", "user_service");
 
                     b.HasData(
                         new
@@ -148,7 +148,7 @@ namespace UserService.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoleLinks", "user-service");
+                    b.ToTable("UserRoleLinks", "user_service");
 
                     b.HasData(
                         new

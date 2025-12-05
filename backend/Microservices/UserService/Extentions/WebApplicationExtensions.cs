@@ -19,8 +19,10 @@ namespace UserService.Extentions.DependencyInjection
                 var db = scope.ServiceProvider.GetRequiredService<DataContext>();
                 if (app.Environment.IsDevelopment())
                 {
-                    db.Database.ExecuteSqlRaw(@"CREATE SCHEMA IF NOT EXISTS ""user-service"";");
-                    db.Database.EnsureCreated();
+                    db.Database.ExecuteSqlRaw(@"CREATE SCHEMA IF NOT EXISTS ""user_service"";");
+
+                    //db.Database.Migrate();  
+                    //await DatabaseSeeder.SeedAsync(db);
                 }
             }
 

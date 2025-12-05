@@ -15,11 +15,11 @@ namespace UserService.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "user-service");
+                name: "user_service");
 
             migrationBuilder.CreateTable(
                 name: "Roles",
-                schema: "user-service",
+                schema: "user_service",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -34,7 +34,7 @@ namespace UserService.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
-                schema: "user-service",
+                schema: "user_service",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -54,7 +54,7 @@ namespace UserService.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserRoleLinks",
-                schema: "user-service",
+                schema: "user_service",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -66,21 +66,21 @@ namespace UserService.Migrations
                     table.ForeignKey(
                         name: "FK_UserRoleLinks_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalSchema: "user-service",
+                        principalSchema: "user_service",
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserRoleLinks_Users_UserId",
                         column: x => x.UserId,
-                        principalSchema: "user-service",
+                        principalSchema: "user_service",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                schema: "user-service",
+                schema: "user_service",
                 table: "Roles",
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
@@ -92,7 +92,7 @@ namespace UserService.Migrations
                 });
 
             migrationBuilder.InsertData(
-                schema: "user-service",
+                schema: "user_service",
                 table: "Users",
                 columns: new[] { "Id", "Avatar", "DateCreated", "Email", "EmailVerified", "Login", "PasswordHash", "State", "UpdatedAt" },
                 values: new object[,]
@@ -102,14 +102,14 @@ namespace UserService.Migrations
                 });
 
             migrationBuilder.InsertData(
-                schema: "user-service",
+                schema: "user_service",
                 table: "UserRoleLinks",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { 1, new Guid("d1437f42-8b54-4a02-b0a5-800426cd7580") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoleLinks_RoleId",
-                schema: "user-service",
+                schema: "user_service",
                 table: "UserRoleLinks",
                 column: "RoleId");
         }
@@ -119,15 +119,15 @@ namespace UserService.Migrations
         {
             migrationBuilder.DropTable(
                 name: "UserRoleLinks",
-                schema: "user-service");
+                schema: "user_service");
 
             migrationBuilder.DropTable(
                 name: "Roles",
-                schema: "user-service");
+                schema: "user_service");
 
             migrationBuilder.DropTable(
                 name: "Users",
-                schema: "user-service");
+                schema: "user_service");
         }
     }
 }
