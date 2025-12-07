@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
@@ -11,12 +12,18 @@ public class UserRepository : IUserRepository
 {
     private readonly DataContext _dbContext;
     private readonly ILogger<UserRepository> _logger;
+    private readonly IPasswordHasher<User> _passwordHasher;
 
 
-    public UserRepository(DataContext dbContext, ILogger<UserRepository> logger)
+    public UserRepository(
+        DataContext dbContext, 
+        ILogger<UserRepository> logger,
+        IPasswordHasher<User> passwordHasher
+        )
     {
         _dbContext = dbContext;
         _logger = logger;
+        _passwordHasher = passwordHasher;
     }
 
     public IQueryable<User> Users => _dbContext.Users;
@@ -125,5 +132,12 @@ public class UserRepository : IUserRepository
         await UpdateUserAsync(user);
 
         return user;
+    }
+
+    public async Task<bool> VerifyUserPasswordAsync(User user, string password, CancellationToken cancellationToken = default)
+    {
+        var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
+        return result == PasswordVerificationResult.Success;
+
     }
 }

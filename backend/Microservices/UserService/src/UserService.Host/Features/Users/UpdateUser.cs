@@ -8,6 +8,7 @@ using UserService.src.UserService.Repository.EfCore;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using UserService.src.UserService.Common.DTOs;
 using UserService.src.UserService.Common.Interfaces;
+using UserService.src.UserService.Common;
 
 namespace UserService.src.UserService.Host.Features.Users;
 public sealed record UpdateUserCommand(UpdateUserDto newUser) : IRequest<ErrorOr<User>>;
@@ -35,7 +36,7 @@ public class UpdateUserCommandHandler(
 
     public override void Configure()
     {
-        Post("/api/update-user");
+        Post(ApiRoutes.UpdateUser);
         AllowAnonymous();
     }
 

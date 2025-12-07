@@ -24,7 +24,7 @@ internal sealed class DeleteUser : Endpoint<DeleteUserRequest, Results<Ok<Guid>,
 
     public override void Configure()
     {
-        Delete($"{ApiRoutes.DeleteUser}");
+        Delete(ApiRoutes.DeleteUser);
         if (_env.IsDevelopment())
         {
             AllowAnonymous();

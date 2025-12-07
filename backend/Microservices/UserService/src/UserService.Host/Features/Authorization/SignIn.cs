@@ -46,7 +46,7 @@ IPasswordHasher<User> passwordHasher
     public override void Configure()
     {
 
-        Post($"{ApiRoutes.Users}/sign-in");
+        Post(ApiRoutes.SignIn);
         AllowAnonymous();
         DontThrowIfValidationFails();
     }

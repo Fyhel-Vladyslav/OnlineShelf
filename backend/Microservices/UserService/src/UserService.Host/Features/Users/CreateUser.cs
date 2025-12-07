@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using UserService.src.UserService.Common.DTOs;
 using UserService.src.UserService.Common.Interfaces;
+using UserService.src.UserService.Common;
 
 namespace UserService.src.UserService.Host.Features.Users;
 public sealed record CreateUserCommand(CreateUserDto newUser) : IRequest<ErrorOr<User>>;
@@ -33,7 +34,7 @@ public class CreateUserCommandHandler(
 {
     public override void Configure()
     {
-        Post("/api/add-user");
+        Post(ApiRoutes.AddUser);
         AllowAnonymous();
     }
 

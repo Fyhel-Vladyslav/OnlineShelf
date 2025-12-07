@@ -19,5 +19,6 @@ public interface IUserRepository
     Task<User> AddRoleToUser(Guid userId, Role newRole, CancellationToken ct);
 
     Task<List<Role>> GetUserRoles();
+    Task<bool> VerifyUserPasswordAsync(User user, string password, CancellationToken cancellationToken = default);
 }
 

@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/add-role": {
+    "/users/add-role-to-user": {
       "post": {
         "tags": [
           "UserService"
@@ -35,7 +35,7 @@
         }
       }
     },
-    "/api/add-user": {
+    "/users/add-user": {
       "post": {
         "tags": [
           "UserService"
@@ -104,7 +104,7 @@
         }
       }
     },
-    "/api/users": {
+    "/users": {
       "get": {
         "tags": [
           "UserService"
@@ -122,7 +122,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/users/getById": {
       "post": {
         "tags": [
           "UserService"
@@ -161,7 +163,7 @@
         }
       }
     },
-    "/api/update-user": {
+    "/users/update-user": {
       "post": {
         "tags": [
           "UserService"

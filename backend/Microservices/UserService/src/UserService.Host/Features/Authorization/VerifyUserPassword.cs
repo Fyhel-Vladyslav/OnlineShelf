@@ -1,10 +1,15 @@
 ﻿
 using FastEndpoints;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UserService.src.UserService.Common;
+using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Repository.EfCore;
+using UserService.src.UserService.Repository.EfCore.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace UserService.src.UserService.Host.Features.Authorization;
 
@@ -14,50 +19,44 @@ internal sealed record VerifyUserPasswordRequest
     public string Password { get; init; } = null!;
 }
 
-//internal sealed class VerifyUserPasswordRequestValidator : Validator<VerifyUserPasswordRequest>
-//{
-//    public VerifyUserPasswordRequestValidator()
-//    {
-//        RuleFor(x => x.Password)
-//            .();
-//    }
-//}
-
-internal sealed class VerifyUserPasswordEndpoint(DataContext dbCon)
-    : Endpoint<VerifyUserPasswordRequest, Results<Ok, NotFound, BadRequest<string>>>
+internal sealed class VerifyUserPasswordEndpoint(
+   IUserRepository repos
+   )
+   : Endpoint<VerifyUserPasswordRequest, Results<Ok, NotFound, BadRequest<string>>>
 {
-    private readonly DataContext _dbCon = dbCon ?? throw new ArgumentNullException(nameof(dbCon));
-
     public override void Configure()
     {
         AllowAnonymous();
-        Post($"{ApiRoutes.Users}/verify-user-password");
+        Post(ApiRoutes.VerifyPassword);
         DontThrowIfValidationFails();
     }
-    public override async Task HandleAsync(VerifyUserPasswordRequest request, CancellationToken ct)
+    public override async Task<object> HandleAsync(VerifyUserPasswordRequest request, CancellationToken ct)
     {
         if (ValidationFailed)
         {
-            //await SendBadRequestAsync(ct);
-            return;
+            await Send.NoContentAsync(ct);
+            return TypedResults.NotFound();
         }
 
-        var user = await _dbCon.Users.FirstOrDefaultAsync(p => p.Id == request.UserId);
+        var user = await repos.Users.FirstOrDefaultAsync(p => p.Id == request.UserId);
         if (user is null)
         {
             Logger.LogInformation("User with Id: {UserId} not found", request.UserId);
-            return;
+            await Send.NotFoundAsync(ct);
+            return TypedResults.NotFound();
         }
 
-        //var passwordValidator = Resolve<ICompositePasswordValidator<User>>();
-        //var result = await passwordValidator.ValidateAsync(user, request.Password);
-        //if (!result.Succeeded)
-        //{
-        //    //await SendResultAsync(result.ToRsCoreBadRequest());
-        //    return;
-        //}
+        var isPasswordСongruent = await repos.VerifyUserPasswordAsync(user, request.Password, ct);
 
-        //return TypedResults.Ok();
+        if (!isPasswordСongruent)
+        {
+            Logger.LogInformation("Password for User with Id: {UserId} is incorrect", request.UserId);
+            await Send.ErrorsAsync(400, ct);
+            return TypedResults.BadRequest("Password is incorrect");
+        }
+
+        await Send.OkAsync(TypedResults.Ok());
+        return TypedResults.Ok();
     }
 }
 

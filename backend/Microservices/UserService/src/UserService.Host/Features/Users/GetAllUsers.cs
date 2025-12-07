@@ -4,6 +4,7 @@ using UserService.src.UserService.Repository.EfCore.Entities;
 using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Common.DTOs;
 using UserService.Extentions;
+using UserService.src.UserService.Common;
 
 namespace UserService.src.UserService.Host.Features.Users;
 
@@ -20,7 +21,7 @@ class GetAllUsers : EndpointWithoutRequest<GetAllUsersResponse>
 
     public override void Configure()
     {
-        Get("/api/users");
+        Get(ApiRoutes.Users);
         AllowAnonymous();
         //Policies("AdminPolicy");
     }

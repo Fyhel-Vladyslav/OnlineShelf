@@ -24,7 +24,7 @@ public class AddRoleToUserCommandHandler(
 {
     public override void Configure()
     {
-        Post("/api/add-role");
+        Post(ApiRoutes.AddRoleToUser);
         AllowAnonymous();
     }
 
