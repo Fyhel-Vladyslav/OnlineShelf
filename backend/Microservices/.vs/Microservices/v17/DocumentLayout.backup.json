@@ -1,12 +1,105 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\extentions\\usersextention.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\extentions\\usersextention.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\extentions\\webapplicationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\extentions\\webapplicationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\extentions\\dbinitializationextention.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\extentions\\dbinitializationextention.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\src\\userservice.repository.efcore\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\src\\userservice.repository.efcore\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Program.cs",
+              "RelativeDocumentMoniker": "UserService\\Program.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Program.cs*",
+              "RelativeToolTip": "UserService\\Program.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T23:03:10.666Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DbInitializationExtention.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Extentions\\DbInitializationExtention.cs",
+              "RelativeDocumentMoniker": "UserService\\Extentions\\DbInitializationExtention.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Extentions\\DbInitializationExtention.cs",
+              "RelativeToolTip": "UserService\\Extentions\\DbInitializationExtention.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAgwAsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T23:01:11.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DatabaseSeeder.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\UserService.Repository.EfCore\\DatabaseSeeder.cs",
+              "RelativeDocumentMoniker": "UserService\\src\\UserService.Repository.EfCore\\DatabaseSeeder.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\UserService.Repository.EfCore\\DatabaseSeeder.cs",
+              "RelativeToolTip": "UserService\\src\\UserService.Repository.EfCore\\DatabaseSeeder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T22:47:58.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WebApplicationExtensions.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Extentions\\WebApplicationExtensions.cs",
+              "RelativeDocumentMoniker": "UserService\\Extentions\\WebApplicationExtensions.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Extentions\\WebApplicationExtensions.cs",
+              "RelativeToolTip": "UserService\\Extentions\\WebApplicationExtensions.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAiwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T22:46:07.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsersExtention.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Extentions\\UsersExtention.cs",
+              "RelativeDocumentMoniker": "UserService\\Extentions\\UsersExtention.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\Extentions\\UsersExtention.cs*",
+              "RelativeToolTip": "UserService\\Extentions\\UsersExtention.cs*",
+              "ViewState": "AgIAABAAAAAAAAAAAAAqwB4AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T22:46:04.123Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

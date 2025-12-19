@@ -19,7 +19,20 @@ namespace UserService.Extentions.DependencyInjection
 
             var connectionString = configuration.GetConnectionString("UserDbConnection");
             services.AddDbContext<DataContext>(options =>
-                options.UseNpgsql(connectionString));
+                options.UseNpgsql(connectionString,
+                    npgsql =>
+                    {
+                        npgsql.MigrationsHistoryTable(
+                            "__EFMigrationsHistory",
+                            "user_service"
+                        );
+                    }
+
+                )
+            );
+
+            services.AddUserDatabaseInitialization();
+
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
             services.AddFastEndpoints();
