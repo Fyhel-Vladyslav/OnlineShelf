@@ -1,0 +1,27 @@
+.user-management-page {
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-management-page h1 {
+  margin-bottom: 20px;
+}
+
+.user-table {
+  flex: 1;
+  width: 100%;
+}
+
+.user-table .ant-table {
+  height: 100%;
+}
+
+.user-table .ant-table-container {
+  height: 100%;
+}
+
+.user-table .ant-table-body {
+  height: calc(100vh - 200px) !important; /* Adjust based on header height */
+}

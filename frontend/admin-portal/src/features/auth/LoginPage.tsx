@@ -13,8 +13,9 @@ const LoginPage: React.FC = () => {
   });
 
   const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    const emailOrLoginRegex =
+    /^(?:[^\s@]+@[^\s@]+\.[^\s@]+|[a-zA-Z0-9._-]{3,})$/;
+    return emailOrLoginRegex.test(email);
   };
 
   const validatePassword = (password: string) => {
@@ -67,13 +68,13 @@ const LoginPage: React.FC = () => {
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
-              type="email"
+              type="text"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               className={errors.email ? 'error' : ''}
-              placeholder="Enter your email"
+              placeholder="Enter your login or email"
             />
             {errors.email && <span className="error-message">{errors.email}</span>}
           </div>

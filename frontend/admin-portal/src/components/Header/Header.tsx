@@ -1,19 +1,27 @@
 import React from 'react';
 import { Button } from 'antd';
-import { LoginOutlined, SettingOutlined } from '@ant-design/icons';
+import { LoginOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import './Header.css';
 import { useNavigate } from "react-router-dom";
 
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  // TODO: Replace with actual admin role check from authentication context
+  const isAdmin = true; // Placeholder for admin user check
+
   return (
     <header className="header">
      <div className="logo"
-        onClick={() => navigate("/")}>  
+        onClick={() => navigate("/")}>
           <h2>MySite</h2>
       </div>
       <div className="header-right">
+        {isAdmin && (
+          <Button type="link" href="/user-management" icon={<UserOutlined />} >
+            Users
+          </Button>
+        )}
         <Button type="link" href="/login" icon={<LoginOutlined />} >
           Login
         </Button>

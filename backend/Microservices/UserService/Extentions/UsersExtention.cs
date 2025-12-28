@@ -17,6 +17,17 @@ namespace UserService.Extentions.DependencyInjection
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("FrontendPolicy", policy =>
+                {
+                    policy
+                        .WithOrigins("http://localhost:5173")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             var connectionString = configuration.GetConnectionString("UserDbConnection");
             services.AddDbContext<DataContext>(options =>
                 options.UseNpgsql(connectionString,

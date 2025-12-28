@@ -40,8 +40,8 @@ internal sealed class GetUserById : Endpoint<GetUserByIdRequest, Results<Ok<User
     public override void Configure()
     {
         Post(ApiRoutes.GetUserById);
-        Policies("AdminPolicy");
-        // AllowAnonymous();
+        //Policies("AdminPolicy");
+         AllowAnonymous();
     }
 
     public override async Task<Results<Ok<UserDto>, NotFound>> ExecuteAsync(GetUserByIdRequest req, CancellationToken ct)

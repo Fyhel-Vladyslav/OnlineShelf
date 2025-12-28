@@ -5,36 +5,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/users/add-role-to-user": {
-      "post": {
-        "tags": [
-          "UserService"
-        ],
-        "operationId": "UserServicesrcUserServiceHostFeaturesUsersAddRoleToUserCommandHandler",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddRoleToUserCommand"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/users/add-user": {
       "post": {
         "tags": [
@@ -153,12 +123,6 @@
           },
           "404": {
             "description": "Not Found"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         }
       }
@@ -186,6 +150,46 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/add-role-to-user": {
+      "get": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServicesrcUserServiceHostFeaturesRolesGetRolesEndpoint",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRolesListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/get-roles": {
+      "get": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServicesrcUserServiceHostFeaturesRolesGetRolesListEndpoint",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRolesListResponse"
                 }
               }
             }
@@ -311,20 +315,6 @@
   },
   "components": {
     "schemas": {
-      "AddRoleToUserCommand": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "role": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "CreateUserCommand": {
         "type": "object",
         "properties": {
@@ -412,6 +402,19 @@
         },
         "additionalProperties": false
       },
+      "GetRolesListResponse": {
+        "type": "object",
+        "properties": {
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "GetUserByIdRequest": {
         "type": "object",
         "properties": {
@@ -442,6 +445,24 @@
             "items": {
               "$ref": "#/components/schemas/UserRoleLink"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
             "nullable": true
           }
         },

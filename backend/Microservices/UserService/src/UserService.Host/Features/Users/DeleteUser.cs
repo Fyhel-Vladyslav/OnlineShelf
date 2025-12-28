@@ -25,14 +25,10 @@ internal sealed class DeleteUser : Endpoint<DeleteUserRequest, Results<Ok<Guid>,
     public override void Configure()
     {
         Delete(ApiRoutes.DeleteUser);
-        if (_env.IsDevelopment())
-        {
+        //if (_env.IsDevelopment())
             AllowAnonymous();
-        }
-        else
-        {
-            Policies("AdminPolicy"); // prod/release
-        }
+        //else
+            //Policies("AdminPolicy"); // prod/release
     }
 
     public override async Task<Results<Ok<Guid>, NotFound>> ExecuteAsync(DeleteUserRequest req, CancellationToken ct)

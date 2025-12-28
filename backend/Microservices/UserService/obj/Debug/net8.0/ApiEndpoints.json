@@ -52,26 +52,20 @@
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
     "RelativePath": "users/add-role-to-user",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": false,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "AddRoleToUserCommand",
-        "Type": "UserService.src.UserService.Host.Features.Users.AddRoleToUserCommand",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.UserService.Common.DTOs.UserDto",
+        "Type": "UserService.src.UserService.Host.Features.Roles.GetRolesListResponse",
         "MediaTypes": [
           "application/json"
         ],
         "StatusCode": 200
       }
     ],
-    "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersAddRoleToUserCommandHandler"
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesRolesGetRolesEndpoint"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
@@ -101,6 +95,25 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "users/get-roles",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "UserService.src.UserService.Host.Features.Roles.GetRolesListResponse",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesRolesGetRolesListEndpoint"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
     "RelativePath": "users/getById",
     "HttpMethod": "POST",
     "IsController": false,
@@ -124,16 +137,6 @@
         "Type": "System.Void",
         "MediaTypes": [],
         "StatusCode": 404
-      },
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 401
-      },
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 403
       }
     ],
     "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersGetUserById"

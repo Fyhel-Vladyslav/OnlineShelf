@@ -14,6 +14,9 @@ namespace UserService.Extentions.DependencyInjection
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("FrontendPolicy");
+
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<DataContext>();
