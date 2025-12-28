@@ -19,8 +19,11 @@ export const userApi = {
     getUsers: () =>
       httpClient.get<GetUsersResponse>("/users"),
 
-    getById: (userId: string) =>
+    getUserById: (userId: string) =>
       httpClient.post<UserDto>("/users/getById", {
         userId,
       }),
+    
+    deleteUser: (userId: string) =>
+      httpClient.delete<UserDto>(`/delete-user/${userId}`),
   };

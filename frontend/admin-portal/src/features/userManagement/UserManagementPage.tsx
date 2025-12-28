@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, Button, Space, Modal, Select, Tag } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useUsers } from '@/hooks/users/useUsers';
+import { useDeleteUser } from '@/hooks/users/useDeleteUser';
 import type { UserDto } from '@/api/userApi';
 import './UserManagementPage.css';
 
@@ -13,20 +14,30 @@ const { Option } = Select;
 const UserManagementPage: React.FC = () => {
   const navigate = useNavigate();
   const { data: users, isLoading, error } = useUsers();
+  const deleteUserMutation = useDeleteUser();
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<string | null>(null);
 
   const handleEdit = (user: UserDto) => {
     navigate(`/user-management/edit/${user.id}`);
   };
-
+ 
   const handleDelete = (userId: string) => {
-    Modal.confirm({
-      title: 'Are you sure you want to delete this user?',
-      onOk: () => {
-        // Note: Deletion logic would need to be implemented via API call
-        // For now, this is a placeholder
-        console.log(`Delete user with ID: ${userId}`);
-      },
-    });
+    setUserToDelete(userId);
+    setDeleteModalVisible(true);
+  };
+
+  const confirmDelete = () => {
+    if (userToDelete) {
+      deleteUserMutation.mutate(userToDelete);
+    }
+    setDeleteModalVisible(false);
+    setUserToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setDeleteModalVisible(false);
+    setUserToDelete(null);
   };
 
   const columns = [
@@ -103,6 +114,17 @@ const UserManagementPage: React.FC = () => {
         pagination={false}
         className="user-table"
       />
+      <Modal
+        title="Confirm Delete"
+        open={deleteModalVisible}
+        onOk={confirmDelete}
+        onCancel={cancelDelete}
+        okText="Delete"
+        cancelText="Cancel"
+        okButtonProps={{ danger: true }}
+      >
+        <p>Are you sure you want to delete this user?</p>
+      </Modal>
     </div>
   );
 };

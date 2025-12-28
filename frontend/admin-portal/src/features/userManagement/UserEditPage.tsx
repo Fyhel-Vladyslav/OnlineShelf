@@ -4,6 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './UserEditPage.css';
 import './UserManagementPage.css';
 import { useUser } from '@/hooks/users/useUser';
+import { useRolesList } from '@/hooks/roles/useRolesList';
+import type { RoleDto } from '@/api/rolesApi';
 
 const { Option } = Select;
 
@@ -13,14 +15,21 @@ const UserEditPage: React.FC = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-
+  const { data: roles, isLoading: rolesLoading } = useRolesList();
   const { data: user, isLoading, error } = useUser(id);
 
   useEffect(() => {
-    if (user) {
-      form.setFieldsValue(user);
+    if (user && roles) {
+      const userRoleIds = user.roles.map(roleName => {
+        const role = roles.find(r => r.name === roleName);
+        return role ? role.id : null;
+      }).filter(id => id !== null);
+      form.setFieldsValue({
+        ...user,
+        role: userRoleIds,
+      });
     }
-  }, [user, form]);
+  }, [user, roles, form]);
 
   useEffect(() => {
     if (error) {
@@ -29,8 +38,8 @@ const UserEditPage: React.FC = () => {
     }
   }, [error, navigate]);
 
-  if (isLoading) {
-    return <div>Loading user...</div>;
+  if (isLoading || rolesLoading) {
+    return <div>Loading...</div>;
   }
 
   const handleSubmit = async (values: any) => {
@@ -46,7 +55,11 @@ const UserEditPage: React.FC = () => {
       setLoading(false);
     }
   };
-
+  console.log(roles);
+  
+    {roles?.map(role => (
+        console.log(role.name)
+  ))}
   return (
     <div className="user-edit-page">
       <h1>Edit User</h1>
@@ -97,13 +110,13 @@ const UserEditPage: React.FC = () => {
         <Form.Item
           name="role"
           label="Roles"
-          rules={[{ required: true, message: 'Please select at least one role!' }]}
         >
           <Select mode="multiple" placeholder="Select roles">
-            <Option value="admin">Admin</Option>
-            <Option value="user">User</Option>
-            <Option value="moderator">Moderator</Option>
-            <Option value="editor">Editor</Option>
+          {roles?.map(role => (
+              <Option key={role.id} value={role.id}>
+                  {role.name}
+              </Option>
+            ))}
           </Select>
         </Form.Item>
 

@@ -6,7 +6,7 @@ export const useUser = (userId?: string) => {
   return useQuery<UserDto>({
     queryKey: ["user", userId],
     queryFn: async () => {
-      const res = await userApi.getById(userId!);
+      const res = await userApi.getUserById(userId!);
       return res.data;
     },
     enabled: !!userId,
