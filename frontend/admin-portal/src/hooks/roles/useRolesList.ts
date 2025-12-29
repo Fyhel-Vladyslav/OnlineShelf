@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { rolesApi}from "@/api/rolesApi";
-import type { RoleDto } from "@/api/rolesApi";
+import { rolesApi}from "@/api/users/rolesApi";
+import type { RoleDto } from "@/api/users/rolesApi";
 
 export const useRolesList = () => {
   return useQuery<RoleDto[]>({

@@ -44,6 +44,11 @@ public class UpdateUserCommandHandler(
 
     public override async Task HandleAsync(UpdateUserCommand request, CancellationToken ct)
     {
+        if (request.newUser == null)
+        {
+            await Send.ErrorsAsync(400, cancellation: ct);
+            return;
+        }
         var user = await repos.GetUserByIdAsync(request.newUser.Id);
 
         if (user == null)

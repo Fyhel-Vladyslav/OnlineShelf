@@ -1,4 +1,4 @@
-import { httpClient } from "./httpClient";
+import { httpClient } from "../httpClient";
 
 export type UserDto = {
   id: string;
@@ -22,6 +22,10 @@ export const userApi = {
     getUserById: (userId: string) =>
       httpClient.post<UserDto>("/users/getById", {
         userId,
+      }),
+    UpdateUser: (newUser: UserDto) =>
+      httpClient.post<UserDto>("/users/update-user", {
+        newUser,
       }),
     
     deleteUser: (userId: string) =>

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { Table, Button, Space, Modal, Select, Tag } from 'antd';
+import { Table, Button, Space, Modal, Tag } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useUsers } from '@/hooks/users/useUsers';
 import { useDeleteUser } from '@/hooks/users/useDeleteUser';
-import type { UserDto } from '@/api/userApi';
+import type { UserDto } from '@/api/users/userApi';
 import './UserManagementPage.css';
 
 type AlignType = 'left' | 'center' | 'right';
 
-const { Option } = Select;
 
 const UserManagementPage: React.FC = () => {
   const navigate = useNavigate();
@@ -79,7 +78,7 @@ const UserManagementPage: React.FC = () => {
       key: 'actions',
       width: '25%',
       align: 'right' as AlignType,
-      render: (text: string, record: UserDto) => (
+      render: ( record: UserDto) => (
         <Space size="middle">
           <Button
             type="link"

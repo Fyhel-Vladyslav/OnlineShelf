@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Select, Switch, InputNumber, Space, message } from 'antd';
+import { Form, Input, Button, Select, InputNumber, Space, message } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import './UserEditPage.css';
 import './UserManagementPage.css';
 import { useUser } from '@/hooks/users/useUser';
 import { useRolesList } from '@/hooks/roles/useRolesList';
-import type { RoleDto } from '@/api/rolesApi';
+import type { UserDto } from '@/api/users/userApi';
+
+import isEqual from 'lodash/isEqual';
+import { useUpdateUser } from '@/hooks/users/useUpdateUser ';
 
 const { Option } = Select;
 
@@ -17,7 +20,10 @@ const UserEditPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { data: roles, isLoading: rolesLoading } = useRolesList();
   const { data: user, isLoading, error } = useUser(id);
-
+  const [initialValues, setInitialValues] = useState<any>(null);
+  const [isDirty, setIsDirty] = useState(false);
+  const updateUser = useUpdateUser();
+  
   useEffect(() => {
     if (user && roles) {
       const userRoleIds = user.roles.map(roleName => {
@@ -28,6 +34,7 @@ const UserEditPage: React.FC = () => {
         ...user,
         role: userRoleIds,
       });
+      setInitialValues(user);
     }
   }, [user, roles, form]);
 
@@ -45,21 +52,31 @@ const UserEditPage: React.FC = () => {
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
-      // Mock API call - replace with actual API
       console.log('Updating user:', values);
-      message.success('User updated successfully');
-      navigate('/user-management');
-    } catch (error) {
+
+      const payload: UserDto = {
+        ...user,        // existing values (id, dates, etc.)
+        ...values,     // overridden editable fields
+
+      };
+      
+      updateUser.mutate(payload, {
+        onSuccess: () => {
+          // after successful update
+          const updatedValues = form.getFieldsValue(true);
+    
+          setInitialValues(updatedValues);
+          setIsDirty(false);
+        }
+      })
+    }
+     catch (error) {
       message.error('Failed to update user');
     } finally {
       setLoading(false);
     }
   };
-  console.log(roles);
-  
-    {roles?.map(role => (
-        console.log(role.name)
-  ))}
+
   return (
     <div className="user-edit-page">
       <h1>Edit User</h1>
@@ -70,6 +87,23 @@ const UserEditPage: React.FC = () => {
         style={{ maxWidth: 800 }}
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 18 }}
+        onValuesChange={() => {
+          if (!initialValues) return;
+      
+          const current = form.getFieldsValue(true);
+      
+          const normalize = (v: any) => ({
+            ...v,
+            roleIds: [...(v.roleIds ?? [])].sort(),
+          });
+      
+          setIsDirty(
+            !isEqual(
+              normalize(current),
+              normalize(initialValues)
+            )
+          );
+        }}
       >
         <Form.Item
           name="email"
@@ -108,12 +142,12 @@ const UserEditPage: React.FC = () => {
         </Form.Item>
 
         <Form.Item
-          name="role"
+          name="roles"
           label="Roles"
         >
           <Select mode="multiple" placeholder="Select roles">
           {roles?.map(role => (
-              <Option key={role.id} value={role.id}>
+              <Option key={role.id} value={role.name}>
                   {role.name}
               </Option>
             ))}
@@ -123,11 +157,11 @@ const UserEditPage: React.FC = () => {
         <Form.Item wrapperCol={{ span: 24 }}>
   <div style={{ textAlign: 'center' }}>
     <Space>
-      <Button type="primary" htmlType="submit" loading={loading}>
+      <Button type="primary" htmlType="submit" loading={loading} disabled={!isDirty}>
         Save
       </Button>
       <Button onClick={() => navigate('/user-management')}>
-        Cancel
+        Back
       </Button>
     </Space>
   </div>

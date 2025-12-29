@@ -5,56 +5,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/users/get-roles": {
-      "get": {
-        "tags": [
-          "UserService"
-        ],
-        "operationId": "UserServicesrcUserServiceHostFeaturesRolesGetRolesListEndpoint",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetRolesListResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/add-role-to-user": {
-      "post": {
-        "tags": [
-          "UserService"
-        ],
-        "operationId": "UserServicesrcUserServiceHostFeaturesUsersAddRoleToUserCommandHandler",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddRoleToUserCommand"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/users/add-user": {
       "post": {
         "tags": [
@@ -199,7 +149,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/get-roles": {
+      "get": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServicesrcUserServiceHostFeaturesRolesGetRolesListEndpoint",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRolesListResponse"
                 }
               }
             }
@@ -325,20 +295,6 @@
   },
   "components": {
     "schemas": {
-      "AddRoleToUserCommand": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "role": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "CreateUserCommand": {
         "type": "object",
         "properties": {
@@ -449,31 +405,6 @@
         },
         "additionalProperties": false
       },
-      "Role": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "userRoles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/UserRoleLink"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "RoleDto": {
         "type": "object",
         "properties": {
@@ -565,63 +496,6 @@
         },
         "additionalProperties": false
       },
-      "User": {
-        "required": [
-          "email",
-          "id",
-          "login",
-          "passwordHash"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "email": {
-            "minLength": 1,
-            "type": "string",
-            "format": "email"
-          },
-          "passwordHash": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "login": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
-          },
-          "emailVerified": {
-            "type": "boolean"
-          },
-          "state": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "avatar": {
-            "type": "string",
-            "nullable": true
-          },
-          "dateCreated": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "roles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/UserRoleLink"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "UserDto": {
         "type": "object",
         "properties": {
@@ -663,26 +537,6 @@
           "avatar": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserRoleLink": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "roleId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "role": {
-            "$ref": "#/components/schemas/Role"
           }
         },
         "additionalProperties": false

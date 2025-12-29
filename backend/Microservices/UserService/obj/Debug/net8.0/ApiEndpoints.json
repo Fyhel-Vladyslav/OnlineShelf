@@ -51,31 +51,6 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "users/add-role-to-user",
-    "HttpMethod": "POST",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "AddRoleToUserCommand",
-        "Type": "UserService.src.UserService.Host.Features.Users.AddRoleToUserCommand",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "UserService.src.UserService.Common.DTOs.UserDto",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersAddRoleToUserCommandHandler"
-  },
-  {
-    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
-    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
     "RelativePath": "users/add-user",
     "HttpMethod": "POST",
     "IsController": false,
@@ -195,7 +170,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "UserService.src.UserService.Repository.EfCore.Entities.User",
+        "Type": "UserService.src.UserService.Common.DTOs.UserDto",
         "MediaTypes": [
           "application/json"
         ],

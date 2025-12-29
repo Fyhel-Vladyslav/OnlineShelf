@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { userApi}from "@/api/userApi";
-import type { UserDto } from "@/api/userApi";
+import { userApi}from "@/api/users/userApi";
+import type { UserDto } from "@/api/users/userApi";
 
 export const useUsers = () => {
   return useQuery<UserDto[]>({
