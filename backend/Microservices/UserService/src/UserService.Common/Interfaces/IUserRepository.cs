@@ -17,6 +17,7 @@ public interface IUserRepository
     Task DeleteUserByIdAsync(Guid userId);
     Task<List<User>> GetAllUsersAsync();
     Task<User> AddRoleToUser(Guid userId, Role newRole, CancellationToken ct);
+    Task<User> RemoveRoleFromUser(Guid userId, Role role, CancellationToken ct);
 
     Task<List<Role>> GetUserRoles();
     Task<bool> VerifyUserPasswordAsync(User user, string password, CancellationToken cancellationToken = default);

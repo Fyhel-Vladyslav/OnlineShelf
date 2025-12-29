@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
+using System.Threading;
 using UserService.src.UserService.Common;
 using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Repository.EfCore.Entities;
@@ -129,6 +130,28 @@ public class UserRepository : IUserRepository
             Role = role,
             UserId = user.Id
         });
+        await UpdateUserAsync(user);
+
+        return user;
+    }
+    public async Task<User> RemoveRoleFromUser(Guid userId, Role role, CancellationToken ct)
+    {
+        var user = await GetUserByIdAsync(userId, ct);
+        if (user == null)
+        {
+            _logger.LogError("User with Id [{UserId}] not found", userId);
+            return null;
+        }
+
+        var usrRoleLink = user.Roles.Where(r => r.Role == role).FirstOrDefault();
+
+        if (usrRoleLink==null)
+        {
+            _logger.LogError("User with Id [{UserId}] doesn't have role [{Role}]", userId, role);
+            return user;
+        }
+
+        user.Roles.Remove(usrRoleLink);
         await UpdateUserAsync(user);
 
         return user;

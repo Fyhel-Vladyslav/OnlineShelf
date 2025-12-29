@@ -7,9 +7,10 @@ using UserService.src.UserService.Repository.EfCore.Entities;
 using UserService.src.UserService.Common.DTOs;
 using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Common;
+using UserService.Extentions;
 
 namespace UserService.src.UserService.Host.Features.Users;
-public sealed record CreateUserCommand(CreateUserDto newUser) : IRequest<ErrorOr<User>>;
+public sealed record CreateUserCommand(CreateUserDto newUser) : IRequest<ErrorOr<UserDto>>;
 internal sealed class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
 
@@ -29,8 +30,9 @@ internal sealed class CreateUserCommandValidator : AbstractValidator<CreateUserC
 }
 public class CreateUserCommandHandler(
     IPasswordHasher<User> passwordHasher,
-    IUserRepository repos
-    ) : Endpoint<CreateUserCommand, User>
+    IUserRepository repos,
+    IRoleResolver roleResolver
+    ) : Endpoint<CreateUserCommand, UserDto>
 {
     public override void Configure()
     {
@@ -40,18 +42,21 @@ public class CreateUserCommandHandler(
 
     public override async Task HandleAsync(CreateUserCommand request, CancellationToken ct)
     {
-        var newUser = FromDTO(request.newUser);
+        var user = FromDTO(request.newUser);
 
-        if (! await repos.CheckUserLoginAndEmailUniqueAsync(request.newUser.Login, request.newUser.Email, ct))
-        {Logger.LogError("User with login [{Login}] or email [{Email}] already exists", request.newUser.Login, request.newUser.Email);
+        if (!await repos.CheckUserLoginAndEmailUniqueAsync(request.newUser.Login, request.newUser.Email, ct))
+        {
+            Logger.LogError("User with login [{Login}] or email [{Email}] already exists", request.newUser.Login, request.newUser.Email);
             await Send.ResultAsync(TypedResults.Conflict());
             return;
         }
 
 
-        await repos.CreateUserAsync(FromDTO(request.newUser), ct);
+        var newUser = await repos.CreateUserAsync(user, ct);
 
-        await Send.OkAsync(newUser, cancellation: ct);
+        await roleResolver.ResolveRolesAsync(request.newUser.Roles, newUser.Id);
+
+        await Send.OkAsync(newUser.ToDto(), cancellation: ct);
     }
     private User FromDTO(CreateUserDto dto)
     {
@@ -60,22 +65,12 @@ public class CreateUserCommandHandler(
         var newUser = new User
         {
             Id = Guid.NewGuid(),
-            Login = String.IsNullOrEmpty(dto.Login)? dto.Email : dto.Login,
+            Login = String.IsNullOrEmpty(dto.Login) ? dto.Email : dto.Login,
             Email = dto.Email,
             PasswordHash = "",
             DateCreated = DateTime.UtcNow
 
         };
-
-        foreach (var role in dto.Roles)
-        {
-            newUser.Roles.Add(new UserRoleLink
-            {
-                Role = role,
-                UserId = newUser.Id
-            });
-        }
-
         /// create dto with password field
         newUser.PasswordHash = passwordHasher.HashPassword(newUser, dto.Password);
 

@@ -8,7 +8,6 @@ public class ApiRoutes
     public const string DeleteUser = "delete-user/{userId}";
     public const string UpdateUser = $"{Users}/update-user";
 
-    public const string AddRoleToUser = $"{Users}/add-role-to-user";
     public const string GetRoles = $"{Users}/get-roles";
 
     public const string SignIn = $"{Users}/sign-in";

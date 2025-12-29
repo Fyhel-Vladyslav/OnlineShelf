@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using UserService.src.UserService.Common.Interfaces;
+using UserService.src.UserService.Host.Features.Roles;
 using UserService.src.UserService.Repository.EfCore;
 
 namespace UserService.Extentions.DependencyInjection
@@ -12,6 +13,7 @@ namespace UserService.Extentions.DependencyInjection
             IHostEnvironment env)
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleResolver, RoleResolver>();
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();

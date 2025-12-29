@@ -9,9 +9,11 @@ using UserService.src.UserService.Repository.EfCore.Entities;
 using UserService.src.UserService.Common.DTOs;
 using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Common;
+using UserService.src.UserService.Host.Features.Roles;
+using UserService.Extentions;
 
 namespace UserService.src.UserService.Host.Features.Users;
-public sealed record UpdateUserCommand(UpdateUserDto newUser) : IRequest<ErrorOr<User>>;
+public sealed record UpdateUserCommand(UpdateUserDto newUser) : IRequest<ErrorOr<UserDto>>;
 internal sealed class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
 {
     public UpdateUserCommandValidator()
@@ -29,9 +31,9 @@ internal sealed class UpdateUserCommandValidator : AbstractValidator<UpdateUserC
 
 }
 public class UpdateUserCommandHandler(
-    IUserRepository repos
-
-    ) : Endpoint<UpdateUserCommand, User>
+    IUserRepository repos,
+    IRoleResolver roleResolver
+    ) : Endpoint<UpdateUserCommand, UserDto>
 {
 
     public override void Configure()
@@ -49,18 +51,20 @@ public class UpdateUserCommandHandler(
             await Send.NotFoundAsync(cancellation: ct);
             return;
         }
-
-        if (!await repos.CheckUserLoginAndEmailUniqueAsync(request.newUser.Login, request.newUser.Email, ct))
-        {
-            Logger.LogError("User with login [{Login}] or email [{Email}] already exists", request.newUser.Login, request.newUser.Email);
-            await Send.ResultAsync(TypedResults.Conflict("User with this login or email already exists"));
-            return;
-        }
+        // TODO: check unique login/email except current user
+        //if (!await repos.CheckUserLoginAndEmailUniqueAsync(request.newUser.Login, request.newUser.Email, ct))
+        //{
+        //    Logger.LogError("User with login [{Login}] or email [{Email}] already exists", request.newUser.Login, request.newUser.Email);
+        //    await Send.ResultAsync(TypedResults.Conflict("User with this login or email already exists"));
+        //    return;
+        //}
 
         SetUserFromDTO(user, request.newUser);
+        await repos.UpdateUserAsync(user);
 
+        await roleResolver.ResolveRolesAsync(request.newUser.Roles, user.Id);
 
-        await Send.OkAsync(user, cancellation: ct);
+        await Send.OkAsync(user.ToDto(), cancellation: ct);
 
     }
 
@@ -74,15 +78,5 @@ public class UpdateUserCommandHandler(
         user.EmailVerified = dto.EmailVerified;
         user.State = dto.State;
 
-        foreach (var role in dto.Roles)
-        {
-            var existingRoleLink = user.Roles.FirstOrDefault(r => r.Role == role);
-            if (existingRoleLink != null)
-                user.Roles.Add(new UserRoleLink
-                {
-                    Role = role,
-                    UserId = user.Id
-                });
-        }
     }
 }

@@ -5,6 +5,56 @@
     "version": "1.0"
   },
   "paths": {
+    "/users/get-roles": {
+      "get": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServicesrcUserServiceHostFeaturesRolesGetRolesListEndpoint",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRolesListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/add-role-to-user": {
+      "post": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServicesrcUserServiceHostFeaturesUsersAddRoleToUserCommandHandler",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddRoleToUserCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/add-user": {
       "post": {
         "tags": [
@@ -27,7 +77,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               }
             }
@@ -157,46 +207,6 @@
         }
       }
     },
-    "/users/add-role-to-user": {
-      "get": {
-        "tags": [
-          "UserService"
-        ],
-        "operationId": "UserServicesrcUserServiceHostFeaturesRolesGetRolesEndpoint",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetRolesListResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/get-roles": {
-      "get": {
-        "tags": [
-          "UserService"
-        ],
-        "operationId": "UserServicesrcUserServiceHostFeaturesRolesGetRolesListEndpoint",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetRolesListResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/users/sign-in": {
       "post": {
         "tags": [
@@ -315,6 +325,20 @@
   },
   "components": {
     "schemas": {
+      "AddRoleToUserCommand": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateUserCommand": {
         "type": "object",
         "properties": {
@@ -342,7 +366,7 @@
           "roles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Role"
+              "type": "string"
             },
             "nullable": true
           },
@@ -523,7 +547,7 @@
           "roles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Role"
+              "type": "string"
             },
             "nullable": true
           },

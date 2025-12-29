@@ -10,7 +10,7 @@ using UserService.Extentions;
 using System.Linq;
 
 namespace UserService.src.UserService.Host.Features.Roles;
-sealed record GetRolesList(List<Role> roles);
+sealed record GetRolesListResponse(List<RoleDto> roles);
 
 sealed class GetRolesListEndpoint : EndpointWithoutRequest<GetRolesListResponse>
 {
