@@ -29,6 +29,18 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") // Ваш фронтенд
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
+});
+
 builder.Services.AddHttpClient();
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
@@ -62,6 +74,9 @@ app.MapGet("/test", async () =>
     var userResponse = await client.GetStringAsync("http://user-service/api/user/test");
     return $"Gateway received -> {userResponse}";
 });
+
+app.UseCors("CorsPolicy");
+
 await app.UseOcelot();
 
 app.Run();

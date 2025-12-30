@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\gateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|solutionrelative:gateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\gateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|solutionrelative:gateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
@@ -26,11 +30,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\Program.cs",
+              "RelativeDocumentMoniker": "Gateway\\Program.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\Program.cs",
+              "RelativeToolTip": "Gateway\\Program.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEkAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T19:48:41.71Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "ApiRoutes.cs",
               "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\UserService.Common\\ApiRoutes.cs",
               "RelativeDocumentMoniker": "UserService\\src\\UserService.Common\\ApiRoutes.cs",
@@ -38,25 +55,24 @@
               "RelativeToolTip": "UserService\\src\\UserService.Common\\ApiRoutes.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T18:34:13.669Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-30T18:34:13.669Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ocelot.json",
               "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\ocelot.json",
               "RelativeDocumentMoniker": "Gateway\\ocelot.json",
               "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\ocelot.json",
               "RelativeToolTip": "Gateway\\ocelot.json",
-              "ViewState": "AgIAADEAAAAAAAAAAAAswEUAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-12-30T18:29:17.024Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\appsettings.json",
               "RelativeDocumentMoniker": "UserService\\appsettings.json",
@@ -64,12 +80,11 @@
               "RelativeToolTip": "UserService\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-30T18:15:48.474Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-30T18:15:48.474Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "docker-compose.yml",
               "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\docker-compose.yml",
               "RelativeDocumentMoniker": "docker-compose.yml",
@@ -77,8 +92,7 @@
               "RelativeToolTip": "docker-compose.yml",
               "ViewState": "AgIAAB8AAAAAAAAAAAAuwCsAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2025-12-30T18:11:17.279Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-30T18:11:17.279Z"
             }
           ]
         }

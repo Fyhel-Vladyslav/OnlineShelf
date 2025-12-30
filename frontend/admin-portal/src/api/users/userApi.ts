@@ -17,10 +17,10 @@ export type GetUsersResponse = {
 };
 export const userApi = {
     getUsers: () =>
-      httpClient.get<GetUsersResponse>("/users"),
+      httpClient.get<GetUsersResponse>("/users/all"),
 
     getUserById: (userId: string) =>
-      httpClient.post<UserDto>("/users/getById", {
+      httpClient.post<UserDto>("/users", {
         userId,
       }),
     UpdateUser: (newUser: UserDto) =>
@@ -29,5 +29,5 @@ export const userApi = {
       }),
     
     deleteUser: (userId: string) =>
-      httpClient.delete<UserDto>(`/delete-user/${userId}`),
+      httpClient.delete<UserDto>(`/users/${userId}`),
   };
