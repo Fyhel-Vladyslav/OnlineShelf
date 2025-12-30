@@ -1,13 +1,12 @@
 {
   "Routes": [
     {
-      // --- UPSTREAM CONFIGURATION (What the client calls) ---
       "UpstreamPathTemplate": "/api/users/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
 
-      // --- DOWNSTREAM CONFIGURATION (Where the Gateway routes the call) ---
-      // **Crucial**: Use the Docker Compose service name for the Host
-      "DownstreamPathTemplate": "/api/users/{everything}",
+      // CHANGE THIS LINE BACK
+      "DownstreamPathTemplate": "/api/{everything}",
+
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -17,7 +16,5 @@
       ]
     }
   ],
-  "GlobalConfiguration": {
-    // You can set a global base URL here if needed
-  }
+  "GlobalConfiguration": {}
 }

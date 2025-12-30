@@ -45,3 +45,4 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\bin\Debug\net8.0\Ocelot.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\Gateway\obj\Debug\net8.0\Gateway.sourcelink.json
