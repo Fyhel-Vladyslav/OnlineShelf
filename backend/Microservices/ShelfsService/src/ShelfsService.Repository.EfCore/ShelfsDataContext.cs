@@ -25,10 +25,10 @@ public class ShelfsDataContext : DbContext
         modelBuilder.Entity<ItemTag>(entity =>
         {
             entity.HasKey(t => t.Id);
-            entity.HasOne(t => t.Item)
-            .WithMany(i => i.Tags)
-            .HasForeignKey(t => t.ItemId)
-            .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne<Item>()
+                  .WithMany(i => i.Tags)
+                  .HasForeignKey(t => t.ItemId)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Item>(entity =>
@@ -36,7 +36,7 @@ public class ShelfsDataContext : DbContext
             entity.HasKey(i => i.Id);
 
             entity.HasMany(i => i.Tags)
-                  .WithOne(t => t.Item)
+                  .WithOne()
                   .HasForeignKey(t => t.ItemId)
                   .OnDelete(DeleteBehavior.Cascade);
 

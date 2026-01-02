@@ -13,5 +13,4 @@ public class ItemTag
     [Required]
     [MaxLength(100)]
     public string Name { get; set; }
-    public Item Item { get; set; }
 }

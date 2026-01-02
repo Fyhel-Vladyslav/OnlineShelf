@@ -20,7 +20,13 @@ public class ShelfsRepository : IShelfsRepository
         _logger = logger;
     }
     public Task<List<Shelf>> GetAllShelfsAsync() =>
-        _dbContext.Shelfs.Include(s => s.Items).ToListAsync();
-
+        _dbContext.Shelfs
+            .Include(s => s.Items)
+                .ToListAsync();
+    public Task<Item?> GetItemByIdAsync(Guid itemId, CancellationToken cancellationToken = default) =>
+        _dbContext.Items
+            .Include(i => i.Tags)
+                .ThenInclude(t => t.Type)
+            .FirstOrDefaultAsync(i => i.Id == itemId, cancellationToken);
 }
 

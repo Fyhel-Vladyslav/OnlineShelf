@@ -17,6 +17,7 @@ public interface IShelfsRepository
         //Task DeleteShelfAsync(Shelf Shelf);
         //Task DeleteShelfByIdAsync(Guid ShelfId);
         Task<List<Shelf>> GetAllShelfsAsync();
+        Task<Item?> GetItemByIdAsync(Guid itemId, CancellationToken cancellationToken = default);
  
     }
 
