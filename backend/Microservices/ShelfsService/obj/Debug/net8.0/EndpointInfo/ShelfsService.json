@@ -35,6 +35,26 @@
         }
       }
     },
+    "/shelfs": {
+      "get": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesShelfsGetAllShelfs",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllShelfsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -96,6 +116,19 @@
         },
         "additionalProperties": false
       },
+      "GetAllShelfsResponse": {
+        "type": "object",
+        "properties": {
+          "shelfs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShelfDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ShelfDto": {
         "type": "object",
         "properties": {
@@ -105,6 +138,23 @@
           },
           "name": {
             "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
             "nullable": true
           }
         },

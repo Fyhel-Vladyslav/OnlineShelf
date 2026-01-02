@@ -16,7 +16,7 @@ public static class ShelfMappingExtensions
             {
                 Id = shelf.Id,
                 Name = shelf.Name,
-                Items = shelf.Items.Select(r => r.Shelf.Id).ToList()
+                Items = shelf.Items.Select(r => r.Id).ToList()
             };
         }
     }

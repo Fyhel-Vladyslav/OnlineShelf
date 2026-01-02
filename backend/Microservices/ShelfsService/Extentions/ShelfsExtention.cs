@@ -1,5 +1,6 @@
 ﻿using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
+using ShelfsService.src.ShelfsService.Common.Interfaces;
 using ShelfsService.src.ShelfsService.Repository.EfCore;
 
 namespace ShelfsService.Extentions
@@ -9,7 +10,7 @@ namespace ShelfsService.Extentions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
             IHostEnvironment env)
         {
-            //services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IShelfsRepository, ShelfsRepository>();
             //services.AddScoped<IRoleResolver, RoleResolver>();
 
             services.AddControllers();
