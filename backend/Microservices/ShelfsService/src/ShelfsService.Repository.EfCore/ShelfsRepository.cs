@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
 using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
+using System;
+using System.Threading;
 using static ShelfsService.src.ShelfsService.Repository.EfCore.ShelfsRepository;
 
 namespace ShelfsService.src.ShelfsService.Repository.EfCore;
@@ -27,6 +29,52 @@ public class ShelfsRepository : IShelfsRepository
         _dbContext.Items
             .Include(i => i.Tags)
                 .ThenInclude(t => t.Type)
-            .FirstOrDefaultAsync(i => i.Id == itemId, cancellationToken);
-}
+                    .FirstOrDefaultAsync(i => i.Id == itemId, cancellationToken);
 
+
+    public Task<Shelf?> GetShelfByIdAsync(Guid shelfId, CancellationToken cancellationToken = default) =>
+    _dbContext.Shelfs
+        .Include(i => i.Items)
+            .ThenInclude(tg => tg.Tags)
+                .ThenInclude(tp => tp.Type)
+                    .FirstOrDefaultAsync(s => s.Id == shelfId, cancellationToken);
+
+    public async Task<Shelf> CreateShelfAsync(Shelf shelf, CancellationToken ct)
+    {
+        _dbContext.Shelfs.AddAsync(shelf);
+        await _dbContext.SaveChangesAsync(ct);
+        return shelf;
+    }
+
+    public async Task<bool> CheckShelfNameUniqueAsync(string Name, Guid UserId, CancellationToken ct)
+    {
+        var isExist = await _dbContext.Shelfs.AnyAsync(s => s.Name == Name && s.UserId == UserId, ct);
+        return !isExist;
+    }
+
+    public async Task<Guid> DeleteShelfByIdAsync(Guid ShelfId, CancellationToken ct)
+    {
+        var shelf = await _dbContext.Shelfs.FirstOrDefaultAsync(s => s.Id == ShelfId, ct);
+        if (shelf == null)
+            return Guid.Empty;
+        
+        _dbContext.Shelfs.Remove(shelf);
+        await _dbContext.SaveChangesAsync(ct);
+        
+        return ShelfId;
+
+    }
+
+    public async Task<Shelf> UpdateShelfAsync(Shelf shelf, CancellationToken ct)
+    {
+        if (shelf == null)
+            return null;
+
+        shelf.UpdatedAt = DateTime.UtcNow;
+        _dbContext.Shelfs.Update(shelf);
+        await _dbContext.SaveChangesAsync(ct);
+
+        return shelf;
+
+    }
+}

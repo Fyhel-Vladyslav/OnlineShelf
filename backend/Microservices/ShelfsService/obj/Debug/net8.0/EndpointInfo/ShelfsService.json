@@ -35,6 +35,45 @@
         }
       }
     },
+    "/shelfs/items/{shelfId}": {
+      "delete": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesShelfsDeleteUser",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteShelfByIdRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteShelfByIdRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/shelfs": {
       "get": {
         "tags": [
@@ -48,6 +87,36 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetAllShelfsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/items": {
+      "put": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesShelfsUpdateShelfCommandHandler",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateShelfCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShelfDto"
                 }
               }
             }
@@ -150,6 +219,27 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemPreviewDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeleteShelfByIdRequest": {
+        "type": "object",
+        "properties": {
+          "shelfId": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -279,6 +369,10 @@
             "type": "string",
             "nullable": true
           },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
           "dateCreated": {
             "type": "string",
             "format": "date-time"
@@ -318,6 +412,29 @@
             "maxLength": 100,
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateShelfCommand": {
+        "type": "object",
+        "properties": {
+          "newShelf": {
+            "$ref": "#/components/schemas/UpdateShelfDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateShelfDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

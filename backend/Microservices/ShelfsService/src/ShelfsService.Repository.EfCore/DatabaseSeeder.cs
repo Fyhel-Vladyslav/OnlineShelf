@@ -60,11 +60,13 @@ public static class DatabaseSeeder
             new Shelf
             {
                 Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                UserId = Guid.Parse("d1437f42-8b54-4a02-b0a5-800426cd7580"),
                 Name = "Main Shelf"
             },
             new Shelf
             {
                 Id = Guid.Parse("22222222-2222-2222-2222-222222222222"),
+                UserId = Guid.Parse("d1437f42-8b54-4a02-b0a5-800426cd7580"),
                 Name = "Secondary Shelf"
             }
         );

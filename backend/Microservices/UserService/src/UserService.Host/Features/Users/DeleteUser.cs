@@ -34,6 +34,11 @@ internal sealed class DeleteUser : Endpoint<DeleteUserRequest, Results<Ok<Guid>,
     public override async Task<Results<Ok<Guid>, NotFound>> ExecuteAsync(DeleteUserRequest req, CancellationToken ct)
     {
         await _repos.DeleteUserByIdAsync(req.UserId);
+
+        /// TODO: consider checking if user existed before deletion
+        //if(id == Guid.Empty)
+        //return TypedResults.NotFound();
+
         return TypedResults.Ok(req.UserId);
     }
 }

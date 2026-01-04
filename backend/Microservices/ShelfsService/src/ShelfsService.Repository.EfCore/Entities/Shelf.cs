@@ -5,7 +5,8 @@ public class Shelf
 {
     [Required]
     public required Guid Id { get; init; }
-
+    [Required]
+    public required Guid UserId { get; init; }
     [Required]
     [MaxLength(100)]
     public string Name { get; set; }

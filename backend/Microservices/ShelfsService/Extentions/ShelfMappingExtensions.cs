@@ -16,6 +16,7 @@ public static class ShelfMappingExtensions
         {
             Id = shelf.Id,
             Name = shelf.Name,
+            UserId = shelf.UserId,
             Items = shelf.Items
             .Select(i => new ItemPreviewDto
             {

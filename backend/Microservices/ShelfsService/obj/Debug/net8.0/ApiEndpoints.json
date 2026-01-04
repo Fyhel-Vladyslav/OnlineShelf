@@ -46,6 +46,31 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/items",
+    "HttpMethod": "PUT",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UpdateShelfCommand",
+        "Type": "ShelfsService.src.ShelfsService.Host.Features.Shelfs.UpdateShelfCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.ShelfDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesShelfsUpdateShelfCommandHandler"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
     "RelativePath": "shelfs/items/{itemId}",
     "HttpMethod": "GET",
     "IsController": false,
@@ -72,6 +97,36 @@
       }
     ],
     "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesItemsGetItemById"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/items/{shelfId}",
+    "HttpMethod": "DELETE",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "DeleteShelfByIdRequest",
+        "Type": "ShelfsService.src.ShelfsService.Host.Features.Shelfs.DeleteShelfByIdRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Guid",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesShelfsDeleteUser"
   },
   {
     "ContainingType": "ShelfsService.Controllers.WeatherForecastController",
