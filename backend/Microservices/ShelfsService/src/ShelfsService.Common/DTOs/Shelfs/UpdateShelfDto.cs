@@ -1,4 +1,4 @@
-﻿namespace ShelfsService.src.ShelfsService.Common.DTOs;
+﻿namespace ShelfsService.src.ShelfsService.Common.DTOs.Shelfs;
 public class UpdateShelfDto
 {
     public Guid Id { get; set; }

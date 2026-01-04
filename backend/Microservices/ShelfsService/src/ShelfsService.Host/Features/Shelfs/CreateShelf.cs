@@ -4,11 +4,11 @@ using ErrorOr;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using System;
-using ShelfsService.src.ShelfsService.Common.DTOs;
 using ShelfsService.src.ShelfsService.Common;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
 using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 using ShelfsService.Extentions;
+using ShelfsService.src.ShelfsService.Common.DTOs.Shelfs;
 
 
 namespace ShelfsService.src.UserService.Host.Features.Shelfs;

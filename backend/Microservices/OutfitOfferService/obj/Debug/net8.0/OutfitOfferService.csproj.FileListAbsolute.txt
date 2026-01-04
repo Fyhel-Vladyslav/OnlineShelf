@@ -34,3 +34,4 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\OutfitOfferService\ob
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\OutfitOfferService\obj\Debug\net8.0\OutfitOfferService.pdb
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\OutfitOfferService\obj\Debug\net8.0\OutfitOfferService.genruntimeconfig.cache
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\OutfitOfferService\obj\Debug\net8.0\ref\OutfitOfferService.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\OutfitOfferService\obj\Debug\net8.0\OutfitOfferService.sourcelink.json

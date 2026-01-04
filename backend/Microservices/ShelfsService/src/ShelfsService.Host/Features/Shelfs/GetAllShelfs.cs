@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using ShelfsService.Extentions;
 using ShelfsService.src.ShelfsService.Common;
-using ShelfsService.src.ShelfsService.Common.DTOs;
+using ShelfsService.src.ShelfsService.Common.DTOs.Shelfs;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
 
 namespace ShelfsService.src.ShelfsService.Host.Features.Shelfs;

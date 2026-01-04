@@ -1,6 +1,7 @@
-﻿using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
+﻿using ShelfsService.src.ShelfsService.Common.DTOs.Items;
+using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 
-namespace ShelfsService.src.ShelfsService.Common.DTOs;
+namespace ShelfsService.src.ShelfsService.Common.DTOs.Shelfs;
 public class ShelfDto
 {
     public Guid Id { get; set; }

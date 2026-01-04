@@ -11,7 +11,7 @@ namespace ShelfsService.Extentions
             IHostEnvironment env)
         {
             services.AddScoped<IShelfsRepository, ShelfsRepository>();
-            //services.AddScoped<IRoleResolver, RoleResolver>();
+            services.AddScoped<IItemRepository, ItemRepository>();
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();

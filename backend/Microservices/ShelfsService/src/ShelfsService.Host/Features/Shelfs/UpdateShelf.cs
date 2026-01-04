@@ -4,7 +4,7 @@ using FluentValidation;
 using MediatR;
 using ShelfsService.Extentions;
 using ShelfsService.src.ShelfsService.Common;
-using ShelfsService.src.ShelfsService.Common.DTOs;
+using ShelfsService.src.ShelfsService.Common.DTOs.Shelfs;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
 using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 

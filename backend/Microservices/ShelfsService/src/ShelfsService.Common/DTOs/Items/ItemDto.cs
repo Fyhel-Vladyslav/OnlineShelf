@@ -1,7 +1,7 @@
 ﻿using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace ShelfsService.src.ShelfsService.Common.DTOs;
+namespace ShelfsService.src.ShelfsService.Common.DTOs.Items;
 public class ItemDto
 {
     public Guid Id { get; init; }

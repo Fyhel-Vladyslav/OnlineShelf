@@ -12,7 +12,7 @@ public class Item
     public required Guid UserId { get; init; }
 
     [Required]
-    public required Guid ShelfId { get; init; }
+    public Guid ShelfId { get; set; }
 
     public string? BigImage { get; set; }
     public string? SmallImage { get; set; }

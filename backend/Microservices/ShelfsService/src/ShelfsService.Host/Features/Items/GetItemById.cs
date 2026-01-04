@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using ShelfsService.Extentions;
 using ShelfsService.src.ShelfsService.Common;
-using ShelfsService.src.ShelfsService.Common.DTOs;
+using ShelfsService.src.ShelfsService.Common.DTOs.Items;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
 
 namespace ShelfsService.src.ShelfsService.Host.Features.Items;
@@ -13,8 +13,8 @@ internal sealed record GetItemByIdRequest
 
 internal sealed class GetItemById : Endpoint<GetItemByIdRequest, Results<Ok<ItemDto>, NotFound>>
 {
-    private readonly IShelfsRepository _repos;
-    public GetItemById(IShelfsRepository repos)
+    private readonly IItemRepository _repos;
+    public GetItemById(IItemRepository repos)
     {
         _repos = repos;
     }

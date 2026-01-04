@@ -19,7 +19,6 @@ public interface IShelfsRepository
     //Task DeleteShelfAsync(Shelf Shelf);
     //Task DeleteShelfByIdAsync(Guid ShelfId);
     Task<List<Shelf>> GetAllShelfsAsync();
-    Task<Item?> GetItemByIdAsync(Guid itemId, CancellationToken cancellationToken = default);
     Task<Shelf?> GetShelfByIdAsync(Guid shelfId, CancellationToken cancellationToken = default);
     Task<Shelf> CreateShelfAsync(Shelf shelf, CancellationToken ct);
     Task<bool> CheckShelfNameUniqueAsync(string Name, Guid UserId, CancellationToken ct);

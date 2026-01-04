@@ -25,11 +25,6 @@ public class ShelfsRepository : IShelfsRepository
         _dbContext.Shelfs
             .Include(s => s.Items)
                 .ToListAsync();
-    public Task<Item?> GetItemByIdAsync(Guid itemId, CancellationToken cancellationToken = default) =>
-        _dbContext.Items
-            .Include(i => i.Tags)
-                .ThenInclude(t => t.Type)
-                    .FirstOrDefaultAsync(i => i.Id == itemId, cancellationToken);
 
 
     public Task<Shelf?> GetShelfByIdAsync(Guid shelfId, CancellationToken cancellationToken = default) =>

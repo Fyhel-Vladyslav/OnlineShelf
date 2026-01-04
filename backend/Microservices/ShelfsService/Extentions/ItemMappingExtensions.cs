@@ -1,4 +1,4 @@
-﻿using ShelfsService.src.ShelfsService.Common.DTOs;
+﻿using ShelfsService.src.ShelfsService.Common.DTOs.Items;
 using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 
 namespace ShelfsService.Extentions;

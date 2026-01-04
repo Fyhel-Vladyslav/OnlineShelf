@@ -62,3 +62,14 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.I
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.IdentityModel.Logging.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.IdentityModel.Abstractions.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\FastEndpoints.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\ErrorOr.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\FastEndpoints.Messaging.Core.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\FastEndpoints.Attributes.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\FastEndpoints.Security.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.Extensions.Diagnostics.Abstractions.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\bin\Debug\Microsoft.IdentityModel.Protocols.dll

@@ -21,32 +21,7 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "shelfs/add-shelf",
-    "HttpMethod": "POST",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "CreateShelfCommand",
-        "Type": "ShelfsService.src.UserService.Host.Features.Shelfs.CreateShelfCommand",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.ShelfDto",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "ShelfsServicesrcUserServiceHostFeaturesShelfsCreateShelfCommandHandler"
-  },
-  {
-    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
-    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "shelfs/items",
+    "RelativePath": "shelfs",
     "HttpMethod": "PUT",
     "IsController": false,
     "Order": 0,
@@ -59,7 +34,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.ShelfDto",
+        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.Shelfs.ShelfDto",
         "MediaTypes": [
           "application/json"
         ],
@@ -71,37 +46,7 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "shelfs/items/{itemId}",
-    "HttpMethod": "GET",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "GetItemByIdRequest",
-        "Type": "ShelfsService.src.ShelfsService.Host.Features.Items.GetItemByIdRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.ItemDto",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      },
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 404
-      }
-    ],
-    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesItemsGetItemById"
-  },
-  {
-    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
-    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "shelfs/items/{shelfId}",
+    "RelativePath": "shelfs/{shelfId}",
     "HttpMethod": "DELETE",
     "IsController": false,
     "Order": 0,
@@ -127,6 +72,116 @@
       }
     ],
     "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesShelfsDeleteUser"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/add-shelf",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CreateShelfCommand",
+        "Type": "ShelfsService.src.UserService.Host.Features.Shelfs.CreateShelfCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.Shelfs.ShelfDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcUserServiceHostFeaturesShelfsCreateShelfCommandHandler"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/items/{itemId}",
+    "HttpMethod": "DELETE",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "DeleteItemByIdRequest",
+        "Type": "ItemsService.src.ShelfsService.Host.Features.Items.DeleteItemByIdRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Guid",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ],
+    "EndpointName": "ItemsServicesrcShelfsServiceHostFeaturesItemsDeleteUser"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/items/{itemId}",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "GetItemByIdRequest",
+        "Type": "ShelfsService.src.ShelfsService.Host.Features.Items.GetItemByIdRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.Items.ItemDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesItemsGetItemById"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/items/add-item",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CreateItemCommand",
+        "Type": "ShelfsService.src.ShelfsService.Host.Features.Items.CreateItemCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.Items.ItemDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesItemsCreateItemCommandHandler"
   },
   {
     "ContainingType": "ShelfsService.Controllers.WeatherForecastController",
