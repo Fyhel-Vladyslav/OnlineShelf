@@ -110,6 +110,66 @@
         }
       }
     },
+    "/shelfs/item-tags/add": {
+      "post": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesTagsAddTagsToItemCommandHandler",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddTagsToItemCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/item-tags/remove": {
+      "post": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesTagsDeleteTagsFromItemCommandHandler",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteTagsFromItemCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/shelfs/{shelfId}": {
       "delete": {
         "tags": [
@@ -227,6 +287,36 @@
         }
       }
     },
+    "/shelfs/items": {
+      "put": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesItemsUpdateItemCommandHandler",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateItemCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -269,6 +359,15 @@
   },
   "components": {
     "schemas": {
+      "AddTagsToItemCommand": {
+        "type": "object",
+        "properties": {
+          "newTags": {
+            "$ref": "#/components/schemas/TagsListDto"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateItemCommand": {
         "type": "object",
         "properties": {
@@ -353,6 +452,15 @@
           "shelfId": {
             "type": "string",
             "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeleteTagsFromItemCommand": {
+        "type": "object",
+        "properties": {
+          "newTags": {
+            "$ref": "#/components/schemas/TagsListDto"
           }
         },
         "additionalProperties": false
@@ -525,6 +633,58 @@
             "maxLength": 100,
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TagsListDto": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateItemCommand": {
+        "type": "object",
+        "properties": {
+          "newItem": {
+            "$ref": "#/components/schemas/UpdateItemDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shelfId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bigImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "smallImage": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

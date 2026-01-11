@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
 using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace ShelfsService.src.ShelfsService.Repository.EfCore;
     public class ItemRepository : IItemRepository
@@ -61,6 +62,42 @@ namespace ShelfsService.src.ShelfsService.Repository.EfCore;
 
         return item;
 
+    }
+
+    public async Task<ItemTag> AddTagToItemAsync(string tagName, Guid itemId, CancellationToken ct = default)
+    {
+        var newTag = new ItemTag
+        {
+            Id = Guid.NewGuid(),
+            Name = tagName,
+            ItemId = itemId,
+            TagTypeId = 1,
+            Source = "User"
+        };
+
+        _dbContext.ItemTags.Add(newTag);
+        await _dbContext.SaveChangesAsync(ct);
+
+        return newTag;
+
+    }
+
+    public async Task<Guid> DeleteTagFromItemAsync(string tagName, Guid itemId, CancellationToken ct = default)
+    {
+        var tag = await _dbContext.ItemTags.FirstOrDefaultAsync(t => t.Name == tagName && t.ItemId == itemId, ct);
+
+        if (tag == null)
+        {
+            _logger.LogError("Tag with Name [{TagName}] for Item Id [{ItemId}] not found", tagName, itemId);
+            return Guid.Empty;
+        }
+
+        var tagId = tag.Id;
+
+        _dbContext.ItemTags.Remove(tag);
+        await _dbContext.SaveChangesAsync(ct);
+
+        return tagId;
     }
 }
 

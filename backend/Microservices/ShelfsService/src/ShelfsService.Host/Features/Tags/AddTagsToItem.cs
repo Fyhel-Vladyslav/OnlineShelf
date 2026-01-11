@@ -50,19 +50,19 @@ public class AddTagsToItemCommandHandler(
             return;
         }
 
-        foreach(var tagName in request.newTags.Tags)
+        var uniquTags = request.newTags.Tags.Distinct().ToList();
+
+        foreach (var tagName in uniquTags)
         {
             if (!item.Tags.Any(t => t.Name == tagName))
             {
-                item.Tags.Add(new ItemTag
-                {
-                    ItemId = item.Id,
-                    Name = tagName,
-                    TagTypeId = 1 // Default TagTypeId, adjust as necessary
-                });
+                await repos.AddTagToItemAsync(tagName, item.Id, ct);
             }
         }
 
+
+        item = await repos.GetItemByIdAsync(request.newTags.ItemId, ct);
+        
         await Send.OkAsync(item.ToDto(), cancellation: ct);
     }
 

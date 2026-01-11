@@ -101,6 +101,81 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/item-tags/add",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "AddTagsToItemCommand",
+        "Type": "ShelfsService.src.ShelfsService.Host.Features.Tags.AddTagsToItemCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.Items.ItemDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesTagsAddTagsToItemCommandHandler"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/item-tags/remove",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "DeleteTagsFromItemCommand",
+        "Type": "ShelfsService.src.ShelfsService.Host.Features.Tags.DeleteTagsFromItemCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.Items.ItemDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesTagsDeleteTagsFromItemCommandHandler"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/items",
+    "HttpMethod": "PUT",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UpdateItemCommand",
+        "Type": "ShelfsService.src.ShelfsService.Host.Features.Items.UpdateItemCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ShelfsService.src.ShelfsService.Common.DTOs.Items.ItemDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesItemsUpdateItemCommandHandler"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
     "RelativePath": "shelfs/items/{itemId}",
     "HttpMethod": "DELETE",
     "IsController": false,
