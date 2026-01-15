@@ -12,9 +12,7 @@ interface EditModalProps {
   isModalVisible: boolean;
   selectedLeaf: TreeDataNode | null;
   name: string;
-  description: string;
   onNameChange: (value: string) => void;
-  onDescriptionChange: (value: string) => void;
   onSave: () => void;
   onCancel: () => void;
   onClose: () => void;
@@ -24,9 +22,7 @@ export const EditModal = ({
   isModalVisible,
   selectedLeaf,
   name,
-  description,
   onNameChange,
-  onDescriptionChange,
   onSave,
   onCancel,
   onClose,
@@ -38,7 +34,7 @@ export const EditModal = ({
       footer={null}
       width={selectedLeaf?.isLeaf ? "75%" : "50%"}
       style={{ top: '50%', transform: 'translateY(-50%)' }}
-      maskStyle={{ backdropFilter: 'blur(5px)' }}
+      styles={{ mask: { backdropFilter: 'blur(5px)' } }}
       closable={false}
     >
       <Button onClick={onClose} style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>X</Button>
@@ -55,14 +51,6 @@ export const EditModal = ({
           <div className="form-field">
             <label>Name:</label>
             <Input value={name} onChange={(e) => onNameChange(e.target.value)} />
-          </div>
-          <div className="form-field">
-            <label>Description:</label>
-            <Input.TextArea
-              value={description}
-              onChange={(e) => onDescriptionChange(e.target.value)}
-              autoSize={{ minRows: 4, maxRows: 10 }}
-            />
           </div>
           <div className="form-buttons">
             <Button onClick={onSave}>Save</Button>

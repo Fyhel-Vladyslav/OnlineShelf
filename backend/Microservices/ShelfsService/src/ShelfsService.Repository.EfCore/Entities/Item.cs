@@ -13,6 +13,7 @@ public class Item
 
     [Required]
     public Guid ShelfId { get; set; }
+    public string positionKey { get; set; } = string.Empty;
 
     public string? BigImage { get; set; }
     public string? SmallImage { get; set; }

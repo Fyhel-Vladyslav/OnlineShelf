@@ -1,8 +1,13 @@
 import { Tree, Button } from 'antd';
 import type { GetProps } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { EditOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import { EditModal } from './EditModal';
+import { useShelfs } from '@/hooks/shelfs/useShelfs';
+import './MainArea.css';
+import { type UpdateShelfDto } from '@/api/shelfs/shelfsApi';
+import { useUpdateShelf } from '@/hooks/shelfs/useUpdateShelf';
 
 type DirectoryTreeProps = GetProps<typeof Tree.DirectoryTree>;
 
@@ -15,42 +20,33 @@ type TreeDataNode = {
 
 
 const { DirectoryTree } = Tree;
-import './MainArea.css';
-
-const initialTreeData: TreeDataNode[] = [
-  {
-    title: 'parent 0',
-    key: '0-0',
-    children: [
-      { title: 'a1', key: '0-0-0', isLeaf: true },
-      { title: 'a2', key: '0-0-1', isLeaf: true },
-    ],
-  },
-  {
-    title: 'parent 1',
-    key: '0-1',
-    children: [
-      { title: 'b1', key: '0-1-0', isLeaf: true },
-      { title: 'b2', key: '0-1-1', isLeaf: true },
-      { title: 'b3', key: '0-1-2', isLeaf: true },
-      { title: 'b4', key: '0-1-3', isLeaf: true },
-    ],
-  },
-  {
-    title: 'parent 2',
-    key: '0-2',
-    children: [
-    ],
-  },
-];
 
 export const MainArea = () => {
-  const [treeData, setTreeData] = useState<TreeDataNode[]>(initialTreeData);
+  const navigate = useNavigate();
+  const [treeData, setTreeData] = useState<TreeDataNode[]>([]);
+  const { data: shelfs, isLoading, error } = useShelfs();
+  const updateShelf = useUpdateShelf();
+  
+  console.log(shelfs);
+  
+  useEffect(() => {
+    if (shelfs) {
+      const transformedData: TreeDataNode[] = shelfs.map(shelf => ({
+        title: shelf.name,
+        key: shelf.id,
+        children: shelf.items.map(item => ({
+          title: item.name,
+          key: item.id,
+          isLeaf: true,
+        })),
+      }));
+      setTreeData(transformedData);
+    }
+  }, [shelfs]);
   const [draggedKey, setDraggedKey] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedLeaf, setSelectedLeaf] = useState<TreeDataNode | null>(null);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setShelfName] = useState('');
 
   const findNode = (data: TreeDataNode[], key: string): TreeDataNode | null => {
     for (const item of data) {
@@ -149,36 +145,61 @@ export const MainArea = () => {
   };
 
   const fetchData = async (key: string) => {
-    // Mock API call
-    return new Promise<{ name: string; description: string }>((resolve) => {
-      setTimeout(() => {
-        resolve({
-          name: `Name for ${key}`,
-          description: `Description for ${key}`,
-        });
-      }, 0);
-    });
+    // Find the item name from shelfs data
+    
+    if (shelfs) {
+      let shelf = shelfs.find(sh => sh.id === key);
+        if (shelf) {
+          return { name: shelf.name };
+        }
+
+      }
+    return { name: '' };
   };
 
   const handleLeafClick = async (node: TreeDataNode) => {
     setSelectedLeaf(node);
     setIsModalVisible(true);
     const data = await fetchData(node.key);
-    setName(data.name);
-    setDescription(data.description);
+    setShelfName(data.name);
   };
 
   const handleSave = async () => {
-    // Mock save to server
-    console.log('Saving:', { key: selectedLeaf?.key, name, description });
-    setIsModalVisible(false);
+      //setLoading(true);
+      const shelfId = selectedLeaf?.key;
+      try {
+        if(shelfId == null || shelfId=="")
+          {
+            console.log("error getting id of shelf");
+            return 
+          }
+        const payload: UpdateShelfDto = {
+          id: shelfId,
+          name:name,
+        };
+        console.log('Saving:',payload);
+
+
+        updateShelf.mutate(payload, {
+          onSuccess: () => {
+            console.log('Shelf updated successfully');
+            setIsModalVisible(false);
+          },
+          onError: () => {
+            console.log('Failed to update Shelf', {shelfId});
+          }
+        });
+      } catch (error) {
+        console.log('Failed to update Shelf', {shelfId});
+      } finally {
+        //setLoading(false);
+      }
   };
 
   const handleCancel = async () => {
     if (selectedLeaf) {
       const data = await fetchData(selectedLeaf.key);
-      setName(data.name);
-      setDescription(data.description);
+      setShelfName(data.name);
     }
   };
 
@@ -187,7 +208,10 @@ export const MainArea = () => {
   };
 
   const onSelect: DirectoryTreeProps['onSelect'] = (keys, info) => {
-    console.log('Trigger Select', keys, info);
+    console.log('onClick', keys, info);
+    if (info.node.isLeaf) {
+      navigate(`/item-edit/${info.node.key}`);
+    }
   };
 
   const onDragStart: DirectoryTreeProps['onDragStart'] = (info) => {
@@ -200,7 +224,7 @@ export const MainArea = () => {
   const onDragEnd: DirectoryTreeProps['onDragEnd'] = () => {
     const deleteZone = document.querySelector(".tree-delete-zone");
     if (deleteZone) deleteZone.classList.add("Hidden");
-    console.log("piz");
+    console.log("da2");
     setDraggedKey(null);
     };
 
@@ -252,20 +276,25 @@ export const MainArea = () => {
     console.log('Updated treeData:', newTreeData);
   };
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading shelfs</div>;
+
   const titleRender = (node: TreeDataNode) => {
     return (
       <span>
         {node.title}
-        <Button
-          type="text"
-          icon={<EditOutlined />}
-          size="small"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleLeafClick(node);
-          }}
-          style={{ marginLeft: 8, fontSize: 12 }}
-        />
+        {!node.isLeaf && (
+          <Button
+            type="text"
+            icon={<EditOutlined />}
+            size="small"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleLeafClick(node);
+            }}
+            style={{ marginLeft: 8, fontSize: 12 }}
+          />
+        )}
         {!node.isLeaf && (
           <button
             onClick={(e) => {
@@ -321,9 +350,7 @@ export const MainArea = () => {
         isModalVisible={isModalVisible}
         selectedLeaf={selectedLeaf}
         name={name}
-        description={description}
-        onNameChange={setName}
-        onDescriptionChange={setDescription}
+        onNameChange={setShelfName}
         onSave={handleSave}
         onCancel={handleCancel}
         onClose={handleClose}

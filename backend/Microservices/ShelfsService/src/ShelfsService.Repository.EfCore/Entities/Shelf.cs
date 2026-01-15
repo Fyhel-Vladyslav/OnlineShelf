@@ -15,6 +15,8 @@ public class Shelf
     public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
     public List<Item> Items { get; set; } = new();
 
+    public string positionKey { get; set; } = string.Empty;
+
     //public IList<AttributeValue> AttributeValues { get; init; } = [];
 
 }

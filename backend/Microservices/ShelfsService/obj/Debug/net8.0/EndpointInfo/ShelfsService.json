@@ -692,7 +692,7 @@
       "UpdateShelfCommand": {
         "type": "object",
         "properties": {
-          "newShelf": {
+          "shelfDto": {
             "$ref": "#/components/schemas/UpdateShelfDto"
           }
         },

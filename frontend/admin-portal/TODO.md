@@ -1,6 +1,4 @@
-# User Management Feature Implementation
+# TODO for MainArea.tsx Tasks
 
-- [ ] Modify src/components/Header/Header.tsx to add "Users" button with conditional rendering for admin users
-- [ ] Create src/features/userManagement/UserManagementPage.tsx with Ant Design Table for user data (login, id, role) and action buttons (edit, delete)
-- [ ] Create src/features/userManagement/UserManagementPage.css for custom styling
-- [ ] Update src/App.tsx to add new route for /user-management
+- [x] Task 1: Modify titleRender to show Edit button only for root parent nodes (shelves, !node.isLeaf)
+- [x] Task 2: Update fetchData to return actual item name from shelfs data instead of mock

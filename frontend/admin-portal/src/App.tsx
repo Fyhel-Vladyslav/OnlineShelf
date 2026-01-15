@@ -7,6 +7,7 @@ import RegisterPage from './features/auth/RegisterPage';
 import SettingsPage from './features/settings/SettingsPage';
 import UserManagementPage from './features/userManagement/UserManagementPage';
 import UserEditPage from './features/userManagement/UserEditPage';
+import ItemEditPage from './features/shelfs/ItemEditPage';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/user-management" element={<UserManagementPage />} />
             <Route path="/user-management/edit/:id" element={<UserEditPage />} />
+            <Route path="/item-edit/:id" element={<ItemEditPage />} />
           </Routes>
         </Layout>
       </Router>
