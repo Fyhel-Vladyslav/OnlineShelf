@@ -39,19 +39,22 @@ public sealed record UpdateShelfCommand(UpdateShelfDto shelfDto) : IRequest<Erro
                 await Send.ErrorsAsync(400, cancellation: ct);
                 return;
             }
-            var shelf = await repos.GetShelfByIdAsync(request.shelfDto.Id);
+
+        var shelf = await repos.GetShelfByIdAsync(request.shelfDto.Id);
 
             if (shelf == null)
             {
                 await Send.NotFoundAsync(cancellation: ct);
                 return;
             }
-            if (!await repos.CheckShelfNameUniqueAsync(shelf.Name, shelf.UserId, ct))
-            {
-                await Send.ErrorsAsync(400, cancellation: ct);
+
+        if (!await repos.CheckShelfNameUniqueAsync(request.shelfDto.Name, shelf.UserId, ct))
+        {
+            await Send.ErrorsAsync(400, cancellation: ct);
             //TODO: log duplicate name attempt
             return;
-            }
+        }
+
         SetShelfFromDTO(shelf, request.shelfDto);
             var resShelf = await repos.UpdateShelfAsync(shelf, ct);
         if (resShelf ==null)

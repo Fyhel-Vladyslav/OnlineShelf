@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { EditModal } from './EditModal';
 import { useShelfs } from '@/hooks/shelfs/useShelfs';
 import './MainArea.css';
-import { type UpdateShelfDto } from '@/api/shelfs/shelfsApi';
+import { type UpdateShelfDto, type CreateShelfDto } from '@/api/shelfs/shelfsApi';
 import { useUpdateShelf } from '@/hooks/shelfs/useUpdateShelf';
+import { useCreateShelf } from '@/hooks/shelfs/useCreateShelf';
 
 type DirectoryTreeProps = GetProps<typeof Tree.DirectoryTree>;
 
@@ -26,8 +27,9 @@ export const MainArea = () => {
   const [treeData, setTreeData] = useState<TreeDataNode[]>([]);
   const { data: shelfs, isLoading, error } = useShelfs();
   const updateShelf = useUpdateShelf();
+  const createShelf = useCreateShelf();
   
-  console.log(shelfs);
+  
   
   useEffect(() => {
     if (shelfs) {
@@ -111,15 +113,45 @@ export const MainArea = () => {
     return newData;
   };
 
-  const addParent = (data: TreeDataNode[]) => {
-    const newIndex = data.length;
-    const newNode: TreeDataNode = {
-      title: `parent ${newIndex}`,
-      key: `0-${newIndex}`,
-      children: [],
-    };
-    return [...data, newNode];
-  };
+  // const addParent = (data: TreeDataNode[]) => { 
+  //   const newIndex = data.length;
+
+  //   const newNode: TreeDataNode = {
+  //     title: `parent ${newIndex}`,
+  //     key: `0-${newIndex}`,
+  //     children: [],
+  //   };
+  //   return [...data, newNode];
+  // };
+
+  
+  const handleAddShelf = async () => {
+    //setLoading(true);
+    const userId = "sdfsdsjdfp";// todo get User Id
+    try {
+      const payload: CreateShelfDto = {
+        userId: userId,
+        name:name,
+      };
+      console.log('Saving:',payload);
+
+
+      createShelf.mutate(payload, {
+        onSuccess: () => {
+          console.log('Shelf created successfully');
+        },
+        onError: () => {
+          console.log('Failed to create Shelf for user', {userId});
+        }
+      });
+    } catch (error) {
+      console.error('Failed to create Shelf for user', {userId});
+      console.log(error);
+      
+    } finally {
+      //setLoading(false);
+    }
+};
 
   const updateTree = (data: TreeDataNode[], targetKey: string, newChild: TreeDataNode): TreeDataNode[] => {
     return data.map(node => {
@@ -208,7 +240,6 @@ export const MainArea = () => {
   };
 
   const onSelect: DirectoryTreeProps['onSelect'] = (keys, info) => {
-    console.log('onClick', keys, info);
     if (info.node.isLeaf) {
       navigate(`/item-edit/${info.node.key}`);
     }
@@ -217,14 +248,12 @@ export const MainArea = () => {
   const onDragStart: DirectoryTreeProps['onDragStart'] = (info) => {
     const deleteZone = document.querySelector(".tree-delete-zone");
     if (deleteZone) deleteZone.classList.remove("Hidden");
-    console.log("da");
     setDraggedKey(info.node.key as string);
      };
 
   const onDragEnd: DirectoryTreeProps['onDragEnd'] = () => {
     const deleteZone = document.querySelector(".tree-delete-zone");
     if (deleteZone) deleteZone.classList.add("Hidden");
-    console.log("da2");
     setDraggedKey(null);
     };
 
@@ -343,7 +372,10 @@ export const MainArea = () => {
           titleRender={titleRender}
           treeData={treeData}
         />
-        <div onClick={() => setTreeData(addParent(treeData))}> + add parent</div>
+        {/* <div onClick={() => setTreeData(addParent(treeData))}> */}
+        <div onClick={() => handleAddShelf()}>
+           + add parent
+           </div>
       </div>
 
       <EditModal

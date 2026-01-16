@@ -44,7 +44,7 @@
               "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\UpdateShelf.cs",
               "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\UpdateShelf.cs",
               "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\UpdateShelf.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAADwvzEAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAUwDgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-15T22:11:00.983Z",
               "EditorCaption": ""
@@ -72,8 +72,7 @@
               "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\UpdateItem.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAAgwD8AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-11T17:18:43.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-11T17:18:43.465Z"
             },
             {
               "$type": "Document",
@@ -85,8 +84,7 @@
               "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Common\\DTOs\\Items\\UpdateItemDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-11T17:18:36.155Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-11T17:18:36.155Z"
             },
             {
               "$type": "Document",
@@ -98,8 +96,7 @@
               "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Common\\ApiRoutes.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-11T13:03:37.762Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-11T13:03:37.762Z"
             },
             {
               "$type": "Document",

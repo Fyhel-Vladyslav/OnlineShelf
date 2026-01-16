@@ -8,6 +8,11 @@ export type ShelfsDto = {
   items: ItemPreviewDto[];
 };
 
+export type CreateShelfDto = {
+  userId: string;
+  name: string;
+};
+
 export type UpdateShelfDto = {
   id: string;
   name: string;
@@ -16,9 +21,14 @@ export type UpdateShelfDto = {
 export type GetShelfsResponse = {
   shelfs: ShelfsDto[];
 };
+
+
+
 export const shelfsApi = {
     getShelfs: () =>
       httpClient.get<GetShelfsResponse>("/shelfs"),
+    createShelf: (newShelf: CreateShelfDto) =>
+      httpClient.post<CreateShelfDto>("/add-shelf",{newShelf}),
     updateShelf: (shelfDto: UpdateShelfDto) =>
       httpClient.put<UpdateShelfDto>("/shelfs",{shelfDto})
   };
