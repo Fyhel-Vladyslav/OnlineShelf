@@ -7,7 +7,7 @@ using UserService.src.UserService.Repository.EfCore.Entities;
 
 namespace UserService.Extentions.DependencyInjection
 {
-    public static class JwtAuthorization
+    public static class JwtAuthorizationExtention
     {
         public static IServiceCollection AddAuthorization(this IServiceCollection services, IConfiguration configuration,
 IHostEnvironment env)

@@ -58,7 +58,7 @@ IPasswordHasher<User> passwordHasher
 
         if (user is null)
         {
-            //await SendNotFoundAsync(ct);
+            await Send.UnauthorizedAsync(cancellation: ct);
             return;
         }
 
@@ -71,6 +71,7 @@ IPasswordHasher<User> passwordHasher
         if (verifyResult == PasswordVerificationResult.Failed)
         {
             ThrowError("Invalid credentials");
+            await Send.UnauthorizedAsync(cancellation: ct);
         }
 
         // TODO delete

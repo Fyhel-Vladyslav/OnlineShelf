@@ -421,17 +421,6 @@
           "name": {
             "type": "string",
             "nullable": true
-          },
-          "userId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ItemPreviewDto"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false

@@ -2,7 +2,26 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "delete-user/{userId}",
+    "RelativePath": "users",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "UserService.src.UserService.Host.Features.Users.GetAllUsersResponse",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersGetAllUsers"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "users/{userId}",
     "HttpMethod": "DELETE",
     "IsController": false,
     "Order": 0,
@@ -28,25 +47,6 @@
       }
     ],
     "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersDeleteUser"
-  },
-  {
-    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
-    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "users",
-    "HttpMethod": "GET",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "UserService.src.UserService.Host.Features.Users.GetAllUsersResponse",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "UserServicesrcUserServiceHostFeaturesUsersGetAllUsers"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
@@ -213,26 +213,5 @@
       }
     ],
     "EndpointName": "UserServicesrcUserServiceHostFeaturesAuthorizationVerifyUserPasswordEndpoint"
-  },
-  {
-    "ContainingType": "UserService.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[UserService.WeatherForecast, UserService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
   }
 ]

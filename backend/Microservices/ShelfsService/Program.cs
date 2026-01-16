@@ -29,13 +29,14 @@
 
 
 
+using ShelfService.Extensions.DependencyInjection;
 using ShelfsService.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddInfrastructure(builder.Configuration, builder.Environment)
-   // .AddAuthorization(builder.Configuration, builder.Environment)
+    .AddJwtAuthorization(builder.Configuration, builder.Environment)
 ;
 
 var app = builder.Build();

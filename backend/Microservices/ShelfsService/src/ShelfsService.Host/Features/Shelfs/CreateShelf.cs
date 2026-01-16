@@ -38,9 +38,20 @@ public sealed record CreateShelfCommand(CreateShelfDto newShelf) : IRequest<Erro
 
     public override async Task HandleAsync(CreateShelfCommand request, CancellationToken ct)
     {
-        var shelf = FromDTO(request.newShelf);
 
-        if (!await repos.CheckShelfNameUniqueAsync(request.newShelf.Name, request.newShelf.UserId, ct))
+        var userId = User.GetUserId();
+        var isAuthenticated = User.Identity?.IsAuthenticated;
+
+        if (isAuthenticated != true)
+        {
+            await Send.UnauthorizedAsync(ct);
+            return;
+        }
+
+        var shelf = FromDTO(request.newShelf, userId);
+
+
+        if (!await repos.CheckShelfNameUniqueAsync(request.newShelf.Name, userId, ct))
         {
             Logger.LogError("Shelf with name [{Name}] already exists", request.newShelf.Name);
             await Send.ResultAsync(TypedResults.Conflict("Shelf with this name already exists"));
@@ -53,14 +64,14 @@ public sealed record CreateShelfCommand(CreateShelfDto newShelf) : IRequest<Erro
         await Send.OkAsync(newShelf.ToDto(), cancellation: ct);
     }
 
-    private Shelf FromDTO(CreateShelfDto dto)
+    private Shelf FromDTO(CreateShelfDto dto, Guid userId)
     {
 
         var reqTime = DateTime.UtcNow;
         var newShelf = new Shelf
         {
             Id = Guid.NewGuid(),
-            UserId = dto.UserId,
+            UserId = userId,
             Name = dto.Name,
             Items = new List<Item>(),
             DateCreated = reqTime,
