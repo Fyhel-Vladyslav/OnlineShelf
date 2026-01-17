@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
+import {useSignIn} from '@/hooks/users/useSignIn'
 
 const LoginPage: React.FC = () => {
+  const signIn = useSignIn();
+
+
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: 'admin',
+    password: 'admin',
   });
   const [errors, setErrors] = useState({
     email: '',
@@ -19,7 +23,7 @@ const LoginPage: React.FC = () => {
   };
 
   const validatePassword = (password: string) => {
-    return password.length >= 6;
+    return password.length >= 3;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,11 +58,24 @@ const LoginPage: React.FC = () => {
     setErrors(newErrors);
 
     if (!newErrors.email && !newErrors.password) {
-      // Handle login logic here
-      console.log('Login attempt:', formData);
-      alert('Login successful!');
-    }
+      try {
+        console.log('Login attempt:', formData);
+
+
+        signIn.mutate(formData, {
+          onSuccess: () => {
+            console.log("success");
+            window.location.href = '/';
+          },
+          onError: () => {
+            console.error('Failed to update item');
+          }
+        });
+      } catch (error) {
+        console.error('Failed to update item');
+      }
   };
+}
 
   return (
     <div className="login-page">
