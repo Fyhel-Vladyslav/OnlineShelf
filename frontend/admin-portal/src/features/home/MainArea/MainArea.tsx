@@ -3,12 +3,15 @@ import type { GetProps } from 'antd';
 import { useState, useEffect } from 'react';
 import { EditOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { EditModal } from './EditModal';
+import { EditModal } from '../../../components/EditModal.tsx/EditModal';
 import { useShelfs } from '@/hooks/shelfs/useShelfs';
 import './MainArea.css';
 import { type UpdateShelfDto, type CreateShelfDto } from '@/api/shelfs/shelfsApi';
 import { useUpdateShelf } from '@/hooks/shelfs/useUpdateShelf';
 import { useCreateShelf } from '@/hooks/shelfs/useCreateShelf';
+import { useNotification } from "@/notification/useNotification";
+import { notificationColours } from "@/notification/notificationColours";
+import { isAxiosError, type AxiosError } from 'axios';
 
 type DirectoryTreeProps = GetProps<typeof Tree.DirectoryTree>;
 
@@ -28,7 +31,7 @@ export const MainArea = () => {
   const { data: shelfs, isLoading, error } = useShelfs();
   const updateShelf = useUpdateShelf();
   const createShelf = useCreateShelf();
-  
+  const { notify } = useNotification();
   
   
   useEffect(() => {
@@ -127,11 +130,20 @@ export const MainArea = () => {
   
   const handleAddShelf = async () => {
     //setLoading(true);
-    const userId = "sdfsdsjdfp";// todo get User Id
     try {
+        let newName = "new shelf";
+        if(shelfs!= null && shelfs.length>0)
+        for(let i =1; i<shelfs.length+1;i++)
+        {
+          if(shelfs.find(sh => sh.name == `${newName} ${i}`)==null){
+            newName += ` ${i}`;
+            break;
+          }
+        }
+
+
       const payload: CreateShelfDto = {
-        userId: userId,
-        name:name,
+        name:newName,
       };
       console.log('Saving:',payload);
 
@@ -139,13 +151,33 @@ export const MainArea = () => {
       createShelf.mutate(payload, {
         onSuccess: () => {
           console.log('Shelf created successfully');
+          setShelfName(newName);
+          setIsModalVisible(true);
         },
-        onError: () => {
-          console.log('Failed to create Shelf for user', {userId});
-        }
+        onError: (error) => { 
+            console.log('Failed to create Shelf');
+            let code: number | undefined;
+
+            // Use the type guard INSIDE the function body
+            if (isAxiosError(error)) {
+                code = error.response?.status;
+            }
+          
+            notify({
+                code: code,
+                text: error.message,
+                time: 3000,
+            })
+          }
       });
     } catch (error) {
-      console.error('Failed to create Shelf for user', {userId});
+      console.error('Failed to create Shelf');
+      notify({
+        colour: notificationColours.Red,
+        code: 500,
+        text: "Unexpected error",
+        time: 3000,
+      })
       console.log(error);
       
     } finally {
@@ -189,7 +221,7 @@ export const MainArea = () => {
     return { name: '' };
   };
 
-  const handleLeafClick = async (node: TreeDataNode) => {
+  const handleEditButtonClick = async (node: TreeDataNode) => {
     setSelectedLeaf(node);
     setIsModalVisible(true);
     const data = await fetchData(node.key);
@@ -310,6 +342,8 @@ export const MainArea = () => {
 
   const titleRender = (node: TreeDataNode) => {
     return (
+      
+
       <span>
         {node.title}
         {!node.isLeaf && (
@@ -319,7 +353,7 @@ export const MainArea = () => {
             size="small"
             onClick={(e) => {
               e.stopPropagation();
-              handleLeafClick(node);
+              handleEditButtonClick(node);
             }}
             style={{ marginLeft: 8, fontSize: 12 }}
           />

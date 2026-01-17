@@ -9,7 +9,7 @@ public static class ClaimsPrincipalExtensions
         var id = user.FindFirstValue(ClaimTypes.NameIdentifier);
 
         if (string.IsNullOrWhiteSpace(id))
-            throw new SecurityTokenException("UserId claim is missing");
+            return Guid.Empty;
 
         return Guid.Parse(id);
     }

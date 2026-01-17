@@ -1,6 +1,6 @@
 
-import LeftSidebar from '../../components/LeftSidebar/LeftSidebar';
-import { MainArea } from '../../components/MainArea/MainArea';
+import LeftSidebar from './LeftSidebar/LeftSidebar';
+import { MainArea } from './MainArea/MainArea';
 import './HomePage.css';
 
 const HomePage: React.FC = () => {

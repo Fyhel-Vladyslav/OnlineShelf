@@ -9,7 +9,6 @@ export type ShelfsDto = {
 };
 
 export type CreateShelfDto = {
-  userId: string;
   name: string;
 };
 
@@ -28,7 +27,7 @@ export const shelfsApi = {
     getShelfs: () =>
       httpClient.get<GetShelfsResponse>("/shelfs"),
     createShelf: (newShelf: CreateShelfDto) =>
-      httpClient.post<CreateShelfDto>("/add-shelf",{newShelf}),
+      httpClient.post<CreateShelfDto>("/shelfs/add-shelf",{newShelf}),
     updateShelf: (shelfDto: UpdateShelfDto) =>
       httpClient.put<UpdateShelfDto>("/shelfs",{shelfDto})
   };

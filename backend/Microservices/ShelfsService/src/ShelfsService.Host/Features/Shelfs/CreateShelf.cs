@@ -40,6 +40,12 @@ public sealed record CreateShelfCommand(CreateShelfDto newShelf) : IRequest<Erro
     {
 
         var userId = User.GetUserId();
+        if(userId == Guid.Empty)
+        {
+            await Send.UnauthorizedAsync(ct);
+            return;
+        }
+
         var isAuthenticated = User.Identity?.IsAuthenticated;
 
         if (isAuthenticated != true)

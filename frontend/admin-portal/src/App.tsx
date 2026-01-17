@@ -9,10 +9,12 @@ import UserManagementPage from './features/userManagement/UserManagementPage';
 import UserEditPage from './features/userManagement/UserEditPage';
 import ItemEditPage from './features/shelfs/ItemEditPage';
 import './App.css';
+import { NotificationRoot } from './notification/NotificationRoot';
 
 function App() {
   return (
     <StrictMode>
+      <NotificationRoot />
       <Router>
         <Layout>
           <Routes>
