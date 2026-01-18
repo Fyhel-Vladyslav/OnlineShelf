@@ -1,4 +1,10 @@
-# TODO for MainArea.tsx Tasks
-
-- [x] Task 1: Modify titleRender to show Edit button only for root parent nodes (shelves, !node.isLeaf)
-- [x] Task 2: Update fetchData to return actual item name from shelfs data instead of mock
+- [ ] Create `useDeleteItem` hook in `src/hooks/items/useDeleteItem.ts`
+- [ ] Add `handleRemoveItem` and `handleRemoveShelf` functions in `MainArea.tsx`
+- [ ] Add `isLeafNode` helper function in `MainArea.tsx`
+- [ ] Uncomment and fix the delete logic in the drop handler in `MainArea.tsx`
+=======
+- [x] Add `deleteItem` method to `itemsApi.ts`
+- [x] Create `useDeleteItem` hook in `src/hooks/items/useDeleteItem.ts`
+- [ ] Add `handleRemoveItem` and `handleRemoveShelf` functions in `MainArea.tsx`
+- [ ] Add `isLeafNode` helper function in `MainArea.tsx`
+- [ ] Uncomment and fix the delete logic in the drop handler in `MainArea.tsx`

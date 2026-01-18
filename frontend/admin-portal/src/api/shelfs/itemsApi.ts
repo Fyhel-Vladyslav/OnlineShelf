@@ -26,9 +26,12 @@ export type ItemDto = {
 export const itemsApi = {
     getItemById: (itemId: string) =>
       httpClient.get<ItemDto>(`/shelfs/items/${itemId}`),
-    
+
     updateItem: (newItem: UpdateItemDto) =>
       httpClient.put<UpdateItemDto>("/shelfs/items", {
         newItem,
       }),
+
+    deleteItem: (itemId: string) =>
+      httpClient.delete<string>(`/shelfs/items/${itemId}`),
   };

@@ -9,6 +9,8 @@ import './MainArea.css';
 import { type UpdateShelfDto, type CreateShelfDto } from '@/api/shelfs/shelfsApi';
 import { useUpdateShelf } from '@/hooks/shelfs/useUpdateShelf';
 import { useCreateShelf } from '@/hooks/shelfs/useCreateShelf';
+import { useDeleteShelf } from '@/hooks/shelfs/usedeleteShelf';
+import { useDeleteItem } from '@/hooks/items/useDeleteItem';
 import { useNotification } from "@/notification/useNotification";
 import { notificationColours } from "@/notification/notificationColours";
 import { isAxiosError, type AxiosError } from 'axios';
@@ -31,6 +33,8 @@ export const MainArea = () => {
   const { data: shelfs, isLoading, error } = useShelfs();
   const updateShelf = useUpdateShelf();
   const createShelf = useCreateShelf();
+  const deleteShelf = useDeleteShelf();
+  const deleteItem = useDeleteItem();
   const { notify } = useNotification();
   
   
@@ -112,8 +116,46 @@ export const MainArea = () => {
     children.splice(position, 0, node);
     parentElement.children = children;
     newData[parentPosition] = parentElement;
-  
+
     return newData;
+  };
+
+  const isLeafNode = (node: TreeDataNode): boolean => {
+    return node.isLeaf === true;
+  };
+
+  const handleRemoveItem = (itemId: string) => {
+    deleteItem.mutate(itemId, {
+      onSuccess: () => {
+        console.log('Item deleted successfully');
+        // Optionally, update the tree data locally or refetch
+      },
+      onError: (error: any) => {
+        console.log('Failed to delete item', error);
+        notify({
+          code: 500,
+          text: "Failed to delete item",
+          time: 3000,
+        });
+      }
+    });
+  };
+
+  const handleRemoveShelf = (shelfId: string) => {
+    deleteShelf.mutate(shelfId, {
+      onSuccess: () => {
+        console.log('Shelf deleted successfully');
+        // Optionally, update the tree data locally or refetch
+      },
+      onError: (error) => {
+        console.log('Failed to delete shelf', error);
+        notify({
+          code: 500,
+          text: "Failed to delete shelf",
+          time: 3000,
+        });
+      }
+    });
   };
 
   // const addParent = (data: TreeDataNode[]) => { 
@@ -382,11 +424,15 @@ export const MainArea = () => {
           onDrop={(e) => {
             e.currentTarget.classList.add("Hidden");
             if (draggedKey) {
-              const path = findPath(treeData, draggedKey);
-              if (path) {
-                setTreeData(removeNode(treeData, path));
-                setDraggedKey(null);
+              const node = findNode(treeData, draggedKey);
+              if (node) {
+                if (isLeafNode(node)) {
+                  handleRemoveItem(draggedKey);
+                } else {
+                  handleRemoveShelf(draggedKey);
+                }
               }
+              setDraggedKey(null);
             }
           }}
         >

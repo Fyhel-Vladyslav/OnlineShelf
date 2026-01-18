@@ -28,6 +28,10 @@ export const shelfsApi = {
       httpClient.get<GetShelfsResponse>("/shelfs"),
     createShelf: (newShelf: CreateShelfDto) =>
       httpClient.post<CreateShelfDto>("/shelfs/add-shelf",{newShelf}),
+        
+    deleteShelf: (shelfId: string) =>
+      httpClient.delete<string>(`/shelfs/${shelfId}`),
+        
     updateShelf: (shelfDto: UpdateShelfDto) =>
       httpClient.put<UpdateShelfDto>("/shelfs",{shelfDto})
   };
