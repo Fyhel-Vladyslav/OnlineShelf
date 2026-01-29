@@ -32,7 +32,7 @@
               "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\DeleteShelf.cs",
               "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\DeleteShelf.cs",
               "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\DeleteShelf.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwCAAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBoAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-18T17:44:35.437Z",
               "EditorCaption": ""
@@ -59,8 +59,7 @@
               "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\CreateShelf.cs",
               "ViewState": "AgIAACEAAAAAAAAAAAAYwC8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T11:00:54.255Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-17T11:00:54.255Z"
             }
           ]
         }

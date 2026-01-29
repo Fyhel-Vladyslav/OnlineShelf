@@ -13,6 +13,7 @@ export const useCreateShelf = () => {
     },
     onError: (error, variables) => {
         console.error("Update failed for:", variables);
+        console.error(error.message);
       },
   });
 };

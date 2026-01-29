@@ -1,0 +1,75 @@
+.pageWrapper {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: black;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+/* Новий контейнер для щільного розміщення */
+.gridContainer {
+  /* Mobile: 1 колонка */
+  column-count: 1;
+  column-gap: 20px;
+  width: 100%;
+}
+
+.gridItem {
+  /* Важливо: запобігає розриву картки між колонками */
+  break-inside: avoid;
+  margin-bottom: 20px;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Tablet: 2 колонки */
+@media (min-width: 768px) {
+  .gridContainer {
+    column-count: 2;
+  }
+}
+
+/* Desktop: 3 колонки */
+@media (min-width: 1024px) {
+  .gridContainer {
+    column-count: 3;
+  }
+}
+.dragOverlayItem {
+  padding: 8px 12px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  cursor: grabbing;
+}
+.deleteZone {
+  width: 80%;
+  margin: 20px auto 0 auto;
+  height: 60px;
+  background-color: #ff4d4d;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 10px;
+  border: 2px dashed white;
+  transition: all 0.2s ease;
+}
+
+.deleteZoneActive {
+  background-color: #b30000;
+  transform: scale(1.02);
+}
+
+.shelfDroppableArea {
+  /* Щоб зона прийому була трохи більшою або візуально зрозумілою */
+  padding: 5px;
+}

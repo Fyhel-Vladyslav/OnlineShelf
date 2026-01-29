@@ -1,4 +1,4 @@
-.main-area {
+/* .main-area {
   height: auto;
   width: 70%;
   background-color: white;
@@ -7,7 +7,7 @@
   user-select: none;
 }
 
-/* .main-area div[style] {
+ .main-area div[style] {
   background-color: #f9f9f9;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -16,7 +16,7 @@
 .main-area div[style]:active {
   cursor: grabbing;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-} */
+} 
 
 .tree-container{
   height: 100%;
@@ -42,4 +42,4 @@
   opacity: 0;
   visibility: hidden;
   border: 0px;
-}
+} */

@@ -7,9 +7,10 @@ import RegisterPage from './features/auth/RegisterPage';
 import SettingsPage from './features/settings/SettingsPage';
 import UserManagementPage from './features/userManagement/UserManagementPage';
 import UserEditPage from './features/userManagement/UserEditPage';
-import ItemEditPage from './features/shelfs/ItemEditPage';
+import ItemEditPage from './features/item/ItemEditPage';
 import './App.css';
 import { NotificationRoot } from './notification/NotificationRoot';
+import ShelfsPage from './features/shelfs/ShelfsPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/user-management" element={<UserManagementPage />} />
             <Route path="/user-management/edit/:id" element={<UserEditPage />} />
             <Route path="/item-edit/:id" element={<ItemEditPage />} />
+            <Route path="/shelfs" element={<ShelfsPage />} />
           </Routes>
         </Layout>
       </Router>

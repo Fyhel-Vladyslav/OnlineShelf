@@ -15,6 +15,7 @@ export const useUpdateItem = () => {
     },
     onError: (error, variables) => {
         console.error("Update failed for:", variables);
+        console.log(error.message);
       },
   });
 };

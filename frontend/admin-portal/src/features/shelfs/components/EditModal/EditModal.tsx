@@ -1,17 +1,11 @@
 import { Modal, Input, Button } from 'antd';
 import './EditModal.css';
-
-type TreeDataNode = {
-  title: string;
-  key: string;
-  children?: TreeDataNode[];
-  isLeaf?: boolean;
-};
+import type { ShelfsDto } from '@/api/shelfs/shelfsApi';
 
 interface EditModalProps {
   isModalVisible: boolean;
-  selectedLeaf: TreeDataNode | null;
   name: string;
+  shelf: ShelfsDto | null;
   onNameChange: (value: string) => void;
   onSave: () => void;
   onCancel: () => void;
@@ -20,7 +14,6 @@ interface EditModalProps {
 
 export const EditModal = ({
   isModalVisible,
-  selectedLeaf,
   name,
   onNameChange,
   onSave,
@@ -32,21 +25,13 @@ export const EditModal = ({
       open={isModalVisible}
       onCancel={onClose}
       footer={null}
-      width={selectedLeaf?.isLeaf ? "75%" : "50%"}
+      width="50%"
       style={{ top: '50%', transform: 'translateY(-50%)' }}
       styles={{ mask: { backdropFilter: 'blur(5px)' } }}
       closable={false}
     >
       <Button onClick={onClose} style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>X</Button>
       <div className="edit-modal-content">
-        {selectedLeaf?.isLeaf && (
-          <div className="edit-modal-image">
-            <img
-              src="https://via.placeholder.com/400x400?text=Huge+Picture"
-              alt="Leaf Image"
-            />
-          </div>
-        )}
         <div className="edit-modal-form">
           <div className="form-field">
             <label>Name:</label>
