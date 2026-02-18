@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 using System.Data;
+using System.Xml.Linq;
+using Attribute = ShelfsService.src.ShelfsService.Repository.EfCore.Entities.AttributeName;
 
 namespace ShelfsService.src.ShelfsService.Repository.EfCore;
 public static class DatabaseSeeder
@@ -10,42 +12,12 @@ public static class DatabaseSeeder
         // Ensure database and schema exist
         await db.Database.MigrateAsync();
 
-        await SeedTagTypes(db);
         await SeedShelves(db);
         await SeedItems(db);
-        await SeedItemTags(db);
+        await SeedAttributesValues(db);
+        await SeedAttributes(db);
 
         await db.SaveChangesAsync();
-    }
-
-    // -------------------------
-    // TagTypes (dictionary)
-    // -------------------------
-    private static async Task SeedTagTypes(ShelfsDataContext db)
-    {
-        if (await db.Set<TagType>().AnyAsync())
-            return;
-
-        db.Set<TagType>().AddRange(
-            new TagType
-            {
-                Id = 1,
-                Name = "Category",
-                Description = "Item category"
-            },
-            new TagType
-            {
-                Id = 2,
-                Name = "Color",
-                Description = "Color related tag"
-            },
-            new TagType
-            {
-                Id = 3,
-                Name = "Material",
-                Description = "Material related tag"
-            }
-        );
     }
 
     // -------------------------
@@ -88,42 +60,89 @@ public static class DatabaseSeeder
                 UserId = Guid.Parse("d1437f42-8b54-4a02-b0a5-800426cd7580"),
                 ShelfId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 BigImage = null,
-                SmallImage = null
+                SmallImage = null,
+                AttributeColorMain = 1,
+                AttributeColorSecond = 2,
+                AttributeType = 3,
+                AttributeSeason = 4,
+                AttributePattern = 5,
+                AttributeMatterial = 6,
+                isFavorite = true
             },
             new Item
             {
                 Id = Guid.Parse("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
                 Name = "Pen",
                 UserId = Guid.Parse("d1437f42-8b54-4a02-b0a5-800426cd7580"),
-                ShelfId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                ShelfId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                AttributeColorMain = 2,
+                AttributeColorSecond = 4,
+                AttributeType = 2,
+                AttributeSeason = 1,
+                AttributePattern = 3,
+                AttributeMatterial = 7,
+                isFavorite = false
+            }
+        );
+    }
+
+
+    // -------------------------
+    // AttributesValues
+    // -------------------------
+    private static async Task SeedAttributesValues(ShelfsDataContext db)
+    {
+        if (await db.AttributesValues.AnyAsync())
+            return;
+
+        db.AttributesValues.AddRange(
+            /// Colours
+            new AttributesValue
+            {
+                AttributeKey = 1,
+                AttributeValue = "Red",
+                AttributeId = 1
+            },
+            new AttributesValue
+            {
+                AttributeKey = 2,
+                AttributeValue = "Blue",
+                AttributeId = 1
+            },
+            /// Types
+            new AttributesValue
+            {
+                AttributeKey = 1,
+                AttributeValue = "TShirt",
+                AttributeId = 2
+            },
+            new AttributesValue
+            {
+                AttributeKey = 2,
+                AttributeValue = "Shoose",
+                AttributeId = 2
             }
         );
     }
 
     // -------------------------
-    // ItemTags
+    // Attributes
     // -------------------------
-    private static async Task SeedItemTags(ShelfsDataContext db)
+    private static async Task SeedAttributes(ShelfsDataContext db)
     {
-        if (await db.ItemTags.AnyAsync())
+        if (await db.Attributes.AnyAsync())
             return;
 
-        db.ItemTags.AddRange(
-            new ItemTag
+        db.Attributes.AddRange(
+            new Attribute
             {
-                Id = Guid.NewGuid(),
-                ItemId = Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
-                TagTypeId = 1,
-                Name = "Stationery",
-                Source = "System"
+                AttributeKey = 1,
+                Name = "Color"
             },
-            new ItemTag
+            new Attribute
             {
-                Id = Guid.NewGuid(),
-                ItemId = Guid.Parse("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
-                TagTypeId = 2,
-                Name = "Blue",
-                Source = "User"
+                AttributeKey = 2,
+                Name = "Type"
             }
         );
     }

@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\features\\shelfs\\deleteshelf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\features\\shelfs\\deleteshelf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\features\\attributes\\getattributesvalues.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\features\\attributes\\getattributesvalues.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\features\\shelfs\\createshelf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\features\\shelfs\\createshelf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.common\\interfaces\\iattributeresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.common\\interfaces\\iattributeresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\src\\userservice.host\\features\\authorization\\signin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\src\\userservice.host\\features\\authorization\\signin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\extentions\\shelfsextention.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\extentions\\shelfsextention.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\features\\attributes\\attributeresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\features\\attributes\\attributeresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,44 +26,59 @@
       "DocumentGroups": [
         {
           "DockedHeight": 237,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DeleteShelf.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\DeleteShelf.cs",
-              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\DeleteShelf.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\DeleteShelf.cs",
-              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\DeleteShelf.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBoAAAAjAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "IAttributeResolver.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Common\\Interfaces\\IAttributeResolver.cs",
+              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Common\\Interfaces\\IAttributeResolver.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Common\\Interfaces\\IAttributeResolver.cs",
+              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Common\\Interfaces\\IAttributeResolver.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-18T17:44:35.437Z",
+              "WhenOpened": "2026-02-18T21:26:07.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AttributeResolver.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Attributes\\AttributeResolver.cs",
+              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Attributes\\AttributeResolver.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Attributes\\AttributeResolver.cs",
+              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Attributes\\AttributeResolver.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-18T21:14:44.964Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SignIn.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\UserService.Host\\Features\\Authorization\\SignIn.cs",
-              "RelativeDocumentMoniker": "UserService\\src\\UserService.Host\\Features\\Authorization\\SignIn.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\UserService.Host\\Features\\Authorization\\SignIn.cs",
-              "RelativeToolTip": "UserService\\src\\UserService.Host\\Features\\Authorization\\SignIn.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAkwA4AAAAAAAAAAAAAAA==",
+              "Title": "ShelfsExtention.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\Extentions\\ShelfsExtention.cs",
+              "RelativeDocumentMoniker": "ShelfsService\\Extentions\\ShelfsExtention.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\Extentions\\ShelfsExtention.cs",
+              "RelativeToolTip": "ShelfsService\\Extentions\\ShelfsExtention.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwA4AAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T21:43:00.539Z"
+              "WhenOpened": "2026-02-18T21:11:54.912Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CreateShelf.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\CreateShelf.cs",
-              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\CreateShelf.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\CreateShelf.cs",
-              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Shelfs\\CreateShelf.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAYwC8AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "GetAttributesValues.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Attributes\\GetAttributesValues.cs",
+              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Attributes\\GetAttributesValues.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Attributes\\GetAttributesValues.cs*",
+              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Attributes\\GetAttributesValues.cs*",
+              "ViewState": "AgIAABMAAAAAAAAAAAArwBoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T11:00:54.255Z"
+              "WhenOpened": "2026-02-18T21:00:51.81Z",
+              "EditorCaption": ""
             }
           ]
         }

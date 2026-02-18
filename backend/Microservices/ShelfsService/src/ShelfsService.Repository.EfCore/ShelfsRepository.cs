@@ -29,10 +29,7 @@ public class ShelfsRepository : IShelfsRepository
 
     public Task<Shelf?> GetShelfByIdAsync(Guid shelfId, CancellationToken cancellationToken = default) =>
     _dbContext.Shelfs
-        .Include(i => i.Items)
-            .ThenInclude(tg => tg.Tags)
-                .ThenInclude(tp => tp.Type)
-                    .FirstOrDefaultAsync(s => s.Id == shelfId, cancellationToken);
+        .Include(i => i.Items).FirstOrDefaultAsync(s => s.Id == shelfId, cancellationToken);
 
     public async Task<Shelf> CreateShelfAsync(Shelf shelf, CancellationToken ct)
     {

@@ -14,6 +14,8 @@ public class ApiRoutes
     public const string DeleteItem = $"{Shelfs}/items/{ItemIdParam}";
     public const string UpdateItem = $"{Shelfs}/items";
 
+    public const string Attributes = $"{Shelfs}/attributes";
+
     public const string AddTagsToItem = $"{Shelfs}/item-tags/add";
     public const string DeleteTagsFromItem = $"{Shelfs}/item-tags/remove";
 }

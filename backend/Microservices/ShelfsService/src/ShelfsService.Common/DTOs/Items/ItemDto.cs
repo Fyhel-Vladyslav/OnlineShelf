@@ -11,5 +11,4 @@ public class ItemDto
     public DateTime DateCreated { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    public List<ItemTag> Tags { get; set; } = new();
 }

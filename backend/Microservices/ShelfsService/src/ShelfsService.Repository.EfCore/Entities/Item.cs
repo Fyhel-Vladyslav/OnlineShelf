@@ -21,9 +21,13 @@ public class Item
     public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
     
     
-    public List<ItemTag> Tags { get; set; } = new();
     public Shelf Shelf { get; set; }
 
-
-    //public IList<AttributeValue> AttributeValues { get; init; } = [];
+    public int AttributeColorMain { get; set; } = 0;
+    public int AttributeColorSecond { get; set; } = 0;
+    public int AttributeType { get; set; } = 0;
+    public int AttributeSeason { get; set; } = 0;
+    public int AttributePattern { get; set; } = 0;
+    public int AttributeMatterial { get; set; } = 0;
+    public bool isFavorite { get; set; } = false;
 }

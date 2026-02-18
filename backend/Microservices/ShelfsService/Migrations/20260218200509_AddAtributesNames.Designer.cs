@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShelfsService.src.ShelfsService.Repository.EfCore;
@@ -11,9 +12,11 @@ using ShelfsService.src.ShelfsService.Repository.EfCore;
 namespace ShelfsService.Migrations
 {
     [DbContext(typeof(ShelfsDataContext))]
-    partial class ShelfsDataContextModelSnapshot : ModelSnapshot
+    [Migration("20260218200509_AddAtributesNames")]
+    partial class AddAtributesNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

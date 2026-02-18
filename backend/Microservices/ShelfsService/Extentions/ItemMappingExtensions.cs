@@ -20,7 +20,6 @@ public static class ItemMappingExtensions
             BigImage = item.BigImage,
             DateCreated = item.DateCreated,
             UpdatedAt = item.UpdatedAt,
-            Tags = item.Tags
 
         };
     }

@@ -18,10 +18,7 @@ namespace ShelfsService.src.ShelfsService.Repository.EfCore;
         _logger = logger;
     }
     public Task<Item?> GetItemByIdAsync(Guid itemId, CancellationToken cancellationToken = default) =>
-    _dbContext.Items
-        .Include(i => i.Tags)
-            .ThenInclude(t => t.Type)
-                .FirstOrDefaultAsync(i => i.Id == itemId, cancellationToken);
+    _dbContext.Items.FirstOrDefaultAsync(i => i.Id == itemId, cancellationToken);
     public async Task<bool> CheckItemNameUniqueAsync(string Name, Guid UserId, CancellationToken ct)
     { 
         var isExist = await _dbContext.Items.AnyAsync(s => s.Name == Name && s.UserId == UserId, ct);
@@ -63,41 +60,12 @@ namespace ShelfsService.src.ShelfsService.Repository.EfCore;
         return item;
 
     }
+    
+    public Task<List<AttributesValue>> GetAttributesValuesAsync(CancellationToken cancellationToken = default) =>
+    _dbContext.AttributesValues.ToListAsync();
 
-    public async Task<ItemTag> AddTagToItemAsync(string tagName, Guid itemId, CancellationToken ct = default)
-    {
-        var newTag = new ItemTag
-        {
-            Id = Guid.NewGuid(),
-            Name = tagName,
-            ItemId = itemId,
-            TagTypeId = 1,
-            Source = "User"
-        };
+    public Task<List<AttributeName>> GetAttributesAsync(CancellationToken cancellationToken = default) =>
+    _dbContext.Attributes.ToListAsync();
 
-        _dbContext.ItemTags.Add(newTag);
-        await _dbContext.SaveChangesAsync(ct);
-
-        return newTag;
-
-    }
-
-    public async Task<Guid> DeleteTagFromItemAsync(string tagName, Guid itemId, CancellationToken ct = default)
-    {
-        var tag = await _dbContext.ItemTags.FirstOrDefaultAsync(t => t.Name == tagName && t.ItemId == itemId, ct);
-
-        if (tag == null)
-        {
-            _logger.LogError("Tag with Name [{TagName}] for Item Id [{ItemId}] not found", tagName, itemId);
-            return Guid.Empty;
-        }
-
-        var tagId = tag.Id;
-
-        _dbContext.ItemTags.Remove(tag);
-        await _dbContext.SaveChangesAsync(ct);
-
-        return tagId;
-    }
 }
 

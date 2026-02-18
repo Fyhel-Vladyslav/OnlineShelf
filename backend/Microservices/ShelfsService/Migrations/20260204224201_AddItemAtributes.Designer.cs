@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShelfsService.src.ShelfsService.Repository.EfCore;
@@ -11,9 +12,11 @@ using ShelfsService.src.ShelfsService.Repository.EfCore;
 namespace ShelfsService.Migrations
 {
     [DbContext(typeof(ShelfsDataContext))]
-    partial class ShelfsDataContextModelSnapshot : ModelSnapshot
+    [Migration("20260204224201_AddItemAtributes")]
+    partial class AddItemAtributes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,26 +26,6 @@ namespace ShelfsService.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ShelfsService.src.ShelfsService.Repository.EfCore.Entities.Attribute", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AttributeKey")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Attributes", "shelf_service");
-                });
-
             modelBuilder.Entity("ShelfsService.src.ShelfsService.Repository.EfCore.Entities.AttributesValue", b =>
                 {
                     b.Property<int>("Id")
@@ -51,10 +34,10 @@ namespace ShelfsService.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AttributeId")
+                    b.Property<int>("AttributeKey")
                         .HasColumnType("integer");
 
-                    b.Property<int>("AttributeKey")
+                    b.Property<int>("AttributeType")
                         .HasColumnType("integer");
 
                     b.Property<string>("AttributeValue")
@@ -63,8 +46,6 @@ namespace ShelfsService.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AttributeId");
 
                     b.ToTable("AttributesValues", "shelf_service");
                 });
@@ -159,17 +140,6 @@ namespace ShelfsService.Migrations
                     b.ToTable("Shelfs", "shelf_service");
                 });
 
-            modelBuilder.Entity("ShelfsService.src.ShelfsService.Repository.EfCore.Entities.AttributesValue", b =>
-                {
-                    b.HasOne("ShelfsService.src.ShelfsService.Repository.EfCore.Entities.Attribute", "Attribute")
-                        .WithMany("Values")
-                        .HasForeignKey("AttributeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Attribute");
-                });
-
             modelBuilder.Entity("ShelfsService.src.ShelfsService.Repository.EfCore.Entities.Item", b =>
                 {
                     b.HasOne("ShelfsService.src.ShelfsService.Repository.EfCore.Entities.Shelf", "Shelf")
@@ -179,11 +149,6 @@ namespace ShelfsService.Migrations
                         .IsRequired();
 
                     b.Navigation("Shelf");
-                });
-
-            modelBuilder.Entity("ShelfsService.src.ShelfsService.Repository.EfCore.Entities.Attribute", b =>
-                {
-                    b.Navigation("Values");
                 });
 
             modelBuilder.Entity("ShelfsService.src.ShelfsService.Repository.EfCore.Entities.Shelf", b =>

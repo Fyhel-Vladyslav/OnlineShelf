@@ -1,6 +1,7 @@
 ﻿using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
+using ShelfsService.src.ShelfsService.Host.Features.Attributes;
 using ShelfsService.src.ShelfsService.Repository.EfCore;
 
 namespace ShelfsService.Extentions
@@ -12,6 +13,7 @@ namespace ShelfsService.Extentions
         {
             services.AddScoped<IShelfsRepository, ShelfsRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddSingleton<IAttributeResolver, AttributeResolver>();
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();

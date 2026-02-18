@@ -110,66 +110,6 @@
         }
       }
     },
-    "/shelfs/item-tags/add": {
-      "post": {
-        "tags": [
-          "ShelfsService"
-        ],
-        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesTagsAddTagsToItemCommandHandler",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddTagsToItemCommand"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ItemDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/shelfs/item-tags/remove": {
-      "post": {
-        "tags": [
-          "ShelfsService"
-        ],
-        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesTagsDeleteTagsFromItemCommandHandler",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteTagsFromItemCommand"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ItemDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/shelfs/{shelfId}": {
       "delete": {
         "tags": [
@@ -317,6 +257,26 @@
         }
       }
     },
+    "/shelfs/attributes": {
+      "get": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesAttributesGetAttributesValues",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAttributesValuesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -359,11 +319,37 @@
   },
   "components": {
     "schemas": {
-      "AddTagsToItemCommand": {
+      "AttributeOption": {
         "type": "object",
         "properties": {
-          "newTags": {
-            "$ref": "#/components/schemas/TagsListDto"
+          "key": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AttributeTypeDto": {
+        "type": "object",
+        "properties": {
+          "attributeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeOption"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -445,15 +431,6 @@
         },
         "additionalProperties": false
       },
-      "DeleteTagsFromItemCommand": {
-        "type": "object",
-        "properties": {
-          "newTags": {
-            "$ref": "#/components/schemas/TagsListDto"
-          }
-        },
-        "additionalProperties": false
-      },
       "GetAllShelfsResponse": {
         "type": "object",
         "properties": {
@@ -461,6 +438,19 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ShelfDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetAttributesValuesResponse": {
+        "type": "object",
+        "properties": {
+          "attributesValues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeTypeDto"
             },
             "nullable": true
           }
@@ -504,13 +494,6 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ItemTag"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -529,41 +512,6 @@
           "smallImage": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ItemTag": {
-        "required": [
-          "name",
-          "tagTypeId"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "itemId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "tagTypeId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "type": {
-            "$ref": "#/components/schemas/TagType"
-          },
-          "source": {
-            "maxLength": 100,
-            "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
           }
         },
         "additionalProperties": false
@@ -596,47 +544,6 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ItemPreviewDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "TagType": {
-        "required": [
-          "description",
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
-          },
-          "description": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TagsListDto": {
-        "type": "object",
-        "properties": {
-          "itemId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
             },
             "nullable": true
           }

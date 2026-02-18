@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 using System;
+using AttributeName = ShelfsService.src.ShelfsService.Repository.EfCore.Entities.AttributeName;
 
 
 namespace ShelfsService.src.ShelfsService.Repository.EfCore;
@@ -12,9 +13,10 @@ public class ShelfsDataContext : DbContext
     {
     }
     public DbSet<Shelf> Shelfs { get; set; }
-    public DbSet<ItemTag> ItemTags { get; set; }
     public DbSet<Item> Items { get; set; }
-    public DbSet<TagType> TagTypes { get; set; }
+
+    public DbSet<AttributesValue> AttributesValues { get; set; }
+    public DbSet<AttributeName> Attributes { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,23 +24,9 @@ public class ShelfsDataContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.HasDefaultSchema("shelf_service");
 
-        modelBuilder.Entity<ItemTag>(entity =>
-        {
-            entity.HasKey(t => t.Id);
-            entity.HasOne<Item>()
-                  .WithMany(i => i.Tags)
-                  .HasForeignKey(t => t.ItemId)
-                  .OnDelete(DeleteBehavior.Cascade);
-        });
-
         modelBuilder.Entity<Item>(entity =>
         {
             entity.HasKey(i => i.Id);
-
-            entity.HasMany(i => i.Tags)
-                  .WithOne()
-                  .HasForeignKey(t => t.ItemId)
-                  .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasOne(i => i.Shelf)
                   .WithMany(s => s.Items)
@@ -46,9 +34,19 @@ public class ShelfsDataContext : DbContext
                   .OnDelete(DeleteBehavior.Restrict);
         });
 
-        modelBuilder.Entity<TagType>(entity =>
+        modelBuilder.Entity<AttributesValue>(value =>
         {
-            entity.HasKey(t => t.Id);
+            value.HasKey(i => i.Id);
+
+        });
+        modelBuilder.Entity<AttributeName>(attribute =>
+        {
+            attribute.HasKey(i => i.Id);
+
+            attribute.HasMany(a => a.Values)
+                  .WithOne(v => v.Attribute)
+                  .HasForeignKey(v => v.AttributeId)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Shelf>(entity =>
