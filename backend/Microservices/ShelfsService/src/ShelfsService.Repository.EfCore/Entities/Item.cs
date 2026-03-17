@@ -23,8 +23,8 @@ public class Item
     
     public Shelf Shelf { get; set; }
 
-    public int AttributeColorMain { get; set; } = 0;
-    public int AttributeColorSecond { get; set; } = 0;
+    public string AttributeColorMain { get; set; }
+    public string AttributeColorSecond { get; set; }
     public int AttributeType { get; set; } = 0;
     public int AttributeSeason { get; set; } = 0;
     public int AttributePattern { get; set; } = 0;

@@ -4,7 +4,6 @@ import type { ItemPreviewDto } from "./itemsApi";
 export type ShelfsDto = {
   id: string;
   name: string;
-  userId: string;
   items: ItemPreviewDto[];
 };
 

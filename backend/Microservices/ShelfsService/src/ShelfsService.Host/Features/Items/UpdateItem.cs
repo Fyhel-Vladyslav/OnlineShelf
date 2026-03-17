@@ -67,5 +67,12 @@ public class UpdateItemCommandHandler(
         item.ShelfId = dto.ShelfId;
         item.BigImage = dto.BigImage;
         item.SmallImage = dto.SmallImage;
+        item.AttributeColorMain = dto.AttributeColorMain;
+        item.AttributeColorSecond = dto.AttributeColorSecond;
+        item.AttributeType = dto.AttributeType;
+        item.AttributeSeason = dto.AttributeSeason;
+        item.AttributePattern = dto.AttributePattern;
+        item.AttributeMatterial = dto.AttributeMatterial;
+        item.isFavorite = dto.isFavorite;
     }
 }

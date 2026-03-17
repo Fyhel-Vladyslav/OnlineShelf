@@ -8,6 +8,7 @@ import SettingsPage from './features/settings/SettingsPage';
 import UserManagementPage from './features/userManagement/UserManagementPage';
 import UserEditPage from './features/userManagement/UserEditPage';
 import ItemEditPage from './features/item/ItemEditPage';
+import CreateItemPage from './features/item/CreateItemPage';
 import './App.css';
 import { NotificationRoot } from './notification/NotificationRoot';
 import ShelfsPage from './features/shelfs/ShelfsPage';
@@ -25,6 +26,7 @@ function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/user-management" element={<UserManagementPage />} />
             <Route path="/user-management/edit/:id" element={<UserEditPage />} />
+            <Route path="/create-item" element={<CreateItemPage />} />
             <Route path="/item-edit/:id" element={<ItemEditPage />} />
             <Route path="/shelfs" element={<ShelfsPage />} />
           </Routes>

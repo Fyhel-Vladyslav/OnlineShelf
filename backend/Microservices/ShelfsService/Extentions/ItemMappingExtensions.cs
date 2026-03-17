@@ -18,6 +18,13 @@ public static class ItemMappingExtensions
             Name = item.Name,
             ShelfId = item.ShelfId,
             BigImage = item.BigImage,
+            AttributeColorMain = item.AttributeColorMain,
+            AttributeColorSecond = item.AttributeColorSecond,
+            AttributeType = item.AttributeType,
+            AttributeSeason = item.AttributeSeason,
+            AttributePattern = item.AttributePattern,
+            AttributeMatterial = item.AttributeMatterial,
+            isFavorite = item.isFavorite,
             DateCreated = item.DateCreated,
             UpdatedAt = item.UpdatedAt,
 

@@ -8,8 +8,6 @@ interface ImageShowProps {
 
 const ImageShow: React.FC<ImageShowProps> = ({ src, alt = "Image", style }) => {
   const imageSrc = src || '/src/assets/images/noPhotoLoaded.jpg';
-console.log(imageSrc);
-
   return (
     <div style={{ textAlign: 'center', ...style }}>
       <img

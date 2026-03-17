@@ -13,7 +13,7 @@ import { useUpdateShelf } from '@/hooks/shelfs/useUpdateShelf';
 import { useCreateShelf } from '@/hooks/shelfs/useCreateShelf';
 import { notificationColours } from '@/notification/notificationColours';
 import { isAxiosError } from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 
 // // Демо-дані для прикладу
 // const mockData: ShelfsDto[] = [
@@ -45,6 +45,7 @@ const ShelfsPage: React.FC = () => {
 
   const updateShelf = useUpdateShelf();
   const createShelf = useCreateShelf();
+  const navigate = useNavigate();
 
 const sensors = useSensors(
   useSensor(MouseSensor, {
@@ -81,6 +82,10 @@ const sensors = useSensors(
   }
 
 
+  const handleCreateItemClick = () =>{
+    navigate("/create-item");
+  }
+  
   const handleSave = () => {
     // Logic for saving shelf (create or update)
     console.log('Save shelf:', name, selectedShelf);
@@ -250,7 +255,7 @@ const sensors = useSensors(
           </div>
           <div style={{display: 'flex', float: 'right'}}>
             <button className={styles.filterBtn} onClick={(e) => { e.currentTarget.blur(); handleCreateShelfClick(); }}>Create new shelf</button>
-            <button className={styles.filterBtn}onClick={(e) => { e.currentTarget.blur(); console.log('Create item'); }}>Create item</button>
+            <button className={styles.filterBtn}onClick={(e) => { e.currentTarget.blur(); handleCreateItemClick(); }}>Create item</button>
           </div>
         </header>
 

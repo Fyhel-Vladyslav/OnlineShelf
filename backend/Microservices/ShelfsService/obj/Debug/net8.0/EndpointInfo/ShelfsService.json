@@ -257,7 +257,7 @@
         }
       }
     },
-    "/shelfs/attributes": {
+    "/shelfs/items/attributes": {
       "get": {
         "tags": [
           "ShelfsService"
@@ -374,20 +374,36 @@
             "type": "string",
             "format": "uuid"
           },
-          "userId": {
-            "type": "string",
-            "format": "uuid"
-          },
           "bigImage": {
             "type": "string",
             "nullable": true
           },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
+          "attributeColorMain": {
+            "type": "string",
             "nullable": true
+          },
+          "attributeColorSecond": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeSeason": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributePattern": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeMatterial": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isFavorite": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -486,6 +502,33 @@
             "type": "string",
             "nullable": true
           },
+          "attributeColorMain": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeColorSecond": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeSeason": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributePattern": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeMatterial": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isFavorite": {
+            "type": "boolean"
+          },
           "dateCreated": {
             "type": "string",
             "format": "date-time"
@@ -581,6 +624,33 @@
           "smallImage": {
             "type": "string",
             "nullable": true
+          },
+          "attributeColorMain": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeColorSecond": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeSeason": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributePattern": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeMatterial": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isFavorite": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

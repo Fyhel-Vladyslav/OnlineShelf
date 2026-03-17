@@ -1,13 +1,48 @@
 import { httpClient } from "../!localHttpClient";
 
+export type AttributeOption = {
+  key: number;
+  value: string;
+};
+
+export type AttributeValue = {
+  attributeId: number;
+  typeName: string;
+  options: AttributeOption[];
+};
+
+export type AttributesValuesResponse = {
+  attributesValues: AttributeValue[];
+};
+
 export type UpdateItemDto = {
     id: string;
     name: string;
     shelfId: string;
     bigImage?: string;
     smallImage?: string;
+    attributeColorMain?: string;
+    attributeColorSecond?: string;
+    attributeType?: number;
+    attributeSeason?: number;
+    attributePattern?: number;
+    attributeMatterial?: number;
+    isFavorite?: boolean;
   }; 
 
+  export type CreateItemDto = {
+    name: string;
+    shelfId: string;
+    bigImage?: string;
+    attributeColorMain?: string;
+    attributeColorSecond?: string;
+    attributeType?: number;
+    attributeSeason?: number;
+    attributePattern?: number;
+    attributeMatterial?: number;
+    isFavorite?: boolean;
+  };
+  
   export type ItemPreviewDto = {
     id: string;
     name: string;
@@ -19,7 +54,13 @@ export type ItemDto = {
   name: string;
   shelfId: string;
   bigImage: string;
-  tags: string[]
+  attributeColorMain?: string;
+  attributeColorSecond?: string;
+  attributeType?: number;
+  attributeSeason?: number;
+  attributePattern?: number;
+  attributeMatterial?: number;
+  isFavorite?: boolean;
 };
 
 
@@ -27,8 +68,16 @@ export const itemsApi = {
     getItemById: (itemId: string) =>
       httpClient.get<ItemDto>(`/shelfs/items/${itemId}`),
 
+    getAttributeValues: () =>
+      httpClient.get<AttributesValuesResponse>("/shelfs/items/attributes"),
+
     updateItem: (newItem: UpdateItemDto) =>
       httpClient.put<UpdateItemDto>("/shelfs/items", {
+        newItem,
+      }),
+
+    createItem: (newItem: CreateItemDto) =>
+      httpClient.post<CreateItemDto>("/shelfs/items/add-item", {
         newItem,
       }),
 

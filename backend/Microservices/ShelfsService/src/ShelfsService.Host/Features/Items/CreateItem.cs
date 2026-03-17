@@ -36,9 +36,15 @@ public class CreateItemCommandHandler(
 
     public override async Task HandleAsync(CreateItemCommand request, CancellationToken ct)
     {
-        var item = FromDTO(request.newItem);
+        var userId = User.GetUserId();
+        if (userId == Guid.Empty)
+        {
+            await Send.UnauthorizedAsync(ct);
+            return;
+        }
 
-        if (!await repos.CheckItemNameUniqueAsync(request.newItem.Name, request.newItem.UserId, ct))
+        var item = FromDTO(request.newItem, userId);
+        if (!await repos.CheckItemNameUniqueAsync(request.newItem.Name, userId, ct))
         {
             Logger.LogError("Item with name [{Name}] already exists", request.newItem.Name);
             await Send.ResultAsync(TypedResults.Conflict("Item with this name already exists"));
@@ -58,18 +64,26 @@ public class CreateItemCommandHandler(
         await Send.OkAsync(newItem.ToDto(), cancellation: ct);
     }
 
-    private Item FromDTO(CreateItemDto dto)
+    private Item FromDTO(CreateItemDto dto, Guid userId)
     {
 
         var reqTime = DateTime.UtcNow;
         var newItem = new Item
         {
             Id = Guid.NewGuid(),
+
             ShelfId = dto.ShelfId,
-            UserId = dto.UserId,
+            UserId = userId,
             Name = dto.Name,
             DateCreated = reqTime,
-            UpdatedAt = reqTime
+            UpdatedAt = reqTime,
+            AttributeColorMain = dto.AttributeColorMain,
+            AttributeColorSecond = dto.AttributeColorSecond,
+            AttributeType = dto.AttributeType,
+            AttributeSeason = dto.AttributeSeason,
+            AttributePattern = dto.AttributePattern,
+            AttributeMatterial = dto.AttributeMatterial,
+            isFavorite = dto.isFavorite
         };
 
         return newItem;

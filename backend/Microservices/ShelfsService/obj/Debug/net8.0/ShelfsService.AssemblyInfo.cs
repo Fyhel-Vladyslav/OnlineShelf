@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShelfsService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dad2d421e73730c074db53a98647dbe4fd02837d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d9ef5c0da915023fcea18dba9d0f03bb34a4081")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShelfsService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShelfsService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, Space, message, Select, ColorPicker } from 'antd';
 
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useShelfs } from '@/hooks/shelfs/useShelfs';
-import type { UpdateItemDto } from '@/api/shelfs/itemsApi';
-import { useUpdateItem } from '@/hooks/items/useUpdateItem';
-import { useItem } from '@/hooks/items/useItem';
+import type { CreateItemDto } from '@/api/shelfs/itemsApi';
+import { useCreateItem } from '@/hooks/items/useCreateItem';
 import { useAttributeValues } from '@/hooks/items/useAttributeValues';
 import ImagePicker from '@/components/ImagePicker/ImagePicker';
 import ImageShow from '@/components/ImageShow/ImageShow';
@@ -13,63 +12,41 @@ import { useNotification } from '@/notification/useNotification';
 import { isAxiosError } from 'axios';
 import { FavouriteButton } from '@/components/IsFavourite/IsFavourite';
 
+
 const { Option } = Select;
 
-const ItemEditPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+const CreateItemPage: React.FC = () => {
+  const { notify } = useNotification();
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const { notify } = useNotification();
   const isFavoriteFormValue = Form.useWatch('isFavorite', form);
   const [loading, setLoading] = useState(false);
   const { data: shelfs, isLoading: shelfsLoading } = useShelfs();
   const { data: attributeValues, isLoading: attributesLoading } = useAttributeValues();
-  const { data: item, isLoading: itemLoading } = useItem(id && id !== 'undefined' ? id : undefined);
-  const [initialValues, setInitialValues] = useState<any>(null);
   const [isDirty, setIsDirty] = useState(false);
-  const updateItem = useUpdateItem();
+  const createItem = useCreateItem();
   const isFavorite = isFavoriteFormValue || false;
-
-  useEffect(() => {
-    if (item) {
-      form.setFieldsValue(item);
-      setInitialValues(item);
-      setIsDirty(false);
-    }
-  }, [item, form]);
-
   // Get attribute options by type name
   const getAttributeOptions = (typeName: string) => {
     const attribute = attributeValues?.find(attr => attr.typeName === typeName);
     return attribute?.options || [];
   };
 
+
+
+  if (shelfsLoading || attributesLoading) {
+    return <div>Loading...</div>;
+  }
   const handleToggle = () => {
-    setIsDirty(true);
+    
     form.setFieldValue('isFavorite', !isFavorite);
   };
-
-  // Don't render anything if id is not available yet
-  if (!id || id === 'undefined') {
-    return <div>Loading...</div>;
-  }
-
-  if (shelfsLoading || attributesLoading || itemLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!item) {
-    message.error("Item not found");
-    navigate("/");
-    return null;
-  }
-
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
-      console.log('Updating item:', values);
-      const payload: UpdateItemDto = {
-        id: item.id,
+      console.log('Creating item:', values);
+
+      const payload: CreateItemDto = {
         name: values.name,
         shelfId: values.shelfId,
         bigImage: values.bigImage,
@@ -82,15 +59,12 @@ const ItemEditPage: React.FC = () => {
         isFavorite: values.isFavorite,
       };
 
-      updateItem.mutate(payload, {
+      createItem.mutate(payload, {
         onSuccess: () => {
-          message.success('Item updated successfully');
-          const updatedValues = form.getFieldsValue(true);
-          setInitialValues(updatedValues);
-          setIsDirty(false);
+          message.success('Item created successfully');
         },
         onError: (error) => {
-          message.error('Failed to update item');
+          message.error('Failed to create item');
           let code: number | undefined;
           if (isAxiosError(error)) {
             code = error.response?.status;
@@ -111,7 +85,7 @@ const ItemEditPage: React.FC = () => {
 
   return (
     <div className="item-edit-page">
-      <h1>Edit Item</h1>
+      <h1>New Item</h1>
       <div style={{ display: 'flex', gap: '20px' }}>
         <div style={{ flex: '60%' }}>
           <Form
@@ -122,13 +96,14 @@ const ItemEditPage: React.FC = () => {
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 18 }}
             onValuesChange={() => {
-              if (!initialValues) return;
-
               const current = form.getFieldsValue(true);
-
-              setIsDirty(JSON.stringify(current) !== JSON.stringify(initialValues));
+              
+              // For create page, check if required fields have values
+              const hasName = current.name && current.name.trim().length > 0;
+              const hasShelfId = current.shelfId !== undefined && current.shelfId !== null;
+              
+              setIsDirty(hasName && hasShelfId);
             }}
-
           >
             <Form.Item
               name="name"
@@ -298,7 +273,7 @@ const ItemEditPage: React.FC = () => {
             />
           <div style={{ marginBottom: '20px', padding: '10px', minHeight: '200px', border: '1px solid #d9d9d9', borderRadius: '4px', position: 'relative' }}>
             <ImageShow
-              src={form.getFieldValue('bigImage') || ''}
+              src={""}
               alt="Current Item"
               style={{ maxHeight: '60%' }}
             />
@@ -315,4 +290,5 @@ const ItemEditPage: React.FC = () => {
   );
 };
 
-export default ItemEditPage;
+export default CreateItemPage;
+
