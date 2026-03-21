@@ -62,7 +62,10 @@ export type ItemDto = {
   attributeMatterial?: number;
   isFavorite?: boolean;
 };
-
+export type MoveItemParams = {
+  itemId: string;
+  newShelfId: string;
+};
 
 export const itemsApi = {
     getItemById: (itemId: string) =>
@@ -83,4 +86,10 @@ export const itemsApi = {
 
     deleteItem: (itemId: string) =>
       httpClient.delete<string>(`/shelfs/items/${itemId}`),
+
+    moveItem: (itemId: string, newShelfId: string) => 
+      httpClient.post<void>("/shelfs/move-item", {
+          itemId,      
+          newShelfId
+      }),
   };

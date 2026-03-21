@@ -1,15 +1,7 @@
-# Task: Position FavouriteButton over ImageShow top-right corner in CreateItemPage
+# Refactor Delete Handlers to Hooks
 
 ## Steps:
-1. ✅ [Complete] Create TODO.md with implementation steps
-2. ✅ Refactor IsFavourite.tsx to controlled component (accept isFavorite, onToggle props, style prop)
-3. ✅ Update CreateItemPage.tsx: 
-   - Make ImageShow container position: relative
-   - Move FavouriteButton inside container as absolute top-right overlay
-   - Remove old Form.Item 
-   - Sync state with Form.useWatch and setFieldValue
-   - Pass form values/setters to button
-4. ✅ Test positioning and functionality (no TS errors, button overlays top-right)
-5. [Pending] Mark complete and attempt_completion
-
-Progress: Implementation complete.
+- [x] Step 1: Create new hook `src/hooks/shelfs/useDeleteItem.ts`
+- [x] Step 2: Update `src/features/shelfs/ShelfsPage.tsx` to use the new hooks (remove handlers, add imports/mutations/error handling)
+- [x] Step 3: Verify no other changes needed
+- [x] Step 4: Task complete - attempt_completion

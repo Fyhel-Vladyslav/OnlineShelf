@@ -11,7 +11,6 @@ public class Item
     public string Name { get; set; } 
     public required Guid UserId { get; init; }
 
-    [Required]
     public Guid ShelfId { get; set; }
     public string positionKey { get; set; } = string.Empty;
 

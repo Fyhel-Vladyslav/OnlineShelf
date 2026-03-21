@@ -227,6 +227,29 @@
         }
       }
     },
+    "/shelfs/move-item": {
+      "post": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesItemsMoveItemEndpoint",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MoveItemRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
     "/shelfs/items": {
       "put": {
         "tags": [
@@ -555,6 +578,20 @@
           "smallImage": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MoveItemRequest": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "newShelfId": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false

@@ -39,10 +39,6 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ value, onChange }) => {
     fileInputRef.current?.click();
   };
 
-  const handleSave = () => {
-    message.success('Image saved successfully');
-  };
-
   const handleDelete = () => {
     setImageUrl(undefined);
     onChange?.('');
@@ -77,7 +73,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ value, onChange }) => {
           <img
             src={imageUrl}
             alt="Item"
-            style={{ maxWidth: '100%', maxHeight: '180px', objectFit: 'contain' }}
+            style={{ width: '100%', maxHeight: '180px', objectFit: 'contain' }}
           />
         ) : (
           <div>
@@ -99,14 +95,11 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ value, onChange }) => {
         }}
       />
       <div style={{ marginBottom: '16px' }}>
-        <Button icon={<UploadOutlined />} onClick={handleSelectNew} style={{ marginRight: '8px' }}>
-          Select New Picture
+        <Button icon={<UploadOutlined />} onClick={handleSelectNew} style={{ minWidth:"110px", float:"left", marginRight: '4%', width:"48%"}}>
+          Select
         </Button>
-        <Button icon={<DeleteOutlined />} onClick={handleDelete} danger style={{ marginRight: '8px' }}>
+        <Button icon={<DeleteOutlined />} onClick={handleDelete} danger style={{minWidth:"110px",float:"right", width:"48%"}}>
           Delete Picture
-        </Button>
-        <Button type="primary" onClick={handleSave}>
-          Save
         </Button>
       </div>
       <Upload {...uploadProps}>

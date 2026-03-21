@@ -12,4 +12,6 @@ namespace ShelfsService.src.ShelfsService.Common.Interfaces;
     Task<Guid> DeleteItemByIdAsync(Guid itemId, CancellationToken ct);
     Task<bool> CheckItemNameUniqueAsync(string Name, Guid UserId, CancellationToken ct); 
     Task<Item?> GetItemByIdAsync(Guid itemId, CancellationToken cancellationToken = default);
+    Task<Item> MoveItemAsync(Item item, Shelf newShelf, CancellationToken ct);
+
 }

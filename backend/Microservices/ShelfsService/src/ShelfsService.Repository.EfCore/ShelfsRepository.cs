@@ -49,10 +49,15 @@ public class ShelfsRepository : IShelfsRepository
         var shelf = await _dbContext.Shelfs.FirstOrDefaultAsync(s => s.Id == ShelfId, ct);
         if (shelf == null)
             return Guid.Empty;
+
+        var shelfItems = await _dbContext.Items.Where(i => i.ShelfId == ShelfId).ToListAsync(ct);
+        if(shelfItems != null)
+          _dbContext.Items.RemoveRange(shelfItems);
         
+
         _dbContext.Shelfs.Remove(shelf);
         await _dbContext.SaveChangesAsync(ct);
-        
+
         return ShelfId;
 
     }
@@ -69,4 +74,5 @@ public class ShelfsRepository : IShelfsRepository
         return shelf;
 
     }
+
 }

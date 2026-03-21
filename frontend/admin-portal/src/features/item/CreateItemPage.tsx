@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Space, message, Select, ColorPicker } from 'antd';
+import { Form, Input, Button, Space, message, Select, ColorPicker, Flex } from 'antd';
 
 import { useNavigate } from 'react-router-dom';
 import { useShelfs } from '@/hooks/shelfs/useShelfs';
@@ -62,6 +62,7 @@ const CreateItemPage: React.FC = () => {
       createItem.mutate(payload, {
         onSuccess: () => {
           message.success('Item created successfully');
+          navigate("/shelfs");
         },
         onError: (error) => {
           message.error('Failed to create item');
@@ -86,7 +87,7 @@ const CreateItemPage: React.FC = () => {
   return (
     <div className="item-edit-page">
       <h1>New Item</h1>
-      <div style={{ display: 'flex', gap: '20px' }}>
+      <div style={{ display: 'flex', gap: '20px', height: "75vh" }}>
         <div style={{ flex: '60%' }}>
           <Form
             form={form}
@@ -128,7 +129,7 @@ const CreateItemPage: React.FC = () => {
             </Form.Item>
 
             {/* Color Pickers - Row 1 */}
-            <div style={{ display: 'flex', gap: '20px' }}>
+            <div style={{ display: 'flex', gap: '20px'}}>
               <div style={{ flex: 1 }}>
                 <Form.Item
                   name="attributeColorMain"
@@ -257,7 +258,7 @@ const CreateItemPage: React.FC = () => {
           </Form>
         </div>
         <div style={{ flex: '40%' }}>
-        <div style={{ position: 'relative', width: '100%', display: 'inline-block' }}>
+        <div style={{ position: 'relative', height: '100%', width: '100%', display: 'inline-block' }}>
           <FavouriteButton 
               isFavorite={!!isFavorite} // ensure it passes a boolean
               onToggle={handleToggle}
@@ -271,18 +272,25 @@ const CreateItemPage: React.FC = () => {
                 padding: '4px'
               }}
             />
-          <div style={{ marginBottom: '20px', padding: '10px', minHeight: '200px', border: '1px solid #d9d9d9', borderRadius: '4px', position: 'relative' }}>
+          <div style={{ height: '60%',marginBottom: '20px', padding: '10px', minHeight: '200px', border: '1px solid #d9d9d9', borderRadius: '4px', position: 'relative' }}>
             <ImageShow
               src={""}
               alt="Current Item"
-              style={{ maxHeight: '60%' }}
+              style={{ height: "100%"}}
             />
-
           </div>
+          <div style={{display:"flex"}}>
+            <div style={{width:"50%", padding:"3px"}}>
+              <Button style={{width:"100%", height:"100%", fontSize:24}}>
+                Detect using camera
+              </Button>
+            </div>
+            <div style={{width:"50%", padding:"3px"}}>
             <ImagePicker
               onChange={(value: string) => form.setFieldsValue({ bigImage: value })}
             />
-          
+            </div>
+          </div>
             </div>
         </div>
       </div>

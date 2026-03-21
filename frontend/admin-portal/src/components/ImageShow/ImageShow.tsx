@@ -15,11 +15,11 @@ const ImageShow: React.FC<ImageShowProps> = ({ src, alt = "Image", style }) => {
         alt={alt}
         style={{
           maxWidth: '100%',
-          maxHeight: '200px',
+          height: "100%",
           objectFit: 'contain',
           border: '1px solid #d9d9d9',
           borderRadius: '4px',
-          padding: '4px',
+          padding: '4px'
         }}
         onError={(e) => {
           // Fallback to placeholder if image fails to load

@@ -7,6 +7,7 @@ public class ApiRoutes
     public const string Shelfs = "shelfs";
     public const string AddShelf = $"{Shelfs}/add-shelf";
     public const string DeleteShelf = $"{Shelfs}/{ShelfIdParam}";
+    public const string MoveItem = $"{Shelfs}/move-item";
     public const string UpdateShelf = $"{Shelfs}";
 
     public const string AddItem = $"{Shelfs}/items/add-item";

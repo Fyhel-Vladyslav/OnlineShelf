@@ -88,6 +88,7 @@ const ItemEditPage: React.FC = () => {
           const updatedValues = form.getFieldsValue(true);
           setInitialValues(updatedValues);
           setIsDirty(false);
+          navigate("/shelfs");
         },
         onError: (error) => {
           message.error('Failed to update item');
@@ -273,7 +274,7 @@ const ItemEditPage: React.FC = () => {
                     } : {}}>
                     Save
                   </Button>
-                  <Button onClick={() => navigate('/')}>
+                  <Button onClick={() => navigate('/shelfs')}>
                     Back
                   </Button>
                 </Space>

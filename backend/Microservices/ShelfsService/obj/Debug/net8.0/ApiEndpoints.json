@@ -228,6 +228,29 @@
     "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesAttributesGetAttributesValues"
   },
   {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/move-item",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "MoveItemRequest",
+        "Type": "ShelfsService.src.ShelfsService.Host.Features.Items.MoveItemRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesItemsMoveItemEndpoint"
+  },
+  {
     "ContainingType": "ShelfsService.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

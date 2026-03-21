@@ -67,5 +67,16 @@ namespace ShelfsService.src.ShelfsService.Repository.EfCore;
     public Task<List<AttributeName>> GetAttributesAsync(CancellationToken cancellationToken = default) =>
     _dbContext.Attributes.ToListAsync();
 
+    public async Task<Item> MoveItemAsync(Item item, Shelf newShelf, CancellationToken ct)
+    {
+        if (item == null || newShelf == null)
+            return null;
+        item.ShelfId = newShelf.Id;
+        item.UpdatedAt = DateTime.UtcNow;
+        _dbContext.Items.Update(item);
+        await _dbContext.SaveChangesAsync(ct);
+        return item;
+    }
+
 }
 
