@@ -1,26 +1,44 @@
-import React, { useState, useRef } from 'react';
-import { Upload, Button, message } from 'antd';
+import React, { useState, useRef, useEffect } from 'react';
+import { Button, message, Upload } from 'antd';
 import { UploadOutlined, DeleteOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 
 interface ImagePickerProps {
-  value?: string;
-  onChange?: (value: string) => void;
+  value?: File;
+  onChange?: (value?: File) => void;
 }
 
 const ImagePicker: React.FC<ImagePickerProps> = ({ value, onChange }) => {
-  const [imageUrl, setImageUrl] = useState<string | undefined>(value);
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Синхронізація з формою
+  useEffect(() => {
+    if (value && value instanceof File) {
+      const objectUrl = URL.createObjectURL(value);
+      setPreviewUrl(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl);
+    } else {
+      setPreviewUrl(undefined);
+    }
+  }, [value]);
+
   const handleFileSelect = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      setImageUrl(result);
-      onChange?.(result);
-    };
-    reader.readAsDataURL(file);
-    return false; // Prevent default upload behavior
+    console.log("1. [ImagePicker] Файл вибрано всередині компонента:", file.name);
+    
+    // Створюємо прев'ю
+    const objectUrl = URL.createObjectURL(file);
+    setPreviewUrl(objectUrl);
+
+    // ПЕРЕДАЄМО ФАЙЛ У ФОРМУ
+    if (onChange) {
+      console.log("2. [ImagePicker] Викликаю onChange для передачі в Form.Item");
+      onChange(file);
+    } else {
+      console.error("Помилка: onChange не переданий в ImagePicker!");
+    }
+
+    return false; // Блокуємо стандартну поведінку AntD Upload
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -31,18 +49,15 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ value, onChange }) => {
     }
   };
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
   const handleSelectNew = () => {
     fileInputRef.current?.click();
   };
 
   const handleDelete = () => {
-    setImageUrl(undefined);
-    onChange?.('');
-    message.success('Image deleted');
+    setPreviewUrl(undefined);
+    if (onChange) onChange(undefined);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    message.success('Фото видалено');
   };
 
   const uploadProps: UploadProps = {
@@ -62,26 +77,23 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ value, onChange }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: imageUrl ? 'transparent' : '#fafafa',
+          backgroundColor: previewUrl ? 'transparent' : '#fafafa',
           cursor: 'pointer',
         }}
         onDrop={handleDrop}
-        onDragOver={handleDragOver}
+        onDragOver={(e) => e.preventDefault()}
         onClick={handleSelectNew}
       >
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Item"
-            style={{ width: '100%', maxHeight: '180px', objectFit: 'contain' }}
-          />
+        {previewUrl ? (
+          <img src={previewUrl} alt="Item preview" style={{ width: '100%', maxHeight: '180px', objectFit: 'contain' }} />
         ) : (
           <div>
             <div style={{ fontSize: '24px', color: '#d9d9d9' }}>+</div>
-            <div style={{ color: '#d9d9d9' }}>Drag image here</div>
+            <div style={{ color: '#d9d9d9' }}>Натисніть або перетягніть фото</div>
           </div>
         )}
       </div>
+
       <input
         ref={fileInputRef}
         type="file"
@@ -89,22 +101,20 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ value, onChange }) => {
         style={{ display: 'none' }}
         onChange={(e) => {
           const file = e.target.files?.[0];
-          if (file) {
-            handleFileSelect(file);
-          }
+          if (file) handleFileSelect(file);
         }}
       />
-      <div style={{ marginBottom: '16px' }}>
-        <Button icon={<UploadOutlined />} onClick={handleSelectNew} style={{ minWidth:"110px", float:"left", marginRight: '4%', width:"48%"}}>
-          Select
+
+      <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between' }}>
+        <Button icon={<UploadOutlined />} onClick={handleSelectNew} style={{ width: "48%" }}>
+          Вибрати
         </Button>
-        <Button icon={<DeleteOutlined />} onClick={handleDelete} danger style={{minWidth:"110px",float:"right", width:"48%"}}>
-          Delete Picture
+        <Button icon={<DeleteOutlined />} onClick={handleDelete} danger style={{ width: "48%" }}>
+          Видалити
         </Button>
       </div>
-      <Upload {...uploadProps}>
-        {/* Hidden upload component for additional functionality if needed */}
-      </Upload>
+
+      <Upload {...uploadProps} style={{ display: 'none' }} />
     </div>
   );
 };

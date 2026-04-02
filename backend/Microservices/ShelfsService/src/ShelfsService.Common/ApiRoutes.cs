@@ -1,8 +1,8 @@
 ﻿namespace ShelfsService.src.ShelfsService.Common;
 public class ApiRoutes
 {
-    public const string ItemIdParam = "{itemId}";
-    public const string ShelfIdParam = "{shelfId}";
+    public const string ItemIdParam = "{itemId:guid}";
+    public const string ShelfIdParam = "{shelfId:guid}";
 
     public const string Shelfs = "shelfs";
     public const string AddShelf = $"{Shelfs}/add-shelf";
@@ -10,6 +10,8 @@ public class ApiRoutes
     public const string MoveItem = $"{Shelfs}/move-item";
     public const string UpdateShelf = $"{Shelfs}";
 
+    // Тепер AddItem не буде конфліктувати з GetItemById/DeleteItem, 
+    // бо "add-item" не пройде перевірку на Guid
     public const string AddItem = $"{Shelfs}/items/add-item";
     public const string GetItemById = $"{Shelfs}/items/{ItemIdParam}";
     public const string DeleteItem = $"{Shelfs}/items/{ItemIdParam}";

@@ -5,7 +5,7 @@ public class CreateItemDto
 {
     public string Name { get; set; }
     public Guid ShelfId { get; init; }
-    public string? BigImage { get; set; }
+    public IFormFile? ImageFile { get; set; }
     public string AttributeColorMain { get; set; }
     public string AttributeColorSecond { get; set; }
     public int AttributeType { get; set; } = 0;

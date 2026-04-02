@@ -1,0 +1,36 @@
+﻿syntax = "proto3";
+
+// Вкажи простір імен, який відповідає твоєму проекту
+option csharp_namespace = "ImageService.Protos"; 
+
+service ImageProcessor {
+  // Метод для завантаження
+  rpc UploadImage (UploadImageRequest) returns (UploadImageResponse);
+  
+  // Метод для видалення
+  rpc DeleteImage (DeleteImageRequest) returns (DeleteImageResponse);
+}
+
+// Запит на завантаження
+message UploadImageRequest {
+  bytes data = 1;
+  string file_name = 2;
+}
+
+// Відповідь на завантаження (ТУТ БУЛА ПОМИЛКА)
+message UploadImageResponse {
+  string big_image_name = 1;
+  string small_image_name = 2;
+  bool success = 3;
+}
+
+// Запит на видалення
+message DeleteImageRequest {
+  string big_image_name = 1;
+  string small_image_name = 2;
+}
+
+// Відповідь на видалення
+message DeleteImageResponse {
+  bool success = 1;
+}

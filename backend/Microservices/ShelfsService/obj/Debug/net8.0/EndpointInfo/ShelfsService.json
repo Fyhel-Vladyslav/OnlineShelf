@@ -205,7 +205,7 @@
         "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesItemsCreateItemCommandHandler",
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/CreateItemCommand"
               }
@@ -258,7 +258,7 @@
         "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesItemsUpdateItemCommandHandler",
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateItemCommand"
               }
@@ -380,15 +380,6 @@
       "CreateItemCommand": {
         "type": "object",
         "properties": {
-          "newItem": {
-            "$ref": "#/components/schemas/CreateItemDto"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateItemDto": {
-        "type": "object",
-        "properties": {
           "name": {
             "type": "string",
             "nullable": true
@@ -399,6 +390,7 @@
           },
           "bigImage": {
             "type": "string",
+            "format": "binary",
             "nullable": true
           },
           "attributeColorMain": {
@@ -425,8 +417,9 @@
             "type": "integer",
             "format": "int32"
           },
-          "isFavorite": {
-            "type": "boolean"
+          "isFavoriteString": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

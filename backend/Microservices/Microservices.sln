@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutfitOfferService", "OutfitOfferService\OutfitOfferService.csproj", "{57C86EC3-895F-452A-9BDD-ABE8E5CA43C3}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "Gateway\Gateway.csproj", "{300321DA-C1D7-4F18-8EA4-EEE51DF96281}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9A8E19F7-DE6F-41B9-A088-DFF0383AF2F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "ImageService\ImageService.csproj", "{98789F0B-9F27-404F-A2EA-90173552A9CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9A8E19F7-DE6F-41B9-A088-DFF0383AF2F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A8E19F7-DE6F-41B9-A088-DFF0383AF2F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A8E19F7-DE6F-41B9-A088-DFF0383AF2F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98789F0B-9F27-404F-A2EA-90173552A9CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98789F0B-9F27-404F-A2EA-90173552A9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98789F0B-9F27-404F-A2EA-90173552A9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98789F0B-9F27-404F-A2EA-90173552A9CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

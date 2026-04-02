@@ -58,6 +58,24 @@
               "target": "Package",
               "version": "[7.1.1, )"
             },
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.34.1, )"
+            },
+            "Grpc.Net.Client": {
+              "target": "Package",
+              "version": "[2.76.0, )"
+            },
+            "Grpc.Net.ClientFactory": {
+              "target": "Package",
+              "version": "[2.76.0, )"
+            },
+            "Grpc.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.80.0, )"
+            },
             "MediatR": {
               "target": "Package",
               "version": "[13.0.0, )"

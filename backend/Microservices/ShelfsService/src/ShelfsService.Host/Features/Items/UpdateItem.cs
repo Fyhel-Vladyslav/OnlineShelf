@@ -31,6 +31,7 @@ public class UpdateItemCommandHandler(
     public override void Configure()
     {
         Put(ApiRoutes.UpdateItem);
+        AllowFileUploads();
         AllowAnonymous();
     }
 

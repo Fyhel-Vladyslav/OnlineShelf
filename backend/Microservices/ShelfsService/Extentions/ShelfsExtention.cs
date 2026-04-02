@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using ImageService.Protos;
 using Microsoft.EntityFrameworkCore;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
 using ShelfsService.src.ShelfsService.Host.Features.Attributes;

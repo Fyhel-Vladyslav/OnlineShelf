@@ -72,7 +72,7 @@ const ItemEditPage: React.FC = () => {
         id: item.id,
         name: values.name,
         shelfId: values.shelfId,
-        bigImage: values.bigImage,
+        //bigImage: values.bigImage,
         attributeColorMain: values.attributeColorMain,
         attributeColorSecond: values.attributeColorSecond,
         attributeType: values.attributeType,
@@ -305,9 +305,9 @@ const ItemEditPage: React.FC = () => {
             />
 
           </div>
-            <ImagePicker
+            {/* <ImagePicker
               onChange={(value: string) => form.setFieldsValue({ bigImage: value })}
-            />
+            /> */}
           
             </div>
         </div>

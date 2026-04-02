@@ -152,3 +152,8 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Deb
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Google.Protobuf.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.Core.Api.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.Net.Client.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.Net.ClientFactory.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.Net.Common.dll

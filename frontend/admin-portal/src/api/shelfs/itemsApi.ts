@@ -19,8 +19,7 @@ export type UpdateItemDto = {
     id: string;
     name: string;
     shelfId: string;
-    bigImage?: string;
-    smallImage?: string;
+    imageFile?: File;
     attributeColorMain?: string;
     attributeColorSecond?: string;
     attributeType?: number;
@@ -33,7 +32,7 @@ export type UpdateItemDto = {
   export type CreateItemDto = {
     name: string;
     shelfId: string;
-    bigImage?: string;
+    bigImage?: File;
     attributeColorMain?: string;
     attributeColorSecond?: string;
     attributeType?: number;
@@ -79,10 +78,33 @@ export const itemsApi = {
         newItem,
       }),
 
-    createItem: (newItem: CreateItemDto) =>
-      httpClient.post<CreateItemDto>("/shelfs/items/add-item", {
-        newItem,
-      }),
+      createItem: async (newItem: CreateItemDto) => {
+        // 1. СТВОРЮЄМО FORM DATA
+        const formData = new FormData();
+    
+        // 2. ПАКУЄМО ВСІ ПОЛЯ
+        Object.entries(newItem).forEach(([key, value]) => {
+          if (value !== undefined && value !== null) {
+            
+            // Якщо це файл - додаємо як файл
+            if (typeof value === 'object' && (value as any).size !== undefined) {
+              formData.append(key, value as File);
+            } 
+            // Якщо це чекбокс isFavorite - передаємо рядок 'true', якщо він увімкнений
+            else if (typeof value === 'boolean') {
+              if (value === true) formData.append(key, 'true');
+            } 
+            // Всі інші поля (тексти, числа) перетворюємо на рядки
+            else {
+              formData.append(key, String(value));
+            }
+          }
+        });
+    
+        // 3. ВІДПРАВЛЯЄМО САМЕ formData, А НЕ { newItem }
+        // ВАЖЛИВО: httpClient (axios) сам зрозуміє, що це FormData і поставить правильні заголовки!
+        return await httpClient.post("/shelfs/items/add-item", formData);
+      },
 
     deleteItem: (itemId: string) =>
       httpClient.delete<string>(`/shelfs/items/${itemId}`),

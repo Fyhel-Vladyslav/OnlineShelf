@@ -37,7 +37,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddInfrastructure(builder.Configuration, builder.Environment)
     .AddJwtAuthorization(builder.Configuration, builder.Environment)
+    .AddGrpcConnections(builder)
 ;
+
 
 var app = builder.Build();
 

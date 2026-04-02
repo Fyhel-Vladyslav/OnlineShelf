@@ -57,8 +57,9 @@ const CreateItemPage: React.FC = () => {
         attributePattern: values.attributePattern,
         attributeMatterial: values.attributeMatterial,
         isFavorite: values.isFavorite,
+        
       };
-
+      console.log("ПЕРЕВІРКА ФАЙЛУ:", payload.bigImage, "Тип:", typeof payload.bigImage);
       createItem.mutate(payload, {
         onSuccess: () => {
           message.success('Item created successfully');
@@ -87,25 +88,26 @@ const CreateItemPage: React.FC = () => {
   return (
     <div className="item-edit-page">
       <h1>New Item</h1>
-      <div style={{ display: 'flex', gap: '20px', height: "75vh" }}>
-        <div style={{ flex: '60%' }}>
-          <Form
-            form={form}
-            layout="horizontal"
-            onFinish={handleSubmit}
-            style={{ maxWidth: 800 }}
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 18 }}
-            onValuesChange={() => {
-              const current = form.getFieldsValue(true);
-              
-              // For create page, check if required fields have values
-              const hasName = current.name && current.name.trim().length > 0;
-              const hasShelfId = current.shelfId !== undefined && current.shelfId !== null;
-              
-              setIsDirty(hasName && hasShelfId);
-            }}
-          >
+      
+      {/* 1. ПЕРЕНОСИМО <Form> НА САМИЙ ВЕРХ, щоб вона обгорнула обидві колонки */}
+      <Form
+        form={form}
+        layout="horizontal"
+        onFinish={handleSubmit}
+        // Прибираємо maxWidth: 800, бо тепер форма на всю ширину
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span: 18 }}
+        onValuesChange={() => {
+          const current = form.getFieldsValue(true);
+          const hasName = current.name && current.name.trim().length > 0;
+          const hasShelfId = current.shelfId !== undefined && current.shelfId !== null;
+          setIsDirty(hasName && hasShelfId);
+        }}
+      >
+        <div style={{ display: 'flex', gap: '20px', height: "75vh" }}>
+          
+          {/* ЛІВА КОЛОНКА (60%) */}
+          <div style={{ flex: '60%' }}>
             <Form.Item
               name="name"
               label={<span style={{ fontSize: '16px', color: 'white' }}>Name</span>}
@@ -136,14 +138,10 @@ const CreateItemPage: React.FC = () => {
                   label={<span style={{ fontSize: '16px', color: 'white' }}>Color 1</span>}
                   labelCol={{ span: 6 }}
                   wrapperCol={{ span: 18 }}
-
                   initialValue="#000000"
-                  // This intercepts the output of ColorPicker and saves only the hex string to the form
-                  getValueFromEvent={(color) => {
-                    return typeof color === 'string' ? color : color?.toHexString();
-                  }}
+                  getValueFromEvent={(color) => typeof color === 'string' ? color : color?.toHexString()}
                 >
-                  <ColorPicker defaultValue="#000000" showText style={{width: '100px'}}/>
+                  <ColorPicker showText style={{width: '100px'}}/>
                 </Form.Item>
               </div>
               <div style={{ flex: 1 }}>
@@ -153,11 +151,9 @@ const CreateItemPage: React.FC = () => {
                   labelCol={{ span: 6 }}
                   wrapperCol={{ span: 18 }}
                   initialValue="#000000"
-                  getValueFromEvent={(color) => {
-                    return typeof color === 'string' ? color : color?.toHexString();
-                  }}
+                  getValueFromEvent={(color) => typeof color === 'string' ? color : color?.toHexString()}
                 >
-                  <ColorPicker defaultValue="#000000" showText style={{width: '100px'}}/>
+                  <ColorPicker showText style={{width: '100px'}}/>
                 </Form.Item>
               </div>
             </div>
@@ -173,9 +169,7 @@ const CreateItemPage: React.FC = () => {
                 >
                   <Select placeholder="Select Type" style={{ width: '100%' }}>
                     {getAttributeOptions('Type').map(option => (
-                      <Option key={option.key} value={option.key}>
-                        {option.value}
-                      </Option>
+                      <Option key={option.key} value={option.key}>{option.value}</Option>
                     ))}
                   </Select>
                 </Form.Item>
@@ -189,9 +183,7 @@ const CreateItemPage: React.FC = () => {
                 >
                   <Select placeholder="Select Season" style={{ width: '100%' }}>
                     {getAttributeOptions('Season').map(option => (
-                      <Option key={option.key} value={option.key}>
-                        {option.value}
-                      </Option>
+                      <Option key={option.key} value={option.key}>{option.value}</Option>
                     ))}
                   </Select>
                 </Form.Item>
@@ -209,9 +201,7 @@ const CreateItemPage: React.FC = () => {
                 >
                   <Select placeholder="Select Pattern" style={{ width: '100%' }}>
                     {getAttributeOptions('Pattern').map(option => (
-                      <Option key={option.key} value={option.key}>
-                        {option.value}
-                      </Option>
+                      <Option key={option.key} value={option.key}>{option.value}</Option>
                     ))}
                   </Select>
                 </Form.Item>
@@ -225,75 +215,64 @@ const CreateItemPage: React.FC = () => {
                 >
                   <Select placeholder="Select Material" style={{ width: '100%' }}>
                     {getAttributeOptions('Material').map(option => (
-                      <Option key={option.key} value={option.key}>
-                        {option.value}
-                      </Option>
+                      <Option key={option.key} value={option.key}>{option.value}</Option>
                     ))}
                   </Select>
                 </Form.Item>
               </div>
             </div>
 
-            {/* isFavorite managed by overlay button, no form item needed */}
             <Form.Item name="isFavorite" initialValue={false} hidden>
-            <Input />
-          </Form.Item>
+              <Input />
+            </Form.Item>
+            
             <Form.Item wrapperCol={{ span: 24 }}>
               <div style={{ textAlign: 'center' }}>
                 <Space>
                   <Button type="primary" htmlType="submit" loading={loading} disabled={!isDirty}
-                    style={!isDirty ? { 
-                      backgroundColor: "#ffffff", 
-                      color: "rgba(0, 0, 0, 0.25)",
-                      borderColor: "#d9d9d9"
-                    } : {}}>
+                    style={!isDirty ? { backgroundColor: "#ffffff", color: "rgba(0, 0, 0, 0.25)", borderColor: "#d9d9d9" } : {}}>
                     Save
                   </Button>
-                  <Button onClick={() => navigate('/')}>
-                    Back
-                  </Button>
+                  <Button onClick={() => navigate('/')}>Back</Button>
                 </Space>
               </div>
             </Form.Item>
-          </Form>
-        </div>
-        <div style={{ flex: '40%' }}>
-        <div style={{ position: 'relative', height: '100%', width: '100%', display: 'inline-block' }}>
-          <FavouriteButton 
-              isFavorite={!!isFavorite} // ensure it passes a boolean
-              onToggle={handleToggle}
-              style={{
-                position: 'absolute' as const,
-                top: '8px',
-                right: '8px',
-                zIndex: 10,
-                backgroundColor: 'rgba(0,0,0,0.6)',
-                borderRadius: '50%',
-                padding: '4px'
-              }}
-            />
-          <div style={{ height: '60%',marginBottom: '20px', padding: '10px', minHeight: '200px', border: '1px solid #d9d9d9', borderRadius: '4px', position: 'relative' }}>
-            <ImageShow
-              src={""}
-              alt="Current Item"
-              style={{ height: "100%"}}
-            />
           </div>
-          <div style={{display:"flex"}}>
-            <div style={{width:"50%", padding:"3px"}}>
-              <Button style={{width:"100%", height:"100%", fontSize:24}}>
-                Detect using camera
-              </Button>
-            </div>
-            <div style={{width:"50%", padding:"3px"}}>
-            <ImagePicker
-              onChange={(value: string) => form.setFieldsValue({ bigImage: value })}
-            />
+
+          {/* ПРАВА КОЛОНКА (40%) - ТЕПЕР ВОНА ВСЕРЕДИНІ ФОРМИ! */}
+          <div style={{ flex: '40%' }}>
+            <div style={{ position: 'relative', height: '100%', width: '100%', display: 'inline-block' }}>
+              <FavouriteButton 
+                isFavorite={!!isFavorite}
+                onToggle={handleToggle}
+                style={{
+                  position: 'absolute' as const, top: '8px', right: '8px', zIndex: 10,
+                  backgroundColor: 'rgba(0,0,0,0.6)', borderRadius: '50%', padding: '4px'
+                }}
+              />
+              <div style={{ height: '60%', marginBottom: '20px', padding: '10px', minHeight: '200px', border: '1px solid #d9d9d9', borderRadius: '4px', position: 'relative' }}>
+                <ImageShow src={""} alt="Current Item" style={{ height: "100%"}} />
+              </div>
+              <div style={{display:"flex"}}>
+                <div style={{width:"50%", padding:"3px"}}>
+                  <Button style={{width:"100%", height:"100%", fontSize:24}}>
+                    Detect using camera
+                  </Button>
+                </div>
+                <div style={{width:"50%", padding:"3px"}}>
+                  
+                  {/* 2. ТУТ ВАЖЛИВО ДОДАТИ valuePropName */}
+                  <Form.Item name="bigImage" valuePropName="value">
+                    <ImagePicker />
+                  </Form.Item>
+                  
+                </div>
+              </div>
             </div>
           </div>
-            </div>
+
         </div>
-      </div>
+      </Form>
     </div>
   );
 };

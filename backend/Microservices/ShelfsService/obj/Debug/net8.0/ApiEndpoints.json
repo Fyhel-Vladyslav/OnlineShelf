@@ -46,7 +46,7 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "shelfs/{shelfId}",
+    "RelativePath": "shelfs/{shelfId:guid}",
     "HttpMethod": "DELETE",
     "IsController": false,
     "Order": 0,
@@ -126,7 +126,7 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "shelfs/items/{itemId}",
+    "RelativePath": "shelfs/items/{itemId:guid}",
     "HttpMethod": "DELETE",
     "IsController": false,
     "Order": 0,
@@ -156,7 +156,7 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "shelfs/items/{itemId}",
+    "RelativePath": "shelfs/items/{itemId:guid}",
     "HttpMethod": "GET",
     "IsController": false,
     "Order": 0,
