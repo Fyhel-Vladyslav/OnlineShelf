@@ -626,15 +626,6 @@
       "UpdateItemCommand": {
         "type": "object",
         "properties": {
-          "newItem": {
-            "$ref": "#/components/schemas/UpdateItemDto"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateItemDto": {
-        "type": "object",
-        "properties": {
           "id": {
             "type": "string",
             "format": "uuid"
@@ -649,10 +640,7 @@
           },
           "bigImage": {
             "type": "string",
-            "nullable": true
-          },
-          "smallImage": {
-            "type": "string",
+            "format": "binary",
             "nullable": true
           },
           "attributeColorMain": {
@@ -679,8 +667,9 @@
             "type": "integer",
             "format": "int32"
           },
-          "isFavorite": {
-            "type": "boolean"
+          "isFavoriteString": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

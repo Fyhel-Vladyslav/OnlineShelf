@@ -7,14 +7,17 @@ namespace ImageService.src.ImageService.Host.Services.Images;
 
 public class ImageGrpcService : ImageProcessor.ImageProcessorBase
 {
-    // Шлях всередині контейнера, куди монтується твій Windows Volume
-    private const string StoragePath = "/app/images";
+    private string _storagePath;
+    public ImageGrpcService(IConfiguration configuration)
+    {
+        _storagePath = configuration["StorageSettings:ImagesPath"] ?? "/app/images";
+    }
 
     public override async Task<UploadImageResponse> UploadImage(UploadImageRequest request, ServerCallContext context)
     {
         try
         {
-            if (!Directory.Exists(StoragePath)) Directory.CreateDirectory(StoragePath);
+            if (!Directory.Exists(_storagePath)) Directory.CreateDirectory(_storagePath);
 
             var uniqueId = Guid.NewGuid().ToString();
             var bigFileName = $"{uniqueId}_big.webp";
@@ -25,7 +28,7 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
             using var image = await Image.LoadAsync(inputStream);
 
             // 1. Зберігаємо велике фото (авто-конвертація в WebP за розширенням)
-            await image.SaveAsWebpAsync(Path.Combine(StoragePath, bigFileName));
+            await image.SaveAsWebpAsync(Path.Combine(_storagePath, bigFileName));
 
             // 2. Робимо маленьку копію (пропорційно)
             image.Mutate(x => x.Resize(new ResizeOptions
@@ -33,7 +36,7 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
                 Size = new Size(100, 100),
                 Mode = ResizeMode.Max
             }));
-            await image.SaveAsWebpAsync(Path.Combine(StoragePath, smallFileName));
+            await image.SaveAsWebpAsync(Path.Combine(_storagePath, smallFileName));
 
             return new UploadImageResponse
             {
@@ -56,7 +59,7 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
             var files = new[] { request.BigImageName, request.SmallImageName };
             foreach (var file in files.Where(f => !string.IsNullOrEmpty(f)))
             {
-                var fullPath = Path.Combine(StoragePath, file);
+                var fullPath = Path.Combine(_storagePath, file);
                 if (File.Exists(fullPath)) File.Delete(fullPath);
             }
             return Task.FromResult(new DeleteImageResponse { Success = true });

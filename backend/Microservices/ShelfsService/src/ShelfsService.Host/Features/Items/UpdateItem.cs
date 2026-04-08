@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using FastEndpoints;
 using FluentValidation;
+using ImageService.Protos;
 using MediatR;
 using ShelfsService.Extentions;
 using ShelfsService.src.ShelfsService.Common;
@@ -11,12 +12,24 @@ using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 
 namespace ShelfsService.src.ShelfsService.Host.Features.Items;
 
-public sealed record UpdateItemCommand(UpdateItemDto newItem) : IRequest<ErrorOr<ItemDto>>;
+public sealed record UpdateItemCommand(
+    Guid Id,
+    string Name,
+    Guid ShelfId,
+    IFormFile BigImage,
+    string? AttributeColorMain,
+    string? AttributeColorSecond,
+    int AttributeType = 0,
+    int AttributeSeason = 0,
+    int AttributePattern = 0,
+    int AttributeMatterial = 0,
+    string? IsFavoriteString = null
+) : IRequest<ErrorOr<ItemDto>>;
 internal sealed class UpdateItemCommandValidator : AbstractValidator<UpdateItemCommand>
 {
     public UpdateItemCommandValidator()
     {
-        RuleFor(v => v.newItem.Name)
+        RuleFor(v => v.Name)
             .NotEmpty().WithMessage("Name is required.")
             .MaximumLength(100).WithMessage("Name must not exceed 100 characters.")
             ;
@@ -24,7 +37,8 @@ internal sealed class UpdateItemCommandValidator : AbstractValidator<UpdateItemC
 
 }
 public class UpdateItemCommandHandler(
-    IItemRepository repos
+    IItemRepository repos,
+    ImageProcessor.ImageProcessorClient imageClient
     ) : Endpoint<UpdateItemCommand, ItemDto>
 {
 
@@ -37,12 +51,12 @@ public class UpdateItemCommandHandler(
 
     public override async Task HandleAsync(UpdateItemCommand request, CancellationToken ct)
     {
-        if (request.newItem == null)
+        if (request == null)
         {
             await Send.ErrorsAsync(400, cancellation: ct);
             return;
         }
-        var item = await repos.GetItemByIdAsync(request.newItem.Id);
+        var item = await repos.GetItemByIdAsync(request.Id);
 
         if (item == null)
         {
@@ -50,7 +64,35 @@ public class UpdateItemCommandHandler(
             return;
         }
 
-        SetItemFromDTO(item, request.newItem);
+        SetItemFromDTO(item, request);
+
+        string bigImageName = null;
+        string smallImageName = null;
+
+        // 1. Якщо файл прийшов
+        if (request.BigImage is { Length: > 0 })
+        {
+            using var stream = request.BigImage.OpenReadStream();
+            using var ms = new MemoryStream();
+            await stream.CopyToAsync(ms, ct);
+
+            // 2. Викликаємо ImageService через gRPC
+            var grpcRequest = new UploadImageRequest
+            {
+                Data = Google.Protobuf.ByteString.CopyFrom(ms.ToArray()),
+                FileName = request.BigImage.FileName
+            };
+
+            var response = await imageClient.UploadImageAsync(grpcRequest, cancellationToken: ct);
+
+            if (response.Success)
+            {
+                bigImageName = response.BigImageName;
+                smallImageName = response.SmallImageName;
+            }
+        }
+
+
         var resShelf = await repos.UpdateItemAsync(item, ct);
         if (resShelf == null)
         {
@@ -62,18 +104,19 @@ public class UpdateItemCommandHandler(
 
     }
 
-    private void SetItemFromDTO(Item item, UpdateItemDto dto)
+    private void SetItemFromDTO(Item item, UpdateItemCommand dto)
     {
+        var reqTime = DateTime.UtcNow;
         item.Name = dto.Name;
         item.ShelfId = dto.ShelfId;
-        item.BigImage = dto.BigImage;
-        item.SmallImage = dto.SmallImage;
         item.AttributeColorMain = dto.AttributeColorMain;
         item.AttributeColorSecond = dto.AttributeColorSecond;
+        item.UpdatedAt = reqTime;
         item.AttributeType = dto.AttributeType;
         item.AttributeSeason = dto.AttributeSeason;
         item.AttributePattern = dto.AttributePattern;
         item.AttributeMatterial = dto.AttributeMatterial;
-        item.isFavorite = dto.isFavorite;
+        item.isFavorite = dto.IsFavoriteString?.ToLower() == "true";
+
     }
 }

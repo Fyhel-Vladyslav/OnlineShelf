@@ -239,7 +239,6 @@ const CreateItemPage: React.FC = () => {
             </Form.Item>
           </div>
 
-          {/* ПРАВА КОЛОНКА (40%) - ТЕПЕР ВОНА ВСЕРЕДИНІ ФОРМИ! */}
           <div style={{ flex: '40%' }}>
             <div style={{ position: 'relative', height: '100%', width: '100%', display: 'inline-block' }}>
               <FavouriteButton 

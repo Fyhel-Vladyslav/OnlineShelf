@@ -3,9 +3,6 @@ import { authService } from "@/hooks/jwtauth/AuthService";
 
 export const httpClient = axios.create({
   baseURL: "http://localhost:5000",
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 httpClient.interceptors.request.use((config) => {
