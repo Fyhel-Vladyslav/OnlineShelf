@@ -27,10 +27,10 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
             // 1. Зберігаємо велике фото (авто-конвертація в WebP за розширенням)
             await image.SaveAsWebpAsync(Path.Combine(StoragePath, bigFileName));
 
-            // 2. Робимо маленьку копію 32x32 (пропорційно)
+            // 2. Робимо маленьку копію (пропорційно)
             image.Mutate(x => x.Resize(new ResizeOptions
             {
-                Size = new Size(32, 32),
+                Size = new Size(100, 100),
                 Mode = ResizeMode.Max
             }));
             await image.SaveAsWebpAsync(Path.Combine(StoragePath, smallFileName));

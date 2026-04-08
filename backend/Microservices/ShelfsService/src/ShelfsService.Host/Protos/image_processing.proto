@@ -17,7 +17,7 @@ message UploadImageRequest {
   string file_name = 2;
 }
 
-// Відповідь на завантаження (ТУТ БУЛА ПОМИЛКА)
+// Відповідь на завантаження
 message UploadImageResponse {
   string big_image_name = 1;
   string small_image_name = 2;

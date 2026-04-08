@@ -287,7 +287,7 @@ namespace ImageService.Protos {
   }
 
   /// <summary>
-  /// Відповідь на завантаження (ТУТ БУЛА ПОМИЛКА)
+  /// Відповідь на завантаження
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UploadImageResponse : pb::IMessage<UploadImageResponse>

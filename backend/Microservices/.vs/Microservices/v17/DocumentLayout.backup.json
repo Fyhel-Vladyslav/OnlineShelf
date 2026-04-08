@@ -3,44 +3,12 @@
   "WorkspaceRootPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9A8E19F7-DE6F-41B9-A088-DFF0383AF2F2}|docker-compose.dcproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{9A8E19F7-DE6F-41B9-A088-DFF0383AF2F2}|docker-compose.dcproj|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\imageservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|solutionrelative:imageservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\imageservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|solutionrelative:imageservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\extentions\\grpcextention.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\extentions\\grpcextention.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\imageservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|solutionrelative:imageservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\imageservice\\src\\imageservice.host\\services\\images\\imagegrpcservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|solutionrelative:imageservice\\src\\imageservice.host\\services\\images\\imagegrpcservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\features\\items\\createitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\features\\items\\createitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.common\\dtos\\items\\createitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.common\\dtos\\items\\createitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.common\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.common\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\features\\items\\updateitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\features\\items\\updateitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\protos\\image_processing.proto||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\protos\\image_processing.proto||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,136 +18,31 @@
       "DocumentGroups": [
         {
           "DockedHeight": 237,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Dockerfile",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\Dockerfile",
-              "RelativeDocumentMoniker": "ImageService\\Dockerfile",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\Dockerfile*",
-              "RelativeToolTip": "ImageService\\Dockerfile*",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACQAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-04-02T21:42:19.149Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\appsettings.json",
-              "RelativeDocumentMoniker": "ImageService\\appsettings.json",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\appsettings.json",
-              "RelativeToolTip": "ImageService\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-02T21:37:36.105Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GrpcExtention.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\Extentions\\GrpcExtention.cs",
-              "RelativeDocumentMoniker": "ShelfsService\\Extentions\\GrpcExtention.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\Extentions\\GrpcExtention.cs",
-              "RelativeToolTip": "ShelfsService\\Extentions\\GrpcExtention.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-02T21:31:51.193Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "CreateItemDto.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Common\\DTOs\\Items\\CreateItemDto.cs",
-              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Common\\DTOs\\Items\\CreateItemDto.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Common\\DTOs\\Items\\CreateItemDto.cs",
-              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Common\\DTOs\\Items\\CreateItemDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-02T19:45:59.766Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ApiRoutes.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Common\\ApiRoutes.cs",
-              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Common\\ApiRoutes.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Common\\ApiRoutes.cs",
-              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Common\\ApiRoutes.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-02T19:20:07.638Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "UpdateItem.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\UpdateItem.cs",
-              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\UpdateItem.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\UpdateItem.cs",
-              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\UpdateItem.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwCEAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-02T19:16:28.253Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CreateItem.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\CreateItem.cs",
-              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\CreateItem.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\CreateItem.cs",
-              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\CreateItem.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAUwFEAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-02T19:09:55.831Z",
-              "EditorCaption": ""
+              "Title": "image_processing.proto",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Protos\\image_processing.proto",
+              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Protos\\image_processing.proto",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Protos\\image_processing.proto",
+              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Protos\\image_processing.proto",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003853|",
+              "WhenOpened": "2026-04-06T18:53:02.773Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "docker-compose.yml",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\docker-compose.yml",
-              "RelativeDocumentMoniker": "docker-compose.yml",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\docker-compose.yml",
-              "RelativeToolTip": "docker-compose.yml",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAAEgAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2026-04-02T18:05:39.013Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\Program.cs",
-              "RelativeDocumentMoniker": "ImageService\\Program.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\Program.cs",
-              "RelativeToolTip": "ImageService\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T21:36:27.035Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "ImageGrpcService.cs",
               "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\src\\ImageService.Host\\Services\\Images\\ImageGrpcService.cs",
               "RelativeDocumentMoniker": "ImageService\\src\\ImageService.Host\\Services\\Images\\ImageGrpcService.cs",
               "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\src\\ImageService.Host\\Services\\Images\\ImageGrpcService.cs",
               "RelativeToolTip": "ImageService\\src\\ImageService.Host\\Services\\Images\\ImageGrpcService.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAgwCMAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T21:30:20.949Z",
+              "WhenOpened": "2026-04-06T18:03:15.584Z",
               "EditorCaption": ""
             }
           ]
