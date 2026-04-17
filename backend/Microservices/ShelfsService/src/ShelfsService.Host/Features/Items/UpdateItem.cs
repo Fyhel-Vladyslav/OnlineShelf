@@ -92,6 +92,8 @@ public class UpdateItemCommandHandler(
             }
         }
 
+        item.BigImage = bigImageName;
+        item.SmallImage = smallImageName;
 
         var resShelf = await repos.UpdateItemAsync(item, ct);
         if (resShelf == null)

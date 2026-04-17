@@ -1,8 +1,11 @@
-﻿namespace ShelfsService.src.ShelfsService.Common;
+﻿using SixLabors.ImageSharp;
+
+namespace ShelfsService.src.ShelfsService.Common;
 public class ApiRoutes
 {
     public const string ItemIdParam = "{itemId:guid}";
     public const string ShelfIdParam = "{shelfId:guid}";
+    public const string ImageNameParam = "{imageName}";
 
     public const string Shelfs = "shelfs";
     public const string AddShelf = $"{Shelfs}/add-shelf";
@@ -16,6 +19,7 @@ public class ApiRoutes
     public const string GetItemById = $"{Shelfs}/items/{ItemIdParam}";
     public const string DeleteItem = $"{Shelfs}/items/{ItemIdParam}";
     public const string UpdateItem = $"{Shelfs}/items";
+    public const string GetPhotoByName = $"/items/get-image/{ImageNameParam}";
 
     public const string Attributes = $"{Shelfs}/items/attributes";
 

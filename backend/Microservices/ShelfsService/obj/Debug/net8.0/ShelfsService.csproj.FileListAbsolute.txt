@@ -157,3 +157,12 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Deb
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.Net.Client.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.Net.ClientFactory.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.Net.Common.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\ImageService.deps.json
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\ImageService.runtimeconfig.json
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\ImageService.staticwebassets.endpoints.json
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\ImageService.exe
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.AspNetCore.Server.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.AspNetCore.Server.ClientFactory.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\SixLabors.ImageSharp.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\ImageService.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\ImageService.pdb

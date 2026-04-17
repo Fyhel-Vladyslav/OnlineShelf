@@ -1,6 +1,5 @@
 ﻿syntax = "proto3";
 
-// Вкажи простір імен, який відповідає твоєму проекту
 option csharp_namespace = "ImageService.Protos"; 
 
 service ImageProcessor {
@@ -9,6 +8,12 @@ service ImageProcessor {
   
   // Метод для видалення
   rpc DeleteImage (DeleteImageRequest) returns (DeleteImageResponse);
+   
+  // Метод для розпізнавання
+  rpc RecognizeImage (RecognizeImageRequest) returns (RecognizeImageResponse);
+
+  // Метод для отримання фото за назвою
+  rpc GetPhotoByName (GetPhotoRequest) returns (stream GetPhotoResponse);
 }
 
 // Запит на завантаження
@@ -33,4 +38,26 @@ message DeleteImageRequest {
 // Відповідь на видалення
 message DeleteImageResponse {
   bool success = 1;
+}
+
+// Запит на розпізнавання
+message RecognizeImageRequest {
+  bytes image_data = 1;
+}
+
+// Відповідь на розпізнавання
+message RecognizeImageResponse {
+  bool success = 1;
+  string recognized_data_json = 2;
+  string error_message = 3;
+}
+
+// Запит на отримання
+message GetPhotoRequest {
+  string file_name = 1;
+}
+
+// Відповідь на отримання
+message GetPhotoResponse {
+  bytes chunk_data = 1;
 }

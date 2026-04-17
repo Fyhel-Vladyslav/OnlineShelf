@@ -14,6 +14,7 @@
           "Grpc.Net.Client": "2.76.0",
           "Grpc.Net.ClientFactory": "2.76.0",
           "Grpc.Tools": "2.80.0",
+          "ImageService": "1.0.0",
           "MediatR": "13.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.18",
           "Microsoft.EntityFrameworkCore": "9.0.10",
@@ -80,6 +81,36 @@
           "lib/net5.0/Google.Protobuf.dll": {
             "assemblyVersion": "3.34.1.0",
             "fileVersion": "3.34.1.0"
+          }
+        }
+      },
+      "Grpc.AspNetCore/2.76.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.34.1",
+          "Grpc.AspNetCore.Server.ClientFactory": "2.76.0",
+          "Grpc.Tools": "2.80.0"
+        }
+      },
+      "Grpc.AspNetCore.Server/2.76.0": {
+        "dependencies": {
+          "Grpc.Net.Common": "2.76.0"
+        },
+        "runtime": {
+          "lib/net8.0/Grpc.AspNetCore.Server.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.76.0.0"
+          }
+        }
+      },
+      "Grpc.AspNetCore.Server.ClientFactory/2.76.0": {
+        "dependencies": {
+          "Grpc.AspNetCore.Server": "2.76.0",
+          "Grpc.Net.ClientFactory": "2.76.0"
+        },
+        "runtime": {
+          "lib/net8.0/Grpc.AspNetCore.Server.ClientFactory.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.76.0.0"
           }
         }
       },
@@ -796,6 +827,14 @@
           }
         }
       },
+      "SixLabors.ImageSharp/3.1.12": {
+        "runtime": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.1.12.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.6.2": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
@@ -965,7 +1004,21 @@
           }
         }
       },
-      "System.Threading.Channels/7.0.0": {}
+      "System.Threading.Channels/7.0.0": {},
+      "ImageService/1.0.0": {
+        "dependencies": {
+          "Grpc.AspNetCore": "2.76.0",
+          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.21.0",
+          "SixLabors.ImageSharp": "3.1.12",
+          "Swashbuckle.AspNetCore": "6.6.2"
+        },
+        "runtime": {
+          "ImageService.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
     }
   },
   "libraries": {
@@ -1015,6 +1068,27 @@
       "sha512": "sha512-212vdYxRuVopGE5bess6Jg5oXWyizA6hcLPTI7G+qA4PthQEvfeof3njT+7VSY5v/+O0P22xTydiP5fSJJpGEA==",
       "path": "google.protobuf/3.34.1",
       "hashPath": "google.protobuf.3.34.1.nupkg.sha512"
+    },
+    "Grpc.AspNetCore/2.76.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LyXMmpN2Ba0TE35SOLSKbGqIYtJuhc1UgiaGfoW1X8KJERV70QI5KGW+ckEY7MrXoFWN/uWo4B70siVhbDmCgQ==",
+      "path": "grpc.aspnetcore/2.76.0",
+      "hashPath": "grpc.aspnetcore.2.76.0.nupkg.sha512"
+    },
+    "Grpc.AspNetCore.Server/2.76.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-diSC/ZeNdSdxHdYSOpYwuSBBDYpuNVtJQFJfiBB0WrYOQ4lVMmdxuUZJcViahQyo8pCvS3Mueo5lqFxwwMF/iw==",
+      "path": "grpc.aspnetcore.server/2.76.0",
+      "hashPath": "grpc.aspnetcore.server.2.76.0.nupkg.sha512"
+    },
+    "Grpc.AspNetCore.Server.ClientFactory/2.76.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-y5KGO1GO0N2L/hCCMR05mmoK8j+v8rKvZ+9nothAxKx2Tf2CwV8f4TM5K0GkKfDsp4vrc4lm90MU6E+DeN7YIw==",
+      "path": "grpc.aspnetcore.server.clientfactory/2.76.0",
+      "hashPath": "grpc.aspnetcore.server.clientfactory.2.76.0.nupkg.sha512"
     },
     "Grpc.Core.Api/2.76.0": {
       "type": "package",
@@ -1380,6 +1454,13 @@
       "path": "npgsql.entityframeworkcore.postgresql/9.0.4",
       "hashPath": "npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512"
     },
+    "SixLabors.ImageSharp/3.1.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iAg6zifihXEFS/t7fiHhZBGAdCp3FavsF4i2ZIDp0JfeYeDVzvmlbY1CNhhIKimaIzrzSi5M/NBFcWvZT2rB/A==",
+      "path": "sixlabors.imagesharp/3.1.12",
+      "hashPath": "sixlabors.imagesharp.3.1.12.nupkg.sha512"
+    },
     "Swashbuckle.AspNetCore/6.6.2": {
       "type": "package",
       "serviceable": true,
@@ -1519,6 +1600,11 @@
       "sha512": "sha512-qmeeYNROMsONF6ndEZcIQ+VxR4Q/TX/7uIVLJqtwIWL7dDWeh0l1UIqgo4wYyjG//5lUNhwkLDSFl+pAWO6oiA==",
       "path": "system.threading.channels/7.0.0",
       "hashPath": "system.threading.channels.7.0.0.nupkg.sha512"
+    },
+    "ImageService/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

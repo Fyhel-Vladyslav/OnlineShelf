@@ -53,6 +53,14 @@ namespace ImageService.Protos {
     static readonly grpc::Marshaller<global::ImageService.Protos.DeleteImageRequest> __Marshaller_DeleteImageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.DeleteImageRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::ImageService.Protos.DeleteImageResponse> __Marshaller_DeleteImageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.DeleteImageResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeImageRequest> __Marshaller_RecognizeImageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeImageRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeImageResponse> __Marshaller_RecognizeImageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeImageResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::ImageService.Protos.GetPhotoRequest> __Marshaller_GetPhotoRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.GetPhotoRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::ImageService.Protos.GetPhotoResponse> __Marshaller_GetPhotoResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.GetPhotoResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::ImageService.Protos.UploadImageRequest, global::ImageService.Protos.UploadImageResponse> __Method_UploadImage = new grpc::Method<global::ImageService.Protos.UploadImageRequest, global::ImageService.Protos.UploadImageResponse>(
@@ -69,6 +77,22 @@ namespace ImageService.Protos {
         "DeleteImage",
         __Marshaller_DeleteImageRequest,
         __Marshaller_DeleteImageResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::ImageService.Protos.RecognizeImageRequest, global::ImageService.Protos.RecognizeImageResponse> __Method_RecognizeImage = new grpc::Method<global::ImageService.Protos.RecognizeImageRequest, global::ImageService.Protos.RecognizeImageResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "RecognizeImage",
+        __Marshaller_RecognizeImageRequest,
+        __Marshaller_RecognizeImageResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::ImageService.Protos.GetPhotoRequest, global::ImageService.Protos.GetPhotoResponse> __Method_GetPhotoByName = new grpc::Method<global::ImageService.Protos.GetPhotoRequest, global::ImageService.Protos.GetPhotoResponse>(
+        grpc::MethodType.ServerStreaming,
+        __ServiceName,
+        "GetPhotoByName",
+        __Marshaller_GetPhotoRequest,
+        __Marshaller_GetPhotoResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -104,6 +128,31 @@ namespace ImageService.Protos {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
+      /// <summary>
+      /// Метод для розпізнавання
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::ImageService.Protos.RecognizeImageResponse> RecognizeImage(global::ImageService.Protos.RecognizeImageRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// Метод для отримання фото за назвою
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="responseStream">Used for sending responses back to the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>A task indicating completion of the handler.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task GetPhotoByName(global::ImageService.Protos.GetPhotoRequest request, grpc::IServerStreamWriter<global::ImageService.Protos.GetPhotoResponse> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
@@ -113,7 +162,9 @@ namespace ImageService.Protos {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_UploadImage, serviceImpl.UploadImage)
-          .AddMethod(__Method_DeleteImage, serviceImpl.DeleteImage).Build();
+          .AddMethod(__Method_DeleteImage, serviceImpl.DeleteImage)
+          .AddMethod(__Method_RecognizeImage, serviceImpl.RecognizeImage)
+          .AddMethod(__Method_GetPhotoByName, serviceImpl.GetPhotoByName).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -125,6 +176,8 @@ namespace ImageService.Protos {
     {
       serviceBinder.AddMethod(__Method_UploadImage, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ImageService.Protos.UploadImageRequest, global::ImageService.Protos.UploadImageResponse>(serviceImpl.UploadImage));
       serviceBinder.AddMethod(__Method_DeleteImage, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ImageService.Protos.DeleteImageRequest, global::ImageService.Protos.DeleteImageResponse>(serviceImpl.DeleteImage));
+      serviceBinder.AddMethod(__Method_RecognizeImage, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ImageService.Protos.RecognizeImageRequest, global::ImageService.Protos.RecognizeImageResponse>(serviceImpl.RecognizeImage));
+      serviceBinder.AddMethod(__Method_GetPhotoByName, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::ImageService.Protos.GetPhotoRequest, global::ImageService.Protos.GetPhotoResponse>(serviceImpl.GetPhotoByName));
     }
 
   }

@@ -36,10 +36,10 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debu
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ImageService.props
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ImageService.props
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\staticwebassets.pack.json
-D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\ImageSer.4959AB5E.Up2Date
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\ImageService.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\refint\ImageService.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\ImageService.pdb
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\ImageService.genruntimeconfig.cache
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\ref\ImageService.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

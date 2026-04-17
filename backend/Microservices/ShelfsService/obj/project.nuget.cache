@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ORTemWdQ6IY=",
+  "dgSpecHash": "LhPuAdUOGyk=",
   "success": true,
   "projectFilePath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\ShelfsService.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,9 @@
     "C:\\Users\\vladf\\.nuget\\packages\\fastendpoints.messaging.core\\7.1.1\\fastendpoints.messaging.core.7.1.1.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\fluentvalidation\\12.1.0\\fluentvalidation.12.1.0.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\google.protobuf\\3.34.1\\google.protobuf.3.34.1.nupkg.sha512",
+    "C:\\Users\\vladf\\.nuget\\packages\\grpc.aspnetcore\\2.76.0\\grpc.aspnetcore.2.76.0.nupkg.sha512",
+    "C:\\Users\\vladf\\.nuget\\packages\\grpc.aspnetcore.server\\2.76.0\\grpc.aspnetcore.server.2.76.0.nupkg.sha512",
+    "C:\\Users\\vladf\\.nuget\\packages\\grpc.aspnetcore.server.clientfactory\\2.76.0\\grpc.aspnetcore.server.clientfactory.2.76.0.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\grpc.core.api\\2.76.0\\grpc.core.api.2.76.0.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\grpc.net.client\\2.76.0\\grpc.net.client.2.76.0.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\grpc.net.clientfactory\\2.76.0\\grpc.net.clientfactory.2.76.0.nupkg.sha512",
@@ -62,6 +65,7 @@
     "C:\\Users\\vladf\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\npgsql\\9.0.3\\npgsql.9.0.3.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.4\\npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512",
+    "C:\\Users\\vladf\\.nuget\\packages\\sixlabors.imagesharp\\3.1.12\\sixlabors.imagesharp.3.1.12.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\swashbuckle.aspnetcore\\6.6.2\\swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.6.2\\swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
     "C:\\Users\\vladf\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.6.2\\swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",

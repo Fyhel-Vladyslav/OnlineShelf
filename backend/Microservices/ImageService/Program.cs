@@ -1,10 +1,13 @@
-using ImageService.src.ImageService.Host.Services.Images;
+using ImageService.Extentions;
+using ImageService.src.ImageService.Host.Protos.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container. 
 
-builder.Services.AddGrpc();
+builder.Services
+    .AddInfrastructure(builder.Environment)
+    .AddGrpc();
 
 var app = builder.Build();
 

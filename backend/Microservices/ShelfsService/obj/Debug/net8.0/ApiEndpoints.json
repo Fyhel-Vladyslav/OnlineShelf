@@ -2,6 +2,29 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "items/get-image/{imageName}",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "GetImageByNameRequest",
+        "Type": "ShelfsService.src.ShelfsService.Host.Features.Items.GetImageByNameRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesItemsGetPhotoByName"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
     "RelativePath": "shelfs",
     "HttpMethod": "GET",
     "IsController": false,
@@ -261,6 +284,27 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[ShelfsService.WeatherForecast, ShelfsService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  },
+  {
+    "ContainingType": "ImageService.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ImageService.WeatherForecast, ImageService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

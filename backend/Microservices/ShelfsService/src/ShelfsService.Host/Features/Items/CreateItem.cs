@@ -92,6 +92,9 @@ public class CreateItemCommandHandler(
             }
         }
 
+        item.BigImage = bigImageName;
+        item.SmallImage = smallImageName;
+
 
         var newItem = await repos.CreateItemAsync(item, ct);
 
