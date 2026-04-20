@@ -13,13 +13,12 @@ public class ApiRoutes
     public const string MoveItem = $"{Shelfs}/move-item";
     public const string UpdateShelf = $"{Shelfs}";
 
-    // Тепер AddItem не буде конфліктувати з GetItemById/DeleteItem, 
-    // бо "add-item" не пройде перевірку на Guid
+
     public const string AddItem = $"{Shelfs}/items/add-item";
     public const string GetItemById = $"{Shelfs}/items/{ItemIdParam}";
     public const string DeleteItem = $"{Shelfs}/items/{ItemIdParam}";
     public const string UpdateItem = $"{Shelfs}/items";
-    public const string GetPhotoByName = $"/items/get-image/{ImageNameParam}";
+    public const string GetPhotoByName = $"{Shelfs}/items/get-image/{ImageNameParam}";
 
     public const string Attributes = $"{Shelfs}/items/attributes";
 

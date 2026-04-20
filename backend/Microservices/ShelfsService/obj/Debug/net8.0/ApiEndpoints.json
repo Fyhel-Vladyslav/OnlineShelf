@@ -2,29 +2,6 @@
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
     "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
-    "RelativePath": "items/get-image/{imageName}",
-    "HttpMethod": "GET",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "GetImageByNameRequest",
-        "Type": "ShelfsService.src.ShelfsService.Host.Features.Items.GetImageByNameRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 204
-      }
-    ],
-    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesItemsGetPhotoByName"
-  },
-  {
-    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
-    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
     "RelativePath": "shelfs",
     "HttpMethod": "GET",
     "IsController": false,
@@ -249,6 +226,29 @@
       }
     ],
     "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesAttributesGetAttributesValues"
+  },
+  {
+    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
+    "Method": "\u003CMapFastEndpoints\u003Eb__2_1",
+    "RelativePath": "shelfs/items/get-image/{imageName}",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "GetImageByName",
+        "Type": "ShelfsService.src.ShelfsService.Host.Features.Items.GetImageByName",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ],
+    "EndpointName": "ShelfsServicesrcShelfsServiceHostFeaturesItemsGetPhotoByName"
   },
   {
     "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Button, Space, message, Select, ColorPicker } from 'antd';
+import { Form, Input, Button, Space, message, Select, ColorPicker, Spin } from 'antd';
 
 import { useParams, useNavigate } from 'react-router-dom';
 import { useShelfs } from '@/hooks/shelfs/useShelfs';
@@ -12,6 +12,7 @@ import ImageShow from '@/components/ImageShow/ImageShow';
 import { useNotification } from '@/notification/useNotification';
 import { isAxiosError } from 'axios';
 import { FavouriteButton } from '@/components/IsFavourite/IsFavourite';
+import { useImage } from '@/hooks/items/useImage';
 
 const { Option } = Select;
 
@@ -28,6 +29,8 @@ const ItemEditPage: React.FC = () => {
   const [initialValues, setInitialValues] = useState<any>(null);
   const [isDirty, setIsDirty] = useState(false);
   const updateItem = useUpdateItem();
+  const bigImageName = item?.bigImage;
+  const { data: imageItem, isLoading: imageLoading } = useImage(bigImageName);
   const isFavorite = isFavoriteFormValue || false;
 
   useEffect(() => {
@@ -108,6 +111,7 @@ const ItemEditPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
+    
   };
 
   return (
@@ -272,8 +276,12 @@ const ItemEditPage: React.FC = () => {
                   backgroundColor: 'rgba(0,0,0,0.6)', borderRadius: '50%', padding: '4px'
                 }}
               />
-              <div style={{ height: '60%', marginBottom: '20px', padding: '10px', minHeight: '200px', border: '1px solid #d9d9d9', borderRadius: '4px', position: 'relative' }}>
-                <ImageShow src={""} alt="Current Item" style={{ height: "100%"}} />
+              <div style={{ height: '60%', marginBottom: '20px', padding: '10px', minHeight: '200px', border: '1px solid #d9d9d9', borderRadius: '4px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {imageLoading ? (
+                  <Spin size="large" />
+                ) : (
+                  <ImageShow src={imageItem || ''} alt="Current Item" style={{ height: "100%" }} />
+                )}
               </div>
               <div style={{display:"flex"}}>
                 <div style={{width:"50%", padding:"3px"}}>

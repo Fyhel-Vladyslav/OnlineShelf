@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 using Grpc.Core;
-using ImageService.Protos; // Переконайся, що тут лежить ImageProcessorClient
+using ImageService.Protos;
 using ShelfsService.src.ShelfsService.Common;
 using System.IO;
 
@@ -8,7 +8,6 @@ namespace ShelfsService.src.ShelfsService.Host.Features.Items;
 
 internal sealed record GetImageByName(string ImageName);
 
-// Використовуємо Endpoint<TRequest>, оскільки ми самі керуємо HTTP-відповіддю
 internal sealed class GetPhotoByName : Endpoint<GetImageByName>
 {
     private readonly ImageProcessor.ImageProcessorClient _imageClient;

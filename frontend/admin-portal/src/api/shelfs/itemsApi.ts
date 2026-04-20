@@ -137,4 +137,6 @@ export const itemsApi = {
           itemId,      
           newShelfId
       }),
+    getImageByName: (imageName: string) => 
+      httpClient.get(`/shelfs/items/get-image/${imageName}`, { responseType: 'blob' }),
   };
