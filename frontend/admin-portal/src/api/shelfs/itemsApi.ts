@@ -81,10 +81,12 @@ export const itemsApi = {
         Object.entries(newItem).forEach(([key, value]) => {
           if (value !== undefined && value !== null) {
             
-            // Якщо це файл - додаємо як файл
-            if (typeof value === 'object' && (value as any).size !== undefined) {
-              formData.append(key, value as File);
-            } 
+            // bigImage must be a File to be sent; skip string filenames (existing image)
+            if (key === 'bigImage') {
+              if (value instanceof File) {
+                formData.append(key, value);
+              }
+            }
             // Якщо це чекбокс isFavorite - передаємо рядок 'true', якщо він увімкнений
             else if (typeof value === 'boolean') {
               if (value === true) formData.append(key, 'true');
@@ -96,8 +98,6 @@ export const itemsApi = {
           }
         });
 
-        // 3. ВІДПРАВЛЯЄМО САМЕ formData, А НЕ { newItem }
-        // ВАЖЛИВО: httpClient (axios) сам зрозуміє, що це FormData і поставить правильні заголовки!
         return await httpClient.put<UpdateItemDto>("/shelfs/items",formData      )
     },
 
@@ -124,9 +124,7 @@ export const itemsApi = {
           }
         });
     
-        // 3. ВІДПРАВЛЯЄМО САМЕ formData, А НЕ { newItem }
-        // ВАЖЛИВО: httpClient (axios) сам зрозуміє, що це FormData і поставить правильні заголовки!
-        return await httpClient.post("/shelfs/items/add-item", formData);
+       return await httpClient.post("/shelfs/items/add-item", formData);
       },
 
     deleteItem: (itemId: string) =>
@@ -140,3 +138,4 @@ export const itemsApi = {
     getImageByName: (imageName: string) => 
       httpClient.get(`/shelfs/items/get-image/${imageName}`, { responseType: 'blob' }),
   };
+

@@ -1,7 +1,10 @@
-# Refactor Delete Handlers to Hooks
+# Task: Fix useImage.ts for itemsApi.getImageByName
 
 ## Steps:
-- [x] Step 1: Create new hook `src/hooks/shelfs/useDeleteItem.ts`
-- [x] Step 2: Update `src/features/shelfs/ShelfsPage.tsx` to use the new hooks (remove handlers, add imports/mutations/error handling)
-- [x] Step 3: Verify no other changes needed
-- [x] Step 4: Task complete - attempt_completion
+- [x] Understand files and create plan (completed)
+- [x] Create TODO.md with steps (this file)
+- [x] Edit src/hooks/items/useImage.ts to fetch image as blob and return imageUrl
+- [x] Verify edit success (TypeScript errors fixed, hook now fetches blob correctly and returns {imageUrl} for ImageShow)
+- [x] Complete task
+
+## Status: Completed
