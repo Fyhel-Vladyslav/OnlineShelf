@@ -3,7 +3,7 @@ import io
 from PIL import Image
 import numpy as np
 
-# Імпортуємо згенеровані класи
+# Імпортуємо наші згенеровані модулі
 import app.grpc.generated.parse_image_pb2 as pb2
 import app.grpc.generated.parse_image_pb2_grpc as pb2_grpc
 
@@ -11,27 +11,32 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
     
     def AnalyzeClothing(self, request, context):
         try:
-            # 1. Декодуємо байти зображення (наші 20 кБ WebP)
             image_bytes = request.image_data
             if not image_bytes:
                 return pb2.AnalyzeClothingResponse(success=False, error_message="Empty image data")
             
-            image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-            image_np = np.array(image) # Готово для OpenCV чи YOLO
+            # Конвертація байтів у формат для обробки (залишаємо на майбутнє для YOLO/OpenCV)
+            try:
+                image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+                image_np = np.array(image)
+            except Exception as img_err:
+                # Якщо тестять просто рандомним текстом у лапках, PIL може впасти. 
+                # Для тестів заглушки просто пропустимо цю помилку.
+                print(f"Лог: Не вдалося розпарсити байти як картинку (це ок для тесту текстом): {img_err}")
             
-            # TODO: Тут буде виклик моделей з app/models/
-            # Наразі робимо Mock-відповідь для тестування зв'язку з C#
+            # Формуємо об'єкт ClothingAttributes відповідно до нової структури з proto
+            mock_attributes = pb2.ClothingAttributes(
+                attribute_color_main="Чорний",
+                attribute_color_second="Білий",
+                attribute_type=1,       # Наприклад: 1 = Футболка
+                attribute_season=2,     # Наприклад: 2 = Літо
+                attribute_pattern=0,    # 0 = Однотонний
+                attribute_material=0,   # 0 = Бавовна
+                confidence=0.92
+            )
             
-            detected_items = [
-                pb2.DetectedItem(
-                    clothing_type="Футболка",
-                    color="Чорний",
-                    season="Літо",
-                    confidence=0.95
-                )
-            ]
-            
-            return pb2.AnalyzeClothingResponse(success=True, items=detected_items)
+            # Повертаємо правильну відповідь
+            return pb2.AnalyzeClothingResponse(success=True, attributes=mock_attributes)
             
         except Exception as e:
             return pb2.AnalyzeClothingResponse(success=False, error_message=str(e))
