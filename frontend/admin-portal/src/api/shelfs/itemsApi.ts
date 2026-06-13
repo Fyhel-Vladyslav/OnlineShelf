@@ -1,4 +1,5 @@
-import { httpClient } from "../!localHttpClient";
+//import { httpClient } from "../!localHttpClient";
+import { httpClient } from "../httpClient";
 
 export type AttributeOption = {
   key: number;

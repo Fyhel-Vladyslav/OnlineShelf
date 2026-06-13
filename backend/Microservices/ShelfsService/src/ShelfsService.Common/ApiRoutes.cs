@@ -1,6 +1,4 @@
-﻿using SixLabors.ImageSharp;
-
-namespace ShelfsService.src.ShelfsService.Common;
+﻿namespace ShelfsService.src.ShelfsService.Common;
 public class ApiRoutes
 {
     public const string ItemIdParam = "{itemId:guid}";
