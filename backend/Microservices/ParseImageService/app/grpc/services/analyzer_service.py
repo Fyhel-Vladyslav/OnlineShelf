@@ -7,10 +7,10 @@ import numpy as np
 import app.grpc.generated.parse_image_pb2 as pb2
 import app.grpc.generated.parse_image_pb2_grpc as pb2_grpc
 
-from app.models.clothing_detector.detector import ClothingDetector
-from app.models.color_detector.detector import ColorDetector
-from app.models.material_detector.detector import MaterialDetector
-from app.models.pattern_detector.detector import PatternDetector
+from app.models.clothing_detector.clothing_detector import ClothingDetector
+from app.models.color_detector.color_detector import ColorDetector
+from app.models.material_detector.material_detector import MaterialDetector
+from app.models.pattern_detector.pattern_detector import PatternDetector
 
 class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
     def __init__(self, attributes_client):

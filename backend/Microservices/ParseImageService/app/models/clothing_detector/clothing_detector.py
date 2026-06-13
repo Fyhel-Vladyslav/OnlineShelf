@@ -9,7 +9,7 @@ class ClothingDetector:
         self.model = YOLO("yolov8s.pt")
         
         # Замість індексів використовуємо зрозумілі текстові назви класів COCO
-        self.clothing_classes = ["trousers", "coat", "tie", "handbag", "backpack", "person"]
+        self.clothing_classes = ["backpack", "umbrella", "handbag", "tie", "trousers", "coat", "suit", "dress", "shoes"]
 
     def detect_and_crop(self, image_np):
         # Переконуємося, що кольори правильні для YOLO
