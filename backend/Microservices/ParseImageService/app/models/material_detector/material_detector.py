@@ -8,7 +8,7 @@ class MaterialDetector:
     def __init__(self):
         print("📥 Завантаження моделі CLIP для аналізу матеріалів (openai/clip-vit-base-patch32)...")
         # Ініціалізуємо модель та процесор
-        self.model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
+        self.model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32", local_files_only=True)
         self.processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
         
         # Переводимо в режим оцінки (evaluation mode) для економії ресурсів

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ImageService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1db414a184721d60edeb210f70f072e479fa1821")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fad2eeb797276f08c83acd31be3f7fb04cb39bd5")]
 [assembly: System.Reflection.AssemblyProductAttribute("ImageService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ImageService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
