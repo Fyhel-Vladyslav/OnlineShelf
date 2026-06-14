@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "Google.Protobuf/3.31.1": {
+      "Google.Protobuf/3.35.0": {
         "type": "package",
         "compile": {
           "lib/net5.0/Google.Protobuf.dll": {
@@ -68,7 +68,7 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Grpc.Core.Api/2.76.0": {
+      "Grpc.Core.Api/2.80.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.1/Grpc.Core.Api.dll": {
@@ -81,10 +81,10 @@
           }
         }
       },
-      "Grpc.Net.Client/2.76.0": {
+      "Grpc.Net.Client/2.80.0": {
         "type": "package",
         "dependencies": {
-          "Grpc.Net.Common": "2.76.0",
+          "Grpc.Net.Common": "2.80.0",
           "Microsoft.Extensions.Logging.Abstractions": "8.0.0"
         },
         "compile": {
@@ -115,10 +115,10 @@
           }
         }
       },
-      "Grpc.Net.Common/2.76.0": {
+      "Grpc.Net.Common/2.80.0": {
         "type": "package",
         "dependencies": {
-          "Grpc.Core.Api": "2.76.0"
+          "Grpc.Core.Api": "2.80.0"
         },
         "compile": {
           "lib/net8.0/Grpc.Net.Common.dll": {
@@ -131,7 +131,7 @@
           }
         }
       },
-      "Grpc.Tools/2.76.0": {
+      "Grpc.Tools/2.81.0": {
         "type": "package",
         "build": {
           "build/Grpc.Tools.props": {},
@@ -525,14 +525,14 @@
     }
   },
   "libraries": {
-    "Google.Protobuf/3.31.1": {
-      "sha512": "gSnJbUmGiOTdWddPhqzrEscHq9Ls6sqRDPB9WptckyjTUyx70JOOAaDLkFff8gManZNN3hllQ4aQInnQyq/Z/A==",
+    "Google.Protobuf/3.35.0": {
+      "sha512": "OrUZCUzBXqdSmsQSWp/EPeINjOBcMU+PrZEJegw0aLgOGFHZ9ZI37X/SFrIxo8C9ghKynaKpPr3BVPc4EujWYg==",
       "type": "package",
-      "path": "google.protobuf/3.31.1",
+      "path": "google.protobuf/3.35.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "google.protobuf.3.31.1.nupkg.sha512",
+        "google.protobuf.3.35.0.nupkg.sha512",
         "google.protobuf.nuspec",
         "lib/net45/Google.Protobuf.dll",
         "lib/net45/Google.Protobuf.pdb",
@@ -607,15 +607,15 @@
         "packageIcon.png"
       ]
     },
-    "Grpc.Core.Api/2.76.0": {
-      "sha512": "cSxC2tdnFdXXuBgIn1pjc4YBx7LXTCp4M0qn+SMBS35VWZY+cEQYLWTBDDhdBH1HzU7BV+ncVZlniGQHMpRJKQ==",
+    "Grpc.Core.Api/2.80.0": {
+      "sha512": "i/8s+MOrYa6n7BmZ5bilcbHk+EMJDQHm2MKLhwGAT+urQqlZ6cpjvSivYvuULjebuX+UKieLYZbLRCmVQxFRkw==",
       "type": "package",
-      "path": "grpc.core.api/2.76.0",
+      "path": "grpc.core.api/2.80.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "grpc.core.api.2.76.0.nupkg.sha512",
+        "grpc.core.api.2.80.0.nupkg.sha512",
         "grpc.core.api.nuspec",
         "lib/net462/Grpc.Core.Api.dll",
         "lib/net462/Grpc.Core.Api.pdb",
@@ -629,15 +629,15 @@
         "packageIcon.png"
       ]
     },
-    "Grpc.Net.Client/2.76.0": {
-      "sha512": "K1oldmqw2+Gn69nGRzZLhqSiUZwelX1GrBu/cUl9wNf1C0uB61vFS6JcxUUv9P8VoUJhFsmV44JA6lI2EUt4xw==",
+    "Grpc.Net.Client/2.80.0": {
+      "sha512": "I1Aa24nTRMHqx0pmQfvthFsOpejquDjiJV6092KBqjw6EEr3wA9CMXlrdkoEgHartOiJrpKyZiQRl7n0NVlfBg==",
       "type": "package",
-      "path": "grpc.net.client/2.76.0",
+      "path": "grpc.net.client/2.80.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "grpc.net.client.2.76.0.nupkg.sha512",
+        "grpc.net.client.2.80.0.nupkg.sha512",
         "grpc.net.client.nuspec",
         "lib/net10.0/Grpc.Net.Client.dll",
         "lib/net10.0/Grpc.Net.Client.pdb",
@@ -688,14 +688,14 @@
         "packageIcon.png"
       ]
     },
-    "Grpc.Net.Common/2.76.0": {
-      "sha512": "bZpiMVYgvpB44/wBh1RotrkqC7bg2FOasLri2GhR3hMKyzsiTxCoDE49YjPrJeFc4RW0wS8u+EInI09sjxVFRA==",
+    "Grpc.Net.Common/2.80.0": {
+      "sha512": "E2ERsx+9IXlry4yjBl8btx0XMIKzymGNSvX5jmBS/uSwYyYDoKIDcIREyLqFLvd8vcJdcoRlycpvn9YRXutFpQ==",
       "type": "package",
-      "path": "grpc.net.common/2.76.0",
+      "path": "grpc.net.common/2.80.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "grpc.net.common.2.76.0.nupkg.sha512",
+        "grpc.net.common.2.80.0.nupkg.sha512",
         "grpc.net.common.nuspec",
         "lib/net10.0/Grpc.Net.Common.dll",
         "lib/net10.0/Grpc.Net.Common.pdb",
@@ -715,10 +715,10 @@
         "packageIcon.png"
       ]
     },
-    "Grpc.Tools/2.76.0": {
-      "sha512": "goRzYZVMgQtyLvkWdgTnPycg49hlNxnMkqGGgR3l7nCOm0bUh0YeAneiJ9JFk3XLgF4suQUdETYkl2Mg/TBr0w==",
+    "Grpc.Tools/2.81.0": {
+      "sha512": "UsaX2r6YYEeRS2xtgQIlWyOMyr6336LSgFgfwmCnv2xhhHWa/X/qe0P8SWkpL1Y0iiD4SSsOFoNuaT5WIsRaPw==",
       "type": "package",
-      "path": "grpc.tools/2.76.0",
+      "path": "grpc.tools/2.81.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -747,7 +747,7 @@
         "build/native/include/google/protobuf/timestamp.proto",
         "build/native/include/google/protobuf/type.proto",
         "build/native/include/google/protobuf/wrappers.proto",
-        "grpc.tools.2.76.0.nupkg.sha512",
+        "grpc.tools.2.81.0.nupkg.sha512",
         "grpc.tools.nuspec",
         "packageIcon.png",
         "tools/linux_arm64/grpc_csharp_plugin",
@@ -1705,7 +1705,10 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Google.Protobuf >= 3.35.0",
       "Grpc.AspNetCore >= 2.76.0",
+      "Grpc.Net.Client >= 2.80.0",
+      "Grpc.Tools >= 2.81.0",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.21.0",
       "SixLabors.ImageSharp >= 3.1.12",
       "Swashbuckle.AspNetCore >= 6.6.2"
@@ -1718,11 +1721,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Imageservice\\ImageService.csproj",
+      "projectUniqueName": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\ImageService.csproj",
       "projectName": "ImageService",
-      "projectPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Imageservice\\ImageService.csproj",
+      "projectPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\ImageService.csproj",
       "packagesPath": "C:\\Users\\vladf\\.nuget\\packages\\",
-      "outputPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Imageservice\\obj\\",
+      "outputPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1761,9 +1764,23 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Google.Protobuf": {
+            "target": "Package",
+            "version": "[3.35.0, )"
+          },
           "Grpc.AspNetCore": {
             "target": "Package",
             "version": "[2.76.0, )"
+          },
+          "Grpc.Net.Client": {
+            "target": "Package",
+            "version": "[2.80.0, )"
+          },
+          "Grpc.Tools": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[2.81.0, )"
           },
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
             "target": "Package",

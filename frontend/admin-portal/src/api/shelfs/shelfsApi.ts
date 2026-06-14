@@ -1,4 +1,5 @@
-import { httpClient } from "../!localHttpClient";
+//import { httpClient } from "../!localHttpClient";
+import { httpClient } from "../httpClient";
 import type { ItemPreviewDto } from "./itemsApi";
 
 export type ShelfsDto = {
