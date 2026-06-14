@@ -1,20 +1,24 @@
-import os
+from pathlib import Path
 import cv2
 import numpy as np
 from ultralytics import YOLO
+CURRENT_DIR = Path(__file__).resolve().parent
+WEIGHTS_DIR = CURRENT_DIR.parent / "weights"
 
 class ClothingDetector:
-    def __init__(self):
-        # Завантажуємо предобучену модель YOLOv8
-        self.model = YOLO("yolov8s.pt")
-        
-        # Замість індексів використовуємо зрозумілі текстові назви класів COCO
-        self.clothing_classes = ["backpack", "umbrella", "handbag", "tie", "trousers", "coat", "suit", "dress", "shoes"]
+    def __init__(self, model_filename="fashion_best.pt"):
+        WEIGHTS_DIR.mkdir(parents=True, exist_ok=True)
+        self.model_path = WEIGHTS_DIR / model_filename
+        print(f"Loading Clothing Detector model from: {self.model_path}")
 
-    def detect_and_crop(self, image_np):
+        # Завантажуємо предобучену модель YOLOv8
+        self.model = YOLO(str(self.model_path))
+
+    def detect_and_crop(self, image_np, allowed_classes=None):
         # Переконуємося, що кольори правильні для YOLO
+        
         image_bgr = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
-        results = self.model(image_bgr, verbose=False)[0]
+        results = self.model(image_bgr, verbose=False, conf=0.05)[0]
         
         best_box = None
         best_class_name = None
@@ -35,7 +39,7 @@ class ClothingDetector:
             conf = float(box.conf[0].item())
             
             # Фільтруємо за текстом і шукаємо найкращий confidence
-            if class_name in self.clothing_classes and conf > highest_conf:
+            if class_name in allowed_classes and conf > highest_conf:
                 highest_conf = conf
                 best_class_name = class_name
                 best_box = box.xyxy[0].cpu().numpy().astype(int)

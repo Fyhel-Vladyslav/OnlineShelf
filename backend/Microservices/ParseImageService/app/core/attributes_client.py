@@ -94,3 +94,12 @@ class AttributesServiceClient:
 
     def has_data(self) -> bool:
         return self.is_initialized and bool(self._cache)
+    
+    def get_all_values_by_attribute(self, attribute_name: str) -> list[str]:
+        """
+        Повертає чистий список текстових значень для фільтрації ШІ.
+        Наприклад, для "Type" поверне: ["pants", "skirt", "t-shirt"]
+        """
+        category_dict = self._cache.get(attribute_name, {})
+        # Перетворюємо значення у список. Вони вже в нижньому регістрі завдяки твоему .lower()
+        return list(category_dict.values())
