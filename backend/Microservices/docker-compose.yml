@@ -36,6 +36,7 @@ services:
       dockerfile: ShelfsService/Dockerfile
     environment:
       - ConnectionStrings__Default=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
+      - GrpcConfigs__ImageServiceUrl=http://imageservice:8080
     networks:
       - microservice_net
 
@@ -62,6 +63,19 @@ services:
       - "5432:5432"
     networks:
       - microservice_net
+
+  imageservice:
+    container_name: image-service
+    image: ${DOCKER_REGISTRY-}image-service
+    build:
+      context: .
+      dockerfile: ImageService/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - D:/visualStudio/Projects/OnlineShelf/images:/app/images
+    networks:
+      - microservice_net 
 
 networks:
   microservice_net:

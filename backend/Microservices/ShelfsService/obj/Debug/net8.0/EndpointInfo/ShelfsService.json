@@ -1,0 +1,725 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ShelfsService",
+    "version": "1.0"
+  },
+  "paths": {
+    "/shelfs/items/{itemId}": {
+      "delete": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ItemsServicesrcShelfsServiceHostFeaturesItemsDeleteUser",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteItemByIdRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteItemByIdRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesItemsGetItemById",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/GetItemByIdRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetItemByIdRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/shelfs/add-shelf": {
+      "post": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcUserServiceHostFeaturesShelfsCreateShelfCommandHandler",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateShelfCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShelfDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/{shelfId}": {
+      "delete": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesShelfsDeleteUser",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteShelfByIdRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteShelfByIdRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/shelfs": {
+      "get": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesShelfsGetAllShelfs",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllShelfsResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesShelfsUpdateShelfCommandHandler",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateShelfCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShelfDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/items/add-item": {
+      "post": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesItemsCreateItemCommandHandler",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateItemCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/move-item": {
+      "post": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesItemsMoveItemEndpoint",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MoveItemRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/shelfs/items": {
+      "put": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesItemsUpdateItemCommandHandler",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateItemCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/items/attributes": {
+      "get": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesAttributesGetAttributesValues",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAttributesValuesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AttributeOption": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AttributeTypeDto": {
+        "type": "object",
+        "properties": {
+          "attributeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeOption"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateItemCommand": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shelfId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bigImage": {
+            "type": "string",
+            "format": "binary",
+            "nullable": true
+          },
+          "attributeColorMain": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeColorSecond": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeSeason": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributePattern": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeMatterial": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isFavoriteString": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateShelfCommand": {
+        "type": "object",
+        "properties": {
+          "newShelf": {
+            "$ref": "#/components/schemas/CreateShelfDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateShelfDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeleteItemByIdRequest": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeleteShelfByIdRequest": {
+        "type": "object",
+        "properties": {
+          "shelfId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetAllShelfsResponse": {
+        "type": "object",
+        "properties": {
+          "shelfs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShelfDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetAttributesValuesResponse": {
+        "type": "object",
+        "properties": {
+          "attributesValues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeTypeDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetItemByIdRequest": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shelfId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bigImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeColorMain": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeColorSecond": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeSeason": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributePattern": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeMatterial": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isFavorite": {
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ItemPreviewDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "smallImage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MoveItemRequest": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "newShelfId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShelfDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemPreviewDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateItemCommand": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shelfId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bigImage": {
+            "type": "string",
+            "format": "binary",
+            "nullable": true
+          },
+          "attributeColorMain": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeColorSecond": {
+            "type": "string",
+            "nullable": true
+          },
+          "attributeType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeSeason": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributePattern": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeMatterial": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isFavoriteString": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateShelfCommand": {
+        "type": "object",
+        "properties": {
+          "shelfDto": {
+            "$ref": "#/components/schemas/UpdateShelfDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateShelfDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -15,6 +15,10 @@ export type UserDto = {
 export type GetUsersResponse = {
   users: UserDto[];
 };
+
+export type SignInResponse = {
+  token: string;
+};
 export const userApi = {
     getUsers: () =>
       httpClient.get<GetUsersResponse>("/users/all"),
@@ -30,4 +34,11 @@ export const userApi = {
     
     deleteUser: (userId: string) =>
       httpClient.delete<UserDto>(`/users/${userId}`),
+    
+    signIn: async (login: string, password: string) => {
+      const response = await httpClient.post<SignInResponse>("/users/sign-in", {
+        login, password
+      });
+      return response.data ;
+    },
   };

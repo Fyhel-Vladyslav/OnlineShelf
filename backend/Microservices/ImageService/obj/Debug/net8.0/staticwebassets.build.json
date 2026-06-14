@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "dt5ewWYDvVt09OnxW5O2M83Rd0+TfqdkG0zMcJqlqbA=",
+  "Source": "ImageService",
+  "BasePath": "_content/ImageService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

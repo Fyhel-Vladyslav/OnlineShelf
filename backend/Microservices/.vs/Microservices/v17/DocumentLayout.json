@@ -3,96 +3,80 @@
   "WorkspaceRootPath": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\gateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|solutionrelative:gateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\features\\items\\updateitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\features\\items\\updateitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\gateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|solutionrelative:gateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\features\\items\\getimagebyname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\features\\items\\getimagebyname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\src\\userservice.common\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\src\\userservice.common\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\protos\\image_processing.proto||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\protos\\image_processing.proto||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A8E19F7-DE6F-41B9-A088-DFF0383AF2F2}|docker-compose.dcproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{9A8E19F7-DE6F-41B9-A088-DFF0383AF2F2}|docker-compose.dcproj|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\userservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F17ADFEC-DF77-4EE1-B409-D28FBB610136}|UserService\\UserService.csproj|solutionrelative:userservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\imageservice\\src\\imageservice.host\\protos\\service\\imagegrpcservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|solutionrelative:imageservice\\src\\imageservice.host\\protos\\service\\imagegrpcservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
     {
-      "Orientation": 0,
+      "Orientation": 1,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
+          "DockedHeight": 237,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\Program.cs",
-              "RelativeDocumentMoniker": "Gateway\\Program.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\Program.cs",
-              "RelativeToolTip": "Gateway\\Program.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEkAAAAcAAAAAAAAAA==",
+              "Title": "UpdateItem.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\UpdateItem.cs",
+              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\UpdateItem.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\UpdateItem.cs",
+              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\UpdateItem.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowDUAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T19:48:41.71Z",
+              "WhenOpened": "2026-04-25T19:51:37.631Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GetImageByName.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\GetImageByName.cs",
+              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\GetImageByName.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\GetImageByName.cs",
+              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Items\\GetImageByName.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAwwCQAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T21:28:29.3Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ApiRoutes.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\UserService.Common\\ApiRoutes.cs",
-              "RelativeDocumentMoniker": "UserService\\src\\UserService.Common\\ApiRoutes.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\src\\UserService.Common\\ApiRoutes.cs",
-              "RelativeToolTip": "UserService\\src\\UserService.Common\\ApiRoutes.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T18:34:13.669Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ocelot.json",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\ocelot.json",
-              "RelativeDocumentMoniker": "Gateway\\ocelot.json",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\ocelot.json",
-              "RelativeToolTip": "Gateway\\ocelot.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-30T18:29:17.024Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\appsettings.json",
-              "RelativeDocumentMoniker": "UserService\\appsettings.json",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\UserService\\appsettings.json",
-              "RelativeToolTip": "UserService\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-30T18:15:48.474Z"
+              "Title": "image_processing.proto",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Protos\\image_processing.proto",
+              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Protos\\image_processing.proto",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Protos\\image_processing.proto",
+              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Protos\\image_processing.proto",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAD0AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003853|",
+              "WhenOpened": "2026-04-17T20:50:28.872Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "docker-compose.yml",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\docker-compose.yml",
-              "RelativeDocumentMoniker": "docker-compose.yml",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\docker-compose.yml",
-              "RelativeToolTip": "docker-compose.yml",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAuwCsAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2025-12-30T18:11:17.279Z"
+              "Title": "ImageGrpcService.cs",
+              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\src\\ImageService.Host\\Protos\\Service\\ImageGrpcService.cs",
+              "RelativeDocumentMoniker": "ImageService\\src\\ImageService.Host\\Protos\\Service\\ImageGrpcService.cs",
+              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\src\\ImageService.Host\\Protos\\Service\\ImageGrpcService.cs",
+              "RelativeToolTip": "ImageService\\src\\ImageService.Host\\Protos\\Service\\ImageGrpcService.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAiwI0AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T20:07:03.004Z"
             }
           ]
         }

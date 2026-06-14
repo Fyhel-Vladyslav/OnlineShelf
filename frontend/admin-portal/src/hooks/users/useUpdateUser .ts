@@ -12,7 +12,7 @@ export const useUpdateUser = () => {
     onSuccess: (data, variables) => {
       // variables is your 'payload'
       console.log("Updated user with data:", variables);
-      message.success("User updated");
+      message.success(data.status);
       queryClient.invalidateQueries({ queryKey: ["user"] });
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
@@ -20,7 +20,7 @@ export const useUpdateUser = () => {
     onError: (error, variables) => {
       // Log the request data that caused the error
       console.error("Update failed for:", variables);
-      message.error("Update failed");
+      message.error(error.message);
       // If you want to show it in the UI (careful with sensitive data)
       message.info(JSON.stringify(variables)); 
     },

@@ -30,7 +30,7 @@ public sealed class JwtTokenService
 
             o.ExpireAt = DateTime.UtcNow.Add(timeSpan);
 
-            o.User.Claims.Add((JwtRegisteredClaimNames.Sub, userId.ToString()));
+            o.User.Claims.Add((JwtRegisteredClaimNames.NameId, userId.ToString()));
             o.User.Claims.Add((JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
 
             if (roles != null)

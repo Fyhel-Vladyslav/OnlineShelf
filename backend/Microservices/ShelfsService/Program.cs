@@ -1,11 +1,14 @@
+//using ShelfsService.Extentions;
+
 //var builder = WebApplication.CreateBuilder(args);
 
 //// Add services to the container.
 
-//builder.Services.AddControllers();
-//// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
+//builder.Services
+//    .AddInfrastructure(builder.Configuration, builder.Environment)
+//    //.AddAuthorization(builder.Configuration, builder.Environment)
+//;
+
 
 //var app = builder.Build();
 
@@ -23,18 +26,23 @@
 //app.MapControllers();
 
 //app.Run();
+
+
+
+using ShelfService.Extensions.DependencyInjection;
+using ShelfsService.Extentions;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+    .AddInfrastructure(builder.Configuration, builder.Environment)
+    .AddJwtAuthorization(builder.Configuration, builder.Environment)
+    .AddGrpcConnections(builder)
+;
+
+
 var app = builder.Build();
 
-app.MapGet("/", () => $"{builder.Environment.ApplicationName} is running");
-app.MapGet("/ping", () => $"{builder.Environment.ApplicationName} pong!");
-
-// Test endpoint: calls outfit-offer-service
-app.MapGet("/api/shelfs/test", async () =>
-{
-    using var client = new HttpClient();
-    var offerResponse = await client.GetStringAsync("http://outfit-offer-service/api/outfit/test");
-    return $"ShelfsService received -> {offerResponse}";
-});
+app.UseShelfsInfrastucture();
 
 app.Run();

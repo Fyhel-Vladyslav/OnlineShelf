@@ -1,6 +1,10 @@
-# User Management Feature Implementation
+# Task: Fix useImage.ts for itemsApi.getImageByName
 
-- [ ] Modify src/components/Header/Header.tsx to add "Users" button with conditional rendering for admin users
-- [ ] Create src/features/userManagement/UserManagementPage.tsx with Ant Design Table for user data (login, id, role) and action buttons (edit, delete)
-- [ ] Create src/features/userManagement/UserManagementPage.css for custom styling
-- [ ] Update src/App.tsx to add new route for /user-management
+## Steps:
+- [x] Understand files and create plan (completed)
+- [x] Create TODO.md with steps (this file)
+- [x] Edit src/hooks/items/useImage.ts to fetch image as blob and return imageUrl
+- [x] Verify edit success (TypeScript errors fixed, hook now fetches blob correctly and returns {imageUrl} for ImageShow)
+- [x] Complete task
+
+## Status: Completed
