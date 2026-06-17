@@ -8,7 +8,7 @@ namespace ImageService.Extentions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IHostEnvironment env)
         {
-            services.AddScoped<IImageRecognizer, ImageRecognizer>();
+            services.AddScoped<IImageAnalyzer, ImageAnalyzer>();
             return services;
         }
     }

@@ -81,6 +81,18 @@ services:
     networks:
       - microservice_net 
 
+  parseimageservice:
+    container_name: parse-image-service
+    build:
+      context: ./ParseImageService/app
+      dockerfile: Dockerfile
+    ports:
+      - "9090:8080"
+    environment:
+      - ENV=production
+    networks:
+      - microservice_net 
+
 networks:
   microservice_net:
     driver: bridge

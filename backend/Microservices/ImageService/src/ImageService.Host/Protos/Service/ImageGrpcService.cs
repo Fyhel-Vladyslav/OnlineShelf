@@ -11,7 +11,7 @@ namespace ImageService.src.ImageService.Host.Protos.Service;
 public class ImageGrpcService : ImageProcessor.ImageProcessorBase
 {
     private string _storagePath;
-    private IImageRecognizer _recognizer;
+    private IImageAnalyzer _imageAnalyzer;
     public ImageGrpcService(IConfiguration configuration)
     {
         _storagePath = configuration["StorageSettings:ImagesPath"] ?? "/app/images";
@@ -81,13 +81,23 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
             byte[] imageBytes = request.ImageData.ToByteArray();
 
             // 2. Викликаємо логіку розпізнавання (про це нижче)  
-            var recognitionResult = await _recognizer.DetectAsync(imageBytes);
+            var recognitionResult = await _imageAnalyzer.AnalyzeAsync(imageBytes);
+
+            if(recognitionResult.Success == false)
+            {
+                return new RecognizeImageResponse
+                {
+                    Success = false,
+                    ErrorMessage = recognitionResult.ErrorMessage
+                };
+            }
+
 
             // 3. Формуємо відповідь  
             return new RecognizeImageResponse
             {
                 Success = true,
-                RecognizedDataJson = recognitionResult
+                RecognizedDataJson = recognitionResult.ToString() // Тут можна серіалізувати результат у JSON або інший формат
             };
         }
         catch (Exception ex)

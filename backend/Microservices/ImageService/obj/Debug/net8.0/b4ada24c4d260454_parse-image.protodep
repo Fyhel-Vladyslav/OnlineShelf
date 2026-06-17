@@ -1,0 +1,2 @@
+obj\Debug\net8.0\src\ImageService.Host\Protos/Parse-imageGrpc.cs \
+obj\Debug\net8.0\src\ImageService.Host\Protos/ParseImage.cs: src/ImageService.Host/Protos/parse-image.proto
