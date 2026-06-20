@@ -2,13 +2,13 @@
 using Grpc.Core;
 using ImageService.src.ImageService.Common.Interfaces;
 
-namespace ImageService.src.ImageService.Host.ImageRecognizer;
-public class ImageAnalyzer : IImageAnalyzer
+namespace ImageService.src.ImageService.Host.Features.Recognizer;
+public class RecognizeRawImage : IImageAnalyzer
 {
     private readonly ClothingAnalyzer.ClothingAnalyzerClient _grpcClient;
 
     // Впроваджуємо згенерований gRPC-клієнт через конструктор
-    public ImageAnalyzer(ClothingAnalyzer.ClothingAnalyzerClient grpcClient)
+    public RecognizeRawImage(ClothingAnalyzer.ClothingAnalyzerClient grpcClient)
     {
         _grpcClient = grpcClient;
     }
