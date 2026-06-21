@@ -232,7 +232,20 @@
           "Port": 8080
         }
       ]
-    }
+    },
+
+    {
+      "UpstreamPathTemplate": "/image/recognize{imageName}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/image/recognize{imageName}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "imageservice",
+          "Port": 8080
+        }
+      ]
+    },
   ],
   "GlobalConfiguration": {}
 }

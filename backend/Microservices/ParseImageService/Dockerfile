@@ -1,9 +1,8 @@
-# Використовуємо офіційний легкий образ Python
-FROM python:3.10-slim
+FROM python:3.11-slim
 
 # Встановлюємо системні залежності (необхідно для OpenCV / апдейтів)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
@@ -11,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 # Спочатку копіюємо requirements і встановлюємо їх (це пришвидшить білд при зміні коду)
-COPY requirements.txt .
+COPY ParseImageService/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Копіюємо решту вихідного коду проекту
@@ -21,4 +20,4 @@ COPY . .
 EXPOSE 5000
 
 # Команда для запуску (зміни під свій фреймворк, наприклад: uvicorn main:app --host 0.0.0.0 --port 5000)
-CMD ["python", "main.py"]
+CMD ["python", "ParseImageService/app/main.py"]

@@ -7,10 +7,6 @@
       "RelativeMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|solutionrelative:imageservice\\src\\imageservice.host\\features\\recognizer\\recognizeimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\imageservice\\src\\imageservice.host\\features\\recognizer\\itemattributes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|solutionrelative:imageservice\\src\\imageservice.host\\features\\recognizer\\itemattributes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\imageservice\\src\\imageservice.host\\protos\\service\\imagegrpcservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{98789F0B-9F27-404F-A2EA-90173552A9CE}|ImageService\\ImageService.csproj|solutionrelative:imageservice\\src\\imageservice.host\\protos\\service\\imagegrpcservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -30,23 +26,11 @@
       "DocumentGroups": [
         {
           "DockedHeight": 237,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ItemAttributes.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\src\\ImageService.Host\\Features\\Recognizer\\ItemAttributes.cs",
-              "RelativeDocumentMoniker": "ImageService\\src\\ImageService.Host\\Features\\Recognizer\\ItemAttributes.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\src\\ImageService.Host\\Features\\Recognizer\\ItemAttributes.cs",
-              "RelativeToolTip": "ImageService\\src\\ImageService.Host\\Features\\Recognizer\\ItemAttributes.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-20T20:45:32.765Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\appsettings.json",
               "RelativeDocumentMoniker": "ImageService\\appsettings.json",
@@ -58,7 +42,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\Program.cs",
               "RelativeDocumentMoniker": "ImageService\\Program.cs",
@@ -70,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "ImageGrpcService.cs",
               "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ImageService\\src\\ImageService.Host\\Protos\\Service\\ImageGrpcService.cs",
               "RelativeDocumentMoniker": "ImageService\\src\\ImageService.Host\\Protos\\Service\\ImageGrpcService.cs",

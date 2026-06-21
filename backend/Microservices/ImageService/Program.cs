@@ -3,6 +3,9 @@ using FastEndpoints;
 using ImageService.Extentions;
 using ImageService.src.ImageService.Host.Protos.Service;
 
+
+AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container. 
@@ -14,7 +17,7 @@ builder.Services
 builder.Services.AddGrpcClient<ClothingAnalyzer.ClothingAnalyzerClient>(options =>
 {
     string url = builder.Configuration["GrpcSettings:ParseImageServiceUrl"]
-                 ?? "http://localhost:50051";
+                 ?? "http://parseimageservice:5000";
     options.Address = new Uri(url);
 });
 builder.Services.AddFastEndpoints();

@@ -71,6 +71,8 @@ services:
   imageservice:
     container_name: image-service
     image: ${DOCKER_REGISTRY-}image-service
+    environment:
+      - GrpcSettings__ParseImageServiceUrl=http://parseimageservice:50051
     build:
       context: .
       dockerfile: ImageService/Dockerfile
@@ -83,15 +85,19 @@ services:
 
   parseimageservice:
     container_name: parse-image-service
+    image: ${DOCKER_REGISTRY-}parse-image-service
     build:
-      context: ./ParseImageService/app
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ParseImageService/Dockerfile
     ports:
-      - "9090:8080"
+      - "50051:50051"
     environment:
       - ENV=production
+      - SHELF_SERVICE_URL=http://gateway:8080
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
     networks:
-      - microservice_net 
+      - microservice_net
 
 networks:
   microservice_net:
