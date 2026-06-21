@@ -33,7 +33,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "ImageService.src.ImageService.Host.Features.Recognizer.ItemAttributes",
+        "Type": "Clothing.AnalyzeClothingResponse",
         "MediaTypes": [
           "application/json"
         ],

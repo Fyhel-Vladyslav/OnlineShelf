@@ -13,7 +13,7 @@ namespace ImageService.src.ImageService.Host.Features.Recognizer
 {
     public sealed record RecognizeClothesRequest(
         String ImageName
-    ) : IRequest<ErrorOr<ItemAttributes>>;
+    ) : IRequest<ErrorOr<AnalyzeClothingResponse>>;
 
     internal sealed class RecognizeClothesRequestValidator : AbstractValidator<RecognizeClothesRequest>
     {
@@ -28,7 +28,7 @@ namespace ImageService.src.ImageService.Host.Features.Recognizer
 public class RecognizeClothesRequestHandler(
     ClothingAnalyzer.ClothingAnalyzerClient grpcClient,
     IConfiguration configuration
-) : Endpoint<RecognizeClothesRequest, ItemAttributes>
+) : Endpoint<RecognizeClothesRequest, AnalyzeClothingResponse>
         {
             private readonly string _storagePath = configuration["StorageSettings:ImagesPath"] ?? "/app/images";
             private readonly ClothingAnalyzer.ClothingAnalyzerClient _grpcClient = grpcClient;
@@ -50,7 +50,7 @@ public class RecognizeClothesRequestHandler(
                 //}
                 if (String.IsNullOrEmpty(request.ImageName))
                 {
-                    await Send.ResponseAsync(new ItemAttributes { }, 400, ct);
+                    await Send.ErrorsAsync(400, ct);
                     return;
                 }
 
@@ -70,7 +70,7 @@ public class RecognizeClothesRequestHandler(
 
                 using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 while (true)
-            {
+                {
                 // Перевіряємо, чи клієнт не скасував запит
                 if (ct.IsCancellationRequested)
                 {
@@ -103,27 +103,18 @@ public class RecognizeClothesRequestHandler(
 
                     if(!response.Success)
                     {
-                        await Send.ResponseAsync(new ItemAttributes { }, 400, ct);
+                        await Send.ResponseAsync(response, 502, ct);
                         return;
                     }
-                    var resp =new ItemAttributes(response.Attributes.AttributeColorMain, response.Attributes.AttributeType);
-                    await Send.OkAsync(resp, cancellation: ct);
+                    
+                    await Send.OkAsync(response, cancellation: ct);
                     return;
                 }
                 catch (RpcException ex)
                 {
-                    // Обробка помилок зв'язку (наприклад, якщо Python-сервіс вимкнено)
-                    await Send.ErrorsAsync(502, cancellation: ct);
+                    await Send.ResponseAsync(new AnalyzeClothingResponse {ErrorMessage=ex.Message }, 502, cancellation: ct);
                     return;
-                    //        new AnalyzeClothingResponse
-                    //{
-                    //    Success = false,
-                    //    ErrorMessage = $"gRPC Error: {ex.Status.Detail} (StatusCode: {ex.StatusCode})"
-                    //};
                 }
-
-
-                //await Send.OkAsync(newItem.ToDto(), cancellation: ct);
             }
         }
     }
