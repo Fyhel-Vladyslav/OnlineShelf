@@ -1,5 +1,5 @@
 ﻿using ImageService.src.ImageService.Common.Interfaces;
-using ImageService.src.ImageService.Host.ImageRecognizer;
+using ImageService.src.ImageService.Host.Features.Recognizer;
 
 namespace ImageService.Extentions
 {
@@ -8,7 +8,7 @@ namespace ImageService.Extentions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IHostEnvironment env)
         {
-            services.AddScoped<IImageRecognizer, ImageRecognizer>();
+            services.AddScoped<IImageAnalyzer, RecognizeRawImage>();
             return services;
         }
     }

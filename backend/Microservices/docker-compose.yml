@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: UserService/Dockerfile
     environment:
-      - ConnectionStrings__Default=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
+      - ConnectionStrings__ShelfDbConnection=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
       - ASPNETCORE_URLS=http://+:8080
     networks:
       - microservice_net
@@ -34,9 +34,13 @@ services:
     build:
       context: .
       dockerfile: ShelfsService/Dockerfile
+    ports:
+     - "8081:8080"
     environment:
-      - ConnectionStrings__Default=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
-      - GrpcConfigs__ImageServiceUrl=http://imageservice:8080
+     - ConnectionStrings__ShelfDbConnection=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
+     - GrpcConfigs__ImageServiceUrl=http://imageservice:8080
+     - ASPNETCORE_URLS=http://+:8080
+     - ASPNETCORE_ENVIRONMENT=Production
     networks:
       - microservice_net
 
@@ -47,7 +51,7 @@ services:
       context: .
       dockerfile: OutfitOfferService/Dockerfile
     environment:
-      - ConnectionStrings__Default=Host=localhost;Database=onlineShelf_db;Username=admin;Password=admin
+      - ConnectionStrings__ShelfDbConnection=Host=localhost;Database=onlineShelf_db;Username=admin;Password=admin
     networks:
       - microservice_net
 
@@ -67,6 +71,8 @@ services:
   imageservice:
     container_name: image-service
     image: ${DOCKER_REGISTRY-}image-service
+    environment:
+      - GrpcSettings__ParseImageServiceUrl=http://parseimageservice:50051
     build:
       context: .
       dockerfile: ImageService/Dockerfile
@@ -76,6 +82,22 @@ services:
       - D:/visualStudio/Projects/OnlineShelf/images:/app/images
     networks:
       - microservice_net 
+
+  parseimageservice:
+    container_name: parse-image-service
+    image: ${DOCKER_REGISTRY-}parse-image-service
+    build:
+      context: .
+      dockerfile: ParseImageService/Dockerfile
+    ports:
+      - "50051:50051"
+    environment:
+      - ENV=production
+      - SHELF_SERVICE_URL=http://gateway:8080
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    networks:
+      - microservice_net
 
 networks:
   microservice_net:

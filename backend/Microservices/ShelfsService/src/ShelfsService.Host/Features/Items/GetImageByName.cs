@@ -49,9 +49,7 @@ internal sealed class GetPhotoByName : Endpoint<GetImageByName>
 
             await foreach (var response in call.ResponseStream.ReadAllAsync(ct))
             {
-                var chunkBytes = response.ChunkData.ToByteArray();
-                await HttpContext.Response.Body.WriteAsync(chunkBytes, 0, chunkBytes.Length, ct);
-                await HttpContext.Response.Body.FlushAsync(ct);
+                await HttpContext.Response.Body.WriteAsync(response.ChunkData.Memory, ct);
             }
         }
         catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound)
