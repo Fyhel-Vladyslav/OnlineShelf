@@ -172,11 +172,11 @@
           "dependencies": {
             "ErrorOr": {
               "target": "Package",
-              "version": "[2.0.1, )"
+              "version": "[2.1.1, )"
             },
             "FastEndpoints": {
               "target": "Package",
-              "version": "[7.1.1, )"
+              "version": "[8.1.0, )"
             },
             "Google.Protobuf": {
               "target": "Package",
@@ -198,7 +198,7 @@
             },
             "MediatR": {
               "target": "Package",
-              "version": "[13.0.0, )"
+              "version": "[14.1.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",

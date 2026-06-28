@@ -151,7 +151,6 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Deb
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
-D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Google.Protobuf.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.Core.Api.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Grpc.Net.Client.dll
@@ -166,3 +165,9 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Deb
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\SixLabors.ImageSharp.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\ImageService.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\ImageService.pdb
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\FastEndpoints.Core.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\FastEndpoints.JobQueues.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\FastEndpoints.Messaging.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
