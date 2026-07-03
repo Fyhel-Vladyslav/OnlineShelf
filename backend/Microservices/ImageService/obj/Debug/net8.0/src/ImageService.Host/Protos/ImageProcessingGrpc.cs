@@ -54,9 +54,13 @@ namespace ImageService.Protos {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::ImageService.Protos.DeleteImageResponse> __Marshaller_DeleteImageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.DeleteImageResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeImageRequest> __Marshaller_RecognizeImageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeImageRequest.Parser));
+    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeRawImageRequest> __Marshaller_RecognizeRawImageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeRawImageRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeImageResponse> __Marshaller_RecognizeImageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeImageResponse.Parser));
+    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeRawImageResponse> __Marshaller_RecognizeRawImageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeRawImageResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeImageByNameRequest> __Marshaller_RecognizeImageByNameRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeImageByNameRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeImageByNameResponse> __Marshaller_RecognizeImageByNameResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeImageByNameResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::ImageService.Protos.GetPhotoRequest> __Marshaller_GetPhotoRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.GetPhotoRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -79,12 +83,20 @@ namespace ImageService.Protos {
         __Marshaller_DeleteImageResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::ImageService.Protos.RecognizeImageRequest, global::ImageService.Protos.RecognizeImageResponse> __Method_RecognizeImage = new grpc::Method<global::ImageService.Protos.RecognizeImageRequest, global::ImageService.Protos.RecognizeImageResponse>(
+    static readonly grpc::Method<global::ImageService.Protos.RecognizeRawImageRequest, global::ImageService.Protos.RecognizeRawImageResponse> __Method_RecognizeRawImage = new grpc::Method<global::ImageService.Protos.RecognizeRawImageRequest, global::ImageService.Protos.RecognizeRawImageResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "RecognizeImage",
-        __Marshaller_RecognizeImageRequest,
-        __Marshaller_RecognizeImageResponse);
+        "RecognizeRawImage",
+        __Marshaller_RecognizeRawImageRequest,
+        __Marshaller_RecognizeRawImageResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::ImageService.Protos.RecognizeImageByNameRequest, global::ImageService.Protos.RecognizeImageByNameResponse> __Method_RecognizeImageByName = new grpc::Method<global::ImageService.Protos.RecognizeImageByNameRequest, global::ImageService.Protos.RecognizeImageByNameResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "RecognizeImageByName",
+        __Marshaller_RecognizeImageByNameRequest,
+        __Marshaller_RecognizeImageByNameResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::ImageService.Protos.GetPhotoRequest, global::ImageService.Protos.GetPhotoResponse> __Method_GetPhotoByName = new grpc::Method<global::ImageService.Protos.GetPhotoRequest, global::ImageService.Protos.GetPhotoResponse>(
@@ -135,7 +147,13 @@ namespace ImageService.Protos {
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::ImageService.Protos.RecognizeImageResponse> RecognizeImage(global::ImageService.Protos.RecognizeImageRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::ImageService.Protos.RecognizeRawImageResponse> RecognizeRawImage(global::ImageService.Protos.RecognizeRawImageRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::ImageService.Protos.RecognizeImageByNameResponse> RecognizeImageByName(global::ImageService.Protos.RecognizeImageByNameRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -163,7 +181,8 @@ namespace ImageService.Protos {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_UploadImage, serviceImpl.UploadImage)
           .AddMethod(__Method_DeleteImage, serviceImpl.DeleteImage)
-          .AddMethod(__Method_RecognizeImage, serviceImpl.RecognizeImage)
+          .AddMethod(__Method_RecognizeRawImage, serviceImpl.RecognizeRawImage)
+          .AddMethod(__Method_RecognizeImageByName, serviceImpl.RecognizeImageByName)
           .AddMethod(__Method_GetPhotoByName, serviceImpl.GetPhotoByName).Build();
     }
 
@@ -176,7 +195,8 @@ namespace ImageService.Protos {
     {
       serviceBinder.AddMethod(__Method_UploadImage, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ImageService.Protos.UploadImageRequest, global::ImageService.Protos.UploadImageResponse>(serviceImpl.UploadImage));
       serviceBinder.AddMethod(__Method_DeleteImage, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ImageService.Protos.DeleteImageRequest, global::ImageService.Protos.DeleteImageResponse>(serviceImpl.DeleteImage));
-      serviceBinder.AddMethod(__Method_RecognizeImage, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ImageService.Protos.RecognizeImageRequest, global::ImageService.Protos.RecognizeImageResponse>(serviceImpl.RecognizeImage));
+      serviceBinder.AddMethod(__Method_RecognizeRawImage, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ImageService.Protos.RecognizeRawImageRequest, global::ImageService.Protos.RecognizeRawImageResponse>(serviceImpl.RecognizeRawImage));
+      serviceBinder.AddMethod(__Method_RecognizeImageByName, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ImageService.Protos.RecognizeImageByNameRequest, global::ImageService.Protos.RecognizeImageByNameResponse>(serviceImpl.RecognizeImageByName));
       serviceBinder.AddMethod(__Method_GetPhotoByName, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::ImageService.Protos.GetPhotoRequest, global::ImageService.Protos.GetPhotoResponse>(serviceImpl.GetPhotoByName));
     }
 

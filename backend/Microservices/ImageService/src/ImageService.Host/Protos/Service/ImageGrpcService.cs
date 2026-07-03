@@ -12,9 +12,10 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
 {
     private string _storagePath;
     private IImageAnalyzer _imageAnalyzer;
-    public ImageGrpcService(IConfiguration configuration)
+    public ImageGrpcService(IConfiguration configuration, IImageAnalyzer imageAnalyzer)
     {
         _storagePath = configuration["StorageSettings:ImagesPath"] ?? "/app/images";
+        _imageAnalyzer = imageAnalyzer;
     }
 
     public override async Task<UploadImageResponse> UploadImage(UploadImageRequest request, ServerCallContext context)
@@ -73,7 +74,7 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
         }
     }
 
-    public override async Task<RecognizeImageResponse> RecognizeImage(RecognizeImageRequest request, ServerCallContext context)
+    public override async Task<RecognizeRawImageResponse> RecognizeRawImage(RecognizeRawImageRequest request, ServerCallContext context)
     {
         try
         {
@@ -83,9 +84,9 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
             // 2. Викликаємо логіку розпізнавання (про це нижче)  
             var recognitionResult = await _imageAnalyzer.AnalyzeAsync(imageBytes);
 
-            if(recognitionResult.Success == false)
+            if (recognitionResult.Success == false)
             {
-                return new RecognizeImageResponse
+                return new RecognizeRawImageResponse
                 {
                     Success = false,
                     ErrorMessage = recognitionResult.ErrorMessage
@@ -94,7 +95,7 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
 
 
             // 3. Формуємо відповідь  
-            return new RecognizeImageResponse
+            return new RecognizeRawImageResponse
             {
                 Success = true,
                 RecognizedDataJson = recognitionResult.ToString() // Тут можна серіалізувати результат у JSON або інший формат
@@ -102,7 +103,67 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
         }
         catch (Exception ex)
         {
-            return new RecognizeImageResponse
+            return new RecognizeRawImageResponse
+            {
+                Success = false,
+                ErrorMessage = ex.Message
+            };
+        }
+    }
+    public override async Task<RecognizeImageByNameResponse> RecognizeImageByName(RecognizeImageByNameRequest request, ServerCallContext context)
+    {
+        try
+        {
+            // 1. Path Traversal Protection
+            var fileName = Path.GetFileName(request.ImageName);
+            var filePath = Path.Combine(_storagePath, fileName);
+
+            if (!File.Exists(filePath))
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, $"Зображення з назвою {fileName} не знайдено."));
+            }
+
+            // 2. Read the ENTIRE file into memory cleanly
+            // This avoids chunking bugs and doesn't leave trailing empty/null bytes
+            byte[] imageBytes = await File.ReadAllBytesAsync(filePath, context.CancellationToken);
+
+            // 3. Check for cancellation before executing heavy analysis logic
+            if (context.CancellationToken.IsCancellationRequested)
+            {
+                return new RecognizeImageByNameResponse
+                {
+                    Success = false,
+                    ErrorMessage = "Запит було скасовано користувачем."
+                };
+            }
+
+            // 4. Call the image recognition logic with the exact bytes
+            var recognitionResult = await _imageAnalyzer.AnalyzeAsync(imageBytes);
+
+            if (recognitionResult.Success == false)
+            {
+                return new RecognizeImageByNameResponse
+                {
+                    Success = false,
+                    ErrorMessage = recognitionResult.ErrorMessage
+                };
+            }
+
+            // 5. Formulate the successful response
+            return new RecognizeImageByNameResponse
+            {
+                Success = true,
+                RecognizedDataJson = recognitionResult.ToString()
+            };
+        }
+        catch (RpcException)
+        {
+            // Re-throw gRPC status errors (like the 404 NotFound above) so gRPC handles them properly
+            throw;
+        }
+        catch (Exception ex)
+        {
+            return new RecognizeImageByNameResponse
             {
                 Success = false,
                 ErrorMessage = ex.Message
@@ -152,4 +213,4 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
             await responseStream.WriteAsync(response);
         }
     }
-} 
+}

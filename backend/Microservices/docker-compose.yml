@@ -77,7 +77,7 @@ services:
       context: .
       dockerfile: ImageService/Dockerfile
     ports:
-      - "8080:8080"
+      - "8080:8080"  
     volumes:
       - D:/visualStudio/Projects/OnlineShelf/images:/app/images
     networks:

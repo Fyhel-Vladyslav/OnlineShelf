@@ -30,19 +30,24 @@ namespace ImageService.Protos {
             "DmJpZ19pbWFnZV9uYW1lGAEgASgJEhgKEHNtYWxsX2ltYWdlX25hbWUYAiAB",
             "KAkSDwoHc3VjY2VzcxgDIAEoCCJGChJEZWxldGVJbWFnZVJlcXVlc3QSFgoO",
             "YmlnX2ltYWdlX25hbWUYASABKAkSGAoQc21hbGxfaW1hZ2VfbmFtZRgCIAEo",
-            "CSImChNEZWxldGVJbWFnZVJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgiKwoV",
-            "UmVjb2duaXplSW1hZ2VSZXF1ZXN0EhIKCmltYWdlX2RhdGEYASABKAwiXgoW",
-            "UmVjb2duaXplSW1hZ2VSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEhwKFHJl",
-            "Y29nbml6ZWRfZGF0YV9qc29uGAIgASgJEhUKDWVycm9yX21lc3NhZ2UYAyAB",
-            "KAkiJAoPR2V0UGhvdG9SZXF1ZXN0EhEKCWZpbGVfbmFtZRgBIAEoCSImChBH",
-            "ZXRQaG90b1Jlc3BvbnNlEhIKCmNodW5rX2RhdGEYASABKAwygAIKDkltYWdl",
-            "UHJvY2Vzc29yEjgKC1VwbG9hZEltYWdlEhMuVXBsb2FkSW1hZ2VSZXF1ZXN0",
-            "GhQuVXBsb2FkSW1hZ2VSZXNwb25zZRI4CgtEZWxldGVJbWFnZRITLkRlbGV0",
-            "ZUltYWdlUmVxdWVzdBoULkRlbGV0ZUltYWdlUmVzcG9uc2USQQoOUmVjb2du",
-            "aXplSW1hZ2USFi5SZWNvZ25pemVJbWFnZVJlcXVlc3QaFy5SZWNvZ25pemVJ",
-            "bWFnZVJlc3BvbnNlEjcKDkdldFBob3RvQnlOYW1lEhAuR2V0UGhvdG9SZXF1",
-            "ZXN0GhEuR2V0UGhvdG9SZXNwb25zZTABQhaqAhNJbWFnZVNlcnZpY2UuUHJv",
-            "dG9zYgZwcm90bzM="));
+            "CSImChNEZWxldGVJbWFnZVJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgiLgoY",
+            "UmVjb2duaXplUmF3SW1hZ2VSZXF1ZXN0EhIKCmltYWdlX2RhdGEYASABKAwi",
+            "YQoZUmVjb2duaXplUmF3SW1hZ2VSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgI",
+            "EhwKFHJlY29nbml6ZWRfZGF0YV9qc29uGAIgASgJEhUKDWVycm9yX21lc3Nh",
+            "Z2UYAyABKAkiMQobUmVjb2duaXplSW1hZ2VCeU5hbWVSZXF1ZXN0EhIKCmlt",
+            "YWdlX25hbWUYASABKAkiZAocUmVjb2duaXplSW1hZ2VCeU5hbWVSZXNwb25z",
+            "ZRIPCgdzdWNjZXNzGAEgASgIEhwKFHJlY29nbml6ZWRfZGF0YV9qc29uGAIg",
+            "ASgJEhUKDWVycm9yX21lc3NhZ2UYAyABKAkiJAoPR2V0UGhvdG9SZXF1ZXN0",
+            "EhEKCWZpbGVfbmFtZRgBIAEoCSImChBHZXRQaG90b1Jlc3BvbnNlEhIKCmNo",
+            "dW5rX2RhdGEYASABKAwy3gIKDkltYWdlUHJvY2Vzc29yEjgKC1VwbG9hZElt",
+            "YWdlEhMuVXBsb2FkSW1hZ2VSZXF1ZXN0GhQuVXBsb2FkSW1hZ2VSZXNwb25z",
+            "ZRI4CgtEZWxldGVJbWFnZRITLkRlbGV0ZUltYWdlUmVxdWVzdBoULkRlbGV0",
+            "ZUltYWdlUmVzcG9uc2USSgoRUmVjb2duaXplUmF3SW1hZ2USGS5SZWNvZ25p",
+            "emVSYXdJbWFnZVJlcXVlc3QaGi5SZWNvZ25pemVSYXdJbWFnZVJlc3BvbnNl",
+            "ElMKFFJlY29nbml6ZUltYWdlQnlOYW1lEhwuUmVjb2duaXplSW1hZ2VCeU5h",
+            "bWVSZXF1ZXN0Gh0uUmVjb2duaXplSW1hZ2VCeU5hbWVSZXNwb25zZRI3Cg5H",
+            "ZXRQaG90b0J5TmFtZRIQLkdldFBob3RvUmVxdWVzdBoRLkdldFBob3RvUmVz",
+            "cG9uc2UwAUIWqgITSW1hZ2VTZXJ2aWNlLlByb3Rvc2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -50,8 +55,10 @@ namespace ImageService.Protos {
             new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.UploadImageResponse), global::ImageService.Protos.UploadImageResponse.Parser, new[]{ "BigImageName", "SmallImageName", "Success" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.DeleteImageRequest), global::ImageService.Protos.DeleteImageRequest.Parser, new[]{ "BigImageName", "SmallImageName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.DeleteImageResponse), global::ImageService.Protos.DeleteImageResponse.Parser, new[]{ "Success" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.RecognizeImageRequest), global::ImageService.Protos.RecognizeImageRequest.Parser, new[]{ "ImageData" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.RecognizeImageResponse), global::ImageService.Protos.RecognizeImageResponse.Parser, new[]{ "Success", "RecognizedDataJson", "ErrorMessage" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.RecognizeRawImageRequest), global::ImageService.Protos.RecognizeRawImageRequest.Parser, new[]{ "ImageData" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.RecognizeRawImageResponse), global::ImageService.Protos.RecognizeRawImageResponse.Parser, new[]{ "Success", "RecognizedDataJson", "ErrorMessage" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.RecognizeImageByNameRequest), global::ImageService.Protos.RecognizeImageByNameRequest.Parser, new[]{ "ImageName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.RecognizeImageByNameResponse), global::ImageService.Protos.RecognizeImageByNameResponse.Parser, new[]{ "Success", "RecognizedDataJson", "ErrorMessage" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.GetPhotoRequest), global::ImageService.Protos.GetPhotoRequest.Parser, new[]{ "FileName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ImageService.Protos.GetPhotoResponse), global::ImageService.Protos.GetPhotoResponse.Parser, new[]{ "ChunkData" }, null, null, null, null)
           }));
@@ -1016,16 +1023,16 @@ namespace ImageService.Protos {
   /// Запит на розпізнавання
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class RecognizeImageRequest : pb::IMessage<RecognizeImageRequest>
+  public sealed partial class RecognizeRawImageRequest : pb::IMessage<RecognizeRawImageRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<RecognizeImageRequest> _parser = new pb::MessageParser<RecognizeImageRequest>(() => new RecognizeImageRequest());
+    private static readonly pb::MessageParser<RecognizeRawImageRequest> _parser = new pb::MessageParser<RecognizeRawImageRequest>(() => new RecognizeRawImageRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<RecognizeImageRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<RecognizeRawImageRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1041,7 +1048,7 @@ namespace ImageService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RecognizeImageRequest() {
+    public RecognizeRawImageRequest() {
       OnConstruction();
     }
 
@@ -1049,15 +1056,15 @@ namespace ImageService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RecognizeImageRequest(RecognizeImageRequest other) : this() {
+    public RecognizeRawImageRequest(RecognizeRawImageRequest other) : this() {
       imageData_ = other.imageData_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RecognizeImageRequest Clone() {
-      return new RecognizeImageRequest(this);
+    public RecognizeRawImageRequest Clone() {
+      return new RecognizeRawImageRequest(this);
     }
 
     /// <summary>Field number for the "image_data" field.</summary>
@@ -1075,12 +1082,12 @@ namespace ImageService.Protos {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as RecognizeImageRequest);
+      return Equals(other as RecognizeRawImageRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(RecognizeImageRequest other) {
+    public bool Equals(RecognizeRawImageRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1153,7 +1160,7 @@ namespace ImageService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(RecognizeImageRequest other) {
+    public void MergeFrom(RecognizeRawImageRequest other) {
       if (other == null) {
         return;
       }
@@ -1217,16 +1224,16 @@ namespace ImageService.Protos {
   /// Відповідь на розпізнавання
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class RecognizeImageResponse : pb::IMessage<RecognizeImageResponse>
+  public sealed partial class RecognizeRawImageResponse : pb::IMessage<RecognizeRawImageResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<RecognizeImageResponse> _parser = new pb::MessageParser<RecognizeImageResponse>(() => new RecognizeImageResponse());
+    private static readonly pb::MessageParser<RecognizeRawImageResponse> _parser = new pb::MessageParser<RecognizeRawImageResponse>(() => new RecognizeRawImageResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<RecognizeImageResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<RecognizeRawImageResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1242,7 +1249,7 @@ namespace ImageService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RecognizeImageResponse() {
+    public RecognizeRawImageResponse() {
       OnConstruction();
     }
 
@@ -1250,7 +1257,7 @@ namespace ImageService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RecognizeImageResponse(RecognizeImageResponse other) : this() {
+    public RecognizeRawImageResponse(RecognizeRawImageResponse other) : this() {
       success_ = other.success_;
       recognizedDataJson_ = other.recognizedDataJson_;
       errorMessage_ = other.errorMessage_;
@@ -1259,8 +1266,8 @@ namespace ImageService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RecognizeImageResponse Clone() {
-      return new RecognizeImageResponse(this);
+    public RecognizeRawImageResponse Clone() {
+      return new RecognizeRawImageResponse(this);
     }
 
     /// <summary>Field number for the "success" field.</summary>
@@ -1302,12 +1309,12 @@ namespace ImageService.Protos {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as RecognizeImageResponse);
+      return Equals(other as RecognizeRawImageResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(RecognizeImageResponse other) {
+    public bool Equals(RecognizeRawImageResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1406,7 +1413,483 @@ namespace ImageService.Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(RecognizeImageResponse other) {
+    public void MergeFrom(RecognizeRawImageResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Success != false) {
+        Success = other.Success;
+      }
+      if (other.RecognizedDataJson.Length != 0) {
+        RecognizedDataJson = other.RecognizedDataJson;
+      }
+      if (other.ErrorMessage.Length != 0) {
+        ErrorMessage = other.ErrorMessage;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Success = input.ReadBool();
+            break;
+          }
+          case 18: {
+            RecognizedDataJson = input.ReadString();
+            break;
+          }
+          case 26: {
+            ErrorMessage = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Success = input.ReadBool();
+            break;
+          }
+          case 18: {
+            RecognizedDataJson = input.ReadString();
+            break;
+          }
+          case 26: {
+            ErrorMessage = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// Запит на розпізнавання
+  /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class RecognizeImageByNameRequest : pb::IMessage<RecognizeImageByNameRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<RecognizeImageByNameRequest> _parser = new pb::MessageParser<RecognizeImageByNameRequest>(() => new RecognizeImageByNameRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<RecognizeImageByNameRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::ImageService.Protos.ImageProcessingReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RecognizeImageByNameRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RecognizeImageByNameRequest(RecognizeImageByNameRequest other) : this() {
+      imageName_ = other.imageName_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RecognizeImageByNameRequest Clone() {
+      return new RecognizeImageByNameRequest(this);
+    }
+
+    /// <summary>Field number for the "image_name" field.</summary>
+    public const int ImageNameFieldNumber = 1;
+    private string imageName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ImageName {
+      get { return imageName_; }
+      set {
+        imageName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as RecognizeImageByNameRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(RecognizeImageByNameRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ImageName != other.ImageName) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ImageName.Length != 0) hash ^= ImageName.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ImageName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ImageName);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ImageName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ImageName);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ImageName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ImageName);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(RecognizeImageByNameRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ImageName.Length != 0) {
+        ImageName = other.ImageName;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            ImageName = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            ImageName = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// Відповідь на розпізнавання
+  /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class RecognizeImageByNameResponse : pb::IMessage<RecognizeImageByNameResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<RecognizeImageByNameResponse> _parser = new pb::MessageParser<RecognizeImageByNameResponse>(() => new RecognizeImageByNameResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<RecognizeImageByNameResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::ImageService.Protos.ImageProcessingReflection.Descriptor.MessageTypes[7]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RecognizeImageByNameResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RecognizeImageByNameResponse(RecognizeImageByNameResponse other) : this() {
+      success_ = other.success_;
+      recognizedDataJson_ = other.recognizedDataJson_;
+      errorMessage_ = other.errorMessage_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RecognizeImageByNameResponse Clone() {
+      return new RecognizeImageByNameResponse(this);
+    }
+
+    /// <summary>Field number for the "success" field.</summary>
+    public const int SuccessFieldNumber = 1;
+    private bool success_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Success {
+      get { return success_; }
+      set {
+        success_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "recognized_data_json" field.</summary>
+    public const int RecognizedDataJsonFieldNumber = 2;
+    private string recognizedDataJson_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RecognizedDataJson {
+      get { return recognizedDataJson_; }
+      set {
+        recognizedDataJson_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "error_message" field.</summary>
+    public const int ErrorMessageFieldNumber = 3;
+    private string errorMessage_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ErrorMessage {
+      get { return errorMessage_; }
+      set {
+        errorMessage_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as RecognizeImageByNameResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(RecognizeImageByNameResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Success != other.Success) return false;
+      if (RecognizedDataJson != other.RecognizedDataJson) return false;
+      if (ErrorMessage != other.ErrorMessage) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Success != false) hash ^= Success.GetHashCode();
+      if (RecognizedDataJson.Length != 0) hash ^= RecognizedDataJson.GetHashCode();
+      if (ErrorMessage.Length != 0) hash ^= ErrorMessage.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Success != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Success);
+      }
+      if (RecognizedDataJson.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(RecognizedDataJson);
+      }
+      if (ErrorMessage.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(ErrorMessage);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Success != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Success);
+      }
+      if (RecognizedDataJson.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(RecognizedDataJson);
+      }
+      if (ErrorMessage.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(ErrorMessage);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Success != false) {
+        size += 1 + 1;
+      }
+      if (RecognizedDataJson.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RecognizedDataJson);
+      }
+      if (ErrorMessage.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ErrorMessage);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(RecognizeImageByNameResponse other) {
       if (other == null) {
         return;
       }
@@ -1506,7 +1989,7 @@ namespace ImageService.Protos {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::ImageService.Protos.ImageProcessingReflection.Descriptor.MessageTypes[6]; }
+      get { return global::ImageService.Protos.ImageProcessingReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1707,7 +2190,7 @@ namespace ImageService.Protos {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::ImageService.Protos.ImageProcessingReflection.Descriptor.MessageTypes[7]; }
+      get { return global::ImageService.Protos.ImageProcessingReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

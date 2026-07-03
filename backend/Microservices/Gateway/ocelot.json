@@ -235,13 +235,13 @@
     },
 
     {
-      "UpstreamPathTemplate": "/image/recognize{imageName}",
+      "UpstreamPathTemplate": "/shelfs/image/recognize{imageName}",
       "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/image/recognize{imageName}",
+      "DownstreamPathTemplate": "/shelfs/image/recognize{imageName}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "imageservice",
+          "Host": "shelfsservice",
           "Port": 8080
         }
       ]
