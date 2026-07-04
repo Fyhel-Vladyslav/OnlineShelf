@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\gateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{300321DA-C1D7-4F18-8EA4-EEE51DF96281}|Gateway\\Gateway.csproj|solutionrelative:gateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|d:\\visualstudio\\projects\\onlineshelf\\backend\\microservices\\shelfsservice\\src\\shelfsservice.host\\features\\images\\recognizeimagebyname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{560A1AC1-BB64-4D08-84D9-E43B01A2A974}|ShelfsService\\ShelfsService.csproj|solutionrelative:shelfsservice\\src\\shelfsservice.host\\features\\images\\recognizeimagebyname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,22 +24,9 @@
               "RelativeDocumentMoniker": "Gateway\\ocelot.json",
               "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\Gateway\\ocelot.json",
               "RelativeToolTip": "Gateway\\ocelot.json",
-              "ViewState": "AgIAAMkAAAAAAAAAAAAAAN8AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAAAJoAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-07-03T21:07:17.697Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RecognizeImageByName.cs",
-              "DocumentMoniker": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Images\\RecognizeImageByName.cs",
-              "RelativeDocumentMoniker": "ShelfsService\\src\\ShelfsService.Host\\Features\\Images\\RecognizeImageByName.cs",
-              "ToolTip": "D:\\visualStudio\\Projects\\OnlineShelf\\backend\\Microservices\\ShelfsService\\src\\ShelfsService.Host\\Features\\Images\\RecognizeImageByName.cs",
-              "RelativeToolTip": "ShelfsService\\src\\ShelfsService.Host\\Features\\Images\\RecognizeImageByName.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAA5wCsAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-03T21:04:38.698Z",
+              "WhenOpened": "2026-07-04T21:08:35.096Z",
               "EditorCaption": ""
             }
           ]

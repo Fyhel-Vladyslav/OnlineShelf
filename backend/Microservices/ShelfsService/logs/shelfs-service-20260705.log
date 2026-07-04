@@ -1,0 +1,151 @@
+2026-07-05 00:06:24.462 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE SCHEMA IF NOT EXISTS shelf_service;
+2026-07-05 00:06:24.534 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM shelf_service."__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-07-05 00:06:24.808 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname = 'shelf_service') THEN
+        CREATE SCHEMA shelf_service;
+    END IF;
+END $EF$;
+CREATE TABLE IF NOT EXISTS shelf_service."__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);
+2026-07-05 00:06:24.818 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Migrations Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-07-05 00:06:24.820 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+LOCK TABLE shelf_service."__EFMigrationsHistory" IN ACCESS EXCLUSIVE MODE
+2026-07-05 00:06:24.822 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM shelf_service."__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-07-05 00:06:24.828 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Migrations No migrations were applied. The database is already up to date.
+2026-07-05 00:06:25.392 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AttributeKey", a."Name"
+FROM shelf_service."Attributes" AS a
+2026-07-05 00:06:25.456 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AttributeId", a."AttributeKey", a."AttributeValue"
+FROM shelf_service."AttributesValues" AS a
+2026-07-05 00:06:25.486 +03:00 [INF] ShelfsService FastEndpoints.StartupTimer Registered 12 endpoints in 2 524 milliseconds.
+2026-07-05 00:06:25.561 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE SCHEMA IF NOT EXISTS shelf_service;
+2026-07-05 00:06:25.571 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM shelf_service."__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-07-05 00:06:25.643 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname = 'shelf_service') THEN
+        CREATE SCHEMA shelf_service;
+    END IF;
+END $EF$;
+CREATE TABLE IF NOT EXISTS shelf_service."__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);
+2026-07-05 00:06:25.658 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+LOCK TABLE shelf_service."__EFMigrationsHistory" IN ACCESS EXCLUSIVE MODE
+2026-07-05 00:06:25.663 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM shelf_service."__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-07-05 00:06:25.663 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Migrations No migrations were applied. The database is already up to date.
+2026-07-05 00:06:25.680 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM shelf_service."__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-07-05 00:06:25.708 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DO $EF$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname = 'shelf_service') THEN
+        CREATE SCHEMA shelf_service;
+    END IF;
+END $EF$;
+CREATE TABLE IF NOT EXISTS shelf_service."__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);
+2026-07-05 00:06:25.711 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+LOCK TABLE shelf_service."__EFMigrationsHistory" IN ACCESS EXCLUSIVE MODE
+2026-07-05 00:06:25.714 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM shelf_service."__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-07-05 00:06:25.714 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Migrations No migrations were applied. The database is already up to date.
+2026-07-05 00:06:25.779 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM shelf_service."Shelfs" AS s)
+2026-07-05 00:06:25.790 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM shelf_service."Items" AS i)
+2026-07-05 00:06:25.798 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM shelf_service."AttributesValues" AS a)
+2026-07-05 00:06:25.806 +03:00 [INF] ShelfsService Microsoft.EntityFrameworkCore.Database.Command Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM shelf_service."Attributes" AS a)
+2026-07-05 00:06:26.284 +03:00 [INF] ShelfsService Microsoft.Hosting.Lifetime Application started. Press Ctrl+C to shut down.
+2026-07-05 00:06:26.285 +03:00 [INF] ShelfsService Microsoft.Hosting.Lifetime Hosting environment: Development
+2026-07-05 00:06:26.285 +03:00 [INF] ShelfsService Microsoft.Hosting.Lifetime Content root path: D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService
+2026-07-05 00:06:26.310 +03:00 [INF] ShelfsService Serilog.AspNetCore.RequestLoggingMiddleware HTTP GET /swagger/index.html responded 200 in 128.1445 ms
+2026-07-05 00:06:26.741 +03:00 [INF] ShelfsService Serilog.AspNetCore.RequestLoggingMiddleware HTTP GET /swagger/v1/swagger.json responded 200 in 13.5748 ms
+2026-07-05 00:06:30.393 +03:00 [INF] ShelfsService Grpc.Net.Client.Internal.GrpcCall Call failed with gRPC error status. Status code: '"Unavailable"', Message: 'Error connecting to subchannel.'.
+System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Balancer.Internal.SocketConnectivitySubchannelTransport.TryConnectAsync(ConnectContext context, Int32 attempt)
+2026-07-05 00:06:30.453 +03:00 [ERR] ShelfsService Serilog.AspNetCore.RequestLoggingMiddleware HTTP GET /shelfs/image/get-image/c611a8e2-5ab5-4670-a665-ea724c6de2a9_big.webp responded 500 in 3041.9525 ms
+Grpc.Core.RpcException: Status(StatusCode="Unavailable", Detail="Error connecting to subchannel.", DebugException="System.Net.Sockets.SocketException: No such host is known.")
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Balancer.Internal.SocketConnectivitySubchannelTransport.TryConnectAsync(ConnectContext context, Int32 attempt)
+   --- End of inner exception stack trace ---
+   at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Grpc.Core.AsyncStreamReaderExtensions.ReadAllAsyncCore[T](IAsyncStreamReader`1 streamReader, CancellationToken cancellationToken)+MoveNext()
+   at Grpc.Core.AsyncStreamReaderExtensions.ReadAllAsyncCore[T](IAsyncStreamReader`1 streamReader, CancellationToken cancellationToken)+System.Threading.Tasks.Sources.IValueTaskSource<System.Boolean>.GetResult()
+   at ShelfsService.src.ShelfsService.Host.Features.Items.GetPhotoByName.ExecuteAsync(GetImageByName req, CancellationToken ct) in D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\src\ShelfsService.Host\Features\Images\GetImageByName.cs:line 50
+   at ShelfsService.src.ShelfsService.Host.Features.Items.GetPhotoByName.ExecuteAsync(GetImageByName req, CancellationToken ct) in D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\src\ShelfsService.Host\Features\Images\GetImageByName.cs:line 50
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at Microsoft.AspNetCore.Http.RequestDelegateFactory.ExecuteResultWriteResponse(IResult result, HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-07-05 00:06:30.467 +03:00 [ERR] ShelfsService Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware An unhandled exception has occurred while executing the request.
+Grpc.Core.RpcException: Status(StatusCode="Unavailable", Detail="Error connecting to subchannel.", DebugException="System.Net.Sockets.SocketException: No such host is known.")
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Balancer.Internal.SocketConnectivitySubchannelTransport.TryConnectAsync(ConnectContext context, Int32 attempt)
+   --- End of inner exception stack trace ---
+   at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Grpc.Core.AsyncStreamReaderExtensions.ReadAllAsyncCore[T](IAsyncStreamReader`1 streamReader, CancellationToken cancellationToken)+MoveNext()
+   at Grpc.Core.AsyncStreamReaderExtensions.ReadAllAsyncCore[T](IAsyncStreamReader`1 streamReader, CancellationToken cancellationToken)+System.Threading.Tasks.Sources.IValueTaskSource<System.Boolean>.GetResult()
+   at ShelfsService.src.ShelfsService.Host.Features.Items.GetPhotoByName.ExecuteAsync(GetImageByName req, CancellationToken ct) in D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\src\ShelfsService.Host\Features\Images\GetImageByName.cs:line 50
+   at ShelfsService.src.ShelfsService.Host.Features.Items.GetPhotoByName.ExecuteAsync(GetImageByName req, CancellationToken ct) in D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\src\ShelfsService.Host\Features\Images\GetImageByName.cs:line 50
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at Microsoft.AspNetCore.Http.RequestDelegateFactory.ExecuteResultWriteResponse(IResult result, HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)

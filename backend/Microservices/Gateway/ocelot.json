@@ -150,9 +150,9 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/shelfs/items/get-image/{imageName}",
+      "UpstreamPathTemplate": "/shelfs/image/get-image/{imageName}",
       "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/shelfs/items/get-image/{imageName}",
+      "DownstreamPathTemplate": "/shelfs/image/get-image/{imageName}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
