@@ -16,11 +16,31 @@ export type AttributesValuesResponse = {
   attributesValues: AttributeValue[];
 };
 
+export type ClothingAttributes = {
+  // Відповідає вашому proto message ClothingAttributes
+  attributeColorMain?: string;
+  attributeColorSecond?: string;
+
+  attributeType?: number;
+  attributeSeason?: number;
+  attributePattern?: number;
+  attributeMaterial?: number;
+
+  confidence?: number;
+};
+
+export type RecognizeImageResponse = {
+  success: boolean;
+  attributes?: ClothingAttributes;
+};
+
+
 export type UpdateItemDto = {
     id: string;
     name: string;
     shelfId: string;
-    bigImage?: File;
+    imageFile?: File;
+    imageName?: string;
     attributeColorMain?: string;
     attributeColorSecond?: string;
     attributeType?: number;
@@ -83,7 +103,7 @@ export const itemsApi = {
           if (value !== undefined && value !== null) {
             
             // bigImage must be a File to be sent; skip string filenames (existing image)
-            if (key === 'bigImage') {
+            if (key === 'bigImage' || key === 'imageFile') {
               if (value instanceof File) {
                 formData.append(key, value);
               }
@@ -137,6 +157,10 @@ export const itemsApi = {
           newShelfId
       }),
     getImageByName: (imageName: string) => 
-      httpClient.get(`/shelfs/items/get-image/${imageName}`, { responseType: 'blob' }),
+      httpClient.get(`/shelfs/image/get-image/${imageName}`, { responseType: 'blob' }),
+
+    recognizeImageByName: (imageName: string) => 
+      httpClient.get<RecognizeImageResponse>(`/shelfs/image/recognize/${imageName}`),
   };
+
 

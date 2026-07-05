@@ -171,4 +171,3 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Deb
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Serilog.Sinks.Console.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\bin\Debug\net8.0\Serilog.Sinks.File.dll
-D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ShelfsService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
