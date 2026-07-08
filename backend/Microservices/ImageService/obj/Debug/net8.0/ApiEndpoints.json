@@ -16,30 +16,5 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "FastEndpoints.MainExtensions\u002B\u003C\u003Ec",
-    "Method": "\u003CMapFastEndpoints\u003Eb__2_2",
-    "RelativePath": "image/recognize/{*imageName}",
-    "HttpMethod": "GET",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "RecognizeClothesRequest",
-        "Type": "ImageService.src.ImageService.Host.Features.Recognizer.RecognizeClothesRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Clothing.AnalyzeClothingResponse",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "ImageServicesrcImageServiceHostFeaturesRecognizerRecognizeClothesRequestHandler"
   }
 ]

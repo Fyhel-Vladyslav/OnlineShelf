@@ -197,6 +197,62 @@
         }
       }
     },
+    "/shelfs/image/get-image/{imageName}": {
+      "get": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesItemsGetPhotoByName",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/GetImageByName"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetImageByName"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/shelfs/image/recognize/{imageName}": {
+      "get": {
+        "tags": [
+          "ShelfsService"
+        ],
+        "operationId": "ShelfsServicesrcShelfsServiceHostFeaturesItemsRecognizeImageByName",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/HttpRecognizeImageByNameReqest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HttpRecognizeImageByNameReqest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
     "/shelfs/items/add-item": {
       "post": {
         "tags": [
@@ -489,12 +545,32 @@
         },
         "additionalProperties": false
       },
+      "GetImageByName": {
+        "type": "object",
+        "properties": {
+          "imageName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "GetItemByIdRequest": {
         "type": "object",
         "properties": {
           "itemId": {
             "type": "string",
             "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HttpRecognizeImageByNameReqest": {
+        "type": "object",
+        "properties": {
+          "imageName": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -638,7 +714,11 @@
             "type": "string",
             "format": "uuid"
           },
-          "bigImage": {
+          "imageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageFile": {
             "type": "string",
             "format": "binary",
             "nullable": true

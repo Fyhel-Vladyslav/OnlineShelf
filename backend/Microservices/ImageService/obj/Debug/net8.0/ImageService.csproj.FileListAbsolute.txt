@@ -42,7 +42,6 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debu
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\ImageService.pdb
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\ImageService.genruntimeconfig.cache
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\ref\ImageService.dll
-D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\bin\Debug\net8.0\ErrorOr.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\bin\Debug\net8.0\FastEndpoints.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\bin\Debug\net8.0\FastEndpoints.Attributes.dll
@@ -66,3 +65,4 @@ D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\bin\Debu
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

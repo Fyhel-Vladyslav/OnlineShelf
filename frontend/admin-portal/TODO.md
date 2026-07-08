@@ -1,10 +1,8 @@
-# Task: Fix useImage.ts for itemsApi.getImageByName
+# TODO
 
-## Steps:
-- [x] Understand files and create plan (completed)
-- [x] Create TODO.md with steps (this file)
-- [x] Edit src/hooks/items/useImage.ts to fetch image as blob and return imageUrl
-- [x] Verify edit success (TypeScript errors fixed, hook now fetches blob correctly and returns {imageUrl} for ImageShow)
-- [x] Complete task
+- [x] Update `itemsApi.recognizeImageByName` types/response to match `{ success, attributes }`.
+- [x] Add `ClothingAttributes`/`RecognizeImageResponse` TS types in `itemsApi.ts`.
+- [x] Update `useRecogniozeExistingImage` to return parsed `ClothingAttributes` and map camelCase/snake_case keys.
+- [ ] Run `npm run build` (or `npm run lint`) to ensure TS compile passes.
 
-## Status: Completed
+

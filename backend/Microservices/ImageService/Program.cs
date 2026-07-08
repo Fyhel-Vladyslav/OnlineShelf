@@ -20,11 +20,8 @@ builder.Services.AddGrpcClient<ClothingAnalyzer.ClothingAnalyzerClient>(options 
                  ?? "http://parseimageservice:5000";
     options.Address = new Uri(url);
 });
-builder.Services.AddFastEndpoints();
-
 
 var app = builder.Build();
-app.UseFastEndpoints();
 app.MapGrpcService<ImageGrpcService>();
 
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client.");

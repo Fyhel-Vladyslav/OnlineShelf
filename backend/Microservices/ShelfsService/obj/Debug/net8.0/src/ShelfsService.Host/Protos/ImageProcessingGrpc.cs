@@ -54,9 +54,13 @@ namespace ImageService.Protos {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::ImageService.Protos.DeleteImageResponse> __Marshaller_DeleteImageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.DeleteImageResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeImageRequest> __Marshaller_RecognizeImageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeImageRequest.Parser));
+    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeRawImageRequest> __Marshaller_RecognizeRawImageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeRawImageRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeImageResponse> __Marshaller_RecognizeImageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeImageResponse.Parser));
+    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeRawImageResponse> __Marshaller_RecognizeRawImageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeRawImageResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeImageByNameRequest> __Marshaller_RecognizeImageByNameRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeImageByNameRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::ImageService.Protos.RecognizeImageByNameResponse> __Marshaller_RecognizeImageByNameResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.RecognizeImageByNameResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::ImageService.Protos.GetPhotoRequest> __Marshaller_GetPhotoRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ImageService.Protos.GetPhotoRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -79,12 +83,20 @@ namespace ImageService.Protos {
         __Marshaller_DeleteImageResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::ImageService.Protos.RecognizeImageRequest, global::ImageService.Protos.RecognizeImageResponse> __Method_RecognizeImage = new grpc::Method<global::ImageService.Protos.RecognizeImageRequest, global::ImageService.Protos.RecognizeImageResponse>(
+    static readonly grpc::Method<global::ImageService.Protos.RecognizeRawImageRequest, global::ImageService.Protos.RecognizeRawImageResponse> __Method_RecognizeRawImage = new grpc::Method<global::ImageService.Protos.RecognizeRawImageRequest, global::ImageService.Protos.RecognizeRawImageResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "RecognizeImage",
-        __Marshaller_RecognizeImageRequest,
-        __Marshaller_RecognizeImageResponse);
+        "RecognizeRawImage",
+        __Marshaller_RecognizeRawImageRequest,
+        __Marshaller_RecognizeRawImageResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::ImageService.Protos.RecognizeImageByNameRequest, global::ImageService.Protos.RecognizeImageByNameResponse> __Method_RecognizeImageByName = new grpc::Method<global::ImageService.Protos.RecognizeImageByNameRequest, global::ImageService.Protos.RecognizeImageByNameResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "RecognizeImageByName",
+        __Marshaller_RecognizeImageByNameRequest,
+        __Marshaller_RecognizeImageByNameResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::ImageService.Protos.GetPhotoRequest, global::ImageService.Protos.GetPhotoResponse> __Method_GetPhotoByName = new grpc::Method<global::ImageService.Protos.GetPhotoRequest, global::ImageService.Protos.GetPhotoResponse>(
@@ -232,9 +244,9 @@ namespace ImageService.Protos {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::ImageService.Protos.RecognizeImageResponse RecognizeImage(global::ImageService.Protos.RecognizeImageRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::ImageService.Protos.RecognizeRawImageResponse RecognizeRawImage(global::ImageService.Protos.RecognizeRawImageRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return RecognizeImage(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return RecognizeRawImage(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       /// Метод для розпізнавання
@@ -243,9 +255,9 @@ namespace ImageService.Protos {
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::ImageService.Protos.RecognizeImageResponse RecognizeImage(global::ImageService.Protos.RecognizeImageRequest request, grpc::CallOptions options)
+      public virtual global::ImageService.Protos.RecognizeRawImageResponse RecognizeRawImage(global::ImageService.Protos.RecognizeRawImageRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_RecognizeImage, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_RecognizeRawImage, null, options, request);
       }
       /// <summary>
       /// Метод для розпізнавання
@@ -256,9 +268,9 @@ namespace ImageService.Protos {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::ImageService.Protos.RecognizeImageResponse> RecognizeImageAsync(global::ImageService.Protos.RecognizeImageRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::ImageService.Protos.RecognizeRawImageResponse> RecognizeRawImageAsync(global::ImageService.Protos.RecognizeRawImageRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return RecognizeImageAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return RecognizeRawImageAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       /// Метод для розпізнавання
@@ -267,9 +279,29 @@ namespace ImageService.Protos {
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::ImageService.Protos.RecognizeImageResponse> RecognizeImageAsync(global::ImageService.Protos.RecognizeImageRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::ImageService.Protos.RecognizeRawImageResponse> RecognizeRawImageAsync(global::ImageService.Protos.RecognizeRawImageRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_RecognizeImage, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_RecognizeRawImage, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::ImageService.Protos.RecognizeImageByNameResponse RecognizeImageByName(global::ImageService.Protos.RecognizeImageByNameRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return RecognizeImageByName(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::ImageService.Protos.RecognizeImageByNameResponse RecognizeImageByName(global::ImageService.Protos.RecognizeImageByNameRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_RecognizeImageByName, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::ImageService.Protos.RecognizeImageByNameResponse> RecognizeImageByNameAsync(global::ImageService.Protos.RecognizeImageByNameRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return RecognizeImageByNameAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::ImageService.Protos.RecognizeImageByNameResponse> RecognizeImageByNameAsync(global::ImageService.Protos.RecognizeImageByNameRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_RecognizeImageByName, null, options, request);
       }
       /// <summary>
       /// Метод для отримання фото за назвою

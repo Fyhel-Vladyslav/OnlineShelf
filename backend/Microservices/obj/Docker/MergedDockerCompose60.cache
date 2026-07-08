@@ -1,0 +1,128 @@
+name: dockercompose13353402185009573390
+services:
+  gateway:
+    build:
+      context: D:\visualStudio\Projects\OnlineShelf\backend\Microservices
+      dockerfile: Gateway/Dockerfile
+    container_name: gateway
+    depends_on:
+      outfitofferservice:
+        condition: service_started
+        required: true
+      shelfsservice:
+        condition: service_started
+        required: true
+      userservice:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: gateway
+    networks:
+      microservice_net: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "5000"
+        protocol: tcp
+  imageservice:
+    build:
+      context: D:\visualStudio\Projects\OnlineShelf\backend\Microservices
+      dockerfile: ImageService/Dockerfile
+    container_name: image-service
+    environment:
+      GrpcSettings__ParseImageServiceUrl: http://parseimageservice:50051
+    image: image-service
+    networks:
+      microservice_net: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8080"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: D:/visualStudio/Projects/OnlineShelf/images
+        target: /app/images
+        bind:
+          create_host_path: true
+  onlineshelfdb:
+    container_name: online-shelf-db
+    environment:
+      POSTGRES_DB: onlineShelf_db
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      TZ: Europe/Kyiv
+    image: postgres:15
+    networks:
+      microservice_net: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5432"
+        protocol: tcp
+  outfitofferservice:
+    build:
+      context: D:\visualStudio\Projects\OnlineShelf\backend\Microservices
+      dockerfile: OutfitOfferService/Dockerfile
+    container_name: outfit-offer-service
+    environment:
+      ConnectionStrings__ShelfDbConnection: Host=localhost;Database=onlineShelf_db;Username=admin;Password=admin
+    image: outfit-offer-service
+    networks:
+      microservice_net: null
+  parseimageservice:
+    build:
+      context: D:\visualStudio\Projects\OnlineShelf\backend\Microservices
+      dockerfile: ParseImageService/Dockerfile
+    container_name: parse-image-service
+    environment:
+      ENV: production
+      SHELF_SERVICE_URL: http://gateway:8080
+    image: parse-image-service
+    networks:
+      microservice_net: null
+    ports:
+      - mode: ingress
+        target: 50051
+        published: "50051"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\vladf\.cache\huggingface
+        target: /root/.cache/huggingface
+        bind:
+          create_host_path: true
+  shelfsservice:
+    build:
+      context: D:\visualStudio\Projects\OnlineShelf\backend\Microservices
+      dockerfile: ShelfsService/Dockerfile
+    container_name: shelfs-service
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__ShelfDbConnection: Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
+      GrpcConfigs__ImageServiceUrl: http://imageservice:8080
+    image: shelfs-service
+    networks:
+      microservice_net: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8081"
+        protocol: tcp
+  userservice:
+    build:
+      context: D:\visualStudio\Projects\OnlineShelf\backend\Microservices
+      dockerfile: UserService/Dockerfile
+    container_name: user-service
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__ShelfDbConnection: Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
+    image: user-service
+    networks:
+      microservice_net: null
+networks:
+  microservice_net:
+    name: dockercompose13353402185009573390_microservice_net
+    driver: bridge

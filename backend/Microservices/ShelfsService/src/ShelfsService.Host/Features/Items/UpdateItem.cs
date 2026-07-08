@@ -16,7 +16,8 @@ public sealed record UpdateItemCommand(
     Guid Id,
     string Name,
     Guid ShelfId,
-    IFormFile BigImage,
+    string? ImageName,
+    IFormFile? ImageFile,
     string? AttributeColorMain,
     string? AttributeColorSecond,
     int AttributeType = 0,
@@ -56,6 +57,7 @@ public class UpdateItemCommandHandler(
             await Send.ErrorsAsync(400, cancellation: ct);
             return;
         }
+
         var item = await repos.GetItemByIdAsync(request.Id);
 
         if (item == null)
@@ -66,34 +68,47 @@ public class UpdateItemCommandHandler(
 
         SetItemFromDTO(item, request);
 
-        string bigImageName = null;
-        string smallImageName = null;
 
-        // 1. Якщо файл прийшов
-        if (request.BigImage is { Length: > 0 })
+        // 1. Якщо файлнейма немає - починаємо логіку оновлення
+        if (request.ImageName == null)
         {
-            using var stream = request.BigImage.OpenReadStream();
-            using var ms = new MemoryStream();
-            await stream.CopyToAsync(ms, ct);
-
-            // 2. Викликаємо ImageService через gRPC
-            var grpcRequest = new UploadImageRequest
+            // 2. Якщо файл раніше був але в реквесті файлнейма нема - значить треба видалити файл
+            if (item.BigImage != null)
             {
-                Data = Google.Protobuf.ByteString.CopyFrom(ms.ToArray()),
-                FileName = request.BigImage.FileName
-            };
+                //TODO: видалити файл на imageservice 
 
-            var response = await imageClient.UploadImageAsync(grpcRequest, cancellationToken: ct);
-
-            if (response.Success)
-            {
-                bigImageName = response.BigImageName;
-                smallImageName = response.SmallImageName;
+                item.BigImage = null;
+                item.SmallImage = null;
             }
-        }
 
-        item.BigImage = bigImageName;
-        item.SmallImage = smallImageName;
+
+            // 3. Якщо файл прийшов - передаємо його на image service
+                if (request.ImageFile is { Length: > 0 })
+                {
+                    string bigImageName = null;
+                    string smallImageName = null;
+                    using var stream = request.ImageFile.OpenReadStream();
+                    using var ms = new MemoryStream();
+                    await stream.CopyToAsync(ms, ct);
+
+                    // 3. Викликаємо ImageService через gRPC
+                    var grpcRequest = new UploadImageRequest
+                    {
+                        Data = Google.Protobuf.ByteString.CopyFrom(ms.ToArray()),
+                        FileName = request.ImageFile.FileName
+                    };
+
+                    var response = await imageClient.UploadImageAsync(grpcRequest, cancellationToken: ct);
+
+                    if (response.Success)
+                    {
+                        bigImageName = response.BigImageName;
+                        smallImageName = response.SmallImageName;
+                    }
+                    item.BigImage = bigImageName;
+                    item.SmallImage = smallImageName;
+                }
+        }
 
         var resShelf = await repos.UpdateItemAsync(item, ct);
         if (resShelf == null)

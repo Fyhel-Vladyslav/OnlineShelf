@@ -31,18 +31,42 @@
 
 using ShelfService.Extensions.DependencyInjection;
 using ShelfsService.Extentions;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
-builder.Services
-    .AddInfrastructure(builder.Configuration, builder.Environment)
-    .AddJwtAuthorization(builder.Configuration, builder.Environment)
-    .AddGrpcConnections(builder)
-;
+//try
+//{
+    Log.Information("Starting ShelfsService");
 
+    var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+    builder.Host.UseSerilog((context, services, configuration) => configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services)
+        .Enrich.FromLogContext()
+        .Enrich.WithProperty("Application", "ShelfsService"));
 
-app.UseShelfsInfrastucture();
+    builder.Services
+        .AddInfrastructure(builder.Configuration, builder.Environment)
+        .AddJwtAuthorization(builder.Configuration, builder.Environment)
+        .AddGrpcConnections(builder)
+    ;
 
-app.Run();
+    var app = builder.Build();
+
+    app.UseSerilogRequestLogging();
+    app.UseShelfsInfrastucture();
+
+    app.Run();
+//}
+//catch (Exception exception)
+//{
+//    Log.Fatal(exception, "ShelfsService terminated unexpectedly");
+//}
+//finally
+//{
+//    Log.CloseAndFlush();
+//}
