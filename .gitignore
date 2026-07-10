@@ -55,3 +55,4 @@ project.nuget.cache
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/backend/Microservices/ShelfsService/logs

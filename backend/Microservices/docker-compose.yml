@@ -39,6 +39,7 @@ services:
     environment:
      - ConnectionStrings__ShelfDbConnection=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
      - GrpcConfigs__ImageServiceUrl=http://imageservice:8080
+     - GrpcSettings__ParseImageServiceUrl=http://parseimageservice:50051
      - ASPNETCORE_URLS=http://+:8080
      - ASPNETCORE_ENVIRONMENT=Production
     networks:
@@ -71,8 +72,6 @@ services:
   imageservice:
     container_name: image-service
     image: ${DOCKER_REGISTRY-}image-service
-    environment:
-      - GrpcSettings__ParseImageServiceUrl=http://parseimageservice:50051
     build:
       context: .
       dockerfile: ImageService/Dockerfile

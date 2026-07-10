@@ -1,7 +1,9 @@
-﻿using FastEndpoints;
+﻿using Clothing;
+using FastEndpoints;
 using Grpc.Core;
 using ImageService.Protos;
 using ShelfsService.src.ShelfsService.Common;
+using ShelfsService.src.ShelfsService.Common.Interfaces;
 using System.IO;
 
 namespace ShelfsService.src.ShelfsService.Host.Features.Items
@@ -12,10 +14,12 @@ namespace ShelfsService.src.ShelfsService.Host.Features.Items
     internal sealed class RecognizeImageByName : Endpoint<HttpRecognizeImageByNameReqest>
     {
         private readonly ImageProcessor.ImageProcessorClient _imageClient;
+        private readonly IImageAnalyzer _imageAnalyzer;
 
-        public RecognizeImageByName(ImageProcessor.ImageProcessorClient imageClient)
+        public RecognizeImageByName(ImageProcessor.ImageProcessorClient imageClient, IImageAnalyzer imageAnalyzer)
         {
             _imageClient = imageClient;
+            _imageAnalyzer = imageAnalyzer;
         }
 
         public override void Configure()
@@ -33,28 +37,52 @@ namespace ShelfsService.src.ShelfsService.Host.Features.Items
                 return;
             }
 
-            //TODO: Check if user has this image and can makerecognition request  
-
-            var grpcRequest = new RecognizeImageByNameRequest { ImageName = req.ImageName };
+            var getImageRequest = new GetPhotoRequest { FileName = req.ImageName };
+            byte[] imageBytes = null;
 
             try
             {
-                var response = _imageClient.RecognizeImageByName(grpcRequest, cancellationToken: ct);
+                using var call = _imageClient.GetPhotoByName(getImageRequest, cancellationToken: ct);
 
-                if (response.Success == false)
+                // Use a MemoryStream to properly combine all incoming chunks
+                using var ms = new MemoryStream();
+
+                await foreach (var response in call.ResponseStream.ReadAllAsync(ct))
                 {
-                    await Send.OkAsync(new { Success = false, ErrorMessage = response.ErrorMessage }, cancellation: ct);
+                    if (response.ChunkData != null)
+                    {
+                        await ms.WriteAsync(response.ChunkData.Memory, ct);
+                    }
                 }
 
-                //TODO: log result 
-                await Send.OkAsync(response.RecognizedDataJson, cancellation: ct);
+                imageBytes = ms.ToArray();
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound)
             {
-                if (!HttpContext.Response.HasStarted)
+                await Send.NotFoundAsync(ct);
+                return;
+            }
+
+            //TODO: Check if user has this image and can make recognition request  
+
+            try
+            {
+                // Pass the fully assembled byte array to the Python analyzer
+                AnalyzeClothingResponse response = await _imageAnalyzer.AnalyzeAsync(imageBytes);
+
+                // FastEndpoints will correctly set Content-Type to application/json here
+                await Send.OkAsync(response, ct);
+                return;
+            }
+            catch (RpcException ex)
+            {
+                AnalyzeClothingResponse response = new AnalyzeClothingResponse
                 {
-                    await Send.NotFoundAsync(ct);
-                }
+                    Success = false,
+                    ErrorMessage = $"gRPC Error: {ex.Status.Detail} (StatusCode: {ex.StatusCode})"
+                };
+                await Send.OkAsync(response, ct);
+                return;
             }
         }
     }

@@ -46,6 +46,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 	  <Protobuf Include="src\ShelfsService.Host\Protos\image_processing.proto" GrpcServices="Client" />
+	  <Protobuf Include="src\ShelfsService.Host\Protos\parse-image.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

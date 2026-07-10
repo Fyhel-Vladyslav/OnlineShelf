@@ -9,10 +9,6 @@ service ImageProcessor {
   // Метод для видалення
   rpc DeleteImage (DeleteImageRequest) returns (DeleteImageResponse);
    
-  // Метод для розпізнавання
-  rpc RecognizeRawImage (RecognizeRawImageRequest) returns (RecognizeRawImageResponse);
-  rpc RecognizeImageByName (RecognizeImageByNameRequest) returns (RecognizeImageByNameResponse);
-
   // Метод для отримання фото за назвою
   rpc GetPhotoByName (GetPhotoRequest) returns (stream GetPhotoResponse);
 }
@@ -39,30 +35,6 @@ message DeleteImageRequest {
 // Відповідь на видалення
 message DeleteImageResponse {
   bool success = 1;
-}
-
-// Запит на розпізнавання
-message RecognizeRawImageRequest {
-  bytes image_data = 1;
-}
-
-// Відповідь на розпізнавання
-message RecognizeRawImageResponse {
-  bool success = 1;
-  string recognized_data_json = 2;
-  string error_message = 3;
-}
-
-// Запит на розпізнавання
-message RecognizeImageByNameRequest {
-  string image_name = 1;
-}
-
-// Відповідь на розпізнавання
-message RecognizeImageByNameResponse {
-  bool success = 1;
-  string recognized_data_json = 2;
-  string error_message = 3;
 }
 
 
