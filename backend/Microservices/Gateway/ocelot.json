@@ -150,9 +150,9 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/shelfs/items/get-image/{imageName}",
+      "UpstreamPathTemplate": "/shelfs/image/get-image/{imageName}",
       "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/shelfs/items/get-image/{imageName}",
+      "DownstreamPathTemplate": "/shelfs/image/get-image/{imageName}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -235,13 +235,13 @@
     },
 
     {
-      "UpstreamPathTemplate": "/image/recognize{imageName}",
+      "UpstreamPathTemplate": "/shelfs/image/recognize{imageName}",
       "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/image/recognize{imageName}",
+      "DownstreamPathTemplate": "/shelfs/image/recognize{imageName}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "imageservice",
+          "Host": "shelfsservice",
           "Port": 8080
         }
       ]

@@ -28,12 +28,17 @@ internal sealed class GetItemById : Endpoint<GetItemByIdRequest, Results<Ok<Item
 
     public override async Task<Results<Ok<ItemDto>, NotFound>> ExecuteAsync(GetItemByIdRequest req, CancellationToken ct)
     {
+        Logger.LogDebug("Getting item {ItemId}", req.ItemId);
+
         var item = await _repos.GetItemByIdAsync(req.ItemId, ct);
 
         if (item is null)
         {
+            Logger.LogWarning("Item {ItemId} was not found", req.ItemId);
             return TypedResults.NotFound();
         }
+
+        Logger.LogInformation("Item {ItemId} was returned", req.ItemId);
 
         return TypedResults.Ok(item.ToDto());
     }

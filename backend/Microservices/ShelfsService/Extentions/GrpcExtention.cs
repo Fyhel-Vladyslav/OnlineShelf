@@ -1,5 +1,7 @@
 ﻿using ImageService.Protos;
 using System;
+using Clothing;
+using Microsoft.Extensions.Options;
 
 namespace ShelfsService.Extentions;
 public static class GrpcExtention
@@ -15,8 +17,13 @@ public static class GrpcExtention
             o.Address = new Uri(url ?? "http://imageservice:8080");
         });
 
+        services.AddGrpcClient<Clothing.ClothingAnalyzer.ClothingAnalyzerClient>(o =>
+        {
+            string url = builder.Configuration["GrpcSettings:ParseImageServiceUrl"]
+                 ?? "http://parseimageservice:5000";
+            o.Address = new Uri(url);
+        });
 
         return services;
     }
-
 }

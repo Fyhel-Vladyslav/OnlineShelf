@@ -1,2 +1,0 @@
-obj\Release\net8.0\src\ShelfsService.Host\Protos/ImageProcessing.cs \
-obj\Release\net8.0\src\ShelfsService.Host\Protos/ImageProcessingGrpc.cs: src/ShelfsService.Host/Protos/image_processing.proto

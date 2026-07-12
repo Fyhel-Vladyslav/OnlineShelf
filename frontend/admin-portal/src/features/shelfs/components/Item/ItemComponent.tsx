@@ -15,8 +15,9 @@ interface ItemProps {
       id: item.id,
       data: { type: 'item' },
     });
-    const handleClick = (e: React.MouseEvent) => {
-      console.log("da");
+    // const handleClick = (e: React.MouseEvent) => {
+      const handleClick = () => {  
+    console.log("da");
       
       // Якщо під час кліку ми почали тягнути, dnd-kit зазвичай зупинить подію.
       // Переходимо на сторінку айтема

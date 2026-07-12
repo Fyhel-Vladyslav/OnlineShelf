@@ -40,8 +40,11 @@ public sealed record CreateShelfCommand(CreateShelfDto newShelf) : IRequest<Erro
     {
 
         var userId = User.GetUserId();
+        Logger.LogDebug("Creating shelf {ShelfName} for user {UserId}", request.newShelf.Name, userId);
+
         if(userId == Guid.Empty)
         {
+            Logger.LogWarning("Shelf creation rejected because user id is empty");
             await Send.UnauthorizedAsync(ct);
             return;
         }
@@ -50,6 +53,7 @@ public sealed record CreateShelfCommand(CreateShelfDto newShelf) : IRequest<Erro
 
         if (isAuthenticated != true)
         {
+            Logger.LogWarning("Shelf creation rejected for unauthenticated user {UserId}", userId);
             await Send.UnauthorizedAsync(ct);
             return;
         }
@@ -59,13 +63,14 @@ public sealed record CreateShelfCommand(CreateShelfDto newShelf) : IRequest<Erro
 
         if (!await repos.CheckShelfNameUniqueAsync(request.newShelf.Name, userId, ct))
         {
-            Logger.LogError("Shelf with name [{Name}] already exists", request.newShelf.Name);
+            Logger.LogWarning("Shelf creation rejected because shelf {ShelfName} already exists for user {UserId}", request.newShelf.Name, userId);
             await Send.ResultAsync(TypedResults.Conflict("Shelf with this name already exists"));
             return;
         }
 
 
         var newShelf = await repos.CreateShelfAsync(shelf, ct);
+        Logger.LogInformation("Shelf {ShelfId} created for user {UserId}", newShelf.Id, userId);
 
         await Send.OkAsync(newShelf.ToDto(), cancellation: ct);
     }

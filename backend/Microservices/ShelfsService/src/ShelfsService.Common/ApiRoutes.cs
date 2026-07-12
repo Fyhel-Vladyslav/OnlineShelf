@@ -16,10 +16,12 @@ public class ApiRoutes
     public const string GetItemById = $"{Shelfs}/items/{ItemIdParam}";
     public const string DeleteItem = $"{Shelfs}/items/{ItemIdParam}";
     public const string UpdateItem = $"{Shelfs}/items";
-    public const string GetPhotoByName = $"{Shelfs}/items/get-image/{ImageNameParam}";
 
     public const string Attributes = $"{Shelfs}/items/attributes";
 
     public const string AddTagsToItem = $"{Shelfs}/item-tags/add";
     public const string DeleteTagsFromItem = $"{Shelfs}/item-tags/remove";
+
+    public const string GetPhotoByName = $"{Shelfs}/image/get-image/{ImageNameParam}";
+    public const string RecognizeImageByName = $"{Shelfs}/image/recognize/{ImageNameParam}";
 }

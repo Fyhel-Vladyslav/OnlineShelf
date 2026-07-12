@@ -1,1 +1,0 @@
-D:\visualStudio\Projects\OnlineShelf\backend\Microservices\ImageService\obj\Release\net8.0\staticwebassets.build.json

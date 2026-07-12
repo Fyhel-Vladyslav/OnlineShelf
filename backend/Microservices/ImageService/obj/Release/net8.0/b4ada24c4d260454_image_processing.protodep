@@ -1,2 +1,0 @@
-obj\Release\net8.0\src\ImageService.Host\Protos/ImageProcessing.cs \
-obj\Release\net8.0\src\ImageService.Host\Protos/ImageProcessingGrpc.cs: src/ImageService.Host/Protos/image_processing.proto
