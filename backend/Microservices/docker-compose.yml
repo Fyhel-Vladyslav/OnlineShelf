@@ -25,6 +25,7 @@ services:
     environment:
       - ConnectionStrings__ShelfDbConnection=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
       - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_ENVIRONMENT=Development
     networks:
       - microservice_net
 

@@ -1,4 +1,4 @@
-﻿using FastEndpoints;
+/*using FastEndpoints;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -13,7 +13,7 @@ using UserService.src.UserService.Repository.EfCore.Entities;
 using static FastEndpoints.Ep;
 
 namespace UserService.src.UserService.Host.Features.Authorization;
-internal sealed record SignInRequest(string Login, string Password);
+internal sealed record RefreshTokenRequest(string Login, string Password);
 public sealed record SignInResult(string AccessToken, string RefreshAccessToken);
 
 internal sealed class SignInRequestValidator : Validator<SignInRequest>
@@ -88,4 +88,4 @@ internal sealed class UserSignInEndpoint(
         
         await Send.OkAsync(new SignInResult(accessToken, refreshAccessToken), ct);
     }
-}
+}*/

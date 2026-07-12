@@ -23,6 +23,8 @@ public class User
     public string? Avatar { get; set; }
     public DateTime DateCreated { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
+    public string? RefreshToken { get; set; }
+    public DateTime? RefreshTokenExpiry { get; set; }
     public List<UserRoleLink> Roles { get; set; } = new();
 
 
