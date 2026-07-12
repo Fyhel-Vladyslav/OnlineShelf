@@ -12,6 +12,7 @@ import CreateItemPage from './features/item/CreateItemPage';
 import './App.css';
 import { NotificationRoot } from './notification/NotificationRoot';
 import ShelfsPage from './features/shelfs/ShelfsPage';
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
@@ -26,7 +27,9 @@ function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/user-management" element={<UserManagementPage />} />
             <Route path="/user-management/edit/:id" element={<UserEditPage />} />
-            <Route path="/create-item" element={<CreateItemPage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/create-item" element={<CreateItemPage />} />
+            </Route>
             <Route path="/item-edit/:id" element={<ItemEditPage />} />
             <Route path="/shelfs" element={<ShelfsPage />} />
           </Routes>

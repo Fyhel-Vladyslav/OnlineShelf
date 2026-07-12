@@ -21,10 +21,11 @@ public class ShelfsRepository : IShelfsRepository
         _dbContext = dbContext;
         _logger = logger;
     }
-    public Task<List<Shelf>> GetAllShelfsAsync() =>
+    public Task<List<Shelf>> GetAllUserShelfsAsync(Guid userId) =>
         _dbContext.Shelfs
-            .Include(s => s.Items)
-                .ToListAsync();
+            .Where(s => s.UserId == userId)
+                .Include(s => s.Items)
+                    .ToListAsync();
 
 
     public Task<Shelf?> GetShelfByIdAsync(Guid shelfId, CancellationToken cancellationToken = default) =>
