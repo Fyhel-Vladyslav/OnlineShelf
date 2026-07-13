@@ -1,54 +1,100 @@
-.home-page {
+.container {
+  display: flex;
   width: 100%;
-  height: 94vh;;
+  height: 94vh;
+  padding: 20px;
+  gap: 20px;
+  background-color: #f5f5f5;
+  box-sizing: border-box;
+  align-items: center; /* Центрування по вертикалі */
+}
+
+/* Спільні стилі для батьківських карток */
+.parent-card {
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 40px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.content-area {
-  flex: 1;
+/* Ліва колонка */
+.left-column {
   display: flex;
+  flex-direction: column;
+  padding-left: 10%;
+  width: 40%;
+  height: 100%;
+  justify-content: center;
+  gap: 5%; /* Відступ між картками 5% */
+}
+
+.left-card {
+  width: 100%;
+  height: 40%; /* Кожна картка по 40% висоти батька */
+  justify-content: center;
+}
+.left-card:hover{
+  /* border: 4px solid #000;*/
+  transition: 1s; 
+  .card-title{font-size: 2.1rem;}
+}
+
+/* Права колонка */
+.right-column {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.right-card {
+  width: 100%;
+  min-width: 250px;
+  min-height: 250px;
+  height: 85%; /* Висота правої картки 85% */
+}
+
+.card-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.wardrobe-zone {
+  width: 60%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-position: center;  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: 4%;
+  padding-top: 4%;
+  box-sizing: border-box;
   position: relative;
 }
 
-.left-sidebar {
-  position: relative;
-  height: 100%;
+.left-door {
+  width: 47%; /* Відсоток від червоної зони */
+  height: 96%; /* Відсоток від червоної зони */
+  background-size: 100% 100%;
+  background-position: center;
+  transition: 1s;
 }
 
-.main-area {
-  flex: 1;
-  height: 100%;
-  position: relative;
-  overflow: auto;
+/* Зелена зона: залежить від червоної зони */
+.right-door {
+  width: 47%; /* Відсоток від червоної зони */
+  height: 96%; /* Відсоток від червоної зони */
+  background-size: 100% 100%;
+  background-position: center;
+  transition: 1s;
 }
-
-.right-sidebar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 200px; /* You can adjust this width */
-  background-color: #f9f9f9;
-  border-left: 1px solid #ccc;
-  z-index: 10;
-  transition: height 0.3s ease;
-}
-
-.right-sidebar.closed {
-  height: 50px ;
-}
-
-.right-toggle-btn {
-  position: absolute;
-  top: -15px;
-  right: 85px;
-  background: #333;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  z-index: 10;
+.right-card:hover  {
+  .left-door{width: 44%;} /* Відсоток від червоної зони */
+  .left-door{margin-right: 3%};
 }

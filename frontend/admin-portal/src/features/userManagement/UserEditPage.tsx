@@ -1,0 +1,174 @@
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button, Select, InputNumber, Space, message } from 'antd';
+import { useParams, useNavigate } from 'react-router-dom';
+import './UserEditPage.css';
+import './UserManagementPage.css';
+import { useUser } from '@/hooks/users/useUser';
+import { useRolesList } from '@/hooks/roles/useRolesList';
+import type { UserDto } from '@/api/users/userApi';
+
+import isEqual from 'lodash/isEqual';
+import { useUpdateUser } from '@/hooks/users/useUpdateUser ';
+
+const { Option } = Select;
+
+
+const UserEditPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
+  const { data: roles, isLoading: rolesLoading } = useRolesList();
+  const { data: user, isLoading, error } = useUser(id);
+  const [initialValues, setInitialValues] = useState<any>(null);
+  const [isDirty, setIsDirty] = useState(false);
+  const updateUser = useUpdateUser();
+  
+  useEffect(() => {
+    if (user && roles) {
+      const userRoleIds = user.roles.map(roleName => {
+        const role = roles.find(r => r.name === roleName);
+        return role ? role.id : null;
+      }).filter(id => id !== null);
+      form.setFieldsValue({
+        ...user,
+        role: userRoleIds,
+      });
+      setInitialValues(user);
+    }
+  }, [user, roles, form]);
+
+  useEffect(() => {
+    if (error) {
+      message.error("User not found");
+      navigate("/user-management");
+    }
+  }, [error, navigate]);
+
+  if (isLoading || rolesLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const handleSubmit = async (values: any) => {
+    setLoading(true);
+    try {
+      console.log('Updating user:', values);
+
+      const payload: UserDto = {
+        ...user,        // existing values (id, dates, etc.)
+        ...values,     // overridden editable fields
+
+      };
+      
+      updateUser.mutate(payload, {
+        onSuccess: () => {
+          // after successful update
+          const updatedValues = form.getFieldsValue(true);
+    
+          setInitialValues(updatedValues);
+          setIsDirty(false);
+        }
+      })
+    }
+     catch (error) {
+      message.error('Failed to update user');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="user-edit-page">
+      <h1>Edit User</h1>
+      <Form
+        form={form}
+        layout="horizontal"
+        onFinish={handleSubmit}
+        style={{ maxWidth: 800 }}
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span: 18 }}
+        onValuesChange={() => {
+          if (!initialValues) return;
+      
+          const current = form.getFieldsValue(true);
+      
+          const normalize = (v: any) => ({
+            ...v,
+            roleIds: [...(v.roleIds ?? [])].sort(),
+          });
+      
+          setIsDirty(
+            !isEqual(
+              normalize(current),
+              normalize(initialValues)
+            )
+          );
+        }}
+      >
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[
+            { required: true, message: 'Please input the email!' },
+            { type: 'email', message: 'Please enter a valid email!' }
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="login"
+          label="Login"
+          rules={[{ required: true, message: 'Please input the login!' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="state"
+          label="State"
+          rules={[{ required: true, message: 'Please input the state!' }]}
+        >
+          <InputNumber min={0} max={10} />
+        </Form.Item>
+
+        <Form.Item
+          name="avatar"
+          label="Avatar"
+        >
+        <Button onClick={() => navigate('/reset-user-password')}>
+              Reset password
+            </Button>
+        </Form.Item>
+
+        <Form.Item
+          name="roles"
+          label="Roles"
+        >
+          <Select mode="multiple" placeholder="Select roles">
+          {roles?.map(role => (
+              <Option key={role.id} value={role.name}>
+                  {role.name}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ span: 24 }}>
+  <div style={{ textAlign: 'center' }}>
+    <Space>
+      <Button type="primary" htmlType="submit" loading={loading} disabled={!isDirty}>
+        Save
+      </Button>
+      <Button onClick={() => navigate('/user-management')}>
+        Back
+      </Button>
+    </Space>
+  </div>
+</Form.Item>
+      </Form>
+    </div>
+  );
+};
+
+export default UserEditPage;

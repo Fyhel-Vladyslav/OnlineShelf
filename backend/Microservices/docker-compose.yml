@@ -1,27 +1,82 @@
 services:
   gateway:
+    container_name: gateway
     image: ${DOCKER_REGISTRY-}gateway
     build:
       context: .
       dockerfile: Gateway/Dockerfile
-
-  outfitofferservice:
-    image: ${DOCKER_REGISTRY-}outfitofferservice
-    build:
-      context: .
-      dockerfile: OutfitOfferService/Dockerfile
-
-
-  shelfsservice:
-    image: ${DOCKER_REGISTRY-}shelfsservice
-    build:
-      context: .
-      dockerfile: ShelfsService/Dockerfile
-
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - userservice
+      - shelfsservice
+      - outfitofferservice
+    networks:
+      - microservice_net
 
   userservice:
-    image: ${DOCKER_REGISTRY-}userservice
+    container_name: user-service
+    image: ${DOCKER_REGISTRY-}user-service
     build:
       context: .
       dockerfile: UserService/Dockerfile
+    environment:
+      - ConnectionStrings__Default=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - microservice_net
 
+  shelfsservice:
+    container_name: shelfs-service
+    image: ${DOCKER_REGISTRY-}shelfs-service    
+    build:
+      context: .
+      dockerfile: ShelfsService/Dockerfile
+    environment:
+      - ConnectionStrings__Default=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
+      - GrpcConfigs__ImageServiceUrl=http://imageservice:8080
+    networks:
+      - microservice_net
+
+  outfitofferservice:
+    container_name: outfit-offer-service
+    image: ${DOCKER_REGISTRY-}outfit-offer-service
+    build:
+      context: .
+      dockerfile: OutfitOfferService/Dockerfile
+    environment:
+      - ConnectionStrings__Default=Host=localhost;Database=onlineShelf_db;Username=admin;Password=admin
+    networks:
+      - microservice_net
+
+  onlineshelfdb:
+    container_name: online-shelf-db
+    image: postgres:15
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: onlineShelf_db
+      TZ: Europe/Kyiv
+    ports:
+      - "5432:5432"
+    networks:
+      - microservice_net
+
+  imageservice:
+    container_name: image-service
+    image: ${DOCKER_REGISTRY-}image-service
+    build:
+      context: .
+      dockerfile: ImageService/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - D:/visualStudio/Projects/OnlineShelf/images:/app/images
+    networks:
+      - microservice_net 
+
+networks:
+  microservice_net:
+    driver: bridge

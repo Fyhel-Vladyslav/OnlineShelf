@@ -1,0 +1,89 @@
+﻿using FastEndpoints;
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using UserService.src.UserService.Common;
+using UserService.src.UserService.Common.Interfaces;
+using UserService.src.UserService.Host.Features.JwtToken;
+using UserService.src.UserService.Repository.EfCore;
+using UserService.src.UserService.Repository.EfCore.Entities;
+using static FastEndpoints.Ep;
+
+namespace UserService.src.UserService.Host.Features.Authorization;
+internal sealed record SignInRequest(string Login, string Password);
+public sealed record SignInResult(string Token);
+
+internal sealed class SignInRequestValidator : Validator<SignInRequest>
+{
+
+    public SignInRequestValidator()
+    {
+        RuleFor(x => x.Login)
+            .NotEmpty()
+            .MaximumLength(200);
+
+        RuleFor(x => x.Password)
+            .NotEmpty()
+            .MaximumLength(128);
+    }
+}
+
+internal sealed class UserSignInEndpoint(
+    JwtTokenService jwt,
+    IUserRepository repos,
+IPasswordHasher<User> passwordHasher
+    //IJwtTokenProvider jwtTokenProvider,
+    //IUserClaimProvider userClaimProvider,
+    //ILdapAuthenticationService ldapAuthenticationService
+    ) : Endpoint<SignInRequest, SignInResult>
+{
+    //private readonly IJwtTokenProvider _jwtTokenProvider = jwtTokenProvider ?? throw new ArgumentNullException(nameof(jwtTokenProvider));
+    //private readonly IUserClaimProvider _userClaimProvider = userClaimProvider ?? throw new ArgumentNullException(nameof(userClaimProvider));
+    //private readonly ILdapAuthenticationService _ldapAuthenticationService = ldapAuthenticationService ?? throw new ArgumentNullException(nameof(ldapAuthenticationService));
+
+    public override void Configure()
+    {
+
+        Post(ApiRoutes.SignIn);
+        AllowAnonymous();
+        DontThrowIfValidationFails();
+    }
+
+    public override async Task HandleAsync(SignInRequest request, CancellationToken ct)
+    {
+
+        var user = await repos.GetUserByLoginAsync(request.Login, ct);
+
+        if (user is null)
+        {
+            await Send.UnauthorizedAsync(cancellation: ct);
+            return;
+        }
+
+        var verifyResult = passwordHasher.VerifyHashedPassword(
+            user,
+            user.PasswordHash,
+            request.Password
+        );
+
+        if (verifyResult == PasswordVerificationResult.Failed)
+        {
+            ThrowError("Invalid credentials");
+            await Send.UnauthorizedAsync(cancellation: ct);
+        }
+
+        // TODO delete
+        if (verifyResult == PasswordVerificationResult.SuccessRehashNeeded)
+        {
+            user.PasswordHash = passwordHasher.HashPassword(user, request.Password);
+            //await dbcon.SaveChangesAsync(ct);
+        }
+
+        var token = jwt.CreateToken(user.Id, user.Roles, TimeSpan.FromHours(1));
+
+
+        await Send.OkAsync(new SignInResult(token), ct);
+    }
+}

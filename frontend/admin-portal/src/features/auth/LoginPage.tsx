@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
+import {useSignIn} from '@/hooks/users/useSignIn'
 
 const LoginPage: React.FC = () => {
+  const signIn = useSignIn();
+
+
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: 'admin',
+    password: 'admin',
   });
   const [errors, setErrors] = useState({
     email: '',
@@ -13,12 +17,13 @@ const LoginPage: React.FC = () => {
   });
 
   const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    const emailOrLoginRegex =
+    /^(?:[^\s@]+@[^\s@]+\.[^\s@]+|[a-zA-Z0-9._-]{3,})$/;
+    return emailOrLoginRegex.test(email);
   };
 
   const validatePassword = (password: string) => {
-    return password.length >= 6;
+    return password.length >= 3;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,11 +58,24 @@ const LoginPage: React.FC = () => {
     setErrors(newErrors);
 
     if (!newErrors.email && !newErrors.password) {
-      // Handle login logic here
-      console.log('Login attempt:', formData);
-      alert('Login successful!');
-    }
+      try {
+        console.log('Login attempt:', formData);
+
+
+        signIn.mutate(formData, {
+          onSuccess: () => {
+            console.log("success");
+            window.location.href = '/';
+          },
+          onError: () => {
+            console.error('Failed to update item');
+          }
+        });
+      } catch (error) {
+        console.error('Failed to update item');
+      }
   };
+}
 
   return (
     <div className="login-page">
@@ -67,13 +85,13 @@ const LoginPage: React.FC = () => {
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
-              type="email"
+              type="text"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               className={errors.email ? 'error' : ''}
-              placeholder="Enter your email"
+              placeholder="Enter your login or email"
             />
             {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
