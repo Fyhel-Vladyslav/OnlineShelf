@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using UserService.src.UserService.Common;
 using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Host.Features.JwtToken;
@@ -17,7 +18,6 @@ public sealed record SignInResult(string Token);
 
 internal sealed class SignInRequestValidator : Validator<SignInRequest>
 {
-
     public SignInRequestValidator()
     {
         RuleFor(x => x.Login)
@@ -45,7 +45,6 @@ IPasswordHasher<User> passwordHasher
 
     public override void Configure()
     {
-
         Post(ApiRoutes.SignIn);
         AllowAnonymous();
         DontThrowIfValidationFails();
@@ -53,11 +52,13 @@ IPasswordHasher<User> passwordHasher
 
     public override async Task HandleAsync(SignInRequest request, CancellationToken ct)
     {
-
+        Log.Information("Got sign in request");
+        Log.Debug("-->request: {Request}", request);
         var user = await repos.GetUserByLoginAsync(request.Login, ct);
 
         if (user is null)
         {
+            Log.Information("User {Login} not found", request.Login);
             await Send.UnauthorizedAsync(cancellation: ct);
             return;
         }
@@ -70,11 +71,11 @@ IPasswordHasher<User> passwordHasher
 
         if (verifyResult == PasswordVerificationResult.Failed)
         {
-            ThrowError("Invalid credentials");
+            Log.Information("Login or password is invald");
             await Send.UnauthorizedAsync(cancellation: ct);
         }
 
-        // TODO delete
+        // TODO find do i realy need it
         if (verifyResult == PasswordVerificationResult.SuccessRehashNeeded)
         {
             user.PasswordHash = passwordHasher.HashPassword(user, request.Password);
@@ -82,7 +83,8 @@ IPasswordHasher<User> passwordHasher
         }
 
         var token = jwt.CreateToken(user.Id, user.Roles, TimeSpan.FromHours(1));
-
+        Log.Information("Login was succesfull");
+        Log.Debug("<--response: {Token}", token);
 
         await Send.OkAsync(new SignInResult(token), ct);
     }

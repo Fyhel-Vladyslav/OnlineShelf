@@ -3,6 +3,7 @@ using MediatR;
 using ErrorOr;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using Serilog;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using UserService.src.UserService.Common.DTOs;
 using UserService.src.UserService.Common.Interfaces;
@@ -16,7 +17,6 @@ internal sealed class CreateUserCommandValidator : AbstractValidator<CreateUserC
 
     public CreateUserCommandValidator()
     {
-
         RuleFor(v => v.newUser.Email)
             .NotEmpty().WithMessage("Email is required.")
             .MaximumLength(200).WithMessage("Email must not exceed 200 characters.")
@@ -42,26 +42,30 @@ public class CreateUserCommandHandler(
 
     public override async Task HandleAsync(CreateUserCommand request, CancellationToken ct)
     {
+        Log.Information("Got create user request");
+        Log.Debug("-->request: {@Request}", request);
         var user = FromDTO(request.newUser);
 
         if (!await repos.CheckUserLoginAndEmailUniqueAsync(request.newUser.Login, request.newUser.Email, ct))
         {
-            Logger.LogError("User with login [{Login}] or email [{Email}] already exists", request.newUser.Login, request.newUser.Email);
+            Log.Debug("User with login [{@Login}] or email [{@Email}] already exists", request.newUser.Login, request.newUser.Email);
             await Send.ResultAsync(TypedResults.Conflict());
             return;
         }
 
 
         var newUser = await repos.CreateUserAsync(user, ct);
-
+        Log.Debug("User without roles created: {@NewUser}", newUser);
+        
+        Log.Debug("Adding roles: {@Roles}", request.newUser.Roles);
         await roleResolver.ResolveRolesAsync(request.newUser.Roles, newUser.Id);
-
+        Log.Debug("Roles successfully added");
+        
+        Log.Information("New user created: {@NewUser}", newUser);
         await Send.OkAsync(newUser.ToDto(), cancellation: ct);
     }
     private User FromDTO(CreateUserDto dto)
     {
-
-
         var newUser = new User
         {
             Id = Guid.NewGuid(),
