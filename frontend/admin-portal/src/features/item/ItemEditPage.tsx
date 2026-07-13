@@ -13,6 +13,8 @@ import { useNotification } from '@/notification/useNotification';
 import { isAxiosError } from 'axios';
 import { FavouriteButton } from '@/components/IsFavourite/IsFavourite';
 import { useImage } from '@/hooks/items/useImage';
+import { useRecogniozeExistingImage } from '@/hooks/image/useRecogniozeExistingImage';
+
 
 const { Option } = Select;
 
@@ -29,17 +31,23 @@ const ItemEditPage: React.FC = () => {
   const [initialValues, setInitialValues] = useState<any>(null);
   const [isDirty, setIsDirty] = useState(false);
   const updateItem = useUpdateItem();
-  const bigImageName = item?.bigImage;
+  const [bigImageName, setBigImageName] = useState(item?.bigImage); 
   const { data: imageItem, isLoading: imageLoading } = useImage(bigImageName);
   const isFavorite = isFavoriteFormValue || false;
 
-  useEffect(() => {
-    if (item) {
-      form.setFieldsValue(item);
-      setInitialValues(item);
-      setIsDirty(false);
-    }
-  }, [item, form]);
+  const {
+    refetch: refetchRecognizedAttributes,
+
+    isFetching: isRecognizing,
+  } = useRecogniozeExistingImage(bigImageName);
+
+useEffect(() => {
+if (item) {
+form.setFieldsValue(item);
+setInitialValues(item);
+setIsDirty(false);
+}
+}, [item, form]);
 
   // Get attribute options by type name
   const getAttributeOptions = (typeName: string) => {
@@ -47,8 +55,10 @@ const ItemEditPage: React.FC = () => {
     return attribute?.options || [];
   };
 
+
   const handleToggle = () => {
     setIsDirty(true);
+    console.log(getAttributeOptions('Type'))
     form.setFieldValue('isFavorite', !isFavorite);
   };
 
@@ -70,12 +80,13 @@ const ItemEditPage: React.FC = () => {
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
-      console.log('Updating item:', values);
+
       const payload: UpdateItemDto = {
         id: item.id,
         name: values.name,
         shelfId: values.shelfId,
-        bigImage: values.bigImage,
+        imageFile: values.bigImage instanceof File ? values.bigImage : undefined,
+        imageName: bigImageName,
         attributeColorMain: values.attributeColorMain,
         attributeColorSecond: values.attributeColorSecond,
         attributeType: values.attributeType,
@@ -84,7 +95,7 @@ const ItemEditPage: React.FC = () => {
         attributeMatterial: values.attributeMatterial,
         isFavorite: values.isFavorite,
       };
-
+console.log('Updating item:', payload);
       updateItem.mutate(payload, {
         onSuccess: () => {
           message.success('Item updated successfully');
@@ -129,6 +140,7 @@ const ItemEditPage: React.FC = () => {
           const hasName = current.name && current.name.trim().length > 0;
           const hasShelfId = current.shelfId !== undefined && current.shelfId !== null;
           setIsDirty(hasName && hasShelfId);
+          setIsDirty(JSON.stringify(current) !== JSON.stringify(initialValues));
         }}
       >
         <div style={{ display: 'flex', gap: '20px', height: "75vh" }}>
@@ -285,16 +297,57 @@ const ItemEditPage: React.FC = () => {
               </div>
               <div style={{display:"flex"}}>
                 <div style={{width:"50%", padding:"3px"}}>
-                  <Button style={{width:"100%", height:"100%", fontSize:24}}>
+                  <Button style={{width:"50%", height:"100%", fontSize:24}}>
                     Detect using camera
                   </Button>
+                  <Button
+                    style={{width:"50%", height:"100%", fontSize:24}}
+                    loading={isRecognizing}
+                    onClick={async () => {
+                      try {
+                        const res = await refetchRecognizedAttributes();
+                        const attrs = res.data;
+                        if (!attrs) {
+                          message.warning('Nothing recognized');
+                          return;
+                        }
+                        console.log(attrs.attributeType);
+
+                         setIsDirty(true);
+                         form.setFieldsValue({
+                          // attributeColorMain: attrs.attributeColorMain,
+                          // attributeColorSecond: attrs.attributeColorSecond,
+                           //attributeType: getAttributeSelectValue('Type', attrs.attributeType),
+                          // attributeSeason: getAttributeSelectValue('Season', attrs.attributeSeason),
+                          // attributePattern: getAttributeSelectValue('Pattern', attrs.attributePattern),
+                           attributeMatterial: attrs.attributeMaterial,
+                           attributeType: attrs.attributeType
+                         });
+                      } catch {
+                        message.error('Failed to recognize current image');
+                      }
+                    }}
+                  >
+                    Detect curent image
+                  </Button>
+
                 </div>
                 <div style={{width:"50%", padding:"3px"}}>
                   
                   {/* 2. ТУТ ВАЖЛИВО ДОДАТИ valuePropName */}
+                  {/* Keep current main image unaffected when recognizing.
+                      ImagePicker is for selecting/replacing bigImage only. */}
                   <Form.Item name="bigImage" valuePropName="value">
-                    <ImagePicker />
+                    <ImagePicker 
+                        value={undefined}
+                        onChange={() => {
+                          setBigImageName(undefined);
+                          console.log("Image changed:");
+                        }}
+                    />
                   </Form.Item>
+                  
+
                   
                 </div>
               </div>

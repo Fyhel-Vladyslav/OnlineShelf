@@ -1,16 +1,25 @@
-using ImageService.Extentions;
+//using ImageService.Extentions;
 using ImageService.src.ImageService.Host.Protos.Service;
+
+
+AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container. 
 
 builder.Services
-    .AddInfrastructure(builder.Environment)
+    //.AddInfrastructure(builder.Environment)
     .AddGrpc();
 
-var app = builder.Build();
+//builder.Services.AddGrpcClient<ClothingAnalyzer.ClothingAnalyzerClient>(options =>
+//{
+//    string url = builder.Configuration["GrpcSettings:ParseImageServiceUrl"]
+//                 ?? "http://parseimageservice:5000";
+//    options.Address = new Uri(url);
+//});
 
+var app = builder.Build();
 app.MapGrpcService<ImageGrpcService>();
 
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client.");

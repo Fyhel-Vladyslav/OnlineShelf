@@ -3,6 +3,7 @@ using ImageService.Protos;
 using Microsoft.EntityFrameworkCore;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
 using ShelfsService.src.ShelfsService.Host.Features.Attributes;
+using ShelfsService.src.ShelfsService.Host.Helpers;
 using ShelfsService.src.ShelfsService.Repository.EfCore;
 
 namespace ShelfsService.Extentions
@@ -12,6 +13,8 @@ namespace ShelfsService.Extentions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
             IHostEnvironment env)
         {
+            services.AddScoped<IImageAnalyzer, ImageAnalyzer>();
+
             services.AddScoped<IShelfsRepository, ShelfsRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddSingleton<IAttributeResolver, AttributeResolver>();

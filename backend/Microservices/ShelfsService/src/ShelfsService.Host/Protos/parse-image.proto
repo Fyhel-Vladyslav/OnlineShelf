@@ -1,0 +1,33 @@
+﻿syntax = "proto3";
+
+package clothing;
+
+service ClothingAnalyzer {
+  // Метод для аналізу зображення одягу
+  rpc AnalyzeClothing (AnalyzeClothingRequest) returns (AnalyzeClothingResponse);
+}
+
+// Запит містить лише сирі байти WebP зображення
+message AnalyzeClothingRequest {
+  bytes image_data = 1;
+}
+
+// Відповідь повертає статус успішності та згенеровані атрибути
+message AnalyzeClothingResponse {
+  bool success = 1;
+  ClothingAttributes attributes = 2; // Повертаємо об'єкт з усіма розпізнаними тегами
+  string error_message = 3;
+}
+
+// Структура, що повністю мапиться на C# властивості об'єкта Item
+message ClothingAttributes {
+  string attribute_color_main = 1;    // Головний колір (наприклад, "#Hex" або "Чорний")
+  string attribute_color_second = 2;  // Другорядний колір
+  
+  int32 attribute_type = 3;           // int значення вашого Enum для типу одягу
+  int32 attribute_season = 4;         // int значення вашого Enum для сезону
+  int32 attribute_pattern = 5;        // int значення вашого Enum для узору/принту
+  int32 attribute_material = 6;       // int значення вашого Enum для матеріалу
+  
+  float confidence = 7;               // Загальний коефіцієнт впевненості моделі (0.0 - 1.0)
+}

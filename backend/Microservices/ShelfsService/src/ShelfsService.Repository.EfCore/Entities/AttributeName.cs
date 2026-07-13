@@ -1,6 +1,6 @@
 ﻿namespace ShelfsService.src.ShelfsService.Repository.EfCore.Entities
 {
-    public class AttributeName
+    public class AttributeName /// TODO : rename to AttributeType
     {
         public int Id { get; set; }
         public int AttributeKey { get; set; }

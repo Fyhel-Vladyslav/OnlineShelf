@@ -24,15 +24,13 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ value, onChange }) => {
   }, [value]);
 
   const handleFileSelect = (file: File) => {
-    console.log("1. [ImagePicker] Файл вибрано всередині компонента:", file.name);
-    
     // Створюємо прев'ю
     const objectUrl = URL.createObjectURL(file);
     setPreviewUrl(objectUrl);
 
     // ПЕРЕДАЄМО ФАЙЛ У ФОРМУ
     if (onChange) {
-      console.log("2. [ImagePicker] Викликаю onChange для передачі в Form.Item");
+      //console.log("2. [ImagePicker] Викликаю onChange для передачі в Form.Item");
       onChange(file);
     } else {
       console.error("Помилка: onChange не переданий в ImagePicker!");

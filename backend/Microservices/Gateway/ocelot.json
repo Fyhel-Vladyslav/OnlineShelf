@@ -95,7 +95,157 @@
           "Port": 8080
         }
       ]
-    }
+    },
+
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/shelfs/item-tags/add",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/shelfs/item-tags/add",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/shelfs/item-tags/remove",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "DownstreamPathTemplate": "/shelfs/item-tags/remove",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/shelfs/items/add-item",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/shelfs/items/add-item",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/shelfs/items/attributes",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/shelfs/items/attributes",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/shelfs/image/get-image/{imageName}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/shelfs/image/get-image/{imageName}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/shelfs/items",
+      "UpstreamHttpMethod": [ "PUT" ],
+      "DownstreamPathTemplate": "/shelfs/items",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/shelfs/items/{itemId}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
+      "DownstreamPathTemplate": "/shelfs/items/{itemId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/shelfs/add-shelf",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/shelfs/add-shelf",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/shelfs/move-item",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/shelfs/move-item",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/shelfs/{shelfId}",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "DownstreamPathTemplate": "/shelfs/{shelfId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/shelfs",
+      "UpstreamHttpMethod": [ "PUT", "GET" ],
+      "DownstreamPathTemplate": "/shelfs",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/shelfs/image/recognize{imageName}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/shelfs/image/recognize{imageName}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
   ],
   "GlobalConfiguration": {}
 }
