@@ -4,6 +4,7 @@ using ErrorOr;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Serilog;
 using UserService.src.UserService.Repository.EfCore;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using UserService.src.UserService.Common.DTOs;
@@ -44,18 +45,21 @@ public class UpdateUserCommandHandler(
 
     public override async Task HandleAsync(UpdateUserCommand request, CancellationToken ct)
     {
+        Log.Information("Got create user request");
+        Log.Debug("-->request: {@Request}", request);
         if (request.newUser == null)
         {
             await Send.ErrorsAsync(400, cancellation: ct);
             return;
         }
         var user = await repos.GetUserByIdAsync(request.newUser.Id);
-
         if (user == null)
         {
+            Log.Debug("User with id {@Id} not found", request.newUser.Id);
             await Send.NotFoundAsync(cancellation: ct);
             return;
         }
+        Log.Debug("User succesfully found {@User}", user);
         // TODO: check unique login/email except current user
         //if (!await repos.CheckUserLoginAndEmailUniqueAsync(request.newUser.Login, request.newUser.Email, ct))
         //{
@@ -65,10 +69,16 @@ public class UpdateUserCommandHandler(
         //}
 
         SetUserFromDTO(user, request.newUser);
+        
+        Log.Debug("Updating user data without roles: {@User}", user);
         await repos.UpdateUserAsync(user);
-
+        Log.Debug("User data without roles succesfully updated");
+        
+        Log.Debug("Updating users roles: {@Roles}", request.newUser.Roles);
         await roleResolver.ResolveRolesAsync(request.newUser.Roles, user.Id);
+        Log.Debug("User roles succesfully updated");
 
+        Log.Debug("User was updated successfully");
         await Send.OkAsync(user.ToDto(), cancellation: ct);
 
     }

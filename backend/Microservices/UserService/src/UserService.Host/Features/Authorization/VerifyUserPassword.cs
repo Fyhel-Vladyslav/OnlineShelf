@@ -32,6 +32,7 @@ internal sealed class VerifyUserPasswordEndpoint(
     }
     public override async Task<object> HandleAsync(VerifyUserPasswordRequest request, CancellationToken ct)
     {
+        
         if (ValidationFailed)
         {
             await Send.NoContentAsync(ct);
