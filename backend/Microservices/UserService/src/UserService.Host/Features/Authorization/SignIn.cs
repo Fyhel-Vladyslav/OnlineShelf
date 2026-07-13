@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using UserService.src.UserService.Common;
 using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Host.Features.JwtToken;
+using Serilog;
 using UserService.src.UserService.Repository.EfCore;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using static FastEndpoints.Ep;
@@ -51,11 +52,13 @@ internal sealed class UserSignInEndpoint(
 
     public override async Task HandleAsync(SignInRequest request, CancellationToken ct)
     {
-
+        Log.Information("Got sign in request");
+        Log.Debug("-->request: {Request}", request);
         var user = await repos.GetUserByLoginAsync(request.Login, ct);
 
         if (user is null)
         {
+            Log.Information("User {Login} not found", request.Login);
             await Send.UnauthorizedAsync(cancellation: ct);
             return;
         }
@@ -68,7 +71,7 @@ internal sealed class UserSignInEndpoint(
 
         if (verifyResult == PasswordVerificationResult.Failed)
         {
-            ThrowError("Invalid credentials");
+            Log.Information("Login or password is invald");
             await Send.UnauthorizedAsync(cancellation: ct);
         }
 
@@ -82,6 +85,9 @@ internal sealed class UserSignInEndpoint(
         
         var accessTokenLifeTime = TimeSpan.FromHours(1); 
         var accessToken = jwt.CreateToken(user.Id, user.Roles, accessTokenLifeTime);
+        
+        Log.Information("Login was succesfull");
+        Log.Debug("<--response: {Token}", accessToken);
         
         var refreshAccessToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
         await repos.SaveRefreshTokenAsync(user.Id, refreshAccessToken, ct);
