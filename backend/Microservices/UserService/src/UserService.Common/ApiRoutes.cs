@@ -14,6 +14,7 @@ public class ApiRoutes
     public const string GetRoles = $"{Users}/get-roles";
 
     public const string SignIn = $"{Users}/sign-in";
+    public const string RefreshToken = $"{Users}/refresh-token";
     public const string VerifyPassword = $"{Users}/verify-user-password";
 
 }

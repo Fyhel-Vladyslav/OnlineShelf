@@ -6,6 +6,8 @@ public interface IUserRepository
     IQueryable<User> Users { get; }
     Task<User?> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken = default);
     Task<User?> GetUserByLoginAsync(string login, CancellationToken cancellationToken = default);
+    Task<User?> GetUserByRefreshToken(string refreshToken, CancellationToken cancellationToken = default);
+    
     Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default);
     Task<User?> GetUserByActiveDirectoryLoginAsync(string login, CancellationToken cancellationToken = default);
     Task<User?> GetUserByEmailVerifyTokenAsync(string token, CancellationToken cancellationToken = default);

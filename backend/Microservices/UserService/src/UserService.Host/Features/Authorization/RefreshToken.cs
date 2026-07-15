@@ -1,4 +1,4 @@
-/*using FastEndpoints;
+using FastEndpoints;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -11,81 +11,63 @@ using UserService.src.UserService.Host.Features.JwtToken;
 using UserService.src.UserService.Repository.EfCore;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using static FastEndpoints.Ep;
+using Serilog;
 
 namespace UserService.src.UserService.Host.Features.Authorization;
-internal sealed record RefreshTokenRequest(string Login, string Password);
-public sealed record SignInResult(string AccessToken, string RefreshAccessToken);
 
-internal sealed class SignInRequestValidator : Validator<SignInRequest>
+internal sealed record RefreshTokenRequest(string RefreshToken);
+
+public sealed record RefreshTokenResult(string AccessToken, string RefreshAccessToken);
+
+internal sealed class RefreshTokenRequestValidator : Validator<RefreshTokenRequest>
 {
-
-    public SignInRequestValidator()
+    public RefreshTokenRequestValidator()
     {
-        RuleFor(x => x.Login)
+        RuleFor(x => x.RefreshToken)
             .NotEmpty()
-            .MaximumLength(200);
-
-        RuleFor(x => x.Password)
-            .NotEmpty()
-            .MaximumLength(128);
+            .MaximumLength(50);
     }
 }
 
-internal sealed class UserSignInEndpoint(
+internal sealed class UserRefreshTokenEndpoint(
     JwtTokenService jwt,
     IUserRepository repos,
     IPasswordHasher<User> passwordHasher
-    ) : Endpoint<SignInRequest, SignInResult>
+) : Endpoint<RefreshTokenRequest, RefreshTokenResult>
 {
-    //private readonly IJwtTokenProvider _jwtTokenProvider = jwtTokenProvider ?? throw new ArgumentNullException(nameof(jwtTokenProvider));
-    //private readonly IUserClaimProvider _userClaimProvider = userClaimProvider ?? throw new ArgumentNullException(nameof(userClaimProvider));
-    //private readonly ILdapAuthenticationService _ldapAuthenticationService = ldapAuthenticationService ?? throw new ArgumentNullException(nameof(ldapAuthenticationService));
-
     public override void Configure()
     {
-
-        Post(ApiRoutes.SignIn);
+        Post(ApiRoutes.RefreshToken);
         AllowAnonymous();
         DontThrowIfValidationFails();
     }
 
-    public override async Task HandleAsync(SignInRequest request, CancellationToken ct)
+    public override async Task HandleAsync(RefreshTokenRequest request, CancellationToken ct)
     {
 
-        var user = await repos.GetUserByLoginAsync(request.Login, ct);
+        var user = await repos.GetUserByRefreshToken(request.RefreshToken);
 
-        if (user is null)
+        if (user == null)
         {
-            await Send.UnauthorizedAsync(cancellation: ct);
-            return;
+            // користувач можливо був взламаний, бо рефреш токен просто так не зникає. Просимо залогінитися
+            Log.Information("Refresh token not found");
+            // TODO додати якусь іще логіку перевірки на те чи не взламали користувача
+            await Send.UnauthorizedAsync();
         }
 
-        var verifyResult = passwordHasher.VerifyHashedPassword(
-            user,
-            user.PasswordHash,
-            request.Password
-        );
-
-        if (verifyResult == PasswordVerificationResult.Failed)
+        if (user.RefreshTokenExpiry.HasValue && user.RefreshTokenExpiry.Value < DateTime.UtcNow)
         {
-            ThrowError("Invalid credentials");
-            await Send.UnauthorizedAsync(cancellation: ct);
-        }
-
-        // TODO delete
-        if (verifyResult == PasswordVerificationResult.SuccessRehashNeeded)
-        {
-            user.PasswordHash = passwordHasher.HashPassword(user, request.Password);
-            //await dbcon.SaveChangesAsync(ct);
+            // користувач давно не заходив, все ок. Просимо перелогінитися
+            Log.Information("Refresh token has expired");
+            await Send.UnauthorizedAsync();
         }
         
-        
-        var accessTokenLifeTime = TimeSpan.FromHours(1); 
+        var accessTokenLifeTime = TimeSpan.FromHours(1);
         var accessToken = jwt.CreateToken(user.Id, user.Roles, accessTokenLifeTime);
+        var newRefreshAccessToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
         
-        var refreshAccessToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
-        await repos.SaveRefreshTokenAsync(user.Id, refreshAccessToken, ct);
-        
-        await Send.OkAsync(new SignInResult(accessToken, refreshAccessToken), ct);
+        await repos.SaveRefreshTokenAsync(user.Id, newRefreshAccessToken, ct);
+
+        await Send.OkAsync(new RefreshTokenResult(accessToken, newRefreshAccessToken), ct);
     }
-}*/
+}
