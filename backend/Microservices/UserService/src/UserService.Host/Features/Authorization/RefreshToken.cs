@@ -15,7 +15,10 @@ using Serilog;
 
 namespace UserService.src.UserService.Host.Features.Authorization;
 
-internal sealed record RefreshTokenRequest(string RefreshToken);
+internal sealed record RefreshTokenRequest
+{
+    public string? RefreshToken { get; init; } 
+};
 
 public sealed record RefreshTokenResult(string AccessToken, string RefreshAccessToken);
 

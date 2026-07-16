@@ -1,20 +1,6 @@
-// import axios from "axios";
-// import { authService } from "@/hooks/jwtauth/AuthService";
-
-// export const httpClient = axios.create({
-//   baseURL: "http://localhost:5000",
-// });
-
-// httpClient.interceptors.request.use((config) => {
-//   const token = authService.getToken();
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-//   return config;
-// });
-
 import axios, { AxiosError, type AxiosRequestConfig, type InternalAxiosRequestConfig } from 'axios';
 import { authService } from "@/hooks/jwtauth/AuthService";
+import type { TokenResponse } from './userApi'; // Імпортуємо новий тип відповіді
 
 export const httpClient = axios.create({
   baseURL: "http://localhost:5000",
@@ -42,7 +28,7 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
-// 1. Request Interceptor (Твій базовий, типізований під актуальний Axios)
+// 1. Request Interceptor
 httpClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = authService.getToken();
@@ -54,23 +40,26 @@ httpClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 2. Response Interceptor (Обробка 401 та черга запитів)
+// 2. Response Interceptor
 httpClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
 
+    // Якщо помилка не 401 або цей запит вже є повторним після рефрешу
     if (error.response?.status !== 401 || originalRequest._retry) {
       return Promise.reject(error);
     }
 
-    if (originalRequest.url?.includes("/auth/refresh")) {
+    // Запобігаємо нескінченному циклу, якщо сам запит на оновлення токена падає з 401
+    if (originalRequest.url?.includes("/users/refresh-token")) {
       handleLogout();
       return Promise.reject(error);
     }
 
+    // Якщо рефреш вже виконується іншим запитом, ставимо цей запит у чергу
     if (isRefreshing) {
-      return new Promise((resolve, reject) => {
+      return new Promise<string>((resolve, reject) => {
         failedQueue.push({ resolve, reject });
       })
         .then((token) => {
@@ -86,26 +75,26 @@ httpClient.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      const refreshToken = authService.getRefreshToken();
+      const currentRefreshToken = authService.getRefreshToken();
       
-      if (!refreshToken) {
+      if (!currentRefreshToken) {
         throw new Error("No refresh token available");
       }
 
-      // Робимо ізольований запит через чистий axios instance
-      const response = await axios.post<{ accessToken: string; refreshAccessToken: string }>(
-        `${httpClient.defaults.baseURL}/auth/refresh`, // Зміни шлях, якщо на бекенді він інший
-        { refreshToken }
-      );
+      const refreshResponse = await httpClient.post<TokenResponse>("/users/refresh-token", {
+        refreshToken: currentRefreshToken
+      });
 
-      const { accessToken: newAccess, refreshAccessToken: newRefresh } = response.data;
+      const { accessToken: newAccess, refreshToken: newRefresh } = refreshResponse.data;
 
-      // Зберігаємо оновлені токени через розширений authService
+      // Зберігаємо оновлені токени через authService
       authService.setToken(newAccess);
       authService.setRefreshToken(newRefresh);
 
+      // Сповіщаємо чергу про успішний рефреш
       processQueue(null, newAccess);
 
+      // Оновлюємо заголовок для поточного (оригінального) запиту
       if (originalRequest.headers) {
         originalRequest.headers.Authorization = `Bearer ${newAccess}`;
       }
@@ -121,12 +110,7 @@ httpClient.interceptors.response.use(
 );
 
 function handleLogout() {
-  // Очищаємо localStorage через метод сервісу
   authService.clearTokens();
-
-  // "Запікаємо" поточний URL для Redirect back механізму
   const currentPath = window.location.pathname + window.location.search;
-  
-  // Викидаємо на логін
   window.location.href = `/login?redirectTo=${encodeURIComponent(currentPath)}`;
 }
