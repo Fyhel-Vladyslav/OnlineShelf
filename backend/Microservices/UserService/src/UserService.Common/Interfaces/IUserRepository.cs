@@ -6,6 +6,8 @@ public interface IUserRepository
     IQueryable<User> Users { get; }
     Task<User?> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken = default);
     Task<User?> GetUserByLoginAsync(string login, CancellationToken cancellationToken = default);
+    Task<User?> GetUserByRefreshToken(string refreshToken, CancellationToken cancellationToken = default);
+    
     Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default);
     Task<User?> GetUserByActiveDirectoryLoginAsync(string login, CancellationToken cancellationToken = default);
     Task<User?> GetUserByEmailVerifyTokenAsync(string token, CancellationToken cancellationToken = default);
@@ -18,6 +20,7 @@ public interface IUserRepository
     Task<List<User>> GetAllUsersAsync();
     Task<User> AddRoleToUser(Guid userId, Role newRole, CancellationToken ct);
     Task<User> RemoveRoleFromUser(Guid userId, Role role, CancellationToken ct);
+    Task SaveRefreshTokenAsync(Guid userId, string refreshToken, CancellationToken ct);
 
     Task<List<Role>> GetUserRoles();
     Task<bool> VerifyUserPasswordAsync(User user, string password, CancellationToken cancellationToken = default);

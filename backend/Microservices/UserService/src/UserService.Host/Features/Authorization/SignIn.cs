@@ -4,20 +4,22 @@ using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
+using Microsoft.Extensions.Options;
 using UserService.src.UserService.Common;
 using UserService.src.UserService.Common.Interfaces;
 using UserService.src.UserService.Host.Features.JwtToken;
+using Serilog;
 using UserService.src.UserService.Repository.EfCore;
 using UserService.src.UserService.Repository.EfCore.Entities;
 using static FastEndpoints.Ep;
 
 namespace UserService.src.UserService.Host.Features.Authorization;
 internal sealed record SignInRequest(string Login, string Password);
-public sealed record SignInResult(string Token);
+public sealed record SignInResult(string AccessToken, string RefreshAccessToken);
 
 internal sealed class SignInRequestValidator : Validator<SignInRequest>
 {
+
     public SignInRequestValidator()
     {
         RuleFor(x => x.Login)
@@ -33,10 +35,7 @@ internal sealed class SignInRequestValidator : Validator<SignInRequest>
 internal sealed class UserSignInEndpoint(
     JwtTokenService jwt,
     IUserRepository repos,
-IPasswordHasher<User> passwordHasher
-    //IJwtTokenProvider jwtTokenProvider,
-    //IUserClaimProvider userClaimProvider,
-    //ILdapAuthenticationService ldapAuthenticationService
+    IPasswordHasher<User> passwordHasher
     ) : Endpoint<SignInRequest, SignInResult>
 {
     //private readonly IJwtTokenProvider _jwtTokenProvider = jwtTokenProvider ?? throw new ArgumentNullException(nameof(jwtTokenProvider));
@@ -45,6 +44,7 @@ IPasswordHasher<User> passwordHasher
 
     public override void Configure()
     {
+
         Post(ApiRoutes.SignIn);
         AllowAnonymous();
         DontThrowIfValidationFails();
@@ -75,17 +75,22 @@ IPasswordHasher<User> passwordHasher
             await Send.UnauthorizedAsync(cancellation: ct);
         }
 
-        // TODO find do i realy need it
+        // TODO delete
         if (verifyResult == PasswordVerificationResult.SuccessRehashNeeded)
         {
             user.PasswordHash = passwordHasher.HashPassword(user, request.Password);
-            //await dbcon.SaveChangesAsync(ct);
         }
-
-        var token = jwt.CreateToken(user.Id, user.Roles, TimeSpan.FromHours(1));
+        
+        
+        var accessTokenLifeTime = TimeSpan.FromHours(1); 
+        var accessToken = jwt.CreateToken(user.Id, user.Roles, accessTokenLifeTime);
+        
         Log.Information("Login was succesfull");
-        Log.Debug("<--response: {Token}", token);
-
-        await Send.OkAsync(new SignInResult(token), ct);
+        Log.Debug("<--response: {Token}", accessToken);
+        
+        var refreshAccessToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+        await repos.SaveRefreshTokenAsync(user.Id, refreshAccessToken, ct);
+        
+        await Send.OkAsync(new SignInResult(accessToken, refreshAccessToken), ct);
     }
 }

@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
 import {useSignIn} from '@/hooks/users/useSignIn'
+import { useNavigate, useSearchParams } from 'react-router-dom';
+
 
 const LoginPage: React.FC = () => {
   const signIn = useSignIn();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
 
 
   const [formData, setFormData] = useState({
@@ -65,14 +70,17 @@ const LoginPage: React.FC = () => {
         signIn.mutate(formData, {
           onSuccess: () => {
             console.log("success");
-            window.location.href = '/';
+            const fromPage = searchParams.get('redirectTo') || '/';
+            navigate(fromPage, { replace: true });
           },
           onError: () => {
-            console.error('Failed to update item');
+            console.error('Failed to sign in');
           }
         });
       } catch (error) {
-        console.error('Failed to update item');
+        console.error('Failed to sign in');
+        console.error(error);
+        
       }
   };
 }

@@ -42,6 +42,11 @@ public class UserRepository : IUserRepository
         _dbContext.Users.Include(u => u.Roles).ThenInclude(ur => ur.Role)
             .FirstOrDefaultAsync(u => u.Login.ToLower() == login.ToLower(), cancellationToken: cancellationToken);
     
+    public Task<User?> GetUserByRefreshToken(string refreshToken, CancellationToken cancellationToken = default) =>
+        _dbContext.Users.Include(u => u.Roles).ThenInclude(ur => ur.Role)
+            .FirstOrDefaultAsync(u => u.RefreshToken.ToLower() == refreshToken.ToLower(), cancellationToken: cancellationToken);
+ 
+    
     public Task<List<User>> GetAllUsersAsync() =>
         _dbContext.Users.Include(u => u.Roles).ThenInclude(ur => ur.Role).ToListAsync();
 
@@ -106,10 +111,24 @@ public class UserRepository : IUserRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task SaveRefreshTokenAsync(Guid userId, string refreshToken, CancellationToken ct)
+    {
+        var user = await GetUserByIdAsync(userId, ct);
+        if (user == null)
+            //TODO log error
+            return;
+        
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpiry =  DateTime.UtcNow.AddDays(30);
+        await _dbContext.SaveChangesAsync();
+    }
+    
     public async Task<List<Role>> GetUserRoles()
     {
         return await _dbContext.Roles.ToListAsync();
     }
+
     public async Task<User> AddRoleToUser(Guid userId, Role role, CancellationToken cancellationToken = default)
     {
         var user = await GetUserByIdAsync(userId, cancellationToken);

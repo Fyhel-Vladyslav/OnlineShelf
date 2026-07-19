@@ -33,47 +33,35 @@ public sealed record CreateShelfCommand(CreateShelfDto newShelf) : IRequest<Erro
         public override void Configure()
         {
             Post(ApiRoutes.AddShelf);
-            AllowAnonymous();
+            //AllowAnonymous();
         }
 
-    public override async Task HandleAsync(CreateShelfCommand request, CancellationToken ct)
-    {
-
-        var userId = User.GetUserId();
-        Logger.LogDebug("Creating shelf {ShelfName} for user {UserId}", request.newShelf.Name, userId);
-
-        if(userId == Guid.Empty)
+        public override async Task HandleAsync(CreateShelfCommand request, CancellationToken ct)
         {
-            Logger.LogWarning("Shelf creation rejected because user id is empty");
-            await Send.UnauthorizedAsync(ct);
-            return;
+            // 1. Отримуємо ID (Крок 1.а виконано ідеально). 
+            // Ми впевнені, що юзер є, бо FastEndpoints вже перевірив токен перед входом у цей метод.
+            var userId = User.GetUserId();
+    
+            Logger.LogDebug("Creating shelf {ShelfName} for user {UserId}", request.newShelf.Name, userId);
+
+            // 2. Валідація бізнес-логіки (Унікальність імені)
+            if (!await repos.CheckShelfNameUniqueAsync(request.newShelf.Name, userId, ct))
+            {
+                Logger.LogWarning("Shelf creation rejected because shelf {ShelfName} already exists for user {UserId}", request.newShelf.Name, userId);
+        
+                // Використання TypedResults — це чудовий сучасний підхід .NET
+                await Send.ResultAsync(TypedResults.Conflict("Shelf with this name already exists"));
+                return;
+            }
+
+            // 3. Створення та мапінг
+            var shelf = FromDTO(request.newShelf, userId);
+            var newShelf = await repos.CreateShelfAsync(shelf, ct);
+    
+            Logger.LogInformation("Shelf {ShelfId} created for user {UserId}", newShelf.Id, userId);
+
+            await Send.OkAsync(newShelf.ToDto(), cancellation: ct);
         }
-
-        var isAuthenticated = User.Identity?.IsAuthenticated;
-
-        if (isAuthenticated != true)
-        {
-            Logger.LogWarning("Shelf creation rejected for unauthenticated user {UserId}", userId);
-            await Send.UnauthorizedAsync(ct);
-            return;
-        }
-
-        var shelf = FromDTO(request.newShelf, userId);
-
-
-        if (!await repos.CheckShelfNameUniqueAsync(request.newShelf.Name, userId, ct))
-        {
-            Logger.LogWarning("Shelf creation rejected because shelf {ShelfName} already exists for user {UserId}", request.newShelf.Name, userId);
-            await Send.ResultAsync(TypedResults.Conflict("Shelf with this name already exists"));
-            return;
-        }
-
-
-        var newShelf = await repos.CreateShelfAsync(shelf, ct);
-        Logger.LogInformation("Shelf {ShelfId} created for user {UserId}", newShelf.Id, userId);
-
-        await Send.OkAsync(newShelf.ToDto(), cancellation: ct);
-    }
 
     private Shelf FromDTO(CreateShelfDto dto, Guid userId)
     {

@@ -1,4 +1,5 @@
 import { httpClient } from "../httpClient";
+//import { httpClient } from "../!localHttpClient";
 
 export type UserDto = {
   id: string;
@@ -16,29 +17,36 @@ export type GetUsersResponse = {
   users: UserDto[];
 };
 
-export type SignInResponse = {
-  token: string;
+export type TokenResponse = {
+  accessToken: string;
+  refreshAccessToken: string;
 };
-export const userApi = {
-    getUsers: () =>
-      httpClient.get<GetUsersResponse>("/users/all"),
 
-    getUserById: (userId: string) =>
-      httpClient.post<UserDto>("/users", {
-        userId,
-      }),
-    UpdateUser: (newUser: UserDto) =>
-      httpClient.post<UserDto>("/users/update-user", {
-        newUser,
-      }),
+export const userApi = {
+  getUsers: () =>
+    httpClient.get<GetUsersResponse>("/users/all"),
+
+  getUserById: (userId: string) =>
+    httpClient.post<UserDto>("/users", {
+      userId,
+    }),
+
+  UpdateUser: (newUser: UserDto) =>
+    httpClient.post<UserDto>("/users/update-user", {
+      newUser,
+    }),
     
-    deleteUser: (userId: string) =>
-      httpClient.delete<UserDto>(`/users/${userId}`),
-    
-    signIn: async (login: string, password: string) => {
-      const response = await httpClient.post<SignInResponse>("/users/sign-in", {
-        login, password
-      });
-      return response.data ;
-    },
-  };
+  deleteUser: (userId: string) =>
+    httpClient.delete<UserDto>(`/users/${userId}`),
+
+  signIn: async (login: string, password: string) => {
+    const response = await httpClient.post<TokenResponse>("/users/sign-in", {
+      login, 
+      password
+    });
+        
+console.log(response.data);
+
+    return response.data;
+  },
+};
