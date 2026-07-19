@@ -5,14 +5,15 @@ using ShelfsService.src.ShelfsService.Common.DTOs.Shelfs;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
 using System.Security.Claims;
 
-namespace ShelfsService.src.ShelfsService.Host.Features.Shelfs;
+namespace ShelfsService.src.ShelfsService.Host.Features.Shelfs
+{
     sealed record GetAllShelfsResponse(List<ShelfDto> shelfs);
 
-    class GetAllShelfs : EndpointWithoutRequest<GetAllShelfsResponse>
+    class GetAllShelfsByUser : EndpointWithoutRequest<GetAllShelfsResponse>
     {
         private readonly IShelfsRepository _repos;
 
-        public GetAllShelfs(IShelfsRepository repos)
+        public GetAllShelfsByUser(IShelfsRepository repos)
         {
             _repos = repos;
         }
@@ -35,3 +36,4 @@ namespace ShelfsService.src.ShelfsService.Host.Features.Shelfs;
             );
         }
     }
+}

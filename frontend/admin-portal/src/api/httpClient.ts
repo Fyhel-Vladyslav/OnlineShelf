@@ -6,7 +6,7 @@ import type { TokenResponse } from "@/api/users/userApi"; // Імпортуєм�
 export const httpClient = axios.create({
   baseURL: "http://localhost:5000",
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": undefined
   },
 });
 
@@ -162,5 +162,5 @@ function handleLogout() {
   const currentPath = window.location.pathname + window.location.search;
   
   // Перенаправляємо на сторінку логіну, передаючи попередній шлях як параметр редиректу
-  //////////////////window.location.href = `/login?redirectTo=${encodeURIComponent(currentPath)}`;
+  window.location.href = `/login?redirectTo=${encodeURIComponent(currentPath)}`;
 }

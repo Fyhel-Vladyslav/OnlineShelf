@@ -47,7 +47,7 @@ public class UpdateItemCommandHandler(
     {
         Put(ApiRoutes.UpdateItem);
         AllowFileUploads();
-        AllowAnonymous();
+        //AllowAnonymous();
     }
 
     public override async Task HandleAsync(UpdateItemCommand request, CancellationToken ct)

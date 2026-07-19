@@ -174,9 +174,9 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/shelfs/items",
+      "UpstreamPathTemplate": "/shelfs/items/update-item",
       "UpstreamHttpMethod": [ "PUT" ],
-      "DownstreamPathTemplate": "/shelfs/items",
+      "DownstreamPathTemplate": "/shelfs/items/update-item",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {

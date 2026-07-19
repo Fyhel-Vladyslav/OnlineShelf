@@ -97,7 +97,8 @@ export const itemsApi = {
     updateItem: async (newItem: UpdateItemDto) =>{
         // 1. СТВОРЮЄМО FORM DATA
         const formData = new FormData();
-            
+          console.log(newItem);
+          
         // 2. ПАКУЄМО ВСІ ПОЛЯ
         Object.entries(newItem).forEach(([key, value]) => {
           if (value !== undefined && value !== null) {
@@ -119,7 +120,7 @@ export const itemsApi = {
           }
         });
 
-        return await httpClient.put<UpdateItemDto>("/shelfs/items",formData      )
+        return await httpClient.put<UpdateItemDto>("/shelfs/items/update-item",formData      )
     },
 
       createItem: async (newItem: CreateItemDto) => {
