@@ -96,6 +96,18 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/users/refresh-token",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/users/refresh-token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice",
+          "Port": 8080
+        }
+      ]
+    },
 
 
 

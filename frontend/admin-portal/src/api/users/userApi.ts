@@ -1,4 +1,5 @@
 import { httpClient } from "../httpClient";
+//import { httpClient } from "../!localHttpClient";
 
 export type UserDto = {
   id: string;
@@ -18,7 +19,7 @@ export type GetUsersResponse = {
 
 export type TokenResponse = {
   accessToken: string;
-  refreshToken: string;
+  refreshAccessToken: string;
 };
 
 export const userApi = {
@@ -43,6 +44,9 @@ export const userApi = {
       login, 
       password
     });
+        
+console.log(response.data);
+
     return response.data;
   },
 };

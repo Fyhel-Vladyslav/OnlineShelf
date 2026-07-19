@@ -79,7 +79,6 @@ internal sealed class UserSignInEndpoint(
         if (verifyResult == PasswordVerificationResult.SuccessRehashNeeded)
         {
             user.PasswordHash = passwordHasher.HashPassword(user, request.Password);
-            //await dbcon.SaveChangesAsync(ct);
         }
         
         

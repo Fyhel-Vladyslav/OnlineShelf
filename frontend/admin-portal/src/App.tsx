@@ -28,14 +28,21 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/settings" element={<SettingsPage />} />
             </Route>
-            <Route path="/user-management" element={<UserManagementPage />} />
+            <Route element={<ProtectedRoute />}> 
+              <Route path="/user-management" element={<UserManagementPage />} />
+            </Route>
+            <Route element={<ProtectedRoute />}> 
               <Route path="/user-management/edit/:id" element={<UserEditPage />} />
+            </Route>
+            <Route element={<ProtectedRoute />}> 
               <Route path="/create-item" element={<CreateItemPage />} />
+            </Route>
+            <Route element={<ProtectedRoute />}> 
               <Route path="/item-edit/:id" element={<ItemEditPage />} />
-          <Route element={<ProtectedRoute />}> 
-            <Route path="/shelfs" element={<ShelfsPage />} />
-          </Route>
-             
+            </Route>
+            <Route element={<ProtectedRoute />}> 
+              <Route path="/shelfs" element={<ShelfsPage />} />
+            </Route>
           </Routes>
         </Layout>
       </Router>

@@ -34,8 +34,7 @@ internal sealed class RefreshTokenRequestValidator : Validator<RefreshTokenReque
 
 internal sealed class UserRefreshTokenEndpoint(
     JwtTokenService jwt,
-    IUserRepository repos,
-    IPasswordHasher<User> passwordHasher
+    IUserRepository repos
 ) : Endpoint<RefreshTokenRequest, RefreshTokenResult>
 {
     public override void Configure()
@@ -68,7 +67,7 @@ internal sealed class UserRefreshTokenEndpoint(
         var accessTokenLifeTime = TimeSpan.FromHours(1);
         var accessToken = jwt.CreateToken(user.Id, user.Roles, accessTokenLifeTime);
         var newRefreshAccessToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
-        
+         
         await repos.SaveRefreshTokenAsync(user.Id, newRefreshAccessToken, ct);
 
         await Send.OkAsync(new RefreshTokenResult(accessToken, newRefreshAccessToken), ct);

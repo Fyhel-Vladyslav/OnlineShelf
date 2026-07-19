@@ -1,16 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
 import { userApi } from "@/api/users/userApi";
-import type { SignInResponse } from "@/api/users/userApi";
-
+import type { TokenResponse } from "@/api/users/userApi";
+import { authService } from "@/hooks/jwtauth/AuthService";
 
 export const useSignIn = () => {
 
-  return useMutation<SignInResponse, Error, { email: string; password: string }>({
+  return useMutation<TokenResponse, Error, { email: string; password: string }>({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       userApi.signIn(email, password),
 
-    onSuccess: (data: SignInResponse) => {
-      localStorage.setItem('access_token', data.token);
+    onSuccess: (data: TokenResponse) => {
+      console.log(data);
+      
+      authService.setToken(data.accessToken);
+      authService.setRefreshToken(data.refreshAccessToken);
     },
     onError: (error, variables) => {
         console.error("signIn failed for:",variables.email);

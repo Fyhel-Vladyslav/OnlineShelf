@@ -74,11 +74,13 @@ const LoginPage: React.FC = () => {
             navigate(fromPage, { replace: true });
           },
           onError: () => {
-            console.error('Failed to update item');
+            console.error('Failed to sign in');
           }
         });
       } catch (error) {
-        console.error('Failed to update item');
+        console.error('Failed to sign in');
+        console.error(error);
+        
       }
   };
 }

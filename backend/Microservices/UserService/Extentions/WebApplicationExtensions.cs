@@ -9,14 +9,6 @@ namespace UserService.Extentions.DependencyInjection
         public static WebApplication UseUsersInfrastucture (this WebApplication app)
         {
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseCors("FrontendPolicy");
-
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<DataContext>();
@@ -27,11 +19,29 @@ namespace UserService.Extentions.DependencyInjection
                     db.Database.Migrate();
                 }
             }
+            
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+            
+            app.UseRouting();
+            //app.UseCors("FrontendPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.MapControllers();
-            app.UseFastEndpoints();
+            
+            app.UseFastEndpoints(c =>
+            {
+                // Цей лямбда-вираз автоматично додає налаштування до кожного твого ендпоінту перед його реєстрацією
+                c.Endpoints.Configurator = ep =>
+                {
+                    // Ми дозволяємо анонімні OPTIONS-запити для абсолютно всіх ендпоінтів у системі,
+                    // щоб браузерні CORS preflight-запити ніколи не відбивалися фреймворком
+                    ep.Options(b => b.AllowAnonymous());
+                };
+            });
 
             return app;
         }    
