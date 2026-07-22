@@ -1,8 +1,65 @@
 .pageWrapper {
   padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  margin: 0;
   color: black;
+  display: flex;
+  position: relative;
+  min-height: calc(100vh - 60px);
+}
+
+/* Left sidebar — in flex flow, pushes content when open */
+.sidebar {
+  width: var(--sidebar-w, 0px);
+  overflow: hidden;
+  background-color: #1e1e1e;
+  border-right: 1px solid #333;
+  padding: 0;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: width 0.3s ease;
+}
+
+.sidebarInner { 
+  height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hamburger floating button */
+.hamburgerBtn {
+  position: absolute;
+  left: var(--sidebar-w, 0px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 28px;
+  height: 48px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: left 0.3s ease, background-color 0.2s;
+  padding: 0;
+}
+
+.hamburgerBtn:hover {
+  background-color: #333;
+}
+
+/* Main content area — flexed, pushed naturally by sidebar */
+.mainArea {
+  flex: 1;
+  min-width: 0;
 }
 
 .controls {

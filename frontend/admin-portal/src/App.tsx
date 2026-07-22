@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { StrictMode } from 'react';
 import Layout from './components/Layout/Layout';
-import HomePage from './features/home/HomePage';
-import LoginPage from './features/auth/LoginPage';
-import RegisterPage from './features/auth/RegisterPage';
-import SettingsPage from './features/settings/SettingsPage';
-import UserManagementPage from './features/userManagement/UserManagementPage';
-import UserEditPage from './features/userManagement/UserEditPage';
-import ItemEditPage from './features/item/ItemEditPage';
-import CreateItemPage from './features/item/CreateItemPage';
+import HomePage from './pages/home/HomePage';
+import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
+import SettingsPage from './pages/settings/SettingsPage';
+import UserManagementPage from './pages/userManagement/UserManagementPage';
+import UserEditPage from './pages/userManagement/UserEditPage';
+import ItemEditPage from './pages/item/ItemEditPage';
+import CreateItemPage from './pages/item/CreateItemPage';
 import './App.css';
 import { NotificationRoot } from './notification/NotificationRoot';
-import ShelfsPage from './features/shelfs/ShelfsPage';
+import ShelfsPage from './pages/shelfs/ShelfsPage';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {

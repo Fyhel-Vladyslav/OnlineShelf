@@ -1,31 +1,54 @@
-// import React, { useState } from 'react';
-// import { Form, Input, Button, Space, message, Select, ColorPicker } from 'antd';
+// import React, { useEffect, useState } from 'react';
+// import { Form, Input, Button, Space, message, Select, ColorPicker, Spin } from 'antd';
 
-// import { useNavigate } from 'react-router-dom';
+// import { useParams, useNavigate } from 'react-router-dom';
 // import { useShelfs } from '@/hooks/shelfs/useShelfs';
-// import type { CreateItemDto } from '@/api/shelfs/itemsApi';
-// import { useCreateItem } from '@/hooks/items/useCreateItem';
+// import type { UpdateItemDto } from '@/api/shelfs/itemsApi';
+// import { useUpdateItem } from '@/hooks/items/useUpdateItem';
+// import { useItem } from '@/hooks/items/useItem';
 // import { useAttributeValues } from '@/hooks/items/useAttributeValues';
 // import ImagePicker from '@/components/ImagePicker/ImagePicker';
 // import ImageShow from '@/components/ImageShow/ImageShow';
 // import { useNotification } from '@/notification/useNotification';
 // import { isAxiosError } from 'axios';
 // import { FavouriteButton } from '@/components/IsFavourite/IsFavourite';
+// import { useImage } from '@/hooks/items/useImage';
+// import { useRecogniozeExistingImage } from '@/hooks/image/useRecogniozeExistingImage';
 
 
 // const { Option } = Select;
 
-// const CreateItemPage: React.FC = () => {
-//   const { notify } = useNotification();
+// const ItemEditPage: React.FC = () => {
+//   const { id } = useParams<{ id: string }>();
 //   const navigate = useNavigate();
 //   const [form] = Form.useForm();
+//   const { notify } = useNotification();
 //   const isFavoriteFormValue = Form.useWatch('isFavorite', form);
 //   const [loading, setLoading] = useState(false);
 //   const { data: shelfs, isLoading: shelfsLoading } = useShelfs();
 //   const { data: attributeValues, isLoading: attributesLoading } = useAttributeValues();
+//   const { data: item, isLoading: itemLoading } = useItem(id && id !== 'undefined' ? id : undefined);
+//   const [initialValues, setInitialValues] = useState<any>(null);
 //   const [isDirty, setIsDirty] = useState(false);
-//   const createItem = useCreateItem();
+//   const updateItem = useUpdateItem();
+//   const [bigImageName, setBigImageName] = useState(item?.bigImage); 
+//   const { data: imageItem, isLoading: imageLoading } = useImage(bigImageName);
 //   const isFavorite = isFavoriteFormValue || false;
+
+//   const {
+//     refetch: refetchRecognizedAttributes,
+
+//     isFetching: isRecognizing,
+//   } = useRecogniozeExistingImage(bigImageName);
+
+// useEffect(() => {
+// if (item) {
+// form.setFieldsValue(item);
+// setInitialValues(item);
+// setIsDirty(false);
+// }
+// }, [item, form]);
+
 //   // Get attribute options by type name
 //   const getAttributeOptions = (typeName: string) => {
 //     const attribute = attributeValues?.find(attr => attr.typeName === typeName);
@@ -33,23 +56,37 @@
 //   };
 
 
-
-//   if (shelfsLoading || attributesLoading) {
-//     return <div>Loading...</div>;
-//   }
 //   const handleToggle = () => {
-    
+//     setIsDirty(true);
+//     console.log(getAttributeOptions('Type'))
 //     form.setFieldValue('isFavorite', !isFavorite);
 //   };
+
+//   // Don't render anything if id is not available yet
+//   if (!id || id === 'undefined') {
+//     return <div>Loading...</div>;
+//   }
+
+//   if (shelfsLoading || attributesLoading || itemLoading) {
+//     return <div>Loading...</div>;
+//   }
+
+//   if (!item) {
+//     message.error("Item not found");
+//     navigate("/");
+//     return null;
+//   }
+
 //   const handleSubmit = async (values: any) => {
 //     setLoading(true);
 //     try {
-//       console.log('Creating item:', values);
 
-//       const payload: CreateItemDto = {
+//       const payload: UpdateItemDto = {
+//         id: item.id,
 //         name: values.name,
 //         shelfId: values.shelfId,
-//         bigImage: values.bigImage,
+//         imageFile: values.bigImage instanceof File ? values.bigImage : undefined,
+//         imageName: bigImageName,
 //         attributeColorMain: values.attributeColorMain,
 //         attributeColorSecond: values.attributeColorSecond,
 //         attributeType: values.attributeType,
@@ -57,16 +94,18 @@
 //         attributePattern: values.attributePattern,
 //         attributeMatterial: values.attributeMatterial,
 //         isFavorite: values.isFavorite,
-        
 //       };
-//       console.log("ПЕРЕВІРКА ФАЙЛУ:", payload.bigImage, "Тип:", typeof payload.bigImage);
-//       createItem.mutate(payload, {
+// console.log('Updating item:', payload);
+//       updateItem.mutate(payload, {
 //         onSuccess: () => {
-//           message.success('Item created successfully');
+//           message.success('Item updated successfully');
+//           const updatedValues = form.getFieldsValue(true);
+//           setInitialValues(updatedValues);
+//           setIsDirty(false);
 //           navigate("/shelfs");
 //         },
 //         onError: (error) => {
-//           message.error('Failed to create item');
+//           message.error('Failed to update item');
 //           let code: number | undefined;
 //           if (isAxiosError(error)) {
 //             code = error.response?.status;
@@ -83,18 +122,17 @@
 //     } finally {
 //       setLoading(false);
 //     }
+    
 //   };
 
 //   return (
 //     <div className="item-edit-page">
 //       <h1>New Item</h1>
       
-//       {/* 1. ПЕРЕНОСИМО <Form> НА САМИЙ ВЕРХ, щоб вона обгорнула обидві колонки */}
 //       <Form
 //         form={form}
 //         layout="horizontal"
 //         onFinish={handleSubmit}
-//         // Прибираємо maxWidth: 800, бо тепер форма на всю ширину
 //         labelCol={{ span: 6 }}
 //         wrapperCol={{ span: 18 }}
 //         onValuesChange={() => {
@@ -102,6 +140,7 @@
 //           const hasName = current.name && current.name.trim().length > 0;
 //           const hasShelfId = current.shelfId !== undefined && current.shelfId !== null;
 //           setIsDirty(hasName && hasShelfId);
+//           setIsDirty(JSON.stringify(current) !== JSON.stringify(initialValues));
 //         }}
 //       >
 //         <div style={{ display: 'flex', gap: '20px', height: "75vh" }}>
@@ -249,21 +288,66 @@
 //                   backgroundColor: 'rgba(0,0,0,0.6)', borderRadius: '50%', padding: '4px'
 //                 }}
 //               />
-//               <div style={{ height: '60%', marginBottom: '20px', padding: '10px', minHeight: '200px', border: '1px solid #d9d9d9', borderRadius: '4px', position: 'relative' }}>
-//                 <ImageShow src={""} alt="Current Item" style={{ height: "100%"}} />
+//               <div style={{ height: '60%', marginBottom: '20px', padding: '10px', minHeight: '200px', border: '1px solid #d9d9d9', borderRadius: '4px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+//                 {imageLoading ? (
+//                   <Spin size="large" />
+//                 ) : (
+//                   <ImageShow src={imageItem || ''} alt="Current Item" style={{ height: "100%" }} />
+//                 )}
 //               </div>
 //               <div style={{display:"flex"}}>
 //                 <div style={{width:"50%", padding:"3px"}}>
-//                   <Button style={{width:"100%", height:"100%", fontSize:24}}>
+//                   <Button style={{width:"50%", height:"100%", fontSize:24}}>
 //                     Detect using camera
 //                   </Button>
+//                   <Button
+//                     style={{width:"50%", height:"100%", fontSize:24}}
+//                     loading={isRecognizing}
+//                     onClick={async () => {
+//                       try {
+//                         const res = await refetchRecognizedAttributes();
+//                         const attrs = res.data;
+//                         if (!attrs) {
+//                           message.warning('Nothing recognized');
+//                           return;
+//                         }
+//                         console.log(attrs.attributeType);
+
+//                          setIsDirty(true);
+//                          form.setFieldsValue({
+//                           // attributeColorMain: attrs.attributeColorMain,
+//                           // attributeColorSecond: attrs.attributeColorSecond,
+//                            //attributeType: getAttributeSelectValue('Type', attrs.attributeType),
+//                           // attributeSeason: getAttributeSelectValue('Season', attrs.attributeSeason),
+//                           // attributePattern: getAttributeSelectValue('Pattern', attrs.attributePattern),
+//                            attributeMatterial: attrs.attributeMaterial,
+//                            attributeType: attrs.attributeType
+//                          });
+//                       } catch {
+//                         message.error('Failed to recognize current image');
+//                       }
+//                     }}
+//                   >
+//                     Detect curent image
+//                   </Button>
+
 //                 </div>
 //                 <div style={{width:"50%", padding:"3px"}}>
                   
 //                   {/* 2. ТУТ ВАЖЛИВО ДОДАТИ valuePropName */}
+//                   {/* Keep current main image unaffected when recognizing.
+//                       ImagePicker is for selecting/replacing bigImage only. */}
 //                   <Form.Item name="bigImage" valuePropName="value">
-//                     <ImagePicker />
+//                     <ImagePicker 
+//                         value={undefined}
+//                         onChange={() => {
+//                           setBigImageName(undefined);
+//                           console.log("Image changed:");
+//                         }}
+//                     />
 //                   </Form.Item>
+                  
+
                   
 //                 </div>
 //               </div>
@@ -276,41 +360,44 @@
 //   );
 // };
 
-// export default CreateItemPage;
-
+// export default ItemEditPage;
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useCreateItem } from '@/hooks/items/useCreateItem';
-import { ItemForm } from '@/features/item/ItemForm';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useItem } from '@/hooks/items/useItem';
+import { useUpdateItem } from '@/hooks/items/useUpdateItem';
+import { ItemForm } from '@/pages/item/ItemForm';
 import { useNotification } from '@/notification/useNotification';
-import { message } from 'antd';
-import type { CreateItemDto } from '@/api/shelfs/itemsApi';
+import { message, Spin } from 'antd';
+import type { UpdateItemDto } from '@/api/shelfs/itemsApi';
 
-const CreateItemPage: React.FC = () => {
+const ItemEditPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { notify } = useNotification();
   const [loading, setLoading] = useState(false);
   
-  const createItem = useCreateItem();
+  const { data: item, isLoading: itemLoading } = useItem(id && id !== 'undefined' ? id : undefined);
+  const updateItem = useUpdateItem();
 
-  // Дефолтні стартові значення для форми створення речі (як на фото)
-  const defaultValues = {
-    attributeColorMain: "#000000",
-    attributeColorSecond: "#000000",
-    attributeType: '-',
-    attributeMatterial: '-',
-    attributeSeason: '-',
-    attributePattern: '-',
-    isFavorite: false,
-  };
+  if (itemLoading) {
+    return <div style={{ backgroundColor: '#202020', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Spin size="large" /></div>;
+  }
 
-  const handleSubmit = async (values: any) => {
+  if (!item) {
+    message.error("Item not found");
+    navigate("/shelfs");
+    return null;
+  }
+
+  const handleSubmit = async (values: any, bigImageName: string | undefined) => {
     setLoading(true);
     try {
-      const payload: CreateItemDto & { imageFile?: File } = {
+      const payload: UpdateItemDto = {
+        id: item.id,
         name: values.name,
         shelfId: values.shelfId,
         imageFile: values.bigImage instanceof File ? values.bigImage : undefined,
+        imageName: bigImageName,
         attributeColorMain: values.attributeColorMain,
         attributeColorSecond: values.attributeColorSecond,
         attributeType: values.attributeType,
@@ -320,11 +407,11 @@ const CreateItemPage: React.FC = () => {
         isFavorite: values.isFavorite,
       };
 
-      await createItem.mutateAsync(payload as any);
-      message.success('Item created successfully');
+      await updateItem.mutateAsync(payload);
+      message.success('Item updated successfully');
       navigate("/shelfs");
     } catch (error: any) {
-      message.error('Failed to create item');
+      message.error('Failed to update item');
       notify({ text: error.message, time: 3000 });
     } finally {
       setLoading(false);
@@ -332,11 +419,11 @@ const CreateItemPage: React.FC = () => {
   };
 
   return (
-    <div className="item-create-page" style={{ backgroundColor: '#202020', minHeight: '100vh', padding: '40px', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h1 style={{ color: 'white', fontSize: '50px', marginBottom: '50px' }}>New Item</h1>
-      <ItemForm initialValues={defaultValues} loading={loading} onSubmit={handleSubmit} onBack={() => navigate('/shelfs')} />
+    <div className="item-edit-page" style={{ backgroundColor: '#202020', minHeight: '100vh', padding: '40px', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h1 style={{ color: 'white', fontSize: '50px', marginBottom: '50px' }}>Edit Item</h1>
+      <ItemForm initialValues={item} loading={loading} onSubmit={handleSubmit} onBack={() => navigate('/shelfs')} />
     </div>
   );
 };
 
-export default CreateItemPage;
+export default ItemEditPage;

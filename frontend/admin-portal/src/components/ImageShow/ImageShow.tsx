@@ -14,11 +14,11 @@ interface ImageShowProps {
   onDeleteUrl?: () => void;
 }
 
-const ImageShow: React.FC<ImageShowProps> = ({ value, onChange, src, alt = "Image", style , onDeleteUrl}) => {
+const ImageShow: React.FC<ImageShowProps> = ({ value, onChange, src, alt = "Image", style, onDeleteUrl }) => {
   const [previewUrl, setPreviewUrl] = useState<string | undefined>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Визначаємо джерело відображення: пріоритет у нового файлу, потім URL з бази, потімзаглушка
+  // Визначаємо джерело відображення: пріоритет у нового файлу, потім URL з бази, потім заглушка
   const defaultPlaceholder = '/src/assets/images/noPhotoLoaded.jpg';
   const [currentImageSrc, setCurrentImageSrc] = useState<string>(src || defaultPlaceholder);
 
@@ -140,27 +140,52 @@ const ImageShow: React.FC<ImageShowProps> = ({ value, onChange, src, alt = "Imag
         }}
       />
 
-{/* Блок кнопок управління зображенням знизу на ImageShow */}
-      <div style={{ display: 'flex', gap: '20px', width: '50%', alignItems: 'center', justifyContent: 'center', marginTop: '10px' }}>
-        <div style={{ flex: '1 1 50%' }}>
-          <Button 
-            icon={<UploadOutlined />} 
-            onClick={handleSelectNew} 
-            style={{ backgroundColor: '#f5f5f5', color: '#4a4a4a', height: '40px', width: '100%', fontSize: '16px', borderRadius: '8px' }}
-          >
-            Завантажити фото
-          </Button>
-        </div>
+      {/* Блок кнопок управління зображенням знизу на ImageShow */}
+      <div 
+        style={{ 
+          display: 'flex', 
+          flexWrap: 'wrap',           // <--- Додано: Дозволяє кнопкам переходити на 2-й рядок
+          gap: '12px', 
+          width: '100%', 
+          maxWidth: '500px',         // <--- Максимальна ширина групи кнопок
+          alignItems: 'center', 
+          justifyContent: 'center',  // <--- Вирівнювання кнопок по центру (і в 1, і в 2 рядки)
+          margin: '12px auto 0'       // <--- Центрування самого контейнера у батьківському блоці
+        }}
+      >
+        <Button 
+          icon={<UploadOutlined />} 
+          onClick={handleSelectNew} 
+          style={{ 
+            flex: '1 1 200px',        // <--- Гнучкість: росте від 200px, переходить на новий рядок якщо менше
+            backgroundColor: '#f5f5f5', 
+            color: '#4a4a4a', 
+            height: '40px', 
+            fontSize: '16px', 
+            borderRadius: '8px' 
+          }}
+        >
+          Завантажити фото
+        </Button>
         
-        <div style={{ flex: '1 1 50%' }}>
-          <Button 
-            onClick={handleDelete}
-            style={{ backgroundColor: '#f1f1f1', border: '1px solid #d37a78', borderRadius: '10px', color: '#e75b5a', fontSize: '24px', height: '40px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} 
-            icon={<DeleteOutlined style={{ color: '#e75b5a', fontSize: '24px' }} />}
-          >
-            Видалити фото
-          </Button>
-        </div>
+        <Button 
+          onClick={handleDelete}
+          style={{ 
+            flex: '1 1 200px',        // <--- Гнучкість: росте від 200px, переходить на новий рядок якщо менше
+            backgroundColor: '#f1f1f1', 
+            border: '1px solid #d37a78', 
+            borderRadius: '10px', 
+            color: '#e75b5a', 
+            fontSize: '16px', 
+            height: '40px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center' 
+          }} 
+          icon={<DeleteOutlined style={{ color: '#e75b5a', fontSize: '20px' }} />}
+        >
+          Видалити фото
+        </Button>
       </div>
 
       <Upload {...uploadProps} style={{ display: 'none' }} />

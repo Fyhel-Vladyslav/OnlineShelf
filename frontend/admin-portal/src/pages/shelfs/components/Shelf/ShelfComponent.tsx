@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ShelfComponent.module.css';
 import type { ShelfsDto } from '@/api/shelfs/shelfsApi';
-import Item from '@/features/shelfs/components/Item/ItemComponent';
+import Item from '@/pages/shelfs/components/Item/ItemComponent';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';

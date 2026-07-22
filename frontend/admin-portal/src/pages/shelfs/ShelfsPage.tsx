@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMoveItem } from '@/hooks/items/useMoveItem';
 import type { MoveItemParams } from '@/api/shelfs/itemsApi';
 import { Modal } from 'antd'; // Imported Modal
+import ImageShow from '@/components/ImageShow/ImageShow';
 
 const ShelfsPage: React.FC = () => {
   const { data: shelfs, isLoading, error } = useShelfs();
@@ -34,6 +35,13 @@ const ShelfsPage: React.FC = () => {
   
   // State to manage the declarative delete confirmation modal
   const [shelfToDelete, setShelfToDelete] = useState<string | null>(null);
+
+  // Sidebar state (collapsed by default)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(prev => !prev);
+  };
 
   const updateShelf = useUpdateShelf();
   const createShelf = useCreateShelf();
@@ -259,28 +267,47 @@ const ShelfsPage: React.FC = () => {
         )}
       </DragOverlay>
 
-      <div className={styles.pageWrapper}>
-        <header className={styles.controls}>
-          <div>
-            <span>order by :</span>
-            <button className={styles.filterBtn}>shelves</button>
-            <button className={styles.filterBtn}>items</button>
+      <div className={styles.pageWrapper} style={{ '--sidebar-w': isSidebarOpen ? 'clamp(200px, 20%, 300px)' : '0px' } as React.CSSProperties}>
+        {/* Left Sidebar */}
+        <aside className={styles.sidebar}>
+          <div className={styles.sidebarInner}>
+            <ImageShow />
           </div>
-          <div style={{display: 'flex', float: 'right'}}>
-            <button className={styles.filterBtn} onClick={(e) => { e.currentTarget.blur(); handleCreateShelfClick(); }}>Create new shelf</button>
-            <button className={styles.filterBtn} onClick={(e) => { e.currentTarget.blur(); handleCreateItemClick(); }}>Create item</button>
-          </div>
-        </header>
+        </aside>
 
-        <main className={styles.gridContainer}>
-          {shelfsData.map((shelf) => (
-            <Shelf key={shelf.id} shelf={shelf} setSelectedShelf={setSelectedShelf} setName={setNewName} setIsModalVisible={setIsModalVisible} />
-          ))}
-        </main>
-       
-        {isDragging && (
-          <DeleteZone id="delete-zone" />
-        )}
+        {/* Hamburger Toggle Button */}
+        <button
+          className={styles.hamburgerBtn}
+          onClick={toggleSidebar}
+          aria-label={isSidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+        >
+          {isSidebarOpen ? '✕' : '☰'}
+        </button>
+
+        {/* Main Content Area */}
+        <div className={styles.mainArea}>
+          <header className={styles.controls}>
+            <div>
+              <span>order by :</span>
+              <button className={styles.filterBtn}>shelves</button>
+              <button className={styles.filterBtn}>items</button>
+            </div>
+            <div style={{display: 'flex', float: 'right'}}>
+              <button className={styles.filterBtn} onClick={(e) => { e.currentTarget.blur(); handleCreateShelfClick(); }}>Create new shelf</button>
+              <button className={styles.filterBtn} onClick={(e) => { e.currentTarget.blur(); handleCreateItemClick(); }}>Create item</button>
+            </div>
+          </header>
+
+          <main className={styles.gridContainer}>
+            {shelfsData.map((shelf) => (
+              <Shelf key={shelf.id} shelf={shelf} setSelectedShelf={setSelectedShelf} setName={setNewName} setIsModalVisible={setIsModalVisible} />
+            ))}
+          </main>
+        
+          {isDragging && (
+            <DeleteZone id="delete-zone" />
+          )}
+        </div>
       </div>
 
       <EditModal
