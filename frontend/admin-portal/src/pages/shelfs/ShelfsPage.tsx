@@ -4,6 +4,9 @@ import type { CreateShelfDto, ShelfsDto, UpdateShelfDto } from '@/api/shelfs/she
 import Shelf from './components/Shelf/ShelfComponent';
 import { DndContext, DragOverlay, MouseSensor, TouchSensor, useDroppable, useSensor, useSensors, type DragEndEvent, type DragStartEvent } from '@dnd-kit/core';
 import Item from './components/Item/ItemComponent';
+import { Button} from 'antd';
+import { CheckSquareFilled } from '@ant-design/icons';
+
 
 import { useShelfs } from '@/hooks/shelfs/useShelfs';
 import { useNotification } from '@/notification/useNotification';
@@ -39,9 +42,20 @@ const ShelfsPage: React.FC = () => {
   // Sidebar state (collapsed by default)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  // Selected image in sidebar (for future save action)
+  const [selectedImage, setSelectedImage] = useState<File | undefined>();
+
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev);
   };
+
+  // Placeholder for future save-image action
+  const handleSaveImage = () => {
+    // TODO: implement image save logic
+    console.log('Save image', selectedImage);
+  };
+
+  const isSaveDisabled = !selectedImage;
 
   const updateShelf = useUpdateShelf();
   const createShelf = useCreateShelf();
@@ -267,11 +281,33 @@ const ShelfsPage: React.FC = () => {
         )}
       </DragOverlay>
 
-      <div className={styles.pageWrapper} style={{ '--sidebar-w': isSidebarOpen ? 'clamp(200px, 20%, 300px)' : '0px' } as React.CSSProperties}>
+      <div className={styles.pageWrapper} style={{ '--sidebar-w': isSidebarOpen ? 'clamp(200px, 20%, 300px)' : '0px', '--sidebar-opacity': isSidebarOpen ? '1' : '0' } as React.CSSProperties}>
         {/* Left Sidebar */}
         <aside className={styles.sidebar}>
           <div className={styles.sidebarInner}>
-            <ImageShow />
+            <ImageShow
+              value={selectedImage}
+              onChange={setSelectedImage}
+            />
+            <Button 
+              icon={<CheckSquareFilled />} 
+              onClick={handleSaveImage}
+              disabled={isSaveDisabled}
+              style={{ 
+                flex: '1 1 200px',
+                backgroundColor: isSaveDisabled ? '#aaaaaa' : '#f5f5f5',
+                color: isSaveDisabled ? '#ffffff' : '#4a7a4a',
+                opacity: isSaveDisabled ? 0.5 : 1,
+                height: '40px', 
+                fontSize: '16px', 
+                borderRadius: '8px', 
+                width: '100%',
+                marginTop: '20px',
+                borderColor: isSaveDisabled ? '#aaaaaa' : undefined,
+                cursor: isSaveDisabled ? 'not-allowed' : 'pointer'
+              }}
+              >Зберегти
+            </Button>
           </div>
         </aside>
 
