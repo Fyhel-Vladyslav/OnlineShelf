@@ -24,8 +24,28 @@ import type { MoveItemParams } from '@/api/shelfs/itemsApi';
 import { Modal } from 'antd'; // Imported Modal
 import ImageShow from '@/components/ImageShow/ImageShow';
 
+
+var USE_MOCK_DATA = true;
+//USE_MOCK_DATA = false;
+
+const mockData: ShelfsDto[] = [
+  {
+    id: "shelf-1",
+    name: "Main Shelf",
+    items: [],
+  },
+];
+
+
 const ShelfsPage: React.FC = () => {
-  const { data: shelfs, isLoading, error } = useShelfs();
+  // 1. Fetch real data via hook
+  const { data: realShelfs, isLoading: realIsLoading, error: realError } = useShelfs();
+
+  // 2. Fallback to mock data if the toggle is true
+  const shelfs = USE_MOCK_DATA ? mockData : realShelfs;
+  const isLoading = USE_MOCK_DATA ? false : realIsLoading;
+  const error = USE_MOCK_DATA ? null : realError;
+
   const shelfsData = shelfs ?? [];
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeItem = shelfsData.flatMap(s => s.items).find(i => i.id === activeId);
