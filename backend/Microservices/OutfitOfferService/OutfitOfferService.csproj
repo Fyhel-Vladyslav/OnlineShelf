@@ -14,4 +14,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\OutfitOfferService.Host\Features\" />
+    <Folder Include="src\OutfitOfferService.Repository.EfCore\" />
+  </ItemGroup>
+
 </Project>

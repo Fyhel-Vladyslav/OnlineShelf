@@ -56,3 +56,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /backend/Microservices/ShelfsService/logs
+backend/Microservices/.env
+backend/Microservices/OutfitOfferService/appsettings.Development.json
+backend/Microservices/OutfitOfferService/appsettings.Development.json
