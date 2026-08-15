@@ -26,4 +26,8 @@
 	  <Protobuf Include="src\ImageService.Host\Protos\image_processing.proto" GrpcServices="Server" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\ImageService.Common\" />
+  </ItemGroup>
+
 </Project>
