@@ -23,13 +23,15 @@
 //app.MapControllers();
 
 //app.Run();
+using OutfitOfferService.Extentions;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+        .AddInfrastructure(builder.Configuration, builder.Environment);
+
 var app = builder.Build();
 
-app.MapGet("/", () => $"{builder.Environment.ApplicationName} is running");
-app.MapGet("/ping", () => $"{builder.Environment.ApplicationName} pong!");
-
-// Test endpoint: returns static text
-app.MapGet("/api/outfit/test", () => "OutfitOfferService response");
+app.UseInfrastucture();
 
 app.Run();

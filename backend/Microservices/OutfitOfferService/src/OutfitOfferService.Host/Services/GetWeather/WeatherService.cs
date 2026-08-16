@@ -1,13 +1,13 @@
 ﻿using OutfitOfferService.OutfitOfferService.Common.DTOs;
 
-namespace OutfitOfferService.OutfitOfferService.Host.Services;
+namespace OutfitOfferService.src.OutfitOfferService.Host.Features.Services;
 
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
 public interface IWeatherService
 {
-    Task<CurrentWeatherDto> GetCurrentWeatherAsync(string city, CancellationToken ct = default);
+    Task<string> GetCurrentWeatherAsync(double lat, double lon, CancellationToken ct = default);
 }
 
 public class WeatherService : IWeatherService
@@ -21,19 +21,19 @@ public class WeatherService : IWeatherService
         _cache = cache;
     }
 
-    public async Task<CurrentWeatherDto> GetCurrentWeatherAsync(string city, CancellationToken ct = default)
+    public async Task<string> GetCurrentWeatherAsync(double lat, double lon, CancellationToken ct = default)
     {
-        string cacheKey = $"weather:{city.ToLowerInvariant()}";
+        string cacheKey = $"weather:{lat},{lon}";
 
         // 1. Шукаємо в Redis
         var cachedData = await _cache.GetStringAsync(cacheKey, ct);
         if (!string.IsNullOrEmpty(cachedData))
         {
-            return JsonSerializer.Deserialize<CurrentWeatherDto>(cachedData)!;
+            return JsonSerializer.Deserialize<string>(cachedData)!;
         }
 
         // 2. Якщо в кеші немає — йдемо в API
-        var weather = await _weatherClient.FetchWeatherAsync(city, ct);
+        var weather = await _weatherClient.FetchWeatherAsync(lat, lon, ct);
 
         // 3. Зберігаємо в Redis (наприклад, на 15 хвилин)
         var cacheOptions = new DistributedCacheEntryOptions

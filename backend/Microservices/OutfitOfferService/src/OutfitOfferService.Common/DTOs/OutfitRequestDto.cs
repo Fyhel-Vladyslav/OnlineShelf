@@ -5,7 +5,7 @@ public class OutfitRequestDto
     public Guid RequestId { get; init; }
     public Guid[] IncludeItemsIds { get; set; }
     public Guid[] ExcludeItemsIds { get; set; }
-    public byte watherId { get; set; }
+    public byte WeatherId { get; set; }
     
     /*public string Name { get; set; }
     public Guid ShelfId { get; init; }
