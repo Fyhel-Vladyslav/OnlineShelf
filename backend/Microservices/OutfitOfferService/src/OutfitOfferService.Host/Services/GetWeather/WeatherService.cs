@@ -4,6 +4,7 @@ namespace OutfitOfferService.src.OutfitOfferService.Host.Features.Services;
 
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
+using static FastEndpoints.Ep;
 
 public interface IWeatherService
 {
@@ -23,19 +24,20 @@ public class WeatherService : IWeatherService
 
     public async Task<string> GetCurrentWeatherAsync(double lat, double lon, CancellationToken ct = default)
     {
-        string cacheKey = $"weather:{lat},{lon}";
+        var trimedLat = Math.Round(lat, 2);
+        var trimedLon = Math.Round(lon, 2);
 
-        // 1. Шукаємо в Redis
+
+        string cacheKey = $"weather:{trimedLat},{trimedLon}";
+
         var cachedData = await _cache.GetStringAsync(cacheKey, ct);
         if (!string.IsNullOrEmpty(cachedData))
         {
             return JsonSerializer.Deserialize<string>(cachedData)!;
         }
 
-        // 2. Якщо в кеші немає — йдемо в API
-        var weather = await _weatherClient.FetchWeatherAsync(lat, lon, ct);
+        var weather = await _weatherClient.FetchWeatherAsync(trimedLat, trimedLon, ct);
 
-        // 3. Зберігаємо в Redis (наприклад, на 15 хвилин)
         var cacheOptions = new DistributedCacheEntryOptions
         {
             AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15)

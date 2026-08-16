@@ -5,8 +5,14 @@ using OutfitOfferService.src.OutfitOfferService.Host.Features.Services;
 
 namespace OutfitOfferService.src.OutfitOfferService.Host.Features.GetWeather
 {
+    sealed record GetCurrentWeatherRequest() 
+    { 
+        public double longatude;
+        public double latitude; 
+    };
+
     sealed record GetCurrentWeatherResponse(Weather currentWeather);
-    class GetCurrentWeather : EndpointWithoutRequest<GetCurrentWeatherResponse>
+    class GetCurrentWeather : Endpoint<GetCurrentWeatherRequest, GetCurrentWeatherResponse>
     {
         private readonly WeatherMappingExtension _weatherMapper;
         private readonly IWeatherService _weatherService;
@@ -24,9 +30,9 @@ namespace OutfitOfferService.src.OutfitOfferService.Host.Features.GetWeather
             //Policies("AdminPolicy");      
         }
 
-        public override async Task<GetCurrentWeatherResponse> ExecuteAsync(CancellationToken ct)
+        public override async Task<GetCurrentWeatherResponse> ExecuteAsync(GetCurrentWeatherRequest req, CancellationToken ct)
         {
-            var currentWeatherUnmapped = await _weatherService.GetCurrentWeatherAsync(50.61, 26.25, ct);
+            var currentWeatherUnmapped = await _weatherService.GetCurrentWeatherAsync(req.latitude, req.longatude, ct);
 
             var currentWeather = _weatherMapper.MapToCondition(currentWeatherUnmapped);
             return await Task.FromResult(new GetCurrentWeatherResponse(currentWeather));
