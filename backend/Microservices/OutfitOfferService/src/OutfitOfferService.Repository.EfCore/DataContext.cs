@@ -17,7 +17,7 @@ namespace OutfitOfferService.src.OutfitOfferService.Repository.EfCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.HasDefaultSchema("oufit_offer_service");
+            //modelBuilder.HasDefaultSchema("oufit_offer_service");
 
             // USER → USERROLES  
             //modelBuilder.Entity<User>()
