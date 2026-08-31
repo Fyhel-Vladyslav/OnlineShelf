@@ -57,6 +57,17 @@ services:
     networks:
       - microservice_net
 
+  outfitnetworkservice:
+    container_name: outfit-network-service
+    image: ${DOCKER_REGISTRY-}outfit-offer-service
+    build:
+      context: .
+      dockerfile: OutfitNetworkService/Dockerfile
+    environment:
+      - ConnectionStrings__ShelfDbConnection=Host=localhost;Database=onlineShelf_db;Username=admin;Password=admin
+    networks:
+      - microservice_net
+
   onlineshelfdb:
     container_name: online-shelf-db
     image: postgres:15

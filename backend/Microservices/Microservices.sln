@@ -15,6 +15,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "ImageService\ImageService.csproj", "{98789F0B-9F27-404F-A2EA-90173552A9CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutfitNetworkService", "OutfitNetworkService\OutfitNetworkService.csproj", "{F091F079-03EE-40A5-9E4D-EC1928FC3B30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{98789F0B-9F27-404F-A2EA-90173552A9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98789F0B-9F27-404F-A2EA-90173552A9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98789F0B-9F27-404F-A2EA-90173552A9CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F091F079-03EE-40A5-9E4D-EC1928FC3B30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F091F079-03EE-40A5-9E4D-EC1928FC3B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F091F079-03EE-40A5-9E4D-EC1928FC3B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F091F079-03EE-40A5-9E4D-EC1928FC3B30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
