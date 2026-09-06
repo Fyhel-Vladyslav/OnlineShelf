@@ -1,5 +1,7 @@
 using FastEndpoints;
 using OutfitNetworkService.Extentions;
+using OutfitNetworkService.src.OutfitNetworkService.Host.Grpc;
+using OutfitNetworkService.src.OutfitNetworkService.Host.Services.PenaltyCalculator;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -10,6 +12,11 @@ Log.Logger = new LoggerConfiguration()
 
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile("appsettings.Production.json", optional: true, reloadOnChange: true);
+builder.Services.Configure<PenaltyRulesOptions>(
+    builder.Configuration.GetSection("PenaltyRules"));
 
 // Add services to the container.
 
@@ -34,12 +41,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
 
 app.UseSerilogRequestLogging();
-app.MapControllers();
-app.UseFastEndpoints();
-
+app.MapGrpcService<OutfitNetworkGrpcService>();
 
 
 

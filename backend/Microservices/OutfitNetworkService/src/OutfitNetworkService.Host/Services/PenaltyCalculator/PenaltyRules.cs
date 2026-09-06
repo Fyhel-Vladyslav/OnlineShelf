@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using OutfitNetworkService.src.OutfitNetworkService.Common.Interfaces;
 using OutfitNetworkService.src.OutfitNetworkService.Repository.EfCore.Entities;
 
@@ -12,9 +13,26 @@ public sealed class ColorClashPenaltyRule : IPenaltyRule
 {
     public string Name => nameof(ColorClashPenaltyRule);
 
-    // TODO: заповнити реальними парами з дизайнерського довідника кольорових конфліктів.
-    // Значення (colorA, colorB) неспрямовані — перевіряються в обидва боки в IsClashing.
-    private static readonly HashSet<(int, int)> ClashingColorPairs = new();
+    private readonly IOptionsMonitor<PenaltyRulesOptions> _options;
+    private HashSet<(string, string)> _clashingPairs;
+
+    public ColorClashPenaltyRule(IOptionsMonitor<PenaltyRulesOptions> options)
+    {
+        _options = options;
+        _clashingPairs = BuildLookup(options.CurrentValue);
+        _options.OnChange(updated => _clashingPairs = BuildLookup(updated));
+    }
+
+    private static HashSet<(string, string)> BuildLookup(PenaltyRulesOptions options) =>
+        options.ClashingColorPairs
+            .SelectMany(p => new[]
+            {
+                (Normalize(p.ColorA), Normalize(p.ColorB)),
+                (Normalize(p.ColorB), Normalize(p.ColorA))
+            })
+            .ToHashSet();
+
+    private static string Normalize(string color) => color.ToLowerInvariant();
 
     public double Evaluate(OutfitGraph graph)
     {
@@ -22,20 +40,24 @@ public sealed class ColorClashPenaltyRule : IPenaltyRule
         {
             var source = graph.Nodes[sourceIndex];
             var target = graph.Nodes[targetIndex];
-
             if (IsClashing(source, target))
-                return 0.0; // категорична несумісність — множник обвалює весь добуток Π C_j
+                return 0.0;
         }
-
         return 1.0;
     }
 
-    private static bool IsClashing(ItemNode a, ItemNode b)
+    private bool IsClashing(ItemNode a, ItemNode b) =>
+        Check(a.AttributeColorMain, b.AttributeColorMain)
+        || Check(a.AttributeColorMain, b.AttributeColorSecond)
+        || Check(a.AttributeColorSecond, b.AttributeColorMain)
+        || Check(a.AttributeColorSecond, b.AttributeColorSecond);
+
+    private bool Check(string? colorA, string? colorB)
     {
-        return ClashingColorPairs.Contains((a.AttributeColorMain, b.AttributeColorMain))
-            || ClashingColorPairs.Contains((b.AttributeColorMain, a.AttributeColorMain))
-            || ClashingColorPairs.Contains((a.AttributeColorMain, b.AttributeColorSecond))
-            || ClashingColorPairs.Contains((a.AttributeColorSecond, b.AttributeColorMain));
+        if (string.IsNullOrEmpty(colorA) || string.IsNullOrEmpty(colorB))
+            return false;
+
+        return _clashingPairs.Contains((Normalize(colorA), Normalize(colorB)));
     }
 }
 

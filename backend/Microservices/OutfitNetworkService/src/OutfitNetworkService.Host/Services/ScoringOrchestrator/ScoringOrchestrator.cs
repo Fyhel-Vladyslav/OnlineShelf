@@ -3,19 +3,19 @@ using OutfitNetworkService.src.OutfitNetworkService.Host.Services.OutfitCompatib
 using OutfitNetworkService.src.OutfitNetworkService.Host.Services.PenaltyCalculator;
 using OutfitNetworkService.src.OutfitNetworkService.Repository.EfCore.Entities;
 
-namespace OutfitNetworkService.src.OutfitNetworkService.Host.Services.OfferGeneratorService;
+namespace OutfitNetworkService.src.OutfitNetworkService.Host.Services.ScoringOrchestrator;
 
 /// <summary>
 /// Ядро сервісу: приймає кандидата-образ (набір ItemNode від Candidate Generation),
 /// будує граф, отримує learned-скор від GNN (замінює ручну зважену суму w_i*x_i)
 /// і накладає поверх детерміновані мультиплікативні штрафи Π C_j.
 /// </summary>
-public sealed class OfferGeneratorService : IOfferGeneratorService
+public sealed class ScoringOrchestrator : IScoringOrchestrator
 {
     private readonly IGraphCompatibilityScorer _graphScorer;
     private readonly IMultiplicativePenaltyCalculator _penaltyCalculator;
 
-    public OfferGeneratorService(
+    public ScoringOrchestrator(
         IGraphCompatibilityScorer graphScorer,
         IMultiplicativePenaltyCalculator penaltyCalculator)
     {

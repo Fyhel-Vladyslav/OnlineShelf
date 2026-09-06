@@ -12,8 +12,8 @@ public sealed class CandidateItemDto
     public bool IsVirtual { get; init; }
     public bool IsPinned { get; init; }
     public required float[] FeatureVector { get; init; }
-    public required int AttributeColorMain { get; init; }
-    public required int AttributeColorSecond { get; init; }
+    public required string AttributeColorMain { get; init; }
+    public required string AttributeColorSecond { get; init; }
     public required int AttributeSeason { get; init; }
     public required int AttributePattern { get; init; }
     public required int AttributeMatterial { get; init; }

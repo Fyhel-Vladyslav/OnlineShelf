@@ -1,0 +1,98 @@
+﻿syntax = "proto3";
+option csharp_namespace = "OutfitNetworkService.Protos";
+
+import "google/protobuf/timestamp.proto";
+
+service OutfitNetworkService {
+  rpc ScoreOutfit (ScoreOutfitGrpcRequest) returns (ScoreOutfitGrpcResponse);
+  rpc GenerateOutfits (GenerateOutfitsRequest) returns (GenerateOutfitsResponse);
+}
+
+// --- ScoreOutfit: точна структура полів TODO після ScoreOutfitContracts.cs / ItemNode.cs ---
+message ScoreOutfitGrpcRequest {
+  repeated ItemNode items = 1;
+}
+
+message ScoreOutfitGrpcResponse {
+  double final_score = 1;
+  double graph_level_score = 2;
+  double penalty_multiplier = 3;
+  map<string, double> applied_penalties = 4;
+  repeated PairwiseScore pairwise_scores = 5;   // NEW
+}
+
+// --- Спільний тип, referenced і в ScoreOutfit, і в GenerateOutfits ---
+message ItemNode {
+  // TODO: точні поля й типи — потрібен ItemNode.cs
+  string item_id = 1;
+  string attribute_type = 2;
+  bool is_virtual = 3;
+  bool is_pinned = 4;
+  repeated float feature_vector = 5;
+  string attribute_color_main = 6;
+  string attribute_color_second = 7;
+  string attribute_season = 8;
+  string attribute_pattern = 9;
+  string attribute_matterial = 10;
+}
+
+// --- GenerateOutfits (branch 2, поки не реалізовано в orchestrator) ---
+message GenerateOutfitsRequest {
+  repeated ItemNode wardrobe_items = 1;
+  RequestContext context = 2;
+  repeated string exclude_item_ids = 3;
+  repeated string include_item_ids = 4;
+  GenerationParams generation_params = 5;
+}
+
+message RequestContext {
+  WeatherSnapshot weather = 1;
+  Occasion occasion = 2;
+  Season season = 3;
+  google.protobuf.Timestamp requested_at = 4;
+}
+
+enum Occasion {
+  OCCASION_UNSPECIFIED = 0;
+  CASUAL = 1;
+  WORK = 2;
+  DATE = 3;
+  SPORT = 4;
+  FORMAL = 5;
+}
+
+enum Season {
+  SEASON_UNSPECIFIED = 0;
+  WINTER = 1;
+  SPRING = 2;
+  SUMMER = 3;
+  AUTUMN = 4;
+}
+
+message WeatherSnapshot {
+  double temperature_celsius = 1;
+  string condition = 2;
+}
+
+message GenerationParams {
+  int32 top_n = 1;
+  int32 max_combinations = 2;
+}
+
+message GenerateOutfitsResponse {
+  repeated OutfitCandidate outfits = 1;
+}
+
+message OutfitCandidate {
+  repeated string item_ids = 1;
+  double final_score = 2;
+  repeated PairwiseScore pairwise_scores = 3;
+  repeated string applied_penalties = 4;
+  bool contains_virtual_items = 5;
+}
+
+message PairwiseScore {
+  string item_id_a = 1;
+  string item_id_b = 2;
+  double score = 3;
+}

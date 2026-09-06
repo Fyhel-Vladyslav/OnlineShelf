@@ -26,8 +26,8 @@ public sealed class ItemNode
     // IPenaltyRule (наприклад, ColorClashPenaltyRule) не смикали Shelfs Service
     // окремим запитом за кожен айтем на кожен виклик scoring. Заповнюються один раз
     // ще на етапі Candidate Generation, разом із FeatureVector.
-    public required int AttributeColorMain { get; init; }
-    public required int AttributeColorSecond { get; init; }
+    public required string AttributeColorMain { get; init; }
+    public required string AttributeColorSecond { get; init; }
     public required int AttributeSeason { get; init; }
     public required int AttributePattern { get; init; }
     public required int AttributeMatterial { get; init; }

@@ -1,7 +1,6 @@
 ﻿using FastEndpoints;
 using OutfitNetworkService.src.OutfitNetworkService.Common.DTOs;
 using OutfitNetworkService.src.OutfitNetworkService.Common.Interfaces;
-using OutfitNetworkService.src.OutfitNetworkService.Host.Services.OfferGeneratorService;
 using OutfitNetworkService.src.OutfitNetworkService.Repository.EfCore.Entities;
 
 namespace OutfitNetworkService.src.OutfitNetworkService.Host.Features.ScoreOutfit;
@@ -14,9 +13,9 @@ namespace OutfitNetworkService.src.OutfitNetworkService.Host.Features.ScoreOutfi
 /// </summary>
 public sealed class ScoreOutfitEndpoint : Endpoint<ScoreOutfitRequest, ScoreOutfitResponse>
 {
-    private readonly IOfferGeneratorService _offerGeneratorService;
+    private readonly IScoringOrchestrator _offerGeneratorService;
 
-    public ScoreOutfitEndpoint(IOfferGeneratorService offerGeneratorService)
+    public ScoreOutfitEndpoint(IScoringOrchestrator offerGeneratorService)
     {
         _offerGeneratorService = offerGeneratorService;
     }

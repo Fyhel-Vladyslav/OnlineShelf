@@ -2,7 +2,7 @@
 using OutfitNetworkService.src.OutfitNetworkService.Repository.EfCore.Entities;
 
 namespace OutfitNetworkService.src.OutfitNetworkService.Common.Interfaces;
-public interface IOfferGeneratorService
+public interface IScoringOrchestrator
 {
     Task<OutfitCompatibilityResult> EvaluateAsync(
         IReadOnlyList<ItemNode> candidateItems,

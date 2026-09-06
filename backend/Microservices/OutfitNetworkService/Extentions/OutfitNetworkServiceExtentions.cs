@@ -1,8 +1,8 @@
 ﻿using FastEndpoints;
 using OutfitNetworkService.src.OutfitNetworkService.Common.Interfaces;
-using OutfitNetworkService.src.OutfitNetworkService.Host.Services.OfferGeneratorService;
 using OutfitNetworkService.src.OutfitNetworkService.Host.Services.OutfitCompatibilityScorer;
 using OutfitNetworkService.src.OutfitNetworkService.Host.Services.PenaltyCalculator;
+using OutfitNetworkService.src.OutfitNetworkService.Host.Services.ScoringOrchestrator;
 
 namespace OutfitNetworkService.Extentions
 {
@@ -12,9 +12,13 @@ namespace OutfitNetworkService.Extentions
             IHostEnvironment env)
         {
             services.Configure<GnnScorerOptions>(configuration.GetSection(GnnScorerOptions.SectionName));
-            services.AddSingleton<IGraphCompatibilityScorer, OnnxGraphCompatibilityScorer>();
 
-            services.AddScoped<IOfferGeneratorService, OfferGeneratorService>();
+            services.AddSingleton<IGraphCompatibilityScorer, StubGraphCompatibilityScorer>();
+            // TODO: add model gnn
+            //services.AddSingleton<IGraphCompatibilityScorer, OnnxGraphCompatibilityScorer>();
+
+            services.AddScoped<IMultiplicativePenaltyCalculator, MultiplicativePenaltyCalculator>();
+            services.AddScoped<IScoringOrchestrator, ScoringOrchestrator>();
             services.AddScoped<IPenaltyRule, ColorClashPenaltyRule>();
 
 
@@ -22,8 +26,7 @@ namespace OutfitNetworkService.Extentions
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-
-            services.AddFastEndpoints();
+            services.AddGrpc();
 
             //services.AddScoped<IImageAnalyzer, ImageAnalyzer>();
 
