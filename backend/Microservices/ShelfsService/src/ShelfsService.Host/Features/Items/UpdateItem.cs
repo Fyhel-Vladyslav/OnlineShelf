@@ -8,6 +8,7 @@ using ShelfsService.src.ShelfsService.Common;
 using ShelfsService.src.ShelfsService.Common.DTOs.Items;
 using ShelfsService.src.ShelfsService.Common.DTOs.Shelfs;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
+using ShelfsService.src.ShelfsService.Host.Helpers;
 using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 
 namespace ShelfsService.src.ShelfsService.Host.Features.Items;
@@ -39,7 +40,8 @@ internal sealed class UpdateItemCommandValidator : AbstractValidator<UpdateItemC
 }
 public class UpdateItemCommandHandler(
     IItemRepository repos,
-    ImageProcessor.ImageProcessorClient imageClient
+    ImageProcessor.ImageProcessorClient imageClient,
+    IImageAnalyzer imageAnalyzer
     ) : Endpoint<UpdateItemCommand, ItemDto>
 {
 
@@ -79,6 +81,8 @@ public class UpdateItemCommandHandler(
 
                 item.BigImage = null;
                 item.SmallImage = null;
+                item.VisualEmbedding = null;
+                item.EmbeddingModel = null;
             }
 
 
@@ -104,6 +108,8 @@ public class UpdateItemCommandHandler(
                     {
                         bigImageName = response.BigImageName;
                         smallImageName = response.SmallImageName;
+
+                        await imageAnalyzer.ApplyVisualEmbeddingAsync(item, ms.ToArray(), Logger, ct);
                     }
                     item.BigImage = bigImageName;
                     item.SmallImage = smallImageName;

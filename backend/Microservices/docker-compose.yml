@@ -36,12 +36,12 @@ services:
       context: .
       dockerfile: ShelfsService/Dockerfile
     ports:
-     - "8081:8080"
+     - "8081:8080"   # REST
+     - "8082:8082"   # gRPC Wardrobe (h2c) для outfitofferservice
     environment:
      - ConnectionStrings__ShelfDbConnection=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
      - GrpcConfigs__ImageServiceUrl=http://imageservice:8080
      - GrpcSettings__ParseImageServiceUrl=http://parseimageservice:50051
-     - ASPNETCORE_URLS=http://+:8080
      - ASPNETCORE_ENVIRONMENT=Production
     networks:
       - microservice_net
@@ -52,19 +52,23 @@ services:
     build:
       context: .
       dockerfile: OutfitOfferService/Dockerfile
+    ports:
+      - "8083:8080"
     environment:
-      - ConnectionStrings__ShelfDbConnection=Host=localhost;Database=onlineShelf_db;Username=admin;Password=admin
+      - GrpcSettings__ShelfsServiceUrl=http://shelfsservice:8082
+      - GrpcSettings__OutfitNetworkServiceUrl=http://outfitnetworkservice:8080
+    depends_on:
+      - shelfsservice
+      - outfitnetworkservice
     networks:
       - microservice_net
 
   outfitnetworkservice:
     container_name: outfit-network-service
-    image: ${DOCKER_REGISTRY-}outfit-offer-service
+    image: ${DOCKER_REGISTRY-}outfit-network-service
     build:
       context: .
       dockerfile: OutfitNetworkService/Dockerfile
-    environment:
-      - ConnectionStrings__ShelfDbConnection=Host=localhost;Database=onlineShelf_db;Username=admin;Password=admin
     networks:
       - microservice_net
 

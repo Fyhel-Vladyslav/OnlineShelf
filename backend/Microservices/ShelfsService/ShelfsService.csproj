@@ -20,6 +20,7 @@
     <PackageReference Include="ErrorOr" Version="2.1.1" />
     <PackageReference Include="FastEndpoints" Version="8.1.0" />
     <PackageReference Include="Google.Protobuf" Version="3.35.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.76.0" />
 	<PackageReference Include="Grpc.Net.Client" Version="2.80.0" />
     <PackageReference Include="Grpc.Net.ClientFactory" Version="2.76.0" />
     <PackageReference Include="Grpc.Tools" Version="2.80.0">
@@ -44,9 +45,9 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 	  <Protobuf Include="src\ShelfsService.Host\Protos\image_processing.proto" GrpcServices="Client" />
 	  <Protobuf Include="src\ShelfsService.Host\Protos\parse-image.proto" GrpcServices="Client" />
+	  <Protobuf Include="src\ShelfsService.Host\Protos\wardrobe.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>

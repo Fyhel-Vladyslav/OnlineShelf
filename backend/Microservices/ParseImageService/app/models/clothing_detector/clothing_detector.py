@@ -39,7 +39,9 @@ class ClothingDetector:
             conf = float(box.conf[0].item())
             
             # Фільтруємо за текстом і шукаємо найкращий confidence
-            if class_name in allowed_classes and conf > highest_conf:
+            # allowed_classes=None — довідник ще не завантажено, приймаємо будь-який клас
+            is_allowed = allowed_classes is None or class_name in allowed_classes
+            if is_allowed and conf > highest_conf:
                 highest_conf = conf
                 best_class_name = class_name
                 best_box = box.xyxy[0].cpu().numpy().astype(int)

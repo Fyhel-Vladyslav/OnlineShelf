@@ -11,6 +11,7 @@ from app.models.clothing_detector.clothing_detector import ClothingDetector
 from app.models.color_detector.color_detector import ColorDetector
 from app.models.material_detector.material_detector import MaterialDetector
 from app.models.pattern_detector.pattern_detector import PatternDetector
+from app.models.visual_embedder.visual_embedder import VisualEmbedder
 
 # Мапимо нові класи з твого датасету на базові сезони для .NET довідника
 SUMMER_CLASSES = {
@@ -24,6 +25,10 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
         self.color_detector = ColorDetector()
         self.pattern_detector = PatternDetector()
         self.material_detector = MaterialDetector()
+        self.embedder = VisualEmbedder(
+            self.material_detector.model,
+            self.material_detector.processor,
+            "openai/clip-vit-base-patch32")
         self.attr_client = attributes_client  # HTTP/REST клієнт для зв'язку з .NET
 
     def AnalyzeClothing(self, request, context):
@@ -42,39 +47,10 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
             if not raw_bytes:
                 return pb2.AnalyzeClothingResponse(success=False, error_message="Empty image data")
             
-            final_image_bytes = raw_bytes
-            
-            # --- БЛОК БЕЗПЕЧНОГО ДЕКОДУВАННЯ BASE64 ---
-            if raw_bytes.startswith(b"data:") or not raw_bytes.startswith((b"RIFF", b"\xff\xd8", b"\x89PNG")):
-                print("⚠️ Виявлено base64 рядок у gRPC-запиті. Спроба автоматичного розкодування...")
-                try:
-                    base64_data = raw_bytes
-                    if b"," in raw_bytes:
-                        base64_data = raw_bytes.split(b",")[1]
-                    
-                    final_image_bytes = base64.b64decode(base64_data)
-                except Exception as b64_err:
-                    print(f"❌ Помилка декодування Base64: {b64_err}")
-                    return pb2.AnalyzeClothingResponse(
-                        success=False, 
-                        error_message=f"Невдала спроба декодувати Base64 рядок: {str(b64_err)}"
-                    )
+            image_np, decode_error = self._decode_image(raw_bytes)
+            if decode_error:
+                return pb2.AnalyzeClothingResponse(success=False, error_message=decode_error)
 
-            # --- ЗЧИТУВАННЯ ЗОБРАЖЕННЯ ---
-            try:
-                image = Image.open(io.BytesIO(final_image_bytes)).convert("RGB")
-                
-                # ТИМЧАСОВИЙ ДЕБАГ (залиш за бажанням або закоментуй в прод)
-                image.save("debug_yolo_input.webp")
-                
-                image_np = np.array(image)
-            except Exception as img_err:
-                print(f"❌ Pillow не зміг відкрити зображення: {img_err}")
-                return pb2.AnalyzeClothingResponse(
-                    success=False, 
-                    error_message=f"Помилка структури файлу зображення (Pillow): {str(img_err)}"
-                )
-            
             # --- ШІ ПАЙПЛАЙН АНАЛІЗУ ---
             allowed_clothing_types = self.attr_client.get_all_values_by_attribute("Type")
             detection_result = self.detector.detect_and_crop(image_np, allowed_classes=allowed_clothing_types)
@@ -127,3 +103,49 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
         except Exception as e:
             print(f"❌ Загальна помилка в gRPC пайплайні: {e}")
             return pb2.AnalyzeClothingResponse(success=False, error_message=f"Internal service error: {str(e)}")
+
+    def EmbedClothing(self, request, context):
+        try:
+            raw_bytes = request.image_data
+            if not raw_bytes:
+                return pb2.EmbedClothingResponse(success=False, error_message="Empty image data")
+
+            image_np, decode_error = self._decode_image(raw_bytes)
+            if decode_error:
+                return pb2.EmbedClothingResponse(success=False, error_message=decode_error)
+
+            # Ембединг рахуємо по кропу речі (без фону), а якщо YOLO нічого не знайшов — по всьому фото
+            allowed_types = self.attr_client.get_all_values_by_attribute("Type") if self.attr_client.has_data() else None
+            detection_result = self.detector.detect_and_crop(image_np, allowed_classes=allowed_types)
+            crop = detection_result.get("crop_bgr")
+            if crop is None or crop.size == 0:
+                return pb2.EmbedClothingResponse(success=False, error_message="Empty crop")
+
+            embedding = self.embedder.embed(crop)
+            print(f"✅ Ембединг пораховано: dim={len(embedding)}, клас={detection_result.get('raw_class_name')}")
+            return pb2.EmbedClothingResponse(
+                success=True,
+                embedding=embedding,
+                embedding_model=self.embedder.model_name)
+
+        except Exception as e:
+            print(f"❌ Помилка під час обчислення ембединга: {e}")
+            return pb2.EmbedClothingResponse(success=False, error_message=f"Internal service error: {str(e)}")
+
+    @staticmethod
+    def _decode_image(raw_bytes):
+        """Повертає (image_np RGB, None) або (None, текст помилки). Підтримує сирі байти і base64/data-URL."""
+        final_image_bytes = raw_bytes
+        if raw_bytes.startswith(b"data:") or not raw_bytes.startswith((b"RIFF", b"\xff\xd8", b"\x89PNG")):
+            print("⚠️ Виявлено base64 рядок у gRPC-запиті. Спроба автоматичного розкодування...")
+            try:
+                base64_data = raw_bytes.split(b",")[1] if b"," in raw_bytes else raw_bytes
+                final_image_bytes = base64.b64decode(base64_data)
+            except Exception as b64_err:
+                return None, f"Невдала спроба декодувати Base64 рядок: {str(b64_err)}"
+
+        try:
+            image = Image.open(io.BytesIO(final_image_bytes)).convert("RGB")
+            return np.array(image), None
+        except Exception as img_err:
+            return None, f"Помилка структури файлу зображення (Pillow): {str(img_err)}"

@@ -1,5 +1,6 @@
 ﻿using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
+using ShelfsService.src.ShelfsService.Host.Grpc;
 using ShelfsService.src.ShelfsService.Repository.EfCore;
 
 namespace ShelfsService.Extentions
@@ -32,6 +33,7 @@ namespace ShelfsService.Extentions
             app.UseAuthorization();
             app.MapControllers();
             app.UseFastEndpoints();
+            app.MapGrpcService<WardrobeGrpcService>();
 
             return app;
         }

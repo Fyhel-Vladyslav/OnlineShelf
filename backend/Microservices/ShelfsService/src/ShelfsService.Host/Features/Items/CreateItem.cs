@@ -8,6 +8,7 @@ using ShelfsService.src.ShelfsService.Common;
 using ShelfsService.src.ShelfsService.Common.DTOs.Items;
 using ShelfsService.src.ShelfsService.Common.DTOs.Shelfs;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
+using ShelfsService.src.ShelfsService.Host.Helpers;
 using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 using static FastEndpoints.Ep;
 
@@ -39,7 +40,8 @@ internal sealed class CreateItemCommandValidator : AbstractValidator<CreateItemC
 }
 public class CreateItemCommandHandler(
     IItemRepository repos,
-    ImageProcessor.ImageProcessorClient imageClient
+    ImageProcessor.ImageProcessorClient imageClient,
+    IImageAnalyzer imageAnalyzer
     ) : Endpoint<CreateItemCommand, ItemDto>
 {
     public override void Configure()
@@ -89,6 +91,8 @@ public class CreateItemCommandHandler(
             {
                 bigImageName = response.BigImageName;
                 smallImageName = response.SmallImageName;
+
+                await imageAnalyzer.ApplyVisualEmbeddingAsync(item, ms.ToArray(), Logger, ct);
             }
         }
 

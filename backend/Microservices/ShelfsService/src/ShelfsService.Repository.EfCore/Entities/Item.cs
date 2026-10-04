@@ -29,4 +29,14 @@ public class Item
     public int AttributePattern { get; set; } = 0;
     public int AttributeMatterial { get; set; } = 0;
     public bool isFavorite { get; set; } = false;
+
+    /// <summary>
+    /// Візуальний ембединг речі (CLIP image features, L2-нормований), рахується ParseImageService при завантаженні фото.
+    /// Категоріальні атрибути сюди не входять — їх кодує сама модель-скорер, тому редагування атрибутів не потребує перерахунку.
+    /// </summary>
+    public float[]? VisualEmbedding { get; set; }
+
+    /// <summary>Модель, якою пораховано VisualEmbedding — щоб не змішувати вектори різних версій.</summary>
+    [MaxLength(100)]
+    public string? EmbeddingModel { get; set; }
 }

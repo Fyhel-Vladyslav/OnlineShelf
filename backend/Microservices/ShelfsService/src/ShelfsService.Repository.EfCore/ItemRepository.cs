@@ -67,6 +67,12 @@ namespace ShelfsService.src.ShelfsService.Repository.EfCore;
     public Task<List<AttributeName>> GetAttributesAsync(CancellationToken cancellationToken = default) =>
     _dbContext.Attributes.ToListAsync();
 
+    public Task<List<Item>> GetUserItemsAsync(Guid userId, bool onlyFavorite, CancellationToken ct) =>
+        _dbContext.Items
+            .AsNoTracking()
+            .Where(i => i.UserId == userId && (!onlyFavorite || i.isFavorite))
+            .ToListAsync(ct);
+
     public async Task<Item> MoveItemAsync(Item item, Shelf newShelf, CancellationToken ct)
     {
         if (item == null || newShelf == null)

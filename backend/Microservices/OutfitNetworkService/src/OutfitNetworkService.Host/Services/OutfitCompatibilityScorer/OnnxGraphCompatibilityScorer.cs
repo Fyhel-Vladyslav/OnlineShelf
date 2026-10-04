@@ -7,47 +7,36 @@ using OutfitNetworkService.src.OutfitNetworkService.Repository.EfCore.Entities;
 namespace OutfitNetworkService.src.OutfitNetworkService.Host.Services.OutfitCompatibilityScorer;
 
 /// <summary>
-/// Реалізація IGraphCompatibilityScorer через попередньо натреновану GNN-модель,
-/// натреновану в PyTorch Geometric і експортовану в ONNX.
+/// Реалізація IGraphCompatibilityScorer через попередньо натреновану GNN-модель
+/// (Type-Aware/CSA-Net попарна сумісність + NGNN-агрегація), експортовану з PyTorch в ONNX.
 ///
-/// Контракт моделі (узгодити з ML-командою при експорті):
-///   вхід  "node_features": float32[N, F]  — фічі вузлів (F = розмір FeatureVector)
-///   вхід  "edge_index":    int64[2, E]    — [джерела; цілі], як у PyTorch Geometric
-///   вихід "graph_score":   float32[1]     — агрегований readout-скор усього образу
-///   вихід "edge_scores":   float32[E]     — попарний скор для кожного ребра (для explainability)
-/// </summary>
-/// <summary>
-/// Реалізація IGraphCompatibilityScorer через попередньо натреновану GNN-модель,
-/// натреновану в PyTorch Geometric і експортовану в ONNX.
-///
-/// Контракт моделі (узгодити з ML-командою при експорті):
-///   вхід  "node_features": float32[N, F]  — фічі вузлів (F = розмір FeatureVector)
-///   вхід  "edge_index":    int64[2, E]    — [джерела; цілі], як у PyTorch Geometric
-///   вихід "graph_score":   float32[1]     — агрегований readout-скор усього образу
-///   вихід "edge_scores":   float32[E]     — попарний скор для кожного ребра (для explainability)
+/// Контракт моделі (узгодити при експорті):
+///   вхід  "node_features":    float32[N, F] — візуальний ембединг вузла (CLIP, L2-норм.); відсутній вектор = нулі
+///   вхід  "node_categorical": int64[N, 4]   — [AttributeType, AttributeSeason, AttributePattern, AttributeMatterial];
+///                                             embedding-таблиці категорій і проєкція в спільний простір — частина моделі
+///   вхід  "edge_index":       int64[2, E]   — [джерела; цілі], як у PyTorch Geometric
+///   вихід "graph_score":      float32[1]    — агрегований скор усього образу, [0; 1]
+///   вихід "edge_scores":      float32[E]    — попарний скор для кожного ребра (для explainability)
 /// </summary>
 public sealed class OnnxGraphCompatibilityScorer : IGraphCompatibilityScorer, IDisposable
 {
+    public const int CategoricalFeatureCount = 4;
+
     private readonly InferenceSession _session;
 
     public OnnxGraphCompatibilityScorer(IOptions<GnnScorerOptions> options)
     {
-        // IOptions<T> — це вже зареєстрований у DI сервіс (після services.Configure<T>(...)),
-        // тож контейнер резолвить конструктор автоматично — жодного сирого string тут більше немає.
-        // InferenceSession потокобезпечна для паралельних викликів Run() —
-        // реєструвати як Singleton у DI, а не створювати на кожен запит.
+        // InferenceSession потокобезпечна для паралельних викликів Run() — реєструється як Singleton
         _session = new InferenceSession(options.Value.ModelPath);
     }
 
     public Task<GraphScoringResult> ScoreAsync(OutfitGraph graph, CancellationToken cancellationToken = default)
     {
-        var nodeFeatures = BuildNodeFeatureTensor(graph);
-        var edgeIndex = BuildEdgeIndexTensor(graph);
-
         var inputs = new List<NamedOnnxValue>
         {
-            NamedOnnxValue.CreateFromTensor("node_features", nodeFeatures),
-            NamedOnnxValue.CreateFromTensor("edge_index", edgeIndex),
+            NamedOnnxValue.CreateFromTensor("node_features", BuildNodeFeatureTensor(graph)),
+            NamedOnnxValue.CreateFromTensor("node_categorical", BuildNodeCategoricalTensor(graph)),
+            NamedOnnxValue.CreateFromTensor("edge_index", BuildEdgeIndexTensor(graph)),
         };
 
         using var outputs = _session.Run(inputs);
@@ -67,13 +56,31 @@ public sealed class OnnxGraphCompatibilityScorer : IGraphCompatibilityScorer, ID
 
     private static DenseTensor<float> BuildNodeFeatureTensor(OutfitGraph graph)
     {
-        var featureLength = graph.Nodes[0].FeatureVector.Length;
+        // Речі без ембединга (ще не пораховано / віртуальні) заповнюються нулями до спільної довжини
+        var featureLength = graph.Nodes.Max(n => n.FeatureVector.Length);
         var tensor = new DenseTensor<float>(new[] { graph.Nodes.Count, featureLength });
 
         for (var i = 0; i < graph.Nodes.Count; i++)
         {
-            for (var f = 0; f < featureLength; f++)
-                tensor[i, f] = graph.Nodes[i].FeatureVector[f];
+            var vector = graph.Nodes[i].FeatureVector;
+            for (var f = 0; f < vector.Length; f++)
+                tensor[i, f] = vector[f];
+        }
+
+        return tensor;
+    }
+
+    private static DenseTensor<long> BuildNodeCategoricalTensor(OutfitGraph graph)
+    {
+        var tensor = new DenseTensor<long>(new[] { graph.Nodes.Count, CategoricalFeatureCount });
+
+        for (var i = 0; i < graph.Nodes.Count; i++)
+        {
+            var node = graph.Nodes[i];
+            tensor[i, 0] = node.AttributeType;
+            tensor[i, 1] = node.AttributeSeason;
+            tensor[i, 2] = node.AttributePattern;
+            tensor[i, 3] = node.AttributeMatterial;
         }
 
         return tensor;

@@ -24,6 +24,9 @@ public static class GrpcExtention
             o.Address = new Uri(url);
         });
 
+        // gRPC-сервер Wardrobe для OutfitOfferService
+        services.AddGrpc();
+
         return services;
     }
 }

@@ -1,17 +1,25 @@
-﻿syntax = "proto3";
+syntax = "proto3";
 option csharp_namespace = "OutfitNetworkService.Protos";
 
-import "google/protobuf/timestamp.proto";
-
+// OutfitNetworkService — лише модель: рахує сумісність речей усередині образу.
+// Генерація кандидатів, фільтри та бізнес-логіка живуть в OutfitOfferService.
 service OutfitNetworkService {
   rpc ScoreOutfit (ScoreOutfitGrpcRequest) returns (ScoreOutfitGrpcResponse);
-  rpc GenerateOutfits (GenerateOutfitsRequest) returns (GenerateOutfitsResponse); // branch 2, ще не реалізовано
-}
 
-// ==================== ScoreOutfit — реалізовано, використовується вже зараз ====================
+  // Пакетна оцінка: один мережевий виклик на крок beam search замість виклику на кожного кандидата
+  rpc ScoreOutfits (ScoreOutfitsGrpcRequest) returns (ScoreOutfitsGrpcResponse);
+}
 
 message ScoreOutfitGrpcRequest {
   repeated ItemNode items = 1;
+}
+
+message ScoreOutfitsGrpcRequest {
+  repeated ScoreOutfitGrpcRequest outfits = 1;
+}
+
+message ScoreOutfitsGrpcResponse {
+  repeated ScoreOutfitGrpcResponse results = 1;   // у тому ж порядку, що й outfits у запиті
 }
 
 message ItemNode {
@@ -19,7 +27,7 @@ message ItemNode {
   int32 attribute_type = 2;
   bool is_virtual = 3;
   bool is_pinned = 4;
-  repeated float feature_vector = 5;
+  repeated float feature_vector = 5;   // візуальний ембединг; порожній, якщо ще не пораховано
   string attribute_color_main = 6;
   string attribute_color_second = 7;
   int32 attribute_season = 8;
@@ -35,64 +43,7 @@ message ScoreOutfitGrpcResponse {
   repeated PairwiseScore pairwise_scores = 5;
 }
 
-// ==================== GenerateOutfits — заділ під branch 2, поки не реалізовано ====================
-
-message GenerateOutfitsRequest {
-  repeated ItemNode wardrobe_items = 1;
-  RequestContext context = 2;
-  repeated string exclude_item_ids = 3;
-  repeated string include_item_ids = 4;
-  GenerationParams generation_params = 5;
-}
-
-message RequestContext {
-  WeatherSnapshot weather = 1;
-  Occasion occasion = 2;
-  Season season = 3;
-  google.protobuf.Timestamp requested_at = 4;
-}
-
-enum Occasion {
-  OCCASION_UNSPECIFIED = 0;
-  CASUAL = 1;
-  WORK = 2;
-  DATE = 3;
-  SPORT = 4;
-  FORMAL = 5;
-}
-
-enum Season {
-  SEASON_UNSPECIFIED = 0;
-  WINTER = 1;
-  SPRING = 2;
-  SUMMER = 3;
-  AUTUMN = 4;
-}
-
-message WeatherSnapshot {
-  double temperature_celsius = 1;
-  string condition = 2;
-}
-
-message GenerationParams {
-  int32 top_n = 1;
-  int32 max_combinations = 2;
-}
-
-message GenerateOutfitsResponse {
-  repeated OutfitCandidate outfits = 1;
-}
-
-message OutfitCandidate {
-  repeated string item_ids = 1;
-  double final_score = 2;
-  repeated PairwiseScore pairwise_scores = 3;
-  repeated string applied_penalties = 4;
-  bool contains_virtual_items = 5;
-}
-
 message PairwiseScore {
-  // TODO: точні поля — потрібен вміст OutfitCompatibilityResult.cs, коли дійдемо до branch 2/7
   string item_id_a = 1;
   string item_id_b = 2;
   double score = 3;

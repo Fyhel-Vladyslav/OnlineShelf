@@ -1,25 +1,25 @@
-﻿using OutfitOfferService.OutfitOfferService.Common.Enums;
+using OutfitOfferService.OutfitOfferService.Common.Enums;
 using FastEndpoints;
 using OutfitOfferService.src.OutfitOfferService.Common;
 using OutfitOfferService.src.OutfitOfferService.Host.Features.Services;
 
 namespace OutfitOfferService.src.OutfitOfferService.Host.Features.GetWeather
 {
-    sealed record GetCurrentWeatherRequest() 
-    { 
-        public double longatude;
-        public double latitude; 
-    };
+    // Властивості, а не поля: FastEndpoints біндить query-параметри лише у властивості
+    sealed record GetCurrentWeatherRequest
+    {
+        public double Latitude { get; init; }
+        public double Longitude { get; init; }
+    }
 
-    sealed record GetCurrentWeatherResponse(Weather currentWeather);
+    sealed record GetCurrentWeatherResponse(Weather CurrentWeather, double TemperatureCelsius);
+
     class GetCurrentWeather : Endpoint<GetCurrentWeatherRequest, GetCurrentWeatherResponse>
     {
-        private readonly WeatherMappingExtension _weatherMapper;
         private readonly IWeatherService _weatherService;
 
-        public GetCurrentWeather(WeatherMappingExtension weatherMapper, IWeatherService weatherService)
+        public GetCurrentWeather(IWeatherService weatherService)
         {
-            _weatherMapper = weatherMapper;
             _weatherService = weatherService;
         }
 
@@ -27,16 +27,12 @@ namespace OutfitOfferService.src.OutfitOfferService.Host.Features.GetWeather
         {
             Get(ApiRoutes.GetWeather);
             AllowAnonymous();
-            //Policies("AdminPolicy");      
         }
 
         public override async Task<GetCurrentWeatherResponse> ExecuteAsync(GetCurrentWeatherRequest req, CancellationToken ct)
         {
-            var currentWeatherUnmapped = await _weatherService.GetCurrentWeatherAsync(req.latitude, req.longatude, ct);
-
-            var currentWeather = _weatherMapper.MapToCondition(currentWeatherUnmapped);
-            return await Task.FromResult(new GetCurrentWeatherResponse(currentWeather));
+            var weather = await _weatherService.GetCurrentWeatherAsync(req.Latitude, req.Longitude, ct);
+            return new GetCurrentWeatherResponse(weather.Condition, weather.TemperatureCelsius);
         }
     }
-
 }

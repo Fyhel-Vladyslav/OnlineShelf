@@ -1,4 +1,4 @@
-﻿using FastEndpoints;
+using Microsoft.Extensions.Options;
 using OutfitNetworkService.src.OutfitNetworkService.Common.Interfaces;
 using OutfitNetworkService.src.OutfitNetworkService.Host.Services.OutfitCompatibilityScorer;
 using OutfitNetworkService.src.OutfitNetworkService.Host.Services.PenaltyCalculator;
@@ -12,64 +12,33 @@ namespace OutfitNetworkService.Extentions
             IHostEnvironment env)
         {
             services.Configure<GnnScorerOptions>(configuration.GetSection(GnnScorerOptions.SectionName));
+            services.Configure<PenaltyRulesOptions>(configuration.GetSection("PenaltyRules"));
 
-            services.AddSingleton<IGraphCompatibilityScorer, StubGraphCompatibilityScorer>();
-            // TODO: add model gnn
-            //services.AddSingleton<IGraphCompatibilityScorer, OnnxGraphCompatibilityScorer>();
+            // Натренована GNN (.onnx), якщо файл моделі є; інакше — заглушка, щоб решта пайплайну працювала без моделі
+            services.AddSingleton<IGraphCompatibilityScorer>(sp =>
+            {
+                var options = sp.GetRequiredService<IOptions<GnnScorerOptions>>();
+                var logger = sp.GetRequiredService<ILogger<IGraphCompatibilityScorer>>();
+                var modelPath = Path.Combine(env.ContentRootPath, options.Value.ModelPath ?? string.Empty);
+
+                if (File.Exists(modelPath))
+                {
+                    logger.LogInformation("Using ONNX GNN scorer from {ModelPath}", modelPath);
+                    return new OnnxGraphCompatibilityScorer(Options.Create(new GnnScorerOptions { ModelPath = modelPath }));
+                }
+
+                logger.LogWarning("GNN model {ModelPath} not found, falling back to StubGraphCompatibilityScorer", modelPath);
+                return new StubGraphCompatibilityScorer();
+            });
 
             services.AddScoped<IMultiplicativePenaltyCalculator, MultiplicativePenaltyCalculator>();
             services.AddScoped<IScoringOrchestrator, ScoringOrchestrator>();
             services.AddScoped<IPenaltyRule, ColorClashPenaltyRule>();
+            services.AddScoped<IPenaltyRule, VirtualItemPenaltyRule>();
 
-
-
-
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
             services.AddGrpc();
-
-            //services.AddScoped<IImageAnalyzer, ImageAnalyzer>();
-
-            //services.AddScoped<IShelfsRepository, ShelfsRepository>();
-            //services.AddScoped<IItemRepository, ItemRepository>();
-            //services.AddSingleton<IAttributeResolver, AttributeResolver>();
-
-            //services.AddControllers();
-            //services.AddEndpointsApiExplorer();
-            //services.AddSwaggerGen();
-
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("FrontendPolicy", policy =>
-            //    {
-            //        policy
-            //            .WithOrigins("http://localhost:5173")
-            //            .AllowAnyHeader()
-            //            .AllowAnyMethod();
-            //    });
-            //});
-
-            //var connectionString = configuration.GetConnectionString("ShelfDbConnection");
-            //services.AddDbContext<ShelfsDataContext>(options =>
-            //    options.UseNpgsql(connectionString,
-            //        npgsql =>
-            //        {
-            //            npgsql.MigrationsHistoryTable(
-            //                "__EFMigrationsHistory",
-            //                "shelf_service"
-            //            );
-            //        }
-
-            //    )
-            //);
-
-            //services.AddShelfDatabaseInitialization();
-
-
-            //services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
-            //services.AddFastEndpoints();
 
             return services;
         }
-}
+    }
 }
