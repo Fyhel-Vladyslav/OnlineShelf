@@ -3,6 +3,9 @@
 Один рядок на кожну тематичну зміну в коді, нові записи зверху в поточній даті.
 Формат рядка: `- <Added|Changed|Fixed|Removed> <що саме> (<сервіс/файл>)`.
 
+## 2026-10-04
+- Added offers API module with weather/generate types and Ukrainian enum labels (admin-portal/src/api/offers/offersApi.ts)
+
 ## 2026-09-27
 - Added EmbedClothing rpc returning L2-normalized CLIP visual embedding (parse-image.proto, ParseImageService)
 - Added VisualEmbedder reusing MaterialDetector's CLIP model (ParseImageService/app/models/visual_embedder)
