@@ -13,6 +13,7 @@ import './App.css';
 import { NotificationRoot } from './notification/NotificationRoot';
 import ShelfsPage from './pages/shelfs/ShelfsPage';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
+import OutfitOfferPage from './pages/outfits/OutfitOfferPage';
 
 function App() {
   return (
@@ -42,6 +43,9 @@ function App() {
             </Route>
             <Route element={<ProtectedRoute />}> 
               <Route path="/shelfs" element={<ShelfsPage />} />
+            </Route>
+            <Route element={<ProtectedRoute />}> 
+              <Route path="/outfits" element={<OutfitOfferPage />} />
             </Route>
           </Routes>
         </Layout>

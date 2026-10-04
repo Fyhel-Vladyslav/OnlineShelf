@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import { LoginOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginOutlined, SettingOutlined, SkinOutlined, UserOutlined } from '@ant-design/icons';
 import './Header.css';
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +22,9 @@ const Header: React.FC = () => {
             Users
           </Button>
         )}
+        <Button type="link" href="/outfits" icon={<SkinOutlined />} >
+          Outfits
+        </Button>
         <Button type="link" href="/login" icon={<LoginOutlined />} >
           Login
         </Button>
