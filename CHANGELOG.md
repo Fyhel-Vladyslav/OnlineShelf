@@ -6,6 +6,7 @@
 ## 2026-10-04
 - Added offers API module with weather/generate types and Ukrainian enum labels (admin-portal/src/api/offers/offersApi.ts)
 - Added authService.getUserId reading nameid claim from JWT (admin-portal/AuthService.ts)
+- Added useWeather query and useGenerateOutfits mutation with 400/503 error notifications (admin-portal/src/hooks/offers)
 
 ## 2026-09-27
 - Added EmbedClothing rpc returning L2-normalized CLIP visual embedding (parse-image.proto, ParseImageService)
