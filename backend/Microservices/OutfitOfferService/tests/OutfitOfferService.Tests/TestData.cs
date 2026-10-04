@@ -5,19 +5,20 @@ using OutfitOfferService.src.OutfitOfferService.Host.Services.OutfitGeneration;
 
 namespace OutfitOfferService.Tests;
 
-/// <summary>Ключі AttributeType з довідника ShelfsService, які використовуються в тестах.</summary>
+/// <summary>Ключі AttributeType з довідника ShelfsService (класи YOLO з classes.json), які використовуються в тестах.</summary>
 internal static class Types
 {
-    public const int TShirt = 1;
-    public const int Shirt = 2;
-    public const int Jacket = 6;
-    public const int Coat = 7;
-    public const int Pants = 8;
-    public const int Skirt = 11;
-    public const int Dress = 12;
-    public const int Sneakers = 13;
-    public const int Boots = 14;
-    public const int Hat = 17;
+    public const int Shirt = 1;
+    public const int TShirt = 2;   // "top, t-shirt, sweatshirt"
+    public const int Jacket = 5;
+    public const int Pants = 7;
+    public const int Skirt = 9;
+    public const int Coat = 10;
+    public const int Dress = 11;
+    public const int Hat = 15;
+    public const int Sneakers = 23; // у довіднику є лише загальний "shoe"
+    public const int Boots = 23;
+    public const int Flower = 27;   // деталь одягу, а не річ — в образ не потрапляє
     public const int Unknown = 99;
 }
 
@@ -32,12 +33,13 @@ internal static class TestData
             SeasonTolerance = 2,
             Slots = new Dictionary<string, int[]>
             {
-                ["Top"] = [1, 2, 3, 4, 5],
-                ["Outerwear"] = [6, 7],
-                ["Bottom"] = [8, 9, 10, 11],
-                ["FullBody"] = [12],
-                ["Shoes"] = [13, 14, 15, 16, 21],
-                ["Accessory"] = [17, 18, 19, 20, 22, 23, 24, 25],
+                // Той самий мапінг, що й в appsettings.json сервісу
+                ["Top"] = [1, 2, 3, 4, 6],
+                ["Outerwear"] = [5, 10, 13],
+                ["Bottom"] = [7, 8, 9],
+                ["FullBody"] = [11, 12],
+                ["Shoes"] = [23],
+                ["Accessory"] = [14, 15, 16, 17, 18, 19, 20, 22, 24, 25, 26],
             }
         };
         configure?.Invoke(options);

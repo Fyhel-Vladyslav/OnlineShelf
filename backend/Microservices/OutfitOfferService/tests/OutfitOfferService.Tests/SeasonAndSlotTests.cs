@@ -43,6 +43,7 @@ public class SeasonAndSlotTests
     [InlineData(Types.Boots, OutfitSlot.Shoes)]
     [InlineData(Types.Hat, OutfitSlot.Accessory)]
     [InlineData(Types.Unknown, OutfitSlot.Unknown)]
+    [InlineData(Types.Flower, OutfitSlot.Unknown)]
     public void SlotResolver_UsesConfiguredMapping(int type, OutfitSlot expected)
     {
         var resolver = new SlotResolver(TestData.Wrap(TestData.Options()));

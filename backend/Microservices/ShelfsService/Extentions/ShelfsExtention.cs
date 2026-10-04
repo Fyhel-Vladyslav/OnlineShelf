@@ -3,6 +3,7 @@ using ImageService.Protos;
 using Microsoft.EntityFrameworkCore;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
 using ShelfsService.src.ShelfsService.Host.Features.Attributes;
+using ShelfsService.src.ShelfsService.Host.Features.Embeddings;
 using ShelfsService.src.ShelfsService.Host.Helpers;
 using ShelfsService.src.ShelfsService.Repository.EfCore;
 
@@ -18,6 +19,9 @@ namespace ShelfsService.Extentions
             services.AddScoped<IShelfsRepository, ShelfsRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddSingleton<IAttributeResolver, AttributeResolver>();
+
+            services.Configure<EmbeddingBackfillOptions>(configuration.GetSection(EmbeddingBackfillOptions.SectionName));
+            services.AddScoped<IEmbeddingBackfillService, EmbeddingBackfillService>();
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();
@@ -49,6 +53,8 @@ namespace ShelfsService.Extentions
             );
 
             services.AddShelfDatabaseInitialization();
+            // Реєструється після ініціалізатора БД: hosted-сервіси стартують у порядку реєстрації
+            services.AddHostedService<EmbeddingBackfillHostedService>();
 
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());

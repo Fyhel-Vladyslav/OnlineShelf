@@ -43,7 +43,7 @@ project.nuget.cache
 ## ====================================================================
 ## 4. Frontend (Node.js / React / TypeScript)
 ## ====================================================================
-# На випадок, якщо у frontend/admin-portal почнуть з'являтися залежності
+# На випадок, якщо у frontend/webui почнуть з'являтися залежності
 **/node_modules/
 **/dist/
 **/build/
@@ -56,6 +56,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /backend/Microservices/ShelfsService/logs
-backend/Microservices/.env
-backend/Microservices/OutfitOfferService/appsettings.Development.json
+
+## ====================================================================
+## 5. Секрети
+## ====================================================================
+# Будь-які .env (ключі API, паролі) — лише локально; шаблон .env.example комітиться
+**/.env
+!**/.env.example
 backend/Microservices/OutfitOfferService/appsettings.Development.json

@@ -23,9 +23,10 @@ export const pageTheme: ThemeConfig = {
     colorSplit: 'rgba(255, 255, 255, 0.25)',
   },
   components: {
-    // Кнопки й алерти мають власний світлий фон — лишаємо їм темний текст
+    // Кнопки, алерти й теги мають власний світлий фон — лишаємо їм темний текст
     Button: { ...lightText },
     Alert: { ...lightText },
+    Tag: { ...lightText },
   },
 };
 

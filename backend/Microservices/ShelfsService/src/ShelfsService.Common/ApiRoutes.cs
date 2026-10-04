@@ -18,6 +18,7 @@ public class ApiRoutes
     public const string UpdateItem = $"{Shelfs}/items/update-item";
 
     public const string Attributes = $"{Shelfs}/items/attributes";
+    public const string BackfillEmbeddings = $"{Shelfs}/items/embeddings/backfill";
 
     public const string AddTagsToItem = $"{Shelfs}/item-tags/add";
     public const string DeleteTagsFromItem = $"{Shelfs}/item-tags/remove";

@@ -113,7 +113,7 @@ const ContextStep: React.FC<ContextStepProps> = ({
                 <Alert type="warning" showIcon message="Не вдалося отримати погоду. Генерація працюватиме, але без погодних обмежень." />
               )}
               {effectiveCoords && weather.data && (
-                <div className={styles.weatherCard}>
+                <div className={styles.weatherCard} style={{color: 'black'}}>
                   <span className={styles.weatherIcon}>{weatherIcons[weather.data.currentWeather] ?? weatherIcons[0]}</span>
                   <div>
                     <div className={styles.temperature}>{formatTemperature(weather.data.temperatureCelsius)}</div>

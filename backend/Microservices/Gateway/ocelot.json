@@ -260,6 +260,18 @@
     },
 
     {
+      "UpstreamPathTemplate": "/shelfs/items/embeddings/backfill",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/shelfs/items/embeddings/backfill",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/offers/generate",
       "UpstreamHttpMethod": [ "POST" ],
       "DownstreamPathTemplate": "/offers/generate",

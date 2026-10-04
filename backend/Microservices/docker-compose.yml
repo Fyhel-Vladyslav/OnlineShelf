@@ -57,6 +57,8 @@ services:
     environment:
       - GrpcSettings__ShelfsServiceUrl=http://shelfsservice:8082
       - GrpcSettings__OutfitNetworkServiceUrl=http://outfitnetworkservice:8080
+      # Ключ береться з backend/Microservices/.env (у .gitignore), див. .env.example
+      - OpenWeatherApiKey=${OPENWEATHER_API_KEY:-}
     depends_on:
       - shelfsservice
       - outfitnetworkservice
@@ -111,14 +113,16 @@ services:
       - SHELF_SERVICE_URL=http://gateway:8080
     volumes:
       - ~/.cache/huggingface:/root/.cache/huggingface
+    depends_on:
+      - gateway   # довідники атрибутів тягнуться через gateway одразу при старті
     networks:
       - microservice_net
 
-  adminportal:
-    container_name: admin-portal
-    image: ${DOCKER_REGISTRY-}admin-portal
+  webui:
+    container_name: webui
+    image: ${DOCKER_REGISTRY-}webui
     build:
-      context: ../../frontend/admin-portal
+      context: ../../frontend/webui
       dockerfile: Dockerfile
     ports:
       - "5173:80"   # CORS у Gateway дозволяє саме http://localhost:5173

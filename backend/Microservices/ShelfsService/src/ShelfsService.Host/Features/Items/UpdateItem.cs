@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using FastEndpoints;
 using FluentValidation;
+using Grpc.Core;
 using ImageService.Protos;
 using MediatR;
 using ShelfsService.Extentions;
@@ -114,6 +115,20 @@ public class UpdateItemCommandHandler(
                     item.BigImage = bigImageName;
                     item.SmallImage = smallImageName;
                 }
+        }
+        // 4. Фото лишилось те саме, але ембединга немає (річ створена до EmbedClothing) — дораховуємо «самолікуванням»
+        else if (item.BigImage != null && item.VisualEmbedding == null)
+        {
+            try
+            {
+                var imageBytes = await imageClient.DownloadPhotoAsync(item.BigImage, ct);
+                await imageAnalyzer.ApplyVisualEmbeddingAsync(item, imageBytes, Logger, ct);
+            }
+            catch (RpcException ex)
+            {
+                Logger.LogWarning("Could not load image {Image} to compute embedding for item {ItemId}: {Status}",
+                    item.BigImage, item.Id, ex.Status);
+            }
         }
 
         var resShelf = await repos.UpdateItemAsync(item, ct);

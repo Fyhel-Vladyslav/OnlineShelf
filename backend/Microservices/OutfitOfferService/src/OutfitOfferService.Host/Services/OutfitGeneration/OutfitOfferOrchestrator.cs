@@ -112,7 +112,8 @@ public sealed class OutfitOfferOrchestrator(
         {
             // Погода — не критична: без неї образ все одно підбирається, лише без погодних обмежень
             logger.LogWarning(ex, "Weather is unavailable, continuing without weather constraints");
-            warnings.Add("Weather service is unavailable; weather constraints are not applied.");
+            var reason = ex is WeatherUnavailableException ? $" ({ex.Message})" : string.Empty;
+            warnings.Add($"Weather service is unavailable{reason}; weather constraints are not applied.");
             return null;
         }
     }

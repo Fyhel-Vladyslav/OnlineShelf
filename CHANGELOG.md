@@ -4,6 +4,19 @@
 Формат рядка: `- <Added|Changed|Fixed|Removed> <що саме> (<сервіс/файл>)`.
 
 ## 2026-10-04
+- Changed frontend folder admin-portal to webui to match renamed compose service (frontend/webui, package.json, .gitignore)
+- Fixed white text on light weather/season tags in outfit results (admin-portal/src/pages/outfits/outfitTheme.ts)
+- Fixed outfit slot mapping to match actual YOLO-based Type dictionary in DB (OutfitOfferService appsettings.json, tests TestData)
+- Added idempotent test wardrobe seed script with 25 items without photos (backend/Microservices/scripts/seed_test_wardrobe.sql)
+- Changed .gitignore: ignore all **/.env except .env.example in a dedicated secrets section (.gitignore)
+- Changed OutfitOfferService.Tests location to OutfitOfferService/tests and excluded tests from service build (OutfitOfferService.csproj, Microservices.sln)
+- Added visual embedding backfill service with POST shelfs/items/embeddings/backfill endpoint and one-time startup run (ShelfsService)
+- Added embedding self-healing on update-item when photo is kept but embedding is missing (UpdateItem.cs)
+- Added DownloadPhotoAsync helper for ImageService photo stream (ShelfsService/Helpers)
+- Fixed empty OpenWeatherApiKey treated as configured; 401 and empty key now raise WeatherUnavailableException (OpenWeatherClient.cs)
+- Changed get-weather to return 503 with reason instead of 500 and warn on startup when weather key is missing (OutfitOfferService)
+- Added OpenWeatherApiKey from .env to outfitofferservice, .env.example, and parseimageservice depends_on gateway (docker-compose.yml)
+- Added gateway route for embeddings backfill (ocelot.json)
 - Added offers API module with weather/generate types and Ukrainian enum labels (admin-portal/src/api/offers/offersApi.ts)
 - Added authService.getUserId reading nameid claim from JWT (admin-portal/AuthService.ts)
 - Added useWeather query and useGenerateOutfits mutation with 400/503 error notifications (admin-portal/src/hooks/offers)
