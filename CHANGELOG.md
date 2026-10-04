@@ -10,6 +10,7 @@
 - Added Outfit Offer wizard page /outfits with Context/Include/Exclude/Reference steps and results (admin-portal/src/pages/outfits)
 - Added /outfits protected route and Outfits header link (admin-portal App.tsx, Header.tsx)
 - Fixed HomePage.css import casing that broke build on case-sensitive Linux (admin-portal HomePage.tsx)
+- Added admin-portal Dockerfile (vite build + nginx SPA) and adminportal service on port 5173 (docker-compose.yml)
 
 ## 2026-09-27
 - Added EmbedClothing rpc returning L2-normalized CLIP visual embedding (parse-image.proto, ParseImageService)
