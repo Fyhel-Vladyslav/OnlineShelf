@@ -4,6 +4,7 @@ import type { ItemPreviewDto } from '@/api/shelfs/itemsApi';
 import { useDraggable } from '@dnd-kit/core';
 import noImageSmall from '@/assets/images/noPhotoLoadedSmall.jpg';
 import { useNavigate } from 'react-router-dom';
+import { useImage } from '@/hooks/items/useImage';
 
 interface ItemProps {
     item: ItemPreviewDto;
@@ -15,6 +16,8 @@ interface ItemProps {
       id: item.id,
       data: { type: 'item' },
     });
+    // smallImage — ім'я файлу, саму картинку тягнемо через ImageService
+    const { data: imageUrl } = useImage(item.smallImage || undefined);
     // const handleClick = (e: React.MouseEvent) => {
       const handleClick = () => {  
     console.log("da");
@@ -38,7 +41,7 @@ interface ItemProps {
       >
         <div className={styles.imageWrapper}>
           <img
-            src={item.smallImage||noImageSmall}
+            src={imageUrl ?? noImageSmall}
             alt=""
             className={styles.previewImage}
           />

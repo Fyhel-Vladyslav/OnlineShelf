@@ -25,8 +25,7 @@ import { Modal } from 'antd'; // Imported Modal
 import ImageShow from '@/components/ImageShow/ImageShow';
 
 
-var USE_MOCK_DATA = true;
-//USE_MOCK_DATA = false;
+const USE_MOCK_DATA = false;
 
 const mockData: ShelfsDto[] = [
   {
