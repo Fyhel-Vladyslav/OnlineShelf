@@ -1,4 +1,4 @@
-import './homePage.css';
+import './HomePage.css';
 import wardrobe from '@/assets/images/wardrobe.png';
 import leftDoor from '@/assets/images/left_door.jpg';
 import rightDoor from '@/assets/images/right_door.jpg';
