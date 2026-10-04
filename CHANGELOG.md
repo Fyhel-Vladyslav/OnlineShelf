@@ -12,6 +12,7 @@
 - Fixed HomePage.css import casing that broke build on case-sensitive Linux (admin-portal HomePage.tsx)
 - Added admin-portal Dockerfile (vite build + nginx SPA) and adminportal service on port 5173 (docker-compose.yml)
 - Fixed wardrobe page showing mock shelf instead of API data and item thumbnails not loaded via ImageService (ShelfsPage.tsx, ItemComponent.tsx)
+- Changed outfit page text to white on dark background with light-text cards (admin-portal/src/pages/outfits)
 
 ## 2026-09-27
 - Added EmbedClothing rpc returning L2-normalized CLIP visual embedding (parse-image.proto, ParseImageService)

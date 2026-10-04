@@ -13,6 +13,7 @@ import { useImage } from '@/hooks/items/useImage';
 import noImage from '@/assets/images/noPhotoLoaded.jpg';
 import { formatMultiplier, formatPercent, formatRuleName, formatTemperature, weatherIcons } from '../outfitPresentation';
 import styles from '../OutfitOfferPage.module.css';
+import LightSurface from './LightSurface';
 
 const { Text } = Typography;
 
@@ -74,6 +75,7 @@ const OutfitCard: React.FC<{ outfit: OutfitDto; index: number }> = ({ outfit, in
   const penalties = Object.entries(outfit.appliedPenalties).map(([rule, multiplier]) => ({ rule, multiplier }));
 
   return (
+    <LightSurface>
     <Card
       title={`Варіант ${index + 1}`}
       extra={
@@ -134,6 +136,7 @@ const OutfitCard: React.FC<{ outfit: OutfitDto; index: number }> = ({ outfit, in
         }]}
       />
     </Card>
+    </LightSurface>
   );
 };
 

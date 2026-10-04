@@ -5,6 +5,7 @@ import { getCurrentSeasonPhase, seasonPhaseLabels, weatherLabels } from '@/api/o
 import { useWeather } from '@/hooks/offers/useWeather';
 import { formatTemperature, weatherIcons, type Coords } from '../outfitPresentation';
 import styles from '../OutfitOfferPage.module.css';
+import LightSurface from './LightSurface';
 
 const { Text } = Typography;
 
@@ -38,6 +39,7 @@ const ContextStep: React.FC<ContextStepProps> = ({
   const canApplyManual = manualLat != null && manualLon != null;
 
   return (
+    <LightSurface>
     <Row gutter={[16, 16]}>
       <Col xs={24} lg={12}>
         <Card title={<><EnvironmentOutlined /> Локація</>}>
@@ -146,6 +148,7 @@ const ContextStep: React.FC<ContextStepProps> = ({
         </Space>
       </Col>
     </Row>
+    </LightSurface>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Alert, Button, Steps, Typography } from 'antd';
+import { Alert, Button, ConfigProvider, Steps, Typography } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 import { isAxiosError } from 'axios';
 import type { GenerateOutfitsRequest } from '@/api/offers/offersApi';
@@ -11,6 +11,7 @@ import ItemPickerStep from './components/ItemPickerStep';
 import OutfitResults from './components/OutfitResults';
 import type { Coords } from './outfitPresentation';
 import styles from './OutfitOfferPage.module.css';
+import { pageTheme } from './outfitTheme';
 
 const { Title, Text } = Typography;
 
@@ -109,6 +110,7 @@ const OutfitOfferPage: React.FC = () => {
   const nextStep = step === STEP_EXCLUDE ? null : step + 1;
 
   return (
+    <ConfigProvider theme={pageTheme}>
     <div className={styles.page}>
       <Title level={2}>Підбір образу</Title>
 
@@ -193,6 +195,7 @@ const OutfitOfferPage: React.FC = () => {
         </div>
       )}
     </div>
+    </ConfigProvider>
   );
 };
 
