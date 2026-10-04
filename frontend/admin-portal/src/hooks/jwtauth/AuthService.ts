@@ -2,6 +2,7 @@ import { jwtDecode} from "jwt-decode";
 
 interface JwtPayload {
   roles?: string[];
+  nameid?: string;
 }
 
 function getToken() { return localStorage.getItem("access_token"); }
@@ -18,6 +19,18 @@ export const authService = {
       return decoded.roles ?? [];
     } catch {
       return [];
+    }
+  },
+
+  // Id користувача з claim `nameid` (JwtRegisteredClaimNames.NameId на бекенді)
+  getUserId: (): string | null => {
+    const token = getToken();
+    if (!token) return null;
+
+    try {
+      return jwtDecode<JwtPayload>(token).nameid ?? null;
+    } catch {
+      return null;
     }
   },
 
