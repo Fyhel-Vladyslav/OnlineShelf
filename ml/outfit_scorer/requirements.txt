@@ -1,0 +1,13 @@
+# ML-пайплайн скорера сумісності. torch/transformers/pillow/numpy — ті самі версії,
+# що в backend/Microservices/ParseImageService/requirements.txt (паритет ембедингів).
+# CUDA-збірку torch ставити окремо ПЕРЕД цим файлом (див. README).
+torch==2.6.0
+transformers==5.12.0
+pillow==11.0.0
+numpy==2.1.1
+pyyaml==6.0.2
+pyarrow>=17
+tqdm==4.67.3
+onnx>=1.17
+onnxruntime>=1.20
+pytest>=8
