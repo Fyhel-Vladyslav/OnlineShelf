@@ -11,6 +11,8 @@
 3. Агрегація (NGNN-lite, Cui et al. 2019): `gnn_rounds` раундів message passing з вагами s_ij,
    attention-pooling, голова на [pool; mean s; min s] → graph_score.
    gnn_rounds = 0 — baseline «pairwise без GNN»: graph_score = середнє s_ij.
+   residual = True — голова дає лише поправку: graph_logit = logit(mean s) + head(...), останній шар
+   голови ініціалізовано нулями, тож на старті модель = pairwise і GNN вчиться лише покращувати її.
 """
 
 from __future__ import annotations
@@ -33,9 +35,10 @@ def mlp(sizes: list[int], dropout: float = 0.0) -> nn.Sequential:
 class OutfitScorer(nn.Module):
     def __init__(self, emb_dim: int = 512, hidden_dim: int = 256, dim: int = 64, num_masks: int = 5,
                  category_vocab: int = 7, category_emb_dim: int = 32, gnn_rounds: int = 2,
-                 dropout: float = 0.1) -> None:
+                 dropout: float = 0.1, residual: bool = False) -> None:
         super().__init__()
         self.gnn_rounds = gnn_rounds
+        self.residual = residual
         self.register_buffer("input_mean", torch.zeros(emb_dim))
         self.register_buffer("input_scale", torch.ones(()))
         self.node_mlp = mlp([emb_dim, hidden_dim, dim], dropout)
@@ -50,6 +53,9 @@ class OutfitScorer(nn.Module):
         self.norm = nn.ModuleList(nn.LayerNorm(dim) for _ in range(gnn_rounds))
         self.pool_score = mlp([dim, dim, 1])
         self.head = mlp([dim + 2, dim, 1], dropout)
+        if residual:
+            nn.init.zeros_(self.head[-1].weight)
+            nn.init.zeros_(self.head[-1].bias)
 
     @torch.no_grad()
     def set_input_stats(self, vectors) -> None:
@@ -86,11 +92,11 @@ class OutfitScorer(nn.Module):
         pair_count = pair_mask.sum(dim=(1, 2))
         mean_s = edge_prob.sum(dim=(1, 2)) / pair_count.clamp(min=1.0)
         mean_s = torch.where(pair_count > 0, mean_s, torch.full_like(mean_s, 0.5))
+        p = mean_s.clamp(1e-6, 1.0 - 1e-6)
+        pairwise_logit = torch.log(p / (1.0 - p))  # не torch.logit: простіший ONNX-граф
 
         if self.gnn_rounds == 0:
-            p = mean_s.clamp(1e-6, 1.0 - 1e-6)
-            graph_logit = torch.log(p / (1.0 - p))  # не torch.logit: простіший ONNX-граф
-            return graph_logit, edge_logit
+            return pairwise_logit, edge_logit
 
         # --- message passing з вагами s_ij (NGNN-lite)
         adjacency = edge_prob / (edge_prob.sum(dim=-1, keepdim=True) + 1e-6)
@@ -105,6 +111,8 @@ class OutfitScorer(nn.Module):
         pooled = (attention * h).sum(dim=1)
         min_s = (edge_prob + (1.0 - pair_mask) * 2.0).amin(dim=(1, 2)).clamp(max=1.0)
         graph_logit = self.head(torch.cat([pooled, mean_s.unsqueeze(-1), min_s.unsqueeze(-1)], dim=-1)).squeeze(-1)
+        if self.residual:
+            graph_logit = pairwise_logit + graph_logit
         return graph_logit, edge_logit
 
 
@@ -142,4 +150,5 @@ def build_model(model_cfg: dict, emb_dim: int) -> OutfitScorer:
         category_emb_dim=model_cfg["category_emb_dim"],
         gnn_rounds=model_cfg["gnn_rounds"],
         dropout=model_cfg["dropout"],
+        residual=model_cfg.get("residual", False),  # старі чекпоінти — без residual
     )

@@ -17,6 +17,7 @@ import numpy as np
 import torch
 
 from src.baselines import mean_cosine_scorer, random_scorer
+from src.data.embed import embedding_suffix
 from src.data.polyvore import SlotMapper, data_dir, load_config, load_item_categories, polyvore_root
 from src.data.sampler import eval_template_graphs
 from src.evaluation import build_eval_set, evaluate, histogram, model_scorer, roc_auc
@@ -39,11 +40,19 @@ def main() -> int:
     parser.add_argument("--variant", default=config["dataset"]["variant"])
     parser.add_argument("--split", default="test")
     parser.add_argument("--emb-dir", type=Path, default=data_dir(config) / "embeddings")
-    parser.add_argument("--emb-suffix", default="", help="e.g. _o200 for smoke caches")
+    parser.add_argument("--emb-suffix", default=None,
+                        help="suffix of embedding cache; default — the one --checkpoint was trained on "
+                             "(_yolo, _fashion-clip_yolo, '' for full-image CLIP)")
     parser.add_argument("--limit-outfits", type=int, default=None)
     parser.add_argument("--out-dir", type=Path, default=data_dir(config) / "eval")
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     args = parser.parse_args()
+
+    if args.emb_suffix is None:
+        trained_on = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
+        args.emb_suffix = trained_on.get("emb_suffix", embedding_suffix(config["embedding"]["model"],
+                                                                        config["embedding"].get("crop", "none")))
+    print(f"embedding cache suffix: '{args.emb_suffix}'")
 
     device = torch.device(args.device)
     root = polyvore_root(config)
@@ -55,8 +64,9 @@ def main() -> int:
     template_labels = np.array([g.label for g in templates])
 
     scorers = {"Random": random_scorer(), "Mean-cosine CLIP (без навчання)": mean_cosine_scorer(table)}
+    pairwise_name = "Pairwise CSA без GNN"
     if args.pairwise:
-        scorers["Pairwise CSA без GNN"] = model_scorer(load_checkpoint(args.pairwise, device)[0], table, device)
+        scorers[pairwise_name] = model_scorer(load_checkpoint(args.pairwise, device)[0], table, device)
     main_model, checkpoint = load_checkpoint(args.checkpoint, device)
     main_name = "CSA + NGNN-lite (наша)"
     scorers[main_name] = model_scorer(main_model, table, device)
@@ -71,22 +81,28 @@ def main() -> int:
               f"templates AUC {metrics['template_auc']:.4f}")
 
     # Розподіл graph_score нашої моделі на підобразах: скори не мають злипатися біля 0.5
-    main_template_scores = scorers[main_name](templates) if templates else np.zeros(0)
-    distribution = {
-        "std": float(main_template_scores.std()) if len(main_template_scores) else float("nan"),
-        "mean_positive": float(main_template_scores[template_labels == 1].mean()) if templates else float("nan"),
-        "mean_negative": float(main_template_scores[template_labels == 0].mean()) if templates else float("nan"),
-        "histogram": histogram(main_template_scores),
-    }
+    def score_distribution(name: str) -> dict:
+        scores = scorers[name](templates) if templates else np.zeros(0)
+        return {
+            "std": float(scores.std()) if len(scores) else float("nan"),
+            "mean_positive": float(scores[template_labels == 1].mean()) if templates else float("nan"),
+            "mean_negative": float(scores[template_labels == 0].mean()) if templates else float("nan"),
+            "histogram": histogram(scores),
+        }
+
+    distribution = score_distribution(main_name)
+    # pairwise має той самий ONNX-контракт і може піти в сервіс — критерій std > 0.05 перевіряється й для нього
+    pairwise_distribution = score_distribution(pairwise_name) if args.pairwise else None
 
     out_dir = args.out_dir / f"{datetime.now():%Y%m%d_%H%M%S}_{args.split}"
     out_dir.mkdir(parents=True, exist_ok=True)
     summary = {
-        "variant": args.variant, "split": args.split, "checkpoint": str(args.checkpoint),
+        "variant": args.variant, "split": args.split, "emb_suffix": args.emb_suffix, "checkpoint": str(args.checkpoint),
         "pairwise_checkpoint": str(args.pairwise) if args.pairwise else None,
         "compat_questions": len(eval_set.compat_graphs), "fitb_questions": len(eval_set.fitb_correct),
         "template_graphs": len(templates), "skipped": eval_set.skipped,
         "results": results, "score_distribution": distribution,
+        "score_distribution_pairwise": pairwise_distribution,
     }
     (out_dir / "metrics.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -102,10 +118,13 @@ def main() -> int:
         if bold:
             name, cells = f"**{name}**", [f"**{c}**" for c in cells]
         lines.append(f"| {name} | " + " | ".join(cells) + " |")
-    lines += ["", "## Розподіл graph_score (наша модель, підобрази)", "",
-              f"std {distribution['std']:.3f}, середнє на позитивах {distribution['mean_positive']:.3f}, "
-              f"на негативах {distribution['mean_negative']:.3f}", "", "| Інтервал | Кількість |", "|---|---|"]
-    lines += [f"| {b['from']:.1f}–{b['to']:.1f} | {b['count']} |" for b in distribution["histogram"]]
+    for title, d in [("наша модель", distribution), ("pairwise без GNN", pairwise_distribution)]:
+        if d is None:
+            continue
+        lines += ["", f"## Розподіл graph_score ({title}, підобрази)", "",
+                  f"std {d['std']:.3f}, середнє на позитивах {d['mean_positive']:.3f}, "
+                  f"на негативах {d['mean_negative']:.3f}", "", "| Інтервал | Кількість |", "|---|---|"]
+        lines += [f"| {b['from']:.1f}–{b['to']:.1f} | {b['count']} |" for b in d["histogram"]]
     (out_dir / "report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"report: {out_dir / 'report.md'}")
     return 0

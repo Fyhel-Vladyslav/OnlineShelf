@@ -195,6 +195,51 @@ public class BeamSearchOutfitGeneratorTests
     }
 
     [Fact]
+    public async Task Generate_DiversityPenalty_KeepsUniversalItemFromFillingTheWholeTop()
+    {
+        // «Хаб»: верх, що пасує до всього, — без диверсифікації він у кожному образі топу
+        var hub = Item("black sweater", Types.TShirt);
+        var wardrobe = new List<WardrobeItem> { hub };
+        for (var i = 0; i < 3; i++)
+        {
+            wardrobe.Add(Item($"top{i}", Types.Shirt));
+            wardrobe.Add(Item($"bottom{i}", Types.Pants));
+            wardrobe.Add(Item($"shoes{i}", Types.Sneakers));
+        }
+        var scorer = new FakeScorer();
+        foreach (var item in wardrobe.Where(i => i != hub))
+            scorer.Likes(hub, item, 0.6);
+
+        var plain = await Generate(scorer, wardrobe, options: Options(o => o.DiversityPenalty = 1.0));
+        var diverse = await Generate(scorer, wardrobe, options: Options(o => o.DiversityPenalty = 0.5));
+
+        Assert.All(plain.Outfits, o => Assert.Contains(hub.Id, Ids(o)));
+        Assert.Contains(hub.Id, Ids(diverse.Outfits[0])); // найкращий образ лишається першим
+        Assert.True(diverse.Outfits.Count(o => !Ids(o).Contains(hub.Id)) >= 2);
+        Assert.True(diverse.Outfits.Zip(diverse.Outfits.Skip(1)).All(p => p.First.Score.FinalScore >= p.Second.Score.FinalScore));
+    }
+
+    [Fact]
+    public void SelectDiverse_DoesNotPenalizePinnedItems()
+    {
+        var pinned = Item("pinned tee", Types.TShirt);
+        var x = Item("x", Types.Pants);
+        var y = Item("y", Types.Skirt);
+        var z = Item("z", Types.Shirt);
+        var w = Item("w", Types.Pants);
+        ScoredOutfit Outfit(double score, params WardrobeItem[] items) => new(
+            items.Select(i => new SlottedItem(i, OutfitSlot.Top)).ToList(),
+            new OutfitScore(score, score, 1, new Dictionary<string, double>(), []));
+        var candidates = new[] { Outfit(0.9, pinned, x), Outfit(0.8, pinned, y), Outfit(0.7, z, w) };
+
+        var withPinned = BeamSearchOutfitGenerator.SelectDiverse(candidates, 2, 0.5, new HashSet<Guid> { pinned.Id });
+        var withoutPinned = BeamSearchOutfitGenerator.SelectDiverse(candidates, 2, 0.5, new HashSet<Guid>());
+
+        Assert.Equal([0.9, 0.8], withPinned.Select(o => o.Score.FinalScore));
+        Assert.Equal([0.9, 0.7], withoutPinned.Select(o => o.Score.FinalScore));
+    }
+
+    [Fact]
     public async Task Generate_BeamWidth_LimitsSurvivingPartialOutfits()
     {
         var wardrobe = new List<WardrobeItem>();

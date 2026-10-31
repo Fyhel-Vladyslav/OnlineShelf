@@ -22,7 +22,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from src.data.embed import cache_name, load_embeddings
+from src.data.embed import cache_name, embedding_suffix, load_embeddings
 from src.data.polyvore import SlotMapper, data_dir, load_config, load_item_categories, load_split, polyvore_root
 from src.data.sampler import GraphSampler, ItemTable, collate
 from src.evaluation import build_eval_set, evaluate, model_scorer
@@ -61,7 +61,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--variant", default=config["dataset"]["variant"])
     parser.add_argument("--emb-dir", type=Path, default=data_dir(config) / "embeddings")
-    parser.add_argument("--emb-suffix", default="", help="suffix of embedding cache, e.g. _o200 for smoke caches")
+    parser.add_argument("--embedding-model", default=config["embedding"]["model"],
+                        help="model the embedding cache was computed with (stored in checkpoint and ONNX metadata)")
+    parser.add_argument("--emb-suffix", default=None,
+                        help="suffix of embedding cache; default from --embedding-model and embedding.crop "
+                             "(_yolo, _fashion-clip_yolo), '' for full-image CLIP, _yolo_o200 for smoke caches")
     parser.add_argument("--runs-dir", type=Path, default=data_dir(config) / "runs")
     parser.add_argument("--name", default="csa_ngnn")
     parser.add_argument("--epochs", type=int, default=train_cfg["epochs"])
@@ -71,6 +75,8 @@ def main() -> int:
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     args = parser.parse_args()
 
+    if args.emb_suffix is None:
+        args.emb_suffix = embedding_suffix(args.embedding_model, config["embedding"].get("crop", "none"))
     model_cfg["gnn_rounds"] = args.gnn_rounds
     train_cfg = {**train_cfg, "batch_size": args.batch_size}
     seed = train_cfg["seed"]
@@ -139,7 +145,9 @@ def main() -> int:
         if metrics["compat_auc"] > best_auc:
             best_auc, best_epoch, bad_epochs = metrics["compat_auc"], epoch, 0
             torch.save({"model_state": model.state_dict(), "model_cfg": model_cfg, "emb_dim": dim,
-                        "epoch": epoch, "valid": metrics, "variant": args.variant}, run_dir / "best.pt")
+                        "epoch": epoch, "valid": metrics, "variant": args.variant, "emb_suffix": args.emb_suffix,
+                        "embedding_model": args.embedding_model},
+                       run_dir / "best.pt")
         else:
             bad_epochs += 1
             if bad_epochs >= train_cfg["patience"]:

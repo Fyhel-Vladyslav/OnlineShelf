@@ -22,6 +22,12 @@ public sealed class ItemNode
     /// </summary>
     public required float[] FeatureVector { get; init; }
 
+    /// <summary>Модель, якою пораховано FeatureVector; вектор іншої моделі скорер вважає відсутнім.</summary>
+    public string EmbeddingModel { get; init; } = string.Empty;
+
+    /// <summary>Роль речі в образі (OutfitSlot з OutfitOfferService, 0..6) — категорія вузла для моделі.</summary>
+    public int Slot { get; init; }
+
     // Сирі атрибути з WardrobeItemDto — дублюються тут навмисно, щоб детерміновані
     // IPenaltyRule (наприклад, ColorClashPenaltyRule) не смикали Shelfs Service
     // окремим запитом за кожен айтем на кожен виклик scoring. Заповнюються один раз

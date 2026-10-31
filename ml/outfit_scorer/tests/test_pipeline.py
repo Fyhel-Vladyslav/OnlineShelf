@@ -24,10 +24,14 @@ def test_end_to_end_smoke(tmp_path):
     env = {**os.environ, "POLYVORE_DIR": str(root)}
     emb, runs, evals = tmp_path / "emb", tmp_path / "runs", tmp_path / "eval"
 
-    run("src.data.embed", "--model", str(clip), "--out-dir", str(emb), "--precision", "fp32", env=env)
-    run("src.train", "--emb-dir", str(emb), "--runs-dir", str(runs), "--epochs", "2", "--batch-size", "32", env=env)
-    run("src.train", "--emb-dir", str(emb), "--runs-dir", str(runs), "--epochs", "1", "--batch-size", "32",
-        "--gnn-rounds", "0", "--name", "pairwise", env=env)
+    # синтетичні картинки без одягу: YOLO-кроп тут нічого не перевіряє, він покритий test_embed.py
+    run("src.data.embed", "--model", str(clip), "--out-dir", str(emb), "--precision", "fp32", "--crop", "none", env=env)
+    # кеш іншої моделі ембедингів має суфікс з її назвою; train пише модель у чекпоінт, eval бере суфікс звідти
+    assert (emb / "disjoint_train_tiny-clip.npy").exists()
+    train_args = ["--emb-dir", str(emb), "--embedding-model", str(clip), "--emb-suffix", "_tiny-clip",
+                  "--runs-dir", str(runs), "--batch-size", "32"]
+    run("src.train", *train_args, "--epochs", "2", env=env)
+    run("src.train", *train_args, "--epochs", "1", "--gnn-rounds", "0", "--name", "pairwise", env=env)
     main_run = next(runs.glob("*_csa_ngnn"))
     pairwise_run = next(runs.glob("*_pairwise"))
     run("src.eval", "--checkpoint", str(main_run / "best.pt"), "--pairwise", str(pairwise_run / "best.pt"),
@@ -38,5 +42,8 @@ def test_end_to_end_smoke(tmp_path):
     onnx_path = tmp_path / "outfit_gnn.onnx"
     run("src.export_onnx", "--checkpoint", str(main_run / "best.pt"),
         "--metrics", str(next(evals.glob("*/metrics.json"))), "--out", str(onnx_path), env=env)
+    import onnx
+    metadata = {p.key: p.value for p in onnx.load(str(onnx_path)).metadata_props}
+    assert metadata["embedding_model"] == str(clip)
     assert "OK" in run("src.parity_check", "--checkpoint", str(main_run / "best.pt"), "--onnx", str(onnx_path),
                        "--graphs", "200", env=env)

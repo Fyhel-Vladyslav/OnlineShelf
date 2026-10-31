@@ -9,6 +9,12 @@ public sealed class EmbeddingBackfillOptions
 
     /// <summary>Затримка перед стартовим backfill: ParseImageService довго вантажить YOLO + CLIP.</summary>
     public int BackfillStartupDelaySeconds { get; set; } = 60;
+
+    /// <summary>
+    /// Поточна модель ембедингів у ParseImageService. Вектори іншої моделі backfill перераховує,
+    /// бо скорер OutfitNetworkService їх ігнорує (embedding_model не збігається з моделлю скорера).
+    /// </summary>
+    public string CurrentModel { get; set; } = "patrickjohncyh/fashion-clip";
 }
 
 /// <summary>Одноразовий backfill ембедингів після старту (міграції на цей момент уже застосовані ShelfDatabaseInitializer).</summary>

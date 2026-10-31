@@ -60,9 +60,11 @@ def export(model: OutfitScorer, emb_dim: int, out: Path, metadata: dict[str, str
     return out
 
 
-def build_metadata(config: dict, model_version: str, trained_on: str, metrics: dict) -> dict[str, str]:
+def build_metadata(config: dict, model_version: str, trained_on: str, metrics: dict,
+                   embedding_model: str | None = None) -> dict[str, str]:
     return {
-        "embedding_model": config["embedding"]["model"],
+        # модель ембедингів, на якій навчено чекпоінт: сервіс відкидає вектори інших моделей
+        "embedding_model": embedding_model or config["embedding"]["model"],
         "embedding_dim": str(config["embedding"]["dim"]),
         "category_vocab": "OutfitSlot",
         "model_version": model_version,
@@ -94,8 +96,10 @@ def main() -> int:
         if args.metrics:
             evaluation = json.loads(args.metrics.read_text(encoding="utf-8"))
             metrics[evaluation["split"]] = evaluation["results"]
-        trained_on = f"Polyvore Outfits ({checkpoint.get('variant', 'disjoint')}), epoch {checkpoint.get('epoch')}"
-        metadata = build_metadata(config, args.model_version, trained_on, metrics)
+        crop = "YOLO crop as in ParseImageService" if "_yolo" in checkpoint.get("emb_suffix", "") else "full image"
+        trained_on = (f"Polyvore Outfits ({checkpoint.get('variant', 'disjoint')}), epoch {checkpoint.get('epoch')}, "
+                      f"embeddings: {crop}")
+        metadata = build_metadata(config, args.model_version, trained_on, metrics, checkpoint.get("embedding_model"))
     else:
         parser.error("pass --checkpoint or --random")
 

@@ -24,12 +24,15 @@ namespace OutfitNetworkService.Extentions
                 if (File.Exists(modelPath))
                 {
                     logger.LogInformation("Using ONNX GNN scorer from {ModelPath}", modelPath);
-                    return new OnnxGraphCompatibilityScorer(Options.Create(new GnnScorerOptions { ModelPath = modelPath }));
+                    return new OnnxGraphCompatibilityScorer(Options.Create(new GnnScorerOptions { ModelPath = modelPath }), logger);
                 }
 
                 logger.LogWarning("GNN model {ModelPath} not found, falling back to StubGraphCompatibilityScorer", modelPath);
                 return new StubGraphCompatibilityScorer();
             });
+
+            // Модель завантажується й прогрівається під час старту, а не на першому запиті
+            services.AddHostedService<GnnScorerWarmupService>();
 
             services.AddScoped<IMultiplicativePenaltyCalculator, MultiplicativePenaltyCalculator>();
             services.AddScoped<IScoringOrchestrator, ScoringOrchestrator>();

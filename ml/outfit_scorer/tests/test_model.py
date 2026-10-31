@@ -4,9 +4,9 @@ from src.data.polyvore import load_config
 from src.model.scorer import build_model
 
 
-def make_model(gnn_rounds=2):
+def make_model(gnn_rounds=2, residual=True):
     torch.manual_seed(0)
-    cfg = dict(load_config()["model"], gnn_rounds=gnn_rounds, dropout=0.0)
+    cfg = dict(load_config()["model"], gnn_rounds=gnn_rounds, dropout=0.0, residual=residual)
     model = build_model(cfg, 512).eval()
     model.set_input_stats(torch.nn.functional.normalize(torch.randn(100, 512), dim=-1))
     return model
@@ -65,3 +65,25 @@ def test_pairwise_baseline_graph_score_is_mean_edge_score():
     off_diag = ~torch.eye(4, dtype=torch.bool)
     expected = torch.sigmoid(edge_logit)[:, off_diag].mean(dim=1)
     assert torch.allclose(torch.sigmoid(graph_logit), expected, atol=1e-5)
+
+
+def test_residual_model_starts_as_pairwise():
+    # нульова поправка голови → graph_score = середнє s_ij, як у pairwise
+    model = make_model(residual=True)
+    x, category, has, mask = random_batch(b=2, n=4)
+    graph_logit, edge_logit = model(x, category, has, mask)
+    off_diag = ~torch.eye(4, dtype=torch.bool)
+    expected = torch.sigmoid(edge_logit)[:, off_diag].mean(dim=1)
+    assert torch.allclose(torch.sigmoid(graph_logit), expected, atol=1e-5)
+
+
+def test_residual_correction_is_trainable():
+    model = make_model(residual=True).train()
+    graph_logit, _ = model(*random_batch())
+    graph_logit.sum().backward()
+    assert model.head[-1].weight.grad.abs().sum() > 0
+
+
+def test_old_checkpoint_config_without_residual_still_builds():
+    cfg = {k: v for k, v in load_config()["model"].items() if k != "residual"}
+    assert build_model(cfg, 512).residual is False

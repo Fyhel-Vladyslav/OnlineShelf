@@ -15,8 +15,8 @@ namespace ShelfsService.src.ShelfsService.Common.Interfaces;
     Task<Item> MoveItemAsync(Item item, Shelf newShelf, CancellationToken ct);
     Task<List<Item>> GetUserItemsAsync(Guid userId, bool onlyFavorite, CancellationToken ct);
 
-    /// <summary>Речі з фото, але без візуального ембединга (кандидати на backfill).</summary>
-    Task<List<(Guid Id, string BigImage)>> GetItemsMissingEmbeddingAsync(Guid? userId, CancellationToken ct);
+    /// <summary>Речі з фото без візуального ембединга або з вектором іншої моделі (кандидати на backfill).</summary>
+    Task<List<(Guid Id, string BigImage)>> GetItemsNeedingEmbeddingAsync(Guid? userId, string currentModel, CancellationToken ct);
 
     /// <summary>Точковий запис ембединга без зміни UpdatedAt (це технічні дані, а не редагування речі).</summary>
     Task SaveVisualEmbeddingAsync(Guid itemId, float[] embedding, string? embeddingModel, CancellationToken ct);

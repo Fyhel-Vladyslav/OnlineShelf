@@ -2,8 +2,14 @@
 
 Функція ембедингу повторює ParseImageService (`app/models/visual_embedder/visual_embedder.py`):
 RGB-картинка → CLIP image processor → `get_image_features` → L2-нормалізація, `openai/clip-vit-base-patch32`.
-Код Parse не імпортується: логіка скопійована, паритет перевіряє tests/test_embed_parity.py.
+Код Parse не імпортується: логіка скопійована, паритет перевіряє tests/test_embed.py.
 Parse викликає `CLIPProcessor(images=...)`, який делегує в той самий `CLIPImageProcessor`, що й тут.
+
+Перед CLIP Parse вирізає річ YOLO-детектором (`app/models/clothing_detector/clothing_detector.py`):
+`embedding.crop: yolo` повторює цей кроп (ті самі ваги, conf, дозволені класи, найкращий бокс, а якщо
+нічого не знайдено — усе фото), щоб модель навчалась на тих самих векторах, що прийдуть у сервіс.
+Кеш з кропом пишеться з суфіксом `_yolo` (`{variant}_{split}_yolo.npy`), іншої моделі ембедингів — ще й
+з її назвою (`--model patrickjohncyh/fashion-clip` → `{variant}_{split}_fashion-clip_yolo.npy`).
 
 Картинки беруться з `data/{variant}/{train|validation|test}.parquet` (рядок = item_id + JPEG-байти).
 Декодування й препроцесинг ідуть у пулі потоків (PIL і numpy відпускають GIL). DataLoader з процесами
@@ -17,12 +23,14 @@ Parse викликає `CLIPProcessor(images=...)`, який делегує в �
     python -m src.data.embed --split valid --limit 500     # бенчмарк швидкості
     python -m src.data.embed --limit-outfits 200           # smoke: лише айтеми перших 200 образів/питань
     python -m src.data.embed --check-fp16 256              # паритет fp16 ↔ fp32
+    python -m src.data.embed --crop none                   # без YOLO-кропу (кеш без суфікса)
 """
 
 from __future__ import annotations
 
 import argparse
 import io
+import re
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -33,7 +41,77 @@ import pyarrow.parquet as pq
 import torch
 from PIL import Image
 
-from src.data.polyvore import PARQUET_SPLIT, SPLITS, data_dir, load_config, load_split, polyvore_root
+from src.data.polyvore import PARQUET_SPLIT, REPO_ROOT, SPLITS, data_dir, load_config, load_split, polyvore_root
+
+CROP_MODES = ("yolo", "none")
+DEFAULT_MODEL = "openai/clip-vit-base-patch32"
+
+
+def crop_suffix(crop: str) -> str:
+    """Суфікс кешу ембедингів для режиму кропу."""
+    return "_yolo" if crop == "yolo" else ""
+
+
+def model_suffix(model: str) -> str:
+    """Суфікс кешу для моделі ембедингів: DEFAULT_MODEL — без суфікса (наявні кеші), інші — _<назва>,
+    напр. patrickjohncyh/fashion-clip → _fashion-clip."""
+    if model == DEFAULT_MODEL:
+        return ""
+    return "_" + re.sub(r"[^a-z0-9]+", "-", Path(model).name.lower()).strip("-")
+
+
+def embedding_suffix(model: str, crop: str) -> str:
+    """Повний суфікс кешу `{variant}_{split}{suffix}`; train/eval за замовчуванням беруть його з config."""
+    return model_suffix(model) + crop_suffix(crop)
+
+
+# ----------------------------------------------------------------------------- YOLO-кроп
+
+
+class YoloCropper:
+    """Кроп речі як у ParseImageService.ClothingDetector.detect_and_crop.
+
+    RGB → BGR → YOLO(conf) → бокс з найвищою впевненістю серед allowed_classes (None — будь-який клас)
+    → кроп `image_bgr[y1:y2, x1:x2]`; без боксу — усе фото. Повертає RGB-кроп або None для порожнього
+    кропу (Parse у такому разі не рахує ембединг). Не потокобезпечний: викликати з одного потоку.
+    """
+
+    def __init__(self, weights: Path, conf: float, allowed_classes: list[str] | None, device: str) -> None:
+        from ultralytics import YOLO
+
+        self.model = YOLO(str(weights))
+        self.conf = conf
+        self.allowed = set(allowed_classes) if allowed_classes else None
+        self.device = device
+
+    def __call__(self, image_rgb: np.ndarray) -> np.ndarray | None:
+        import cv2
+
+        image_bgr = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2BGR)
+        result = self.model(image_bgr, verbose=False, conf=self.conf, device=self.device)[0]
+        best_box, highest_conf = None, 0.0
+        for box in result.boxes:
+            name = result.names[int(box.cls[0].item())]
+            conf = float(box.conf[0].item())
+            if (self.allowed is None or name in self.allowed) and conf > highest_conf:
+                highest_conf = conf
+                best_box = box.xyxy[0].cpu().numpy().astype(int)
+        if best_box is None:
+            crop = image_bgr
+        else:
+            x1, y1, x2, y2 = best_box
+            crop = image_bgr[y1:y2, x1:x2]
+        if crop.size == 0:
+            return None
+        return cv2.cvtColor(crop, cv2.COLOR_BGR2RGB)
+
+
+def build_cropper(emb_cfg: dict, crop: str, device: torch.device) -> YoloCropper | None:
+    if crop == "none":
+        return None
+    weights = Path(emb_cfg["crop_weights"])
+    return YoloCropper(weights if weights.is_absolute() else REPO_ROOT / weights, emb_cfg["crop_conf"],
+                       emb_cfg.get("crop_allowed_classes"), device.type if device.type == "cpu" else str(device))
 
 
 # ----------------------------------------------------------------------------- CLIP
@@ -47,10 +125,24 @@ def load_clip(model_name: str, device: torch.device):
     return model, processor
 
 
-def preprocess(processor, image_bytes: bytes) -> np.ndarray:
-    """JPEG-байти → pixel_values[3, H, W] (як у Parse: RGB PIL-картинка в processor)."""
-    image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-    return processor(images=image, return_tensors="np")["pixel_values"][0]
+def decode(image_bytes: bytes) -> np.ndarray:
+    """Байти картинки → RGB ndarray (як ParseImageService._decode_image)."""
+    return np.array(Image.open(io.BytesIO(image_bytes)).convert("RGB"))
+
+
+def preprocess_rgb(processor, image_rgb: np.ndarray) -> np.ndarray:
+    """RGB ndarray → pixel_values[3, H, W] (як VisualEmbedder.embed: PIL-картинка в processor)."""
+    return processor(images=Image.fromarray(image_rgb), return_tensors="np")["pixel_values"][0]
+
+
+def preprocess(processor, image_bytes: bytes, cropper: YoloCropper | None = None) -> np.ndarray | None:
+    """JPEG-байти → (YOLO-кроп) → pixel_values[3, H, W]; None, якщо кроп порожній."""
+    image = decode(image_bytes)
+    if cropper is not None:
+        image = cropper(image)
+        if image is None:
+            return None
+    return preprocess_rgb(processor, image)
 
 
 def image_features(model, pixel_values: torch.Tensor) -> torch.Tensor:
@@ -185,7 +277,7 @@ def iter_parquet(path: Path, batch_size: int, skip: set[str], limit: int | None,
 
 def embed_split(parquet_path: Path, emb_dir: Path, name: str, model, processor, encoder: Encoder,
                 batch_size: int, num_workers: int, shard_size: int, limit: int | None,
-                only: set[str] | None = None) -> None:
+                only: set[str] | None = None, cropper: YoloCropper | None = None) -> None:
     final = emb_dir / f"{name}.npy"
     if final.exists():
         print(f"{name}: already cached in {final}, skipping (delete the file to recompute)")
@@ -198,7 +290,8 @@ def embed_split(parquet_path: Path, emb_dir: Path, name: str, model, processor, 
         total = min(total, len(only))
     writer = ShardWriter(emb_dir / f"{name}.parts", shard_size)
     print(f"{name}: {total} items, {len(writer.done)} already done, "
-          f"device {encoder.device}, fp16 {encoder.fp16}, batch {batch_size}, workers {num_workers}", flush=True)
+          f"device {encoder.device}, fp16 {encoder.fp16}, batch {batch_size}, workers {num_workers}, "
+          f"crop {'yolo' if cropper else 'none'}", flush=True)
 
     pin = encoder.device.type == "cuda"
     failed: list[str] = []
@@ -208,8 +301,15 @@ def embed_split(parquet_path: Path, emb_dir: Path, name: str, model, processor, 
 
     def prepare(batch):
         ids, images = batch
+        if cropper is None:
+            results = pool.map(lambda b: _safe(preprocess, processor, b), images)
+        else:
+            # декодування й препроцесинг — у пулі, YOLO — послідовно в цьому потоці (predictor не потокобезпечний)
+            decoded = list(pool.map(lambda b: _safe(decode, b), images))
+            crops = [None if d is None else _safe(cropper, d) for d in decoded]
+            results = pool.map(lambda c: None if c is None else _safe(preprocess_rgb, processor, c), crops)
         arrays, ok_ids = [], []
-        for item_id, result in zip(ids, pool.map(lambda b: _safe_preprocess(processor, b), images)):
+        for item_id, result in zip(ids, results):
             if result is None:
                 failed.append(item_id)
             else:
@@ -246,16 +346,16 @@ def embed_split(parquet_path: Path, emb_dir: Path, name: str, model, processor, 
     if computed:
         print(f"{name}: {computed} images in {elapsed:.1f} s ({computed / elapsed:.1f} img/s)")
     if failed:
-        print(f"{name}: {len(failed)} images failed to decode (stored without embedding): {failed[:10]}")
+        print(f"{name}: {len(failed)} images failed to decode or crop (stored without embedding): {failed[:10]}")
     count = writer.merge(emb_dir, name)
     print(f"{name}: saved {count} vectors to {final}")
 
 
-def _safe_preprocess(processor, image_bytes: bytes) -> np.ndarray | None:
+def _safe(fn, *args):
     try:
-        return preprocess(processor, image_bytes)
+        return fn(*args)
     except Exception as exc:  # битий JPEG не має зупиняти багатогодинний прогін
-        print(f"\ndecode error: {exc}", file=sys.stderr)
+        print(f"\n{getattr(fn, '__name__', type(fn).__name__)} error: {exc}", file=sys.stderr)
         return None
 
 
@@ -290,6 +390,8 @@ def main() -> int:
     parser.add_argument("--num-workers", type=int, default=emb_cfg["num_workers"])
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--check-fp16", type=int, metavar="N", default=0, help="compare fp16 and fp32 on N images")
+    parser.add_argument("--crop", choices=CROP_MODES, default=emb_cfg.get("crop", "none"),
+                        help="yolo: crop the item like ParseImageService before CLIP")
     args = parser.parse_args()
 
     root = polyvore_root(config)
@@ -305,8 +407,9 @@ def main() -> int:
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
     encoder = Encoder(model, device, fp16=args.precision == "fp16")
+    cropper = build_cropper(emb_cfg, args.crop, device)
     for split in splits:
-        name = cache_name(args.variant, split)
+        name = cache_name(args.variant, split) + embedding_suffix(args.model, args.crop)
         only = None
         if args.limit is not None:
             name += f"_n{args.limit}"
@@ -314,7 +417,7 @@ def main() -> int:
             name += f"_o{args.limit_outfits}"
             only = load_split(root, args.variant, split).limited(args.limit_outfits).referenced_item_ids()
         embed_split(parquet_for(split), args.out_dir, name, model, processor, encoder,
-                    args.batch_size, args.num_workers, emb_cfg["shard_size"], args.limit, only)
+                    args.batch_size, args.num_workers, emb_cfg["shard_size"], args.limit, only, cropper)
     return 0
 
 

@@ -33,6 +33,8 @@ message ItemNode {
   int32 attribute_season = 8;
   int32 attribute_pattern = 9;
   int32 attribute_matterial = 10;
+  int32 slot = 11;                     // OutfitSlot (0..6) — категорія вузла для моделі
+  string embedding_model = 12;         // модель, якою пораховано feature_vector (напр. openai/clip-vit-base-patch32)
 }
 
 message ScoreOutfitGrpcResponse {

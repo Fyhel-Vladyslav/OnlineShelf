@@ -71,6 +71,9 @@ services:
     build:
       context: .
       dockerfile: OutfitNetworkService/Dockerfile
+    volumes:
+      # Модель сумісності оновлюється без перезбирання образу (ml/outfit_scorer → export_onnx.py)
+      - ./OutfitNetworkService/Models:/app/Models:ro
     networks:
       - microservice_net
 

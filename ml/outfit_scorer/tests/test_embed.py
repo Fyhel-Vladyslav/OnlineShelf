@@ -16,11 +16,14 @@ import pytest
 import torch
 from PIL import Image
 
-from src.data.embed import Encoder, ShardWriter, embed_split, load_clip, load_embeddings, preprocess
+from src.data.embed import (Encoder, ShardWriter, YoloCropper, decode, embed_split, load_clip, load_embeddings,
+                            preprocess)
+from src.data.polyvore import load_config
 from tests.synthetic import make_polyvore, make_tiny_clip
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 PARSE_EMBEDDER = REPO_ROOT / "backend/Microservices/ParseImageService/app/models/visual_embedder/visual_embedder.py"
+PARSE_DETECTOR = REPO_ROOT / "backend/Microservices/ParseImageService/app/models/clothing_detector/clothing_detector.py"
 
 
 @pytest.fixture(scope="module")
@@ -74,6 +77,49 @@ def test_parity_with_parse_visual_embedder(clip_dir):
         expected = np.array(parse.embed(cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)), dtype=np.float32)
         actual = encoder(torch.from_numpy(preprocess(processor, jpeg)[None]))[0].numpy()
         assert float(expected @ actual) >= 0.999
+
+
+def crop_test_images() -> list[bytes]:
+    """Фото-кропи з PARITY_IMAGES_DIR, інакше 3 продуктові фото з Polyvore (якщо є), плюс синтетика (без одягу)."""
+    images = photo_crops()
+    if not os.environ.get("PARITY_IMAGES_DIR") and os.environ.get("POLYVORE_DIR"):
+        parquet = Path(os.environ["POLYVORE_DIR"]) / "data/disjoint/validation.parquet"
+        if parquet.exists():
+            batch = next(pq.ParquetFile(parquet).iter_batches(batch_size=3, columns=["image"]))
+            images = batch.column(0).field("bytes").to_pylist() + images
+    return images
+
+
+@pytest.fixture
+def restore_cuda_visible_devices():
+    # ultralytics.select_device("cpu") пише CUDA_VISIBLE_DEVICES=-1 в os.environ, і підпроцеси інших тестів
+    # (test_pipeline) втрачають GPU — після тесту повертаємо змінну як була
+    saved = os.environ.get("CUDA_VISIBLE_DEVICES")
+    yield
+    if saved is None:
+        os.environ.pop("CUDA_VISIBLE_DEVICES", None)
+    else:
+        os.environ["CUDA_VISIBLE_DEVICES"] = saved
+
+
+def test_yolo_crop_matches_parse_clothing_detector(restore_cuda_visible_devices):
+    cv2 = pytest.importorskip("cv2")
+    pytest.importorskip("ultralytics")
+    emb_cfg = load_config()["embedding"]
+    weights = REPO_ROOT / emb_cfg["crop_weights"]
+    if not PARSE_DETECTOR.exists() or not weights.exists():
+        pytest.skip(f"ParseImageService ClothingDetector or weights not found: {PARSE_DETECTOR}, {weights}")
+    module = types.ModuleType("parse_clothing_detector")
+    module.__dict__["__file__"] = str(PARSE_DETECTOR)  # ClothingDetector шукає ваги відносно свого файлу
+    exec(compile(PARSE_DETECTOR.read_text(encoding="utf-8"), str(PARSE_DETECTOR), "exec"), module.__dict__)
+
+    allowed = emb_cfg["crop_allowed_classes"]
+    parse = module.ClothingDetector()
+    ours = YoloCropper(weights, emb_cfg["crop_conf"], allowed, "cpu")
+    for image_bytes in crop_test_images():
+        rgb = decode(image_bytes)
+        expected = cv2.cvtColor(parse.detect_and_crop(rgb, allowed_classes=allowed)["crop_bgr"], cv2.COLOR_BGR2RGB)
+        assert np.array_equal(ours(rgb), expected)
 
 
 def test_embed_split_normalized_and_matches_parquet(tmp_path, clip_dir, synthetic_root):

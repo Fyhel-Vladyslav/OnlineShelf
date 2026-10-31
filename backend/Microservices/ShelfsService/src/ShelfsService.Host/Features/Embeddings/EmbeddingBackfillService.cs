@@ -9,18 +9,20 @@ public sealed record EmbeddingBackfillResult(int Candidates, int Updated, int Fa
 
 public interface IEmbeddingBackfillService
 {
-    /// <summary>Дораховує візуальні ембединги для речей з фото, у яких їх ще немає. userId = null — для всіх користувачів.</summary>
+    /// <summary>Дораховує візуальні ембединги для речей з фото, у яких їх немає або вони іншої моделі. userId = null — для всіх користувачів.</summary>
     Task<EmbeddingBackfillResult> RunAsync(Guid? userId, CancellationToken ct);
 }
 
 /// <summary>
-/// Backfill ембедингів для речей, створених до появи EmbedClothing (або коли ParseImageService був недоступний).
+/// Backfill ембедингів для речей, створених до появи EmbedClothing, коли ParseImageService був недоступний
+/// або після зміни моделі ембедингів (Embeddings:CurrentModel).
 /// Фото береться з ImageService, вектор рахує ParseImageService, запис — без зміни UpdatedAt.
 /// </summary>
 public sealed class EmbeddingBackfillService(
     IItemRepository repos,
     ImageProcessor.ImageProcessorClient imageClient,
     IImageAnalyzer imageAnalyzer,
+    Microsoft.Extensions.Options.IOptions<EmbeddingBackfillOptions> options,
     ILogger<EmbeddingBackfillService> logger) : IEmbeddingBackfillService
 {
     // Кілька невдач поспіль майже напевно означають, що ParseImageService недоступний — немає сенсу мучити решту речей
@@ -28,12 +30,13 @@ public sealed class EmbeddingBackfillService(
 
     public async Task<EmbeddingBackfillResult> RunAsync(Guid? userId, CancellationToken ct)
     {
-        var candidates = await repos.GetItemsMissingEmbeddingAsync(userId, ct);
+        var candidates = await repos.GetItemsNeedingEmbeddingAsync(userId, options.Value.CurrentModel, ct);
         var errors = new List<string>();
         var updated = 0;
         var consecutiveFailures = 0;
 
-        logger.LogInformation("Embedding backfill started: {Count} items without visual embedding", candidates.Count);
+        logger.LogInformation("Embedding backfill started: {Count} items without {Model} embedding",
+            candidates.Count, options.Value.CurrentModel);
 
         foreach (var (itemId, bigImage) in candidates)
         {
@@ -68,7 +71,7 @@ public sealed class EmbeddingBackfillService(
         byte[] imageBytes;
         try
         {
-            imageBytes = await imageClient.DownloadPhotoAsync(bigImage, ct);
+            imageBytes = await imageClient.DownloadEmbeddingSourceAsync(bigImage, ct);
         }
         catch (RpcException ex)
         {
@@ -79,6 +82,12 @@ public sealed class EmbeddingBackfillService(
         if (!response.Success || response.Embedding.Count == 0)
         {
             return ($"ParseImageService: {response.ErrorMessage}", true);
+        }
+
+        // Parse ще на іншій моделі (перезібрано не всі сервіси) — не перезаписуємо вектор вектором не тієї моделі
+        if (response.EmbeddingModel != options.Value.CurrentModel)
+        {
+            return ($"ParseImageService returned model {response.EmbeddingModel}, expected {options.Value.CurrentModel}", true);
         }
 
         await repos.SaveVisualEmbeddingAsync(itemId, response.Embedding.ToArray(), response.EmbeddingModel, ct);

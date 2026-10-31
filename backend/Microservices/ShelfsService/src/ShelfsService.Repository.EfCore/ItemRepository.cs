@@ -73,11 +73,13 @@ namespace ShelfsService.src.ShelfsService.Repository.EfCore;
             .Where(i => i.UserId == userId && (!onlyFavorite || i.isFavorite))
             .ToListAsync(ct);
 
-    public async Task<List<(Guid Id, string BigImage)>> GetItemsMissingEmbeddingAsync(Guid? userId, CancellationToken ct)
+    public async Task<List<(Guid Id, string BigImage)>> GetItemsNeedingEmbeddingAsync(Guid? userId, string currentModel, CancellationToken ct)
     {
         var rows = await _dbContext.Items
             .AsNoTracking()
-            .Where(i => i.BigImage != null && i.VisualEmbedding == null && (userId == null || i.UserId == userId))
+            .Where(i => i.BigImage != null
+                && (i.VisualEmbedding == null || i.EmbeddingModel == null || i.EmbeddingModel != currentModel)
+                && (userId == null || i.UserId == userId))
             .Select(i => new { i.Id, i.BigImage })
             .ToListAsync(ct);
 

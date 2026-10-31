@@ -9,7 +9,7 @@ import app.grpc.generated.parse_image_pb2_grpc as pb2_grpc
 
 from app.models.clothing_detector.clothing_detector import ClothingDetector
 from app.models.color_detector.color_detector import ColorDetector
-from app.models.material_detector.material_detector import MaterialDetector
+from app.models.material_detector.material_detector import MODEL_NAME, MaterialDetector
 from app.models.pattern_detector.pattern_detector import PatternDetector
 from app.models.visual_embedder.visual_embedder import VisualEmbedder
 
@@ -28,7 +28,7 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
         self.embedder = VisualEmbedder(
             self.material_detector.model,
             self.material_detector.processor,
-            "openai/clip-vit-base-patch32")
+            MODEL_NAME)
         self.attr_client = attributes_client  # HTTP/REST клієнт для зв'язку з .NET
 
     def AnalyzeClothing(self, request, context):

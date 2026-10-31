@@ -121,7 +121,7 @@ public class UpdateItemCommandHandler(
         {
             try
             {
-                var imageBytes = await imageClient.DownloadPhotoAsync(item.BigImage, ct);
+                var imageBytes = await imageClient.DownloadEmbeddingSourceAsync(item.BigImage, ct);
                 await imageAnalyzer.ApplyVisualEmbeddingAsync(item, imageBytes, Logger, ct);
             }
             catch (RpcException ex)

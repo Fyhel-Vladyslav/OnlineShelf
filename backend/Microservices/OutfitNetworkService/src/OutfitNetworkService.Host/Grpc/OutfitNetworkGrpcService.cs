@@ -49,6 +49,8 @@ namespace OutfitNetworkService.src.OutfitNetworkService.Host.Grpc
             IsVirtual = i.IsVirtual,
             IsPinned = i.IsPinned,
             FeatureVector = i.FeatureVector.ToArray(),
+            EmbeddingModel = i.EmbeddingModel,
+            Slot = i.Slot,
             AttributeColorMain = i.AttributeColorMain,
             AttributeColorSecond = i.AttributeColorSecond,
             AttributeSeason = i.AttributeSeason,

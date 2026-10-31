@@ -13,6 +13,12 @@ public sealed class OutfitGenerationOptions
     public int DefaultTopN { get; set; } = 5;
     public int MaxTopN { get; set; } = 20;
 
+    /// <summary>
+    /// Різноманітність топу: скор кандидата множиться на це значення за кожне повторне використання речі,
+    /// яка вже є в обраних образах (закріплені речі не враховуються). 1 — топ просто за скором.
+    /// </summary>
+    public double DiversityPenalty { get; set; } = 0.9;
+
     /// <summary>Допустима відстань (у фазах 1..12) між сезоном речі та поточним сезоном.</summary>
     public int SeasonTolerance { get; set; } = 2;
 

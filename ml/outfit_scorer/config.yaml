@@ -37,15 +37,55 @@ outfit_slots:
   Accessory: 6
 
 embedding:
-  model: openai/clip-vit-base-patch32
+  # Та сама модель, що в ParseImageService (MaterialDetector.MODEL_NAME). Кеш інших моделей — зі своїм суфіксом.
+  model: patrickjohncyh/fashion-clip
   dim: 512
   # fp16 через torch.autocast (лише на CUDA). Перед повним прогоном: embed.py --check-fp16.
-  precision: fp16
+  # 2026-10-25: перевірка на 256 фото не пройшла (косинус min 0.9875, mean 0.9998 при порозі 0.999),
+  # тому fp32 — як у Parse. На швидкість майже не впливає: з YOLO-кропом вузьке місце — детектор.
+  # Кеш disjoint_*_yolo від 2026-10-25 ще порахований у fp16 (див. MODEL_CARD.md, «Обмеження»).
+  precision: fp32
   batch_size: 128
   # Потоки декодування JPEG і препроцесингу CLIP (PIL і numpy відпускають GIL).
   num_workers: 4
   # Скільки айтемів у частині кешу; після кожної частини прогрес зберігається на диск.
   shard_size: 4096
+  # Кроп речі перед CLIP, як у ParseImageService (yolo | none). Кеш з кропом має суфікс _yolo,
+  # train/eval за замовчуванням читають кеш того ж режиму.
+  crop: yolo
+  crop_weights: backend/Microservices/ParseImageService/app/models/weights/fashion_best.pt
+  crop_conf: 0.05
+  # Дозволені класи YOLO = значення атрибута Type з БД (shelf_service.AttributesValues, AttributeId = 3),
+  # як ParseImageService отримує їх з ShelfsService.
+  crop_allowed_classes:
+    - shirt
+    - top, t-shirt, sweatshirt
+    - sweater
+    - cardigan
+    - jacket
+    - vest
+    - pants
+    - shorts
+    - skirt
+    - coat
+    - dress
+    - jumpsuit
+    - cape
+    - glasses
+    - hat
+    - headband, head covering, hair accessory
+    - tie
+    - glove
+    - watch
+    - belt
+    - tights, stockings
+    - sock
+    - shoe
+    - hood
+    - scarf
+    - bow
+    - flower
+    - ruffle
 
 model:
   hidden_dim: 256
@@ -54,12 +94,13 @@ model:
   category_vocab: 7      # OutfitSlot 0..6
   category_emb_dim: 32
   gnn_rounds: 2          # 0 = pairwise без GNN (baseline): graph_score = середнє s_ij
+  residual: true         # GNN дає поправку до logit(середнє s_ij); на старті модель = pairwise
   dropout: 0.1
 
 train:
   seed: 42
-  epochs: 30
-  patience: 5            # early stopping за valid compat AUC
+  epochs: 150            # верхня межа; зупиняє early stopping
+  patience: 10           # early stopping за valid compat AUC (AUC коливається ±0.01)
   batch_size: 256
   lr: 0.001
   weight_decay: 0.0001

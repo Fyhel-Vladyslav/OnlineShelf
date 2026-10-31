@@ -9,6 +9,12 @@ namespace ImageService.src.ImageService.Host.Protos.Service;
 
 public class ImageGrpcService : ImageProcessor.ImageProcessorBase
 {
+    // Оригінальні байти фото (без перекодування) поруч із WebP: {id}_orig для {id}_big.webp.
+    // З них ShelfsService рахує візуальний ембединг при backfill — так само, як при створенні речі,
+    // коли Parse отримує саме завантажений файл. WebP з втратами змінює кроп YOLO, а з ним і ембединг.
+    public const string BigSuffix = "_big.webp";
+    public const string OriginalSuffix = "_orig";
+
     private string _storagePath;
     //private IImageAnalyzer _imageAnalyzer;
     public ImageGrpcService(IConfiguration configuration)//, IImageAnalyzer imageAnalyzer)
@@ -24,12 +30,16 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
             if (!Directory.Exists(_storagePath)) Directory.CreateDirectory(_storagePath);
 
             var uniqueId = Guid.NewGuid().ToString();
-            var bigFileName = $"{uniqueId}_big.webp";
+            var bigFileName = $"{uniqueId}{BigSuffix}";
             var smallFileName = $"{uniqueId}_small.webp";
 
             // Читаємо байти з gRPC запиту
-            using var inputStream = new MemoryStream(request.Data.ToByteArray());
+            var data = request.Data.ToByteArray();
+            using var inputStream = new MemoryStream(data);
             using var image = await Image.LoadAsync(inputStream);
+
+            // 0. Оригінал як є — після успішного декодування, щоб не зберігати не-картинки
+            await File.WriteAllBytesAsync(Path.Combine(_storagePath, $"{uniqueId}{OriginalSuffix}"), data);
 
             // 1. Зберігаємо велике фото (авто-конвертація в WebP за розширенням)
             await image.SaveAsWebpAsync(Path.Combine(_storagePath, bigFileName));
@@ -59,7 +69,10 @@ public class ImageGrpcService : ImageProcessor.ImageProcessorBase
     {
         try
         {
-            var files = new[] { request.BigImageName, request.SmallImageName };
+            var original = request.BigImageName?.EndsWith(BigSuffix) == true
+                ? request.BigImageName[..^BigSuffix.Length] + OriginalSuffix
+                : null;
+            var files = new[] { request.BigImageName, request.SmallImageName, original };
             foreach (var file in files.Where(f => !string.IsNullOrEmpty(f)))
             {
                 var fullPath = Path.Combine(_storagePath, file);

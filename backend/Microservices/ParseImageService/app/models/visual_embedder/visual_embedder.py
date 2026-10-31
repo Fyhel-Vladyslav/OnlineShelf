@@ -7,7 +7,7 @@ from PIL import Image
 class VisualEmbedder:
     """
     Візуальний ембединг речі для скорера сумісності (x_i, візуальна частина).
-    Використовує той самий CLIP, що й MaterialDetector, щоб не тримати в пам'яті дві копії моделі.
+    Використовує ту саму модель (FashionCLIP), що й MaterialDetector, щоб не тримати в пам'яті дві копії.
     """
 
     def __init__(self, model, processor, model_name: str):

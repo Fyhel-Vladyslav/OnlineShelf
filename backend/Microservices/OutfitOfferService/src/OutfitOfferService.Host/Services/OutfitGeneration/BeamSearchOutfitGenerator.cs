@@ -14,7 +14,9 @@ public interface IOutfitGenerator
 /// <summary>
 /// Прохід 2: побудова образів beam search'ем по слотах шаблону з оцінкою часткових образів моделлю (IOutfitScorer).
 /// Шаблони: ⟨top, bottom, shoes, outerwear?⟩ і ⟨full-body, shoes, outerwear?⟩.
-/// На кожному кроці всі розширення оцінюються одним пакетним викликом, лишаються BeamWidth найкращих.
+/// На кожному кроці всі розширення оцінюються одним пакетним викликом, лишаються BeamWidth найкращих
+/// (після останнього кроку — усі, щоб відбору топу було з чого обирати різні образи).
+/// Топ відбирається жадібно зі штрафом за повтор речей (DiversityPenalty), а повертається за спаданням скору.
 /// </summary>
 public sealed class BeamSearchOutfitGenerator(IOutfitScorer scorer, IOptions<OutfitGenerationOptions> options) : IOutfitGenerator
 {
@@ -49,13 +51,56 @@ public sealed class BeamSearchOutfitGenerator(IOutfitScorer scorer, IOptions<Out
             warnings.Add("No outfit could be composed: the wardrobe lacks a top + bottom or a full-body item that satisfies the constraints.");
         }
 
-        var best = outfits
+        var candidates = outfits
             .DistinctBy(o => string.Join('|', o.Items.Select(i => i.Item.Id).Order()))
             .OrderByDescending(o => o.Score.FinalScore)
-            .Take(topN)
             .ToList();
 
+        var pinned = pool.Pinned.Values.Concat(pool.PinnedAccessories).Select(i => i.Id).ToHashSet();
+        var best = SelectDiverse(candidates, topN, options.Value.DiversityPenalty, pinned);
+
         return new OutfitGenerationResult(best, warnings.Distinct().ToList());
+    }
+
+    /// <summary>
+    /// Жадібний відбір топу (у дусі MMR): на кожному кроці береться кандидат з найбільшим
+    /// FinalScore × penalty^(скільки разів його речі вже трапились в обраних образах).
+    /// Так одна «універсальна» річ (нейтральний светр, базові кросівки) не займає весь топ,
+    /// а перший образ завжди найкращий за скором. Закріплені речі є в усіх образах і не штрафуються.
+    /// </summary>
+    public static List<ScoredOutfit> SelectDiverse(
+        IReadOnlyList<ScoredOutfit> candidates, int topN, double penalty, IReadOnlySet<Guid> pinnedItemIds)
+    {
+        var usage = new Dictionary<Guid, int>();
+        var remaining = candidates.OrderByDescending(o => o.Score.FinalScore).ToList();
+        var selected = new List<ScoredOutfit>();
+
+        while (selected.Count < topN && remaining.Count > 0)
+        {
+            var bestIndex = 0;
+            var bestValue = double.NegativeInfinity;
+            for (var k = 0; k < remaining.Count; k++)
+            {
+                var repeats = remaining[k].Items
+                    .Where(i => !pinnedItemIds.Contains(i.Item.Id))
+                    .Sum(i => usage.GetValueOrDefault(i.Item.Id));
+                var value = remaining[k].Score.FinalScore * Math.Pow(penalty, repeats);
+                if (value > bestValue)
+                {
+                    bestValue = value;
+                    bestIndex = k;
+                }
+            }
+
+            var chosen = remaining[bestIndex];
+            remaining.RemoveAt(bestIndex);
+            selected.Add(chosen);
+            foreach (var item in chosen.Items)
+                usage[item.Item.Id] = usage.GetValueOrDefault(item.Item.Id) + 1;
+        }
+
+        // Різноманітність впливає на те, ЯКІ образи в топі; показуємо їх, як і раніше, від найкращого
+        return selected.OrderByDescending(o => o.Score.FinalScore).ToList();
     }
 
     /// <summary>Кроки шаблону або null, якщо шаблон неможливий (немає речей для основного слота чи конфлікт із Include).</summary>
@@ -131,7 +176,9 @@ public sealed class BeamSearchOutfitGenerator(IOutfitScorer scorer, IOptions<Out
 
             expanded = await ScoreUnscoredAsync(expanded, ct);
 
-            states = expanded.Any(s => s.Score is not null)
+            // Після останнього кроку нічого не відкидаємо: усі оцінені образи — кандидати для різноманітного топу
+            var isLast = i == steps.Count - 1;
+            states = expanded.Any(s => s.Score is not null) && !isLast
                 ? expanded.OrderByDescending(s => s.Score?.FinalScore ?? -1).Take(settings.BeamWidth).ToList()
                 : expanded; // на першому кроці без аксесуарів оцінювати ще нічого — лишаємо всіх (вже обмежено LimitFirstSlot)
         }

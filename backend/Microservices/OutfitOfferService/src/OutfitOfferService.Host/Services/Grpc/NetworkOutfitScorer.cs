@@ -1,12 +1,15 @@
 using OutfitNetworkService.Protos;
 using OutfitOfferService.src.OutfitOfferService.Common.Interfaces;
 using OutfitOfferService.src.OutfitOfferService.Common.Models;
+using OutfitOfferService.src.OutfitOfferService.Host.Services.OutfitGeneration;
 using ModelPairwiseScore = OutfitOfferService.src.OutfitOfferService.Common.Models.PairwiseScore;
 
 namespace OutfitOfferService.src.OutfitOfferService.Host.Services.Grpc;
 
 /// <summary>IOutfitScorer поверх моделі OutfitNetworkService (gRPC ScoreOutfits, пакетами).</summary>
-public sealed class NetworkOutfitScorer(OutfitNetworkService.Protos.OutfitNetworkService.OutfitNetworkServiceClient client) : IOutfitScorer
+public sealed class NetworkOutfitScorer(
+    OutfitNetworkService.Protos.OutfitNetworkService.OutfitNetworkServiceClient client,
+    ISlotResolver slotResolver) : IOutfitScorer
 {
     // Обмеження розміру одного gRPC-повідомлення: 512-вимірні ембединги × кілька речей × сотні кандидатів
     private const int BatchSize = 200;
@@ -29,19 +32,21 @@ public sealed class NetworkOutfitScorer(OutfitNetworkService.Protos.OutfitNetwor
         return results;
     }
 
-    private static ScoreOutfitGrpcRequest ToRequest(IReadOnlyList<WardrobeItem> outfit)
+    private ScoreOutfitGrpcRequest ToRequest(IReadOnlyList<WardrobeItem> outfit)
     {
         var request = new ScoreOutfitGrpcRequest();
         request.Items.AddRange(outfit.Select(ToNode));
         return request;
     }
 
-    private static ItemNode ToNode(WardrobeItem item)
+    private ItemNode ToNode(WardrobeItem item)
     {
         var node = new ItemNode
         {
             ItemId = item.Id.ToString(),
             AttributeType = item.AttributeType,
+            Slot = (int)slotResolver.Resolve(item.AttributeType),
+            EmbeddingModel = item.EmbeddingModel ?? string.Empty,
             IsVirtual = item.IsVirtual,
             AttributeColorMain = item.ColorMain,
             AttributeColorSecond = item.ColorSecond,

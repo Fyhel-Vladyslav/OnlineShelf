@@ -3,6 +3,62 @@
 Один рядок на кожну тематичну зміну в коді, нові записи зверху в поточній даті.
 Формат рядка: `- <Added|Changed|Fixed|Removed> <що саме> (<сервіс/файл>)`.
 
+## 2026-10-31
+- Changed shared embedding and material model from CLIP to FashionCLIP (ParseImageService MaterialDetector, analyzer_service)
+- Fixed polyester mapped to missing "synthetic" material, leaving the attribute empty (ParseImageService MaterialDetector)
+- Changed embedding backfill to recompute vectors of other models and reject results from a wrong model (ShelfsService EmbeddingBackfillService, ItemRepository, appsettings.json)
+- Changed outfit_gnn.onnx to pairwise model trained on FashionCLIP YOLO-crop embeddings (OutfitNetworkService/Models)
+- Added material detection comparison of embedding models on weak labels from Polyvore titles (ml/outfit_scorer/src/eval_material.py)
+- Changed default embedding model to FashionCLIP (ml/outfit_scorer/config.yaml, README.md, MODEL_CARD.md)
+
+## 2026-10-25
+- Added embedding-model-aware cache suffix and stored the embedding model in checkpoints and ONNX metadata (ml/outfit_scorer/src/data/embed.py, train.py, eval.py, export_onnx.py)
+- Added storing original upload bytes next to WebP images and deleting them with the image (ImageService ImageGrpcService)
+- Changed embedding backfill and self-heal to embed from the original image when available (ShelfsService ImageProcessorClientExtensions, EmbeddingBackfillService, UpdateItem)
+- Changed Polyvore test wardrobe generator to also write original images (ml/outfit_scorer/src/seed_polyvore_wardrobe.py)
+- Added diversity-aware top-N selection penalising repeated items, with all last-step beam candidates kept (OutfitOfferService BeamSearchOutfitGenerator, appsettings.json)
+- Added model card with data, architecture, metrics, parity and limitations (ml/outfit_scorer/MODEL_CARD.md)
+- Changed embedding precision to fp32 after the fp16 parity check failed (ml/outfit_scorer/config.yaml, README.md)
+- Added startup warmup of the ONNX outfit scorer and scoring pipeline before Kestrel accepts requests (OutfitNetworkService)
+- Changed outfit_gnn.onnx to pairwise model trained on YOLO-crop embeddings, matching ParseImageService input (OutfitNetworkService/Models)
+- Added YOLO item crop before CLIP matching ParseImageService ClothingDetector, cached as *_yolo embeddings (ml/outfit_scorer/src/data/embed.py, config.yaml)
+- Changed train/eval to read the embedding cache of the configured crop mode and store it in checkpoint/ONNX metadata (ml/outfit_scorer/src/train.py, eval.py, export_onnx.py)
+- Added crop parity test against ParseImageService ClothingDetector (ml/outfit_scorer/tests/test_embed.py)
+- Fixed tests package shadowed by the tests package shipped in the ultralytics wheel (ml/outfit_scorer/tests/__init__.py)
+- Added ultralytics and opencv-python-headless with CUDA torchvision install notes (ml/outfit_scorer/requirements.txt, README.md)
+- Added Polyvore test wardrobe generator with images, seed/cleanup SQL and ground-truth manifest for sanity check (ml/outfit_scorer/src/seed_polyvore_wardrobe.py)
+
+## 2026-10-24
+- Changed outfit scorer aggregation to a residual correction over mean pairwise logit, zero-initialised so training starts from pairwise (ml/outfit_scorer/src/model/scorer.py, config.yaml)
+- Changed training limits to 150 epochs with patience 10 (ml/outfit_scorer/config.yaml)
+- Added graph_score distribution for the pairwise model to test evaluation report (ml/outfit_scorer/src/eval.py)
+- Changed outfit_gnn.onnx to pairwise CSA model selected by valid AUC (OutfitNetworkService/Models)
+- Changed proto to pass slot and embedding_model in ItemNode (offer-network.proto)
+- Changed NetworkOutfitScorer to fill slot via ISlotResolver and embedding_model from WardrobeItem (OutfitOfferService)
+- Added Slot and EmbeddingModel to ItemNode and gRPC mapping (OutfitNetworkService)
+- Changed OnnxGraphCompatibilityScorer to slot-based contract with embedding dim/model from ONNX metadata and missing-embedding handling (OutfitNetworkService)
+- Added Models/** copy to output and read-only Models volume for outfitnetworkservice (OutfitNetworkService.csproj, docker-compose.yml)
+- Added OutfitNetworkService.Tests with tiny_scorer.onnx contract tests and ScoringOrchestrator tests (OutfitNetworkService/tests, Microservices.sln)
+
+## 2026-10-10
+- Added CLIP embedding cache from Polyvore parquet with resume, fp16 parity check and OOM batch fallback (ml/outfit_scorer/src/data/embed.py)
+- Added graph sampler with same-slot negatives and OfferService template subgraphs (ml/outfit_scorer/src/data/sampler.py)
+- Added CSA + NGNN-lite dense outfit scorer with ONNX wrapper for the slot-based contract (ml/outfit_scorer/src/model/scorer.py)
+- Added training with early stopping, test evaluation and baselines (ml/outfit_scorer/src/train.py, eval.py, baselines.py, evaluation.py)
+- Added ONNX export with metadata and torch/onnxruntime parity check (ml/outfit_scorer/src/export_onnx.py, parity_check.py)
+- Added tiny_scorer.onnx with random weights for .NET contract tests (ml/outfit_scorer/tests/fixtures)
+- Added tests for sampler, model, metrics, ONNX, embedding parity with ParseImageService and end-to-end smoke (ml/outfit_scorer/tests)
+- Changed dataset check to verify the actual HF layout: parquet images, splits, templates (ml/outfit_scorer/src/data/check_dataset.py)
+- Added requirements and README with reproduction steps (ml/outfit_scorer)
+- Added ml/.venv and ml __pycache__ to .gitignore (.gitignore)
+- Added Polyvore reader for outfits, compatibility and FITB splits with OutfitSlot mapping (ml/outfit_scorer/src/data/polyvore.py)
+- Added pytest setup and Polyvore reader tests (ml/outfit_scorer/tests)
+- Added ML pipeline config with Polyvore semantic_category → OutfitSlot mapping (ml/outfit_scorer/config.yaml)
+- Added Polyvore dataset inventory script for JSON/Parquet/archive layouts (ml/outfit_scorer/src/data/check_dataset.py)
+
+## 2026-10-09
+- Added ml/data/ to .gitignore for Polyvore dataset, embedding cache and checkpoints (.gitignore)
+
 ## 2026-10-04
 - Changed frontend folder admin-portal to webui to match renamed compose service (frontend/webui, package.json, .gitignore)
 - Fixed white text on light weather/season tags in outfit results (admin-portal/src/pages/outfits/outfitTheme.ts)
