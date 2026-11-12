@@ -45,6 +45,7 @@ namespace OutfitOfferService.Extentions
             services.AddSingleton<IConstraintFilter, ConstraintFilter>();
             services.AddScoped<IOutfitGenerator, BeamSearchOutfitGenerator>();
             services.AddScoped<IOutfitOfferOrchestrator, OutfitOfferOrchestrator>();
+            services.AddHostedService<OutfitGenerationWarmupService>();
 
             services.AddFastEndpoints();
 

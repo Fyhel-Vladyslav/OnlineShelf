@@ -4,6 +4,9 @@
 # Тимчасова папка для локальних експериментів/навчання моделей штучного інтелекту
 **/training_sandbox/
 
+# Ваги детектора образів (174 МБ, більше за ліміт GitHub): готуються src.convert_outfit_detector
+/backend/Microservices/ParseImageService/app/models/weights/outfit_detector/
+
 # ML: датасети (Polyvore), кеш ембедингів, чекпоінти й прогони навчання
 /ml/data/
 /ml/.venv/

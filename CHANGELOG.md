@@ -3,7 +3,20 @@
 Один рядок на кожну тематичну зміну в коді, нові записи зверху в поточній даті.
 Формат рядка: `- <Added|Changed|Fixed|Removed> <що саме> (<сервіс/файл>)`.
 
+## 2026-11-01
+- Added AnalyzeOutfit gRPC method returning every item of a whole-outfit photo (ParseImageService parse-image.proto, analyzer_service)
+- Added OutfitDetector on Conditional DETR and FashionCLIP TypeClassifier for items on people (ParseImageService)
+- Added conversion of the detector weights to a local transformers format and ignored the 174 MB result in git (ml/outfit_scorer/src/convert_outfit_detector.py, .gitignore)
+- Added Type accuracy evaluation of the outfit pipeline against YOLO classes (ml/outfit_scorer/src/eval_type.py)
+- Changed gRPC receive limit to 32 MB for designer photos (ParseImageService main.py)
+- Removed temporary YOLO debug output and unused import (ParseImageService ClothingDetector)
+- Added ATR photos, Conditional DETR detector, timing and best-box-per-slot mode to detection evaluation (ml/outfit_scorer/src/eval_detection.py)
+- Added whole-outfit detection evaluation on labelled Fashionpedia photos of people (ml/outfit_scorer/src/eval_detection.py)
+
 ## 2026-10-31
+- Added evaluation of multi-item detection on whole-outfit collages with known boxes (ml/outfit_scorer/src/eval_detection.py)
+- Added Corduroy material with migration that also syncs the AttributesValues identity sequence (ShelfsService DatabaseSeeder, AddCorduroyMaterial migration)
+- Added background warmup of gRPC channels, beam search and the generate endpoint with retries while dependencies start (OutfitOfferService OutfitGenerationWarmupService, appsettings.json)
 - Changed shared embedding and material model from CLIP to FashionCLIP (ParseImageService MaterialDetector, analyzer_service)
 - Fixed polyester mapped to missing "synthetic" material, leaving the attribute empty (ParseImageService MaterialDetector)
 - Changed embedding backfill to recompute vectors of other models and reject results from a wrong model (ShelfsService EmbeddingBackfillService, ItemRepository, appsettings.json)

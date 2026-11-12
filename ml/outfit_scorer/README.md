@@ -66,6 +66,16 @@ $env:POLYVORE_DIR = "D:\visualStudio\training_datasets\hogging_face\ml\data\poly
 детекції матеріалу: `python -m src.eval_material`. Зміна моделі ембедингів — три кроки разом: `MODEL_NAME`
 у Parse, модель скорера в OutfitNetworkService, `Embeddings:CurrentModel` у ShelfsService (backfill перерахує речі).
 
+**Детектор образів для `AnalyzeOutfit`.** Ваги не комітяться (174 МБ, більше за ліміт GitHub). Покладіть
+`config.json`, `preprocessor_config.json` і `model.safetensors` з
+[yainage90/fashion-object-detection](https://huggingface.co/yainage90/fashion-object-detection) у
+`ml\data\detectors\yainage90-fashion-object-detection\`, запустіть `python -m src.convert_outfit_detector`
+і перезберіть образ Parse. Без ваг сервіс стартує, але `AnalyzeOutfit` повертає помилку. Якість перевіряють
+`python -m src.eval_detection --dataset atr --detector detr --outfits 0` (рамки) і
+`python -m src.eval_type --split val` (точний тип); обидва читають Fashionpedia з `training_sandbox`, а ATR — з
+`ml\data\datasets\atr\`. Модель дає 7 широких класів, тип обирає `TypeClassifier` на FashionCLIP.
+Розмітка ModaNet, на якій її навчено, має ліцензію CC BY-NC 4.0: для комерційного запуску це треба перевірити.
+
 **Smoke (крок 5)** — лише айтеми перших 200 образів/питань кожного спліту:
 
 ```powershell

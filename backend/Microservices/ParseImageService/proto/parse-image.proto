@@ -8,6 +8,9 @@ service ClothingAnalyzer {
 
   // Візуальний ембединг речі (CLIP image features, L2-нормований). Рахується один раз при оцифруванні
   rpc EmbedClothing (EmbedClothingRequest) returns (EmbedClothingResponse);
+
+  // Усі речі на фото цілого образу на людині (еталонні образи дизайнера)
+  rpc AnalyzeOutfit (AnalyzeOutfitRequest) returns (AnalyzeOutfitResponse);
 }
 
 // Запит містить лише сирі байти WebP зображення
@@ -45,4 +48,32 @@ message EmbedClothingResponse {
   repeated float embedding = 2;   // L2-нормований вектор
   string embedding_model = 3;     // ідентифікатор моделі, напр. "openai/clip-vit-base-patch32"
   string error_message = 4;
+}
+
+// Запит містить сирі байти фото образу (WebP/JPEG/PNG)
+message AnalyzeOutfitRequest {
+  bytes image_data = 1;
+}
+
+// success = true і порожній items означають, що запит оброблено, але одягу на фото не знайдено
+message AnalyzeOutfitResponse {
+  bool success = 1;
+  repeated OutfitItem items = 2;
+  string embedding_model = 3;
+  string error_message = 4;
+}
+
+message OutfitItem {
+  string slot = 1;                // Top, Outerwear, Bottom, FullBody, Shoes, Accessory
+  ClothingAttributes attributes = 2;
+  BoundingBox box = 3;            // Рамка речі на переданому фото
+  repeated float embedding = 4;   // L2-нормований вектор кропа
+}
+
+// Координати в пікселях: (x1, y1) лівий верхній кут, (x2, y2) правий нижній
+message BoundingBox {
+  int32 x1 = 1;
+  int32 y1 = 2;
+  int32 x2 = 3;
+  int32 y2 = 4;
 }

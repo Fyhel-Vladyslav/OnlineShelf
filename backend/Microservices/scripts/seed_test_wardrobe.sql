@@ -10,7 +10,7 @@
 --             10 coat, 11 dress, 12 jumpsuit, 15 hat, 19 watch, 20 belt, 23 shoe, 25 scarf
 --   Season:   1-3 зима, 4-6 весна, 7-9 літо, 10-12 осінь (рання/середня/пізня); 0 — всесезонна
 --   Pattern:  1 Solid, 2 Stripes, 3 Floral, 4 Camouflage, 5 Dots, 6 Logo Print, 7 Glitter, 8 Distressed
---   Material: 1 Cotton, 2 Polyester, 3 Wool, 4 Silk, 5 Linen, 6 Denim, 7 Leather, 8 Nylon
+--   Material: 1 Cotton, 2 Polyester, 3 Wool, 4 Silk, 5 Linen, 6 Denim, 7 Leather, 8 Nylon, 9 Corduroy
 
 \set user_id   '''d1437f42-8b54-4a02-b0a5-800426cd7580'''
 \set wardrobe  '''22222222-2222-2222-2222-222222222222'''

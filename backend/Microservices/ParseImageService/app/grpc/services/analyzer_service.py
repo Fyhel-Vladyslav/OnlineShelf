@@ -10,7 +10,9 @@ import app.grpc.generated.parse_image_pb2_grpc as pb2_grpc
 from app.models.clothing_detector.clothing_detector import ClothingDetector
 from app.models.color_detector.color_detector import ColorDetector
 from app.models.material_detector.material_detector import MODEL_NAME, MaterialDetector
+from app.models.outfit_detector.outfit_detector import OutfitDetector
 from app.models.pattern_detector.pattern_detector import PatternDetector
+from app.models.type_classifier.type_classifier import TypeClassifier
 from app.models.visual_embedder.visual_embedder import VisualEmbedder
 
 # Мапимо нові класи з твого датасету на базові сезони для .NET довідника
@@ -18,6 +20,8 @@ SUMMER_CLASSES = {
     "shorts", "t-shirt", "short_sleeve_top", "sling", 
     "skirt", "short_sleeve_dress", "sling_dress", "vest"
 }
+
+ATTRIBUTES_UNAVAILABLE = "Помилка: Не вдалося завантажити довідники атрибутів з ShelfService. Сервіс недоступний."
 
 class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
     def __init__(self, attributes_client):
@@ -29,18 +33,15 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
             self.material_detector.model,
             self.material_detector.processor,
             MODEL_NAME)
+        self.outfit_detector = OutfitDetector()
+        self.type_classifier = TypeClassifier(self.material_detector.model, self.material_detector.processor)
         self.attr_client = attributes_client  # HTTP/REST клієнт для зв'язку з .NET
 
     def AnalyzeClothing(self, request, context):
         try:
             # 1. ПЕРЕВІРКА НАЯВНОСТІ АТРИБУТІВ (Lazy Loading з .NET)
-            if not self.attr_client.has_data():
-                print("🔄 Кеш порожній. Спроба повторного викачування атрибутів...")
-                if not self.attr_client.fetch_attributes():
-                    return pb2.AnalyzeClothingResponse(
-                        success=False, 
-                        error_message="Помилка: Не вдалося завантажити довідники атрибутів з ShelfService. Сервіс недоступний."
-                    )
+            if not self._ensure_attributes():
+                return pb2.AnalyzeClothingResponse(success=False, error_message=ATTRIBUTES_UNAVAILABLE)
 
             # Отримуємо сирі дані з gRPC запиту
             raw_bytes = request.image_data
@@ -63,43 +64,10 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
                     error_message="Модель не змогла локалізувати жодного елементу одягу на фото."
                 )
                 
-            crop = detection_result["crop_bgr"]
-            
-            # Запускаємо інші детектори на вирізаному шматочку
-            colors = self.color_detector.get_dominant_colors(crop)
-            pattern_text = self.pattern_detector.predict_pattern(crop)      
-            material_text = self.material_detector.predict_material(crop)   
-
-            # --- ДИНАМІЧНИЙ МАПІНГ НА ID З .NET БАЗИ ДАНИХ ---
-            yolo_class_name = detection_result["raw_class_name"] 
-            
-            # Передаємо чисті текстові назви класів у твій attr_client, який поверне ID для БД
-            final_type_id = self.attr_client.get_key_by_value("Type", yolo_class_name)
-            final_pattern_id = self.attr_client.get_key_by_value("Pattern", pattern_text)
-            final_material_id = self.attr_client.get_key_by_value("Material", material_text)
-            
-            if not final_type_id:
-                print(f"⚠️ Попередження: Тип '{yolo_class_name}' відсутній у базі даних .NET. Потрібно додати сеед.")
-            
-
-            # Оновлена логіка визначення сезону під твій новий датасет
-            detected_season_text = "summer" if yolo_class_name in SUMMER_CLASSES else "winter"
-            final_season_id = self.attr_client.get_key_by_value("Season", detected_season_text)
-
-            # --- ФОРМУВАННЯ ГАРДЕНРОБНОЇ ВІДПОВІДІ ---
-            attributes = pb2.ClothingAttributes(
-                attribute_color_main=colors.get("main", "#000000"), 
-                attribute_color_second=colors.get("second", "#000000"),
-                attribute_type=final_type_id,      
-                attribute_season=final_season_id,     
-                attribute_pattern=final_pattern_id,
-                attribute_material=final_material_id,
-                confidence=detection_result.get("confidence", 0.0)
-            )
-            
-            print(f"✅ Успішно розпізнано: {yolo_class_name} ({material_text}, {pattern_text})")
+            attributes = self._build_attributes(
+                detection_result["crop_bgr"], detection_result["raw_class_name"], detection_result.get("confidence", 0.0))
             return pb2.AnalyzeClothingResponse(success=True, attributes=attributes)
-            
+
         except Exception as e:
             print(f"❌ Загальна помилка в gRPC пайплайні: {e}")
             return pb2.AnalyzeClothingResponse(success=False, error_message=f"Internal service error: {str(e)}")
@@ -131,6 +99,77 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
         except Exception as e:
             print(f"❌ Помилка під час обчислення ембединга: {e}")
             return pb2.EmbedClothingResponse(success=False, error_message=f"Internal service error: {str(e)}")
+
+    def AnalyzeOutfit(self, request, context):
+        try:
+            if not self.outfit_detector.is_ready:
+                return pb2.AnalyzeOutfitResponse(success=False, error_message="Ваги детектора образів не встановлено")
+            if not self._ensure_attributes():
+                return pb2.AnalyzeOutfitResponse(success=False, error_message=ATTRIBUTES_UNAVAILABLE)
+
+            raw_bytes = request.image_data
+            if not raw_bytes:
+                return pb2.AnalyzeOutfitResponse(success=False, error_message="Empty image data")
+
+            image_np, decode_error = self._decode_image(raw_bytes)
+            if decode_error:
+                return pb2.AnalyzeOutfitResponse(success=False, error_message=decode_error)
+
+            items = []
+            for detection in self.outfit_detector.detect(image_np):
+                crop = detection["crop_bgr"]
+                embedding = self.embedder.embed(crop)
+                type_name = self.type_classifier.predict_type(embedding, detection["raw_class_name"])
+                x1, y1, x2, y2 = detection["box"]
+                items.append(pb2.OutfitItem(
+                    slot=detection["slot"],
+                    attributes=self._build_attributes(crop, type_name, detection["confidence"]),
+                    box=pb2.BoundingBox(x1=x1, y1=y1, x2=x2, y2=y2),
+                    embedding=embedding))
+
+            print(f"✅ Образ розібрано: {[item.slot for item in items]}")
+            return pb2.AnalyzeOutfitResponse(success=True, items=items, embedding_model=self.embedder.model_name)
+
+        except Exception as e:
+            print(f"❌ Помилка під час аналізу образу: {e}")
+            return pb2.AnalyzeOutfitResponse(success=False, error_message=f"Internal service error: {str(e)}")
+
+    def _ensure_attributes(self):
+        """Довідники атрибутів потрібні для мапінгу на ID з .NET; якщо кеш порожній — пробуємо викачати ще раз."""
+        if self.attr_client.has_data():
+            return True
+        print("🔄 Кеш порожній. Спроба повторного викачування атрибутів...")
+        return self.attr_client.fetch_attributes()
+
+    def _build_attributes(self, crop, class_name, confidence):
+        # Запускаємо інші детектори на вирізаному шматочку
+        colors = self.color_detector.get_dominant_colors(crop)
+        pattern_text = self.pattern_detector.predict_pattern(crop)
+        material_text = self.material_detector.predict_material(crop)
+
+        # --- ДИНАМІЧНИЙ МАПІНГ НА ID З .NET БАЗИ ДАНИХ ---
+        # Передаємо чисті текстові назви класів у твій attr_client, який поверне ID для БД
+        final_type_id = self.attr_client.get_key_by_value("Type", class_name)
+        final_pattern_id = self.attr_client.get_key_by_value("Pattern", pattern_text)
+        final_material_id = self.attr_client.get_key_by_value("Material", material_text)
+
+        if not final_type_id:
+            print(f"⚠️ Попередження: Тип '{class_name}' відсутній у базі даних .NET. Потрібно додати сеед.")
+
+        # Оновлена логіка визначення сезону під твій новий датасет
+        detected_season_text = "summer" if class_name in SUMMER_CLASSES else "winter"
+        final_season_id = self.attr_client.get_key_by_value("Season", detected_season_text)
+
+        print(f"✅ Успішно розпізнано: {class_name} ({material_text}, {pattern_text})")
+        return pb2.ClothingAttributes(
+            attribute_color_main=colors.get("main", "#000000"),
+            attribute_color_second=colors.get("second", "#000000"),
+            attribute_type=final_type_id,
+            attribute_season=final_season_id,
+            attribute_pattern=final_pattern_id,
+            attribute_material=final_material_id,
+            confidence=confidence
+        )
 
     @staticmethod
     def _decode_image(raw_bytes):

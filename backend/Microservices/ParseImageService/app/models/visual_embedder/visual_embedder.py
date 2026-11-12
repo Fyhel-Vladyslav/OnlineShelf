@@ -17,7 +17,7 @@ class VisualEmbedder:
 
     def embed(self, crop_bgr: np.ndarray) -> list[float]:
         crop_rgb = cv2.cvtColor(crop_bgr, cv2.COLOR_BGR2RGB)
-        inputs = self.processor(images=Image.fromarray(crop_rgb), return_tensors="pt")
+        inputs = self.processor(images=Image.fromarray(crop_rgb), return_tensors="pt").to(self.model.device)
 
         with torch.no_grad():
             features = self.model.get_image_features(**inputs)

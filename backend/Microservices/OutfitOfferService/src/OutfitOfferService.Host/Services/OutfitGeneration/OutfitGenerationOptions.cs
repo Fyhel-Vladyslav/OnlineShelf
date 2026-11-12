@@ -19,6 +19,14 @@ public sealed class OutfitGenerationOptions
     /// </summary>
     public double DiversityPenalty { get; set; } = 0.9;
 
+    /// <summary>Прогрівати шлях генерації у фоні після старту, щоб перший запит не платив за холодний старт.</summary>
+    public bool WarmupOnStartup { get; set; } = true;
+
+    /// <summary>Скільки разів пробувати прогрів, якщо ShelfsService чи OutfitNetworkService ще стартують.</summary>
+    public int WarmupMaxAttempts { get; set; } = 30;
+
+    public double WarmupRetryDelaySeconds { get; set; } = 2;
+
     /// <summary>Допустима відстань (у фазах 1..12) між сезоном речі та поточним сезоном.</summary>
     public int SeasonTolerance { get; set; } = 2;
 

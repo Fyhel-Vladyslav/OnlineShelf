@@ -12,12 +12,17 @@ attributes_client = AttributesServiceClient()
 import app.grpc.generated.parse_image_pb2_grpc as pb2_grpc
 from app.grpc.services.analyzer_service import ClothingAnalyzerService
 
+# Фото образів від дизайнера більші за типовий кроп, а стандартний ліміт gRPC лише 4 МБ
+MAX_MESSAGE_BYTES = 32 * 1024 * 1024
+
 def serve():
     # Пробуємо підкачати дані при старті
     print("⏳ Первинне завантаження довідників атрибутів...")
     attributes_client.fetch_attributes()
     
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server(
+        futures.ThreadPoolExecutor(max_workers=10),
+        options=[("grpc.max_receive_message_length", MAX_MESSAGE_BYTES)])
     # Передаємо клієнт у сервіс через конструктор
     pb2_grpc.add_ClothingAnalyzerServicer_to_server(ClothingAnalyzerService(attributes_client), server)
     

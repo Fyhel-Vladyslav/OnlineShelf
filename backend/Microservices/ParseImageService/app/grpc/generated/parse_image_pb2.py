@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11parse-image.proto\x12\x08\x63lothing\",\n\x16\x41nalyzeClothingRequest\x12\x12\n\nimage_data\x18\x01 \x01(\x0c\"s\n\x17\x41nalyzeClothingResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x30\n\nattributes\x18\x02 \x01(\x0b\x32\x1c.clothing.ClothingAttributes\x12\x15\n\rerror_message\x18\x03 \x01(\t\"\xcf\x01\n\x12\x43lothingAttributes\x12\x1c\n\x14\x61ttribute_color_main\x18\x01 \x01(\t\x12\x1e\n\x16\x61ttribute_color_second\x18\x02 \x01(\t\x12\x16\n\x0e\x61ttribute_type\x18\x03 \x01(\x05\x12\x18\n\x10\x61ttribute_season\x18\x04 \x01(\x05\x12\x19\n\x11\x61ttribute_pattern\x18\x05 \x01(\x05\x12\x1a\n\x12\x61ttribute_material\x18\x06 \x01(\x05\x12\x12\n\nconfidence\x18\x07 \x01(\x02\"*\n\x14\x45mbedClothingRequest\x12\x12\n\nimage_data\x18\x01 \x01(\x0c\"k\n\x15\x45mbedClothingResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x11\n\tembedding\x18\x02 \x03(\x02\x12\x17\n\x0f\x65mbedding_model\x18\x03 \x01(\t\x12\x15\n\rerror_message\x18\x04 \x01(\t2\xbc\x01\n\x10\x43lothingAnalyzer\x12V\n\x0f\x41nalyzeClothing\x12 .clothing.AnalyzeClothingRequest\x1a!.clothing.AnalyzeClothingResponse\x12P\n\rEmbedClothing\x12\x1e.clothing.EmbedClothingRequest\x1a\x1f.clothing.EmbedClothingResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11parse-image.proto\x12\x08\x63lothing\",\n\x16\x41nalyzeClothingRequest\x12\x12\n\nimage_data\x18\x01 \x01(\x0c\"s\n\x17\x41nalyzeClothingResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x30\n\nattributes\x18\x02 \x01(\x0b\x32\x1c.clothing.ClothingAttributes\x12\x15\n\rerror_message\x18\x03 \x01(\t\"\xcf\x01\n\x12\x43lothingAttributes\x12\x1c\n\x14\x61ttribute_color_main\x18\x01 \x01(\t\x12\x1e\n\x16\x61ttribute_color_second\x18\x02 \x01(\t\x12\x16\n\x0e\x61ttribute_type\x18\x03 \x01(\x05\x12\x18\n\x10\x61ttribute_season\x18\x04 \x01(\x05\x12\x19\n\x11\x61ttribute_pattern\x18\x05 \x01(\x05\x12\x1a\n\x12\x61ttribute_material\x18\x06 \x01(\x05\x12\x12\n\nconfidence\x18\x07 \x01(\x02\"*\n\x14\x45mbedClothingRequest\x12\x12\n\nimage_data\x18\x01 \x01(\x0c\"k\n\x15\x45mbedClothingResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x11\n\tembedding\x18\x02 \x03(\x02\x12\x17\n\x0f\x65mbedding_model\x18\x03 \x01(\t\x12\x15\n\rerror_message\x18\x04 \x01(\t\"*\n\x14\x41nalyzeOutfitRequest\x12\x12\n\nimage_data\x18\x01 \x01(\x0c\"}\n\x15\x41nalyzeOutfitResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12#\n\x05items\x18\x02 \x03(\x0b\x32\x14.clothing.OutfitItem\x12\x17\n\x0f\x65mbedding_model\x18\x03 \x01(\t\x12\x15\n\rerror_message\x18\x04 \x01(\t\"\x83\x01\n\nOutfitItem\x12\x0c\n\x04slot\x18\x01 \x01(\t\x12\x30\n\nattributes\x18\x02 \x01(\x0b\x32\x1c.clothing.ClothingAttributes\x12\"\n\x03\x62ox\x18\x03 \x01(\x0b\x32\x15.clothing.BoundingBox\x12\x11\n\tembedding\x18\x04 \x03(\x02\"=\n\x0b\x42oundingBox\x12\n\n\x02x1\x18\x01 \x01(\x05\x12\n\n\x02y1\x18\x02 \x01(\x05\x12\n\n\x02x2\x18\x03 \x01(\x05\x12\n\n\x02y2\x18\x04 \x01(\x05\x32\x8e\x02\n\x10\x43lothingAnalyzer\x12V\n\x0f\x41nalyzeClothing\x12 .clothing.AnalyzeClothingRequest\x1a!.clothing.AnalyzeClothingResponse\x12P\n\rEmbedClothing\x12\x1e.clothing.EmbedClothingRequest\x1a\x1f.clothing.EmbedClothingResponse\x12P\n\rAnalyzeOutfit\x12\x1e.clothing.AnalyzeOutfitRequest\x1a\x1f.clothing.AnalyzeOutfitResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -41,6 +41,14 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_EMBEDCLOTHINGREQUEST']._serialized_end=446
   _globals['_EMBEDCLOTHINGRESPONSE']._serialized_start=448
   _globals['_EMBEDCLOTHINGRESPONSE']._serialized_end=555
-  _globals['_CLOTHINGANALYZER']._serialized_start=558
-  _globals['_CLOTHINGANALYZER']._serialized_end=746
+  _globals['_ANALYZEOUTFITREQUEST']._serialized_start=557
+  _globals['_ANALYZEOUTFITREQUEST']._serialized_end=599
+  _globals['_ANALYZEOUTFITRESPONSE']._serialized_start=601
+  _globals['_ANALYZEOUTFITRESPONSE']._serialized_end=726
+  _globals['_OUTFITITEM']._serialized_start=729
+  _globals['_OUTFITITEM']._serialized_end=860
+  _globals['_BOUNDINGBOX']._serialized_start=862
+  _globals['_BOUNDINGBOX']._serialized_end=923
+  _globals['_CLOTHINGANALYZER']._serialized_start=926
+  _globals['_CLOTHINGANALYZER']._serialized_end=1196
 # @@protoc_insertion_point(module_scope)
