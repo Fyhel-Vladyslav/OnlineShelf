@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./Microservices/ParseImageService/training_sandbox/data/images/train/**)",
+      "Edit(./Microservices/ParseImageService/training_sandbox/data/images/train/**)",
+      "Write(./Microservices/ParseImageService/training_sandbox/data/images/train/**)"
+    ]
+  }
+}

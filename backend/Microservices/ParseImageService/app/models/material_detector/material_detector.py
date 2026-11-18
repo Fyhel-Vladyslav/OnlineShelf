@@ -4,12 +4,17 @@ import torch
 from PIL import Image
 from transformers import CLIPProcessor, CLIPModel
 
+# Спільна модель матеріалів і візуальних ембедингів (VisualEmbedder). Після зміни потрібні нова модель скорера
+# в OutfitNetworkService і backfill ембедингів (ShelfsService, Embeddings:CurrentModel).
+MODEL_NAME = "patrickjohncyh/fashion-clip"
+
+
 class MaterialDetector:
     def __init__(self):
-        print("📥 Завантаження моделі CLIP для аналізу матеріалів (openai/clip-vit-base-patch32)...")
+        print(f"📥 Завантаження моделі для аналізу матеріалів і ембедингів ({MODEL_NAME})...")
         # Ініціалізуємо модель та процесор
-        self.model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32", local_files_only=True)
-        self.processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+        self.model = CLIPModel.from_pretrained(MODEL_NAME, local_files_only=True)
+        self.processor = CLIPProcessor.from_pretrained(MODEL_NAME)
         
         # Переводимо в режим оцінки (evaluation mode) для економії ресурсів
         self.model.eval()
@@ -35,7 +40,7 @@ class MaterialDetector:
             "wool": "wool",
             "silk": "silk",
             "linen": "linen",
-            "polyester": "synthetic",
+            "polyester": "polyester",
             "corduroy": "corduroy"
         }
 

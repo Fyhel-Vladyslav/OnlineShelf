@@ -1,6 +1,21 @@
 @OutfitOfferService_HostAddress = http://localhost:5023
 
-GET {{OutfitOfferService_HostAddress}}/weatherforecast/
+### Поточна погода (кеш 30 хв, координати округлюються до 2 знаків)
+GET {{OutfitOfferService_HostAddress}}/offers/get-weather?latitude=50.62&longitude=26.25
 Accept: application/json
+
+### Генерація образів (userId тимчасово в тілі — до додавання JWT)
+POST {{OutfitOfferService_HostAddress}}/offers/generate
+Content-Type: application/json
+
+{
+  "userId": "d1437f42-8b54-4a02-b0a5-800426cd7580",
+  "latitude": 50.62,
+  "longitude": 26.25,
+  "includeItemIds": [],
+  "excludeItemIds": [],
+  "onlyFavorite": false,
+  "topN": 5
+}
 
 ###

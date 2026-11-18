@@ -101,6 +101,10 @@ namespace ShelfsService.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("EmbeddingModel")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -117,6 +121,9 @@ namespace ShelfsService.Migrations
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
+
+                    b.PrimitiveCollection<float[]>("VisualEmbedding")
+                        .HasColumnType("real[]");
 
                     b.Property<bool>("isFavorite")
                         .HasColumnType("boolean");

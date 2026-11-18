@@ -258,6 +258,43 @@
         }
       ]
     },
+
+    {
+      "UpstreamPathTemplate": "/shelfs/items/embeddings/backfill",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/shelfs/items/embeddings/backfill",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shelfsservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/offers/generate",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/offers/generate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "outfitofferservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/offers/get-weather",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/offers/get-weather",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "outfitofferservice",
+          "Port": 8080
+        }
+      ]
+    }
   ],
   "GlobalConfiguration": {}
 }

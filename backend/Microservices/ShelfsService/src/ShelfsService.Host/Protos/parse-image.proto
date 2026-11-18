@@ -5,6 +5,9 @@ package clothing;
 service ClothingAnalyzer {
   // Метод для аналізу зображення одягу
   rpc AnalyzeClothing (AnalyzeClothingRequest) returns (AnalyzeClothingResponse);
+
+  // Візуальний ембединг речі (CLIP image features, L2-нормований). Рахується один раз при оцифруванні
+  rpc EmbedClothing (EmbedClothingRequest) returns (EmbedClothingResponse);
 }
 
 // Запит містить лише сирі байти WebP зображення
@@ -30,4 +33,16 @@ message ClothingAttributes {
   int32 attribute_material = 6;       // int значення вашого Enum для матеріалу
   
   float confidence = 7;               // Загальний коефіцієнт впевненості моделі (0.0 - 1.0)
+}
+
+// Запит містить сирі байти зображення (WebP/JPEG/PNG)
+message EmbedClothingRequest {
+  bytes image_data = 1;
+}
+
+message EmbedClothingResponse {
+  bool success = 1;
+  repeated float embedding = 2;   // L2-нормований вектор
+  string embedding_model = 3;     // ідентифікатор моделі, напр. "openai/clip-vit-base-patch32"
+  string error_message = 4;
 }

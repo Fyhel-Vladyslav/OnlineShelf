@@ -38,5 +38,26 @@ namespace ShelfsService.src.ShelfsService.Host.Helpers
                 };
             }
         }
+
+        public async Task<EmbedClothingResponse> EmbedAsync(byte[] imageBytes, CancellationToken ct = default)
+        {
+            var request = new EmbedClothingRequest
+            {
+                ImageData = Google.Protobuf.ByteString.CopyFrom(imageBytes)
+            };
+
+            try
+            {
+                return await _grpcClient.EmbedClothingAsync(request, cancellationToken: ct);
+            }
+            catch (RpcException ex)
+            {
+                return new EmbedClothingResponse
+                {
+                    Success = false,
+                    ErrorMessage = $"gRPC Error: {ex.Status.Detail} (StatusCode: {ex.StatusCode})"
+                };
+            }
+        }
     }
 }

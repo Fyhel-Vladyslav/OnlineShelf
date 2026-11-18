@@ -1,35 +1,28 @@
-//var builder = WebApplication.CreateBuilder(args);
+using System.Globalization;
+using OutfitOfferService.Extentions;
+using OutfitOfferService.src.OutfitOfferService.Host.Features.Services;
 
-//// Add services to the container.
+// Query-параметри (координати тощо) парсяться з крапкою незалежно від локалі машини (на uk-UA кома)
+CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
-//builder.Services.AddControllers();
-//// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
-
-//var app = builder.Build();
-
-//// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
-
-//app.UseHttpsRedirection();
-
-//app.UseAuthorization();
-
-//app.MapControllers();
-
-//app.Run();
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+        .AddInfrastructure(builder.Configuration, builder.Environment);
+
 var app = builder.Build();
 
-app.MapGet("/", () => $"{builder.Environment.ApplicationName} is running");
-app.MapGet("/ping", () => $"{builder.Environment.ApplicationName} pong!");
+if (string.IsNullOrWhiteSpace(app.Configuration[OpenWeatherClient.ApiKeySetting]))
+{
+    app.Logger.LogWarning(
+        "{Setting} is not configured: weather constraints will not be applied to outfit generation",
+        OpenWeatherClient.ApiKeySetting);
+}
 
-// Test endpoint: returns static text
-app.MapGet("/api/outfit/test", () => "OutfitOfferService response");
+app.UseInfrastucture();
 
 app.Run();
+
+// Для WebApplicationFactory у тестах
+public partial class Program;

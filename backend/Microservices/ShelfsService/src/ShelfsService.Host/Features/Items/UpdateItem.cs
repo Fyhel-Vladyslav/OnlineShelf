@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using FastEndpoints;
 using FluentValidation;
+using Grpc.Core;
 using ImageService.Protos;
 using MediatR;
 using ShelfsService.Extentions;
@@ -8,6 +9,7 @@ using ShelfsService.src.ShelfsService.Common;
 using ShelfsService.src.ShelfsService.Common.DTOs.Items;
 using ShelfsService.src.ShelfsService.Common.DTOs.Shelfs;
 using ShelfsService.src.ShelfsService.Common.Interfaces;
+using ShelfsService.src.ShelfsService.Host.Helpers;
 using ShelfsService.src.ShelfsService.Repository.EfCore.Entities;
 
 namespace ShelfsService.src.ShelfsService.Host.Features.Items;
@@ -39,7 +41,8 @@ internal sealed class UpdateItemCommandValidator : AbstractValidator<UpdateItemC
 }
 public class UpdateItemCommandHandler(
     IItemRepository repos,
-    ImageProcessor.ImageProcessorClient imageClient
+    ImageProcessor.ImageProcessorClient imageClient,
+    IImageAnalyzer imageAnalyzer
     ) : Endpoint<UpdateItemCommand, ItemDto>
 {
 
@@ -79,6 +82,8 @@ public class UpdateItemCommandHandler(
 
                 item.BigImage = null;
                 item.SmallImage = null;
+                item.VisualEmbedding = null;
+                item.EmbeddingModel = null;
             }
 
 
@@ -104,10 +109,26 @@ public class UpdateItemCommandHandler(
                     {
                         bigImageName = response.BigImageName;
                         smallImageName = response.SmallImageName;
+
+                        await imageAnalyzer.ApplyVisualEmbeddingAsync(item, ms.ToArray(), Logger, ct);
                     }
                     item.BigImage = bigImageName;
                     item.SmallImage = smallImageName;
                 }
+        }
+        // 4. Фото лишилось те саме, але ембединга немає (річ створена до EmbedClothing) — дораховуємо «самолікуванням»
+        else if (item.BigImage != null && item.VisualEmbedding == null)
+        {
+            try
+            {
+                var imageBytes = await imageClient.DownloadEmbeddingSourceAsync(item.BigImage, ct);
+                await imageAnalyzer.ApplyVisualEmbeddingAsync(item, imageBytes, Logger, ct);
+            }
+            catch (RpcException ex)
+            {
+                Logger.LogWarning("Could not load image {Image} to compute embedding for item {ItemId}: {Status}",
+                    item.BigImage, item.Id, ex.Status);
+            }
         }
 
         var resShelf = await repos.UpdateItemAsync(item, ct);

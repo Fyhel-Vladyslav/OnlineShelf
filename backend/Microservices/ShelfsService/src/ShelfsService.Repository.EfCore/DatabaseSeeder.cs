@@ -434,6 +434,12 @@ public static class DatabaseSeeder
                 AttributeKey = 8,
                 AttributeValue = "Nylon",
                 AttributeId = 6
+            },
+            new AttributesValue
+            {
+                AttributeKey = 9,
+                AttributeValue = "Corduroy",
+                AttributeId = 6
             }
         );
     }
