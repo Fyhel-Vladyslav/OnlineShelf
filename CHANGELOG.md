@@ -4,6 +4,14 @@
 Формат рядка: `- <Added|Changed|Fixed|Removed> <що саме> (<сервіс/файл>)`.
 
 ## 2026-11-18
+- Added designer page /designer with upload (4 parallel requests), batches and review tabs (webui pages/designer)
+- Added Designer link in Header for users with the Designer role (webui Header)
+- Added API client and react-query hooks for reference batches, photos and review actions (webui api/offers/referenceApi.ts, hooks/offers/useReference.ts)
+- Added outfit status filter and photo status filter for batch photos (OutfitOfferService Features/Reference)
+- Added GET batches with photo and outfit status counts and GET batch photos with outfit status filter and paging (OutfitOfferService Features/Reference)
+- Added approve-ready for all Ready outfits of a batch and retry for Failed photos (OutfitOfferService Features/Reference)
+- Added PATCH outfit status and PATCH/DELETE reference item with outfit status recomputed while pending (OutfitOfferService Features/Reference)
+- Added unit tests of outfit status recomputation after review (OutfitOfferService.Tests ReviewStatusTests)
 - Fixed docker-compose dependency cycle by removing parseimageservice from outfitofferservice depends_on (docker-compose.yml)
 - Added Docker check of the reference photo queue with duplicate, invalid file, EXIF and status summary (scripts/test_reference_queue.ps1)
 - Added unit tests of the reference photo queue processor, outfit completeness and upload format check (OutfitOfferService.Tests ReferencePhotoProcessorTests)
