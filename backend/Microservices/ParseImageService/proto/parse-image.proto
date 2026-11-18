@@ -61,6 +61,9 @@ message AnalyzeOutfitResponse {
   repeated OutfitItem items = 2;
   string embedding_model = 3;
   string error_message = 4;
+  // Розміри фото після врахування EXIF-орієнтації: у цих пікселях задано рамки речей
+  int32 image_width = 5;
+  int32 image_height = 6;
 }
 
 message OutfitItem {

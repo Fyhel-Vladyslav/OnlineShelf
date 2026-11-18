@@ -1,5 +1,11 @@
+using Clothing;
 using FastEndpoints;
+using Microsoft.EntityFrameworkCore;
 using OutfitOfferService.src.OutfitOfferService.Common.Interfaces;
+using OutfitOfferService.src.OutfitOfferService.Host.Services.Reference;
+using OutfitOfferService.src.OutfitOfferService.Repository.EfCore;
+using ImageProcessorClient = ImageService.Protos.ImageProcessor.ImageProcessorClient;
+using ClothingAnalyzerClient = Clothing.ClothingAnalyzer.ClothingAnalyzerClient;
 using OutfitOfferService.src.OutfitOfferService.Host.Features.GetWeather;
 using OutfitOfferService.src.OutfitOfferService.Host.Features.Services;
 using OutfitOfferService.src.OutfitOfferService.Host.Services.Grpc;
@@ -46,6 +52,26 @@ namespace OutfitOfferService.Extentions
             services.AddScoped<IOutfitGenerator, BeamSearchOutfitGenerator>();
             services.AddScoped<IOutfitOfferOrchestrator, OutfitOfferOrchestrator>();
             services.AddHostedService<OutfitGenerationWarmupService>();
+
+            // --- Еталонні образи дизайнера: БД (схема outfit_offer_service в onlineShelf_db), ImageService, Parse, черга ---
+            services.AddDbContext<DataContext>(options =>
+                options.UseNpgsql(configuration.GetConnectionString("OfferDbConnection"),
+                    npgsql => npgsql.MigrationsHistoryTable("__EFMigrationsHistory", DataContext.Schema)));
+            // Ініціалізація БД реєструється раніше за воркер: хости стартують у порядку реєстрації
+            services.AddOfferDatabaseInitialization();
+
+            services.AddGrpcClient<ImageProcessorClient>(o =>
+                o.Address = new Uri(configuration["GrpcSettings:ImageServiceUrl"] ?? "http://imageservice:8080"));
+            services.AddGrpcClient<ClothingAnalyzerClient>(o =>
+                o.Address = new Uri(configuration["GrpcSettings:ParseImageServiceUrl"] ?? "http://parseimageservice:50051"));
+
+            services.Configure<ReferenceProcessingOptions>(configuration.GetSection(ReferenceProcessingOptions.SectionName));
+            services.AddScoped<IReferenceImageStore, GrpcReferenceImageStore>();
+            services.AddScoped<IOutfitPhotoAnalyzer, GrpcOutfitPhotoAnalyzer>();
+            services.AddScoped<IReferencePhotoRepository, ReferencePhotoRepository>();
+            services.AddScoped<ReferencePhotoProcessor>();
+            services.AddScoped<ReferencePhotoIntake>();
+            services.AddHostedService<ReferencePhotoWorker>();
 
             services.AddFastEndpoints();
 

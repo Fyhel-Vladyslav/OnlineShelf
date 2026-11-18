@@ -284,6 +284,18 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/offers/reference/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PATCH", "DELETE" ],
+      "DownstreamPathTemplate": "/offers/reference/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "outfitofferservice",
+          "Port": 8080
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/offers/get-weather",
       "UpstreamHttpMethod": [ "GET" ],
       "DownstreamPathTemplate": "/offers/get-weather",

@@ -3,6 +3,21 @@
 Один рядок на кожну тематичну зміну в коді, нові записи зверху в поточній даті.
 Формат рядка: `- <Added|Changed|Fixed|Removed> <що саме> (<сервіс/файл>)`.
 
+## 2026-11-18
+- Fixed docker-compose dependency cycle by removing parseimageservice from outfitofferservice depends_on (docker-compose.yml)
+- Added Docker check of the reference photo queue with duplicate, invalid file, EXIF and status summary (scripts/test_reference_queue.ps1)
+- Added unit tests of the reference photo queue processor, outfit completeness and upload format check (OutfitOfferService.Tests ReferencePhotoProcessorTests)
+- Added Gateway route /offers/reference/{everything} and compose settings for OutfitOfferService DB, ImageService and Parse (ocelot.json, docker-compose.yml)
+- Added POST /offers/reference/batches and /batches/{BatchId}/photos with SHA-256 duplicate check and JPEG/PNG/WebP validation (OutfitOfferService Features/Reference, ReferencePhotoIntake)
+- Added gRPC clients for ImageService photo storage and ParseImageService AnalyzeOutfit (OutfitOfferService GrpcReferenceImageStore, GrpcOutfitPhotoAnalyzer)
+- Added Postgres queue of reference photos with FOR UPDATE SKIP LOCKED claim, lock expiry, retries 30 s/2 min/10 min and BackgroundService worker (OutfitOfferService ReferencePhotoRepository, ReferencePhotoProcessor, ReferencePhotoWorker)
+- Added reference outfit entities, schema outfit_offer_service and InitialReferenceOutfits migration applied on startup (OutfitOfferService DataContext, Migrations)
+- Removed unused OutfitGenerationRequest DbSet and TrainingCollection/TrainingItemsSet entities replaced by reference entities (OutfitOfferService)
+- Changed gRPC receive limit to 32 MB for designer photos (ImageService Program.cs)
+- Changed AnalyzeOutfit to accept only JPEG/PNG/WebP and apply EXIF orientation (ParseImageService analyzer_service)
+- Changed proto to return image_width and image_height in AnalyzeOutfitResponse (parse-image.proto, regenerated pb2)
+- Added evaluation of the compatibility scorer on crops from photos of people with domain-shift controls (ml/outfit_scorer/src/eval_reference.py)
+
 ## 2026-11-01
 - Added AnalyzeOutfit gRPC method returning every item of a whole-outfit photo (ParseImageService parse-image.proto, analyzer_service)
 - Added OutfitDetector on Conditional DETR and FashionCLIP TypeClassifier for items on people (ParseImageService)

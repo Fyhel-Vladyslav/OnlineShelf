@@ -22,7 +22,11 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 
 builder.Services
     //.AddInfrastructure(builder.Environment)
-    .AddGrpc();
+    .AddGrpc(options =>
+    {
+        // Фото з телефона дизайнера (до ~30 МБ, як ліміт Kestrel) не вміщується в стандартні 4 МБ
+        options.MaxReceiveMessageSize = 32 * 1024 * 1024;
+    });
 
 //builder.Services.AddGrpcClient<ClothingAnalyzer.ClothingAnalyzerClient>(options =>
 //{

@@ -57,11 +57,17 @@ services:
     environment:
       - GrpcSettings__ShelfsServiceUrl=http://shelfsservice:8082
       - GrpcSettings__OutfitNetworkServiceUrl=http://outfitnetworkservice:8080
+      # Еталонні образи дизайнера: фото в ImageService, розбір у Parse, дані в схемі outfit_offer_service
+      - GrpcSettings__ImageServiceUrl=http://imageservice:8080
+      - GrpcSettings__ParseImageServiceUrl=http://parseimageservice:50051
+      - ConnectionStrings__OfferDbConnection=Host=onlineshelfdb;Database=onlineShelf_db;Username=admin;Password=admin
       # Ключ береться з backend/Microservices/.env (у .gitignore), див. .env.example
       - OpenWeatherApiKey=${OPENWEATHER_API_KEY:-}
     depends_on:
       - shelfsservice
       - outfitnetworkservice
+      - imageservice
+      - onlineshelfdb
     networks:
       - microservice_net
 

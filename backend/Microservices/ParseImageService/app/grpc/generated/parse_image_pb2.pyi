@@ -65,16 +65,20 @@ class AnalyzeOutfitRequest(_message.Message):
     def __init__(self, image_data: _Optional[bytes] = ...) -> None: ...
 
 class AnalyzeOutfitResponse(_message.Message):
-    __slots__ = ("success", "items", "embedding_model", "error_message")
+    __slots__ = ("success", "items", "embedding_model", "error_message", "image_width", "image_height")
     SUCCESS_FIELD_NUMBER: _ClassVar[int]
     ITEMS_FIELD_NUMBER: _ClassVar[int]
     EMBEDDING_MODEL_FIELD_NUMBER: _ClassVar[int]
     ERROR_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    IMAGE_WIDTH_FIELD_NUMBER: _ClassVar[int]
+    IMAGE_HEIGHT_FIELD_NUMBER: _ClassVar[int]
     success: bool
     items: _containers.RepeatedCompositeFieldContainer[OutfitItem]
     embedding_model: str
     error_message: str
-    def __init__(self, success: bool = ..., items: _Optional[_Iterable[_Union[OutfitItem, _Mapping]]] = ..., embedding_model: _Optional[str] = ..., error_message: _Optional[str] = ...) -> None: ...
+    image_width: int
+    image_height: int
+    def __init__(self, success: bool = ..., items: _Optional[_Iterable[_Union[OutfitItem, _Mapping]]] = ..., embedding_model: _Optional[str] = ..., error_message: _Optional[str] = ..., image_width: _Optional[int] = ..., image_height: _Optional[int] = ...) -> None: ...
 
 class OutfitItem(_message.Message):
     __slots__ = ("slot", "attributes", "box", "embedding")

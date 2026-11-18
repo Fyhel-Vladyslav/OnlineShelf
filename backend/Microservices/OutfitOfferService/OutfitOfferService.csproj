@@ -36,6 +36,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
@@ -43,6 +44,9 @@
   <ItemGroup>
     <Protobuf Include="..\ShelfsService\src\ShelfsService.Host\Protos\wardrobe.proto" GrpcServices="Client" Link="Protos\wardrobe.proto" />
     <Protobuf Include="..\OutfitNetworkService\src\OutfitNetworkService.Host\Protos\offer-network.proto" GrpcServices="Client" Link="Protos\offer-network.proto" />
+    <!-- Еталонні образи дизайнера: фото зберігає ImageService, речі на фото розбирає ParseImageService -->
+    <Protobuf Include="..\ImageService\src\ImageService.Host\Protos\image_processing.proto" GrpcServices="Client" Link="Protos\image_processing.proto" />
+    <Protobuf Include="..\ParseImageService\proto\parse-image.proto" GrpcServices="Client" Link="Protos\parse-image.proto" />
   </ItemGroup>
 
 </Project>

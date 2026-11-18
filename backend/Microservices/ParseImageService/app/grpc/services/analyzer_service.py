@@ -1,7 +1,7 @@
 import grpc
 import io
 import base64
-from PIL import Image
+from PIL import Image, ImageOps
 import numpy as np
 
 import app.grpc.generated.parse_image_pb2 as pb2
@@ -111,9 +111,10 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
             if not raw_bytes:
                 return pb2.AnalyzeOutfitResponse(success=False, error_message="Empty image data")
 
-            image_np, decode_error = self._decode_image(raw_bytes)
+            image_np, decode_error = self._decode_outfit_image(raw_bytes)
             if decode_error:
                 return pb2.AnalyzeOutfitResponse(success=False, error_message=decode_error)
+            image_height, image_width = image_np.shape[:2]
 
             items = []
             for detection in self.outfit_detector.detect(image_np):
@@ -128,7 +129,9 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
                     embedding=embedding))
 
             print(f"✅ Образ розібрано: {[item.slot for item in items]}")
-            return pb2.AnalyzeOutfitResponse(success=True, items=items, embedding_model=self.embedder.model_name)
+            return pb2.AnalyzeOutfitResponse(
+                success=True, items=items, embedding_model=self.embedder.model_name,
+                image_width=image_width, image_height=image_height)
 
         except Exception as e:
             print(f"❌ Помилка під час аналізу образу: {e}")
@@ -170,6 +173,21 @@ class ClothingAnalyzerService(pb2_grpc.ClothingAnalyzerServicer):
             attribute_material=final_material_id,
             confidence=confidence
         )
+
+    @staticmethod
+    def _decode_outfit_image(raw_bytes):
+        """Фото образу з телефона: лише JPEG, PNG, WebP, з поворотом за EXIF, щоб рамки збігалися з фото на екрані.
+
+        Повертає (image_np RGB, None) або (None, текст помилки). Base64 тут не підтримується: дизайнер завантажує файли.
+        """
+        is_webp = raw_bytes.startswith(b"RIFF") and raw_bytes[8:12] == b"WEBP"
+        if not (is_webp or raw_bytes.startswith((b"\xff\xd8\xff", b"\x89PNG\r\n\x1a\n"))):
+            return None, "Непідтримуваний формат фото: потрібні JPEG, PNG або WebP"
+        try:
+            image = ImageOps.exif_transpose(Image.open(io.BytesIO(raw_bytes))).convert("RGB")
+            return np.array(image), None
+        except Exception as img_err:
+            return None, f"Помилка структури файлу зображення (Pillow): {str(img_err)}"
 
     @staticmethod
     def _decode_image(raw_bytes):
